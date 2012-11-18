@@ -300,15 +300,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_CODE, module.getCode());
-        values.put(KEY_NAME, module.getName());
-        values.put(KEY_TYPE, module.getType());
-        values.put(KEY_ROOM, module.getRoom());
-        values.put(KEY_INFO, module.getInfo());
-        values.put(KEY_DAY, module.getDay());
-        values.put(KEY_START_HOUR, module.getStartHour());
-        values.put(KEY_START_MINUTE, module.getStartMinute());
-        values.put(KEY_END_HOUR, module.getEndHour());
-        values.put(KEY_END_MINUTE, module.getEndMinute());
+        //deleted stuff goes here
         try
         {
         	db.update(TABLE_MODULES, values, KEY_DAY + "=? AND " + KEY_START_HOUR + "=? AND " + KEY_START_MINUTE + "=?", new String[] { oldDay, oldHour, oldMin});
