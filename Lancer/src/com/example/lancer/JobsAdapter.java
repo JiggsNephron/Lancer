@@ -11,15 +11,15 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 
-public class JobsAdapter extends ArrayAdapter<Jobs>
+public class JobsAdapter extends ArrayAdapter<JobItem>
 {
 	//public static final String PREFS_COUNT = "MyPrefsFile";
 	  private final Activity activity;
-	  private final List<Jobs> jobsObject;
+	  private final List<JobItem> jobsObject;
 	
-	public JobsAdapter(Activity activity, List<Jobs> objects) 
+	public JobsAdapter(Activity activity, List<JobItem> objects) 
 	{
-        super(activity, R.layout.jobsLayout , objects);
+        super(activity, R.layout.activity_jobs_list , objects);
         this.activity = activity;
         this.jobsObject = objects;
 	}
@@ -34,7 +34,7 @@ public class JobsAdapter extends ArrayAdapter<Jobs>
 	    {
 	    	//creates new instance of row layout view
 	        LayoutInflater inflater = activity.getLayoutInflater();
-	        rowView = inflater.inflate(R.layout.The_individual_item_in_the_listView, null);
+	        rowView = inflater.inflate(R.layout.job_item, null);
 	        jobsItemView = new jobsView(); //for holding the data
 	        jobsItemView.text = (TextView) rowView.findViewById(R.id.text0);
 	        jobsItemView.text2 = (TextView) rowView.findViewById(R.id.text1);
@@ -44,7 +44,7 @@ public class JobsAdapter extends ArrayAdapter<Jobs>
 	    }
 	    else jobsItemView = (jobsView) rowView.getTag();
 	    {
-	    	Jobs currentCourse = (Jobs) jobsObject.get(position); //casts as course
+	    	JobItem currentCourse = (JobItem) jobsObject.get(position); //casts as course
 	
 	    	jobsItemView.text.setText(currentCourse.getText("code")); //sets the data
 	    	jobsItemView.text2.setText(currentCourse.getText("type"));
