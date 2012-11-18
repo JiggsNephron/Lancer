@@ -333,6 +333,18 @@ public class DatabaseHandler extends SQLiteOpenHelper
         return success;
     }
     
+    public boolean getJobDone(int id)
+    {
+    	int done;
+    	String selectQuery = "SELECT " + KEY_DONE + " FROM " + TABLE_JOBS + " WHERE " + KEY_ID + "=" + id;
+    	SQLiteDatabase db = this.getWritableDatabase();
+    	Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor != null) cursor.moveToFirst();
+        done = Integer.parseInt(cursor.getString(0));
+        if(done == 0) return false;
+        else return true;
+    }
+    
     public void setJobDone(int id, int done)
     {
     	SQLiteDatabase db = this.getWritableDatabase();
@@ -350,6 +362,18 @@ public class DatabaseHandler extends SQLiteOpenHelper
         db.close();
     }
  
+    public boolean getTaskDone(int id)
+    {
+    	int done;
+    	String selectQuery = "SELECT " + KEY_DONE + " FROM " + TABLE_TASKS + " WHERE " + KEY_ID + "=" + id;
+    	SQLiteDatabase db = this.getWritableDatabase();
+    	Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor != null) cursor.moveToFirst();
+        done = Integer.parseInt(cursor.getString(0));
+        if(done == 0) return false;
+        else return true;
+    }
+    
     public void setTaskDone(int id, int done)
     {
     	SQLiteDatabase db = this.getWritableDatabase();
