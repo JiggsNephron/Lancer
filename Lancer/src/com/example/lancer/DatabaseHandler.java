@@ -292,14 +292,14 @@ public class DatabaseHandler extends SQLiteOpenHelper
         }
         return jobList;
     }
- /*
+ 
     //a method to update the data in a specified job
     public boolean updateJob(Job job) 
     {
     	boolean success = true;
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        int location;
+        int location, id = job.getId();
         Cursor cursor = db.query(TABLE_LOCATIONS, new String[] { KEY_ID }, KEY_LOCATION + "=?",
                 new String[] { "'"+job.getLocation()+"'"}, null, null, null, null);
         if (cursor != null) cursor.moveToFirst();
@@ -308,16 +308,16 @@ public class DatabaseHandler extends SQLiteOpenHelper
         values.put(KEY_LOCATION, location);
         try
         {
-        	db.update(TABLE_MODULES, values, KEY_DAY + "=? AND " + KEY_START_HOUR + "=? AND " + KEY_START_MINUTE + "=?", new String[] { oldDay, oldHour, oldMin});
+        	db.update(TABLE_JOBS, values, KEY_ID + "=?", new String[] { Integer.toString(id)});
         }
         catch(Exception e)
         {
-        	success = false; //in case the module conflicts with an already present module
+        	success = false; //in case the job conflicts with an already present job
         }
                
         return success;
     }
-*/
+
     //a method to delete a specified job
     public void deleteJob(int id)
     {
