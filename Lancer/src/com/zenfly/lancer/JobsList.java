@@ -1,7 +1,9 @@
-package com.example.lancer;
+package com.zenfly.lancer;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.example.lancer.R;
 
 import android.app.ListActivity;
 import android.content.Intent;
