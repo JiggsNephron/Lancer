@@ -21,6 +21,3 @@ public class Item
 		return price;
 	}
 }
-
-// Test Comment
-// Another test comment
