@@ -115,11 +115,11 @@ public class DatabaseHandler extends SQLiteOpenHelper
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        int location = 1;
+        int location;
         Cursor cursor = db.query(TABLE_LOCATIONS, new String[] { KEY_ID }, KEY_LOCATION + "=?",
                 new String[] { "'"+job.getLocation()+"'"}, null, null, null, null);
         if (cursor != null) cursor.moveToFirst();
-        //location = Integer.parseInt((cursor.getString(0)));
+        location = Integer.parseInt((cursor.getString(0)));
         values.put(KEY_CLIENT, job.getClient());
         values.put(KEY_LOCATION, location);
         try
@@ -299,8 +299,13 @@ public class DatabaseHandler extends SQLiteOpenHelper
     	boolean success = true;
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(KEY_CODE, module.getCode());
-        //deleted stuff goes here
+        int location;
+        Cursor cursor = db.query(TABLE_LOCATIONS, new String[] { KEY_ID }, KEY_LOCATION + "=?",
+                new String[] { "'"+job.getLocation()+"'"}, null, null, null, null);
+        if (cursor != null) cursor.moveToFirst();
+        location = Integer.parseInt((cursor.getString(0)));
+        values.put(KEY_CLIENT, job.getClient());
+        values.put(KEY_LOCATION, location);
         try
         {
         	db.update(TABLE_MODULES, values, KEY_DAY + "=? AND " + KEY_START_HOUR + "=? AND " + KEY_START_MINUTE + "=?", new String[] { oldDay, oldHour, oldMin});
