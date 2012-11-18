@@ -37,6 +37,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
     private static final String KEY_SUBJECT = "subject";
     private static final String KEY_BODY = "body";
 	private static final String KEY_ID = "id";
+	private static final String KEY_DONE = "done";
     
 	public DatabaseHandler(Context context)
 	{
@@ -51,14 +52,15 @@ public class DatabaseHandler extends SQLiteOpenHelper
         		"CREATE TABLE " + TABLE_JOBS + 
         		"("
 	                + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_CLIENT 
-	                + " TEXT," + KEY_LOCATION + " INTEGER" +
+	                + " TEXT," + KEY_LOCATION + " INTEGER, " + KEY_DONE + " INTEGER" + 
                 ")";
         String CREATE_TASKS_TABLE = 
         		"CREATE TABLE " + TABLE_TASKS + 
         		"("
 	                + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_NAME 
 	                + " TEXT," + KEY_JOB + " INTEGER," 
-	                + KEY_DEADLINE + " TEXT," + KEY_LOCATION + " INTEGER" +
+	                + KEY_DEADLINE + " TEXT," + KEY_LOCATION + " INTEGER, " +
+	                KEY_DONE + " INTEGER" +
                 ")";
         String CREATE_NOTES_TABLE = 
         		"CREATE TABLE " + TABLE_NOTES + 
@@ -330,6 +332,14 @@ public class DatabaseHandler extends SQLiteOpenHelper
                
         return success;
     }
+    
+    public void setJobDone(int id, int done)
+    {
+    	SQLiteDatabase db = this.getWritableDatabase();
+    	ContentValues values = new ContentValues();
+    	values.put(KEY_DONE, Integer.toString(done));
+        db.update(TABLE_JOBS, values, KEY_ID + "=?", new String[] { Integer.toString(id)});
+    }
 
     //a method to delete a specified job
     public void deleteJob(int id)
@@ -340,6 +350,14 @@ public class DatabaseHandler extends SQLiteOpenHelper
         db.close();
     }
  
+    public void setTaskDone(int id, int done)
+    {
+    	SQLiteDatabase db = this.getWritableDatabase();
+    	ContentValues values = new ContentValues();
+    	values.put(KEY_DONE, Integer.toString(done));
+        db.update(TABLE_TASKS, values, KEY_ID + "=?", new String[] { Integer.toString(id)});
+    }
+    
     //methods for getting counts of database items
     public int getJobCount()
     {
