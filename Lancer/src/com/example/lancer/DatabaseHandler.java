@@ -272,6 +272,19 @@ public class DatabaseHandler extends SQLiteOpenHelper
                 cursor.getString(2));
         return job;
     }
+    
+    //a method that returns a single location
+    Location getLocation(int id)
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selectQuery = 
+        		"SELECT " + KEY_LOCATION + " FROM " + TABLE_LOCATIONS;
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor != null) cursor.moveToFirst();
+        Location location = new Location(cursor.getString(1),
+                cursor.getString(2));
+        return location;
+    }
  
     //a method to return all jobs in the database
     public List<Job> getAllJobs() 
@@ -367,6 +380,57 @@ public class DatabaseHandler extends SQLiteOpenHelper
         cursor.close();
         return count;
     }
+    
+    public int getExpenseCount()
+    {
+        String countQuery = "SELECT  * FROM " + TABLE_EXPENSES;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+        int count = cursor.getCount();
+        cursor.close();
+        return count;
+    }
+    
+    public int getJobExpenseCount(int job)
+    {
+        String countQuery = "SELECT  * FROM " + TABLE_EXPENSES + " WHERE " + KEY_JOB + "=" + job;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+        int count = cursor.getCount();
+        cursor.close();
+        return count;
+    }
+    
+    public int getTaskExpenseCount(int task)
+    {
+        String countQuery = "SELECT  * FROM " + TABLE_EXPENSES + " WHERE " + KEY_TASK + "=" + task;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+        int count = cursor.getCount();
+        cursor.close();
+        return count;
+    }
+    
+    public int getJobNoteCount(int job)
+    {
+        String countQuery = "SELECT  * FROM " + TABLE_NOTES + " WHERE " + KEY_JOB + "=" + job;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+        int count = cursor.getCount();
+        cursor.close();
+        return count;
+    }
+    
+    public int getTaskNoteCount(int task)
+    {
+        String countQuery = "SELECT  * FROM " + TABLE_NOTES + " WHERE " + KEY_TASK + "=" + task;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+        int count = cursor.getCount();
+        cursor.close();
+        return count;
+    }
+    
     
     public int getNoteCount()
     {
