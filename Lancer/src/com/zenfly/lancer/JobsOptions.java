@@ -1,9 +1,5 @@
 package com.zenfly.lancer;
 
-<<<<<<< HEAD
-=======
-
->>>>>>> branch 'TeamStartsHere' of git@github.com:JiggsNephron/Lancer.git
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
