@@ -38,19 +38,19 @@ public class JobsAdapter extends ArrayAdapter<Job>
 	        LayoutInflater inflater = activity.getLayoutInflater();
 	        rowView = inflater.inflate(R.layout.job_item, null);
 	        jobsItemView = new jobsView(); //for holding the data
-	        jobsItemView.name = (TextView) rowView.findViewById(R.id.text0);
-	        jobsItemView.location = (TextView) rowView.findViewById(R.id.text1);
-	        jobsItemView.date = (TextView) rowView.findViewById(R.id.text2);
+	        jobsItemView.name = (TextView) rowView.findViewById(R.id.JobNameDisplay); 
+	        jobsItemView.location = (TextView) rowView.findViewById(R.id.JobLocationDisplay);
+	        jobsItemView.date = (TextView) rowView.findViewById(R.id.JobDateDisplay);
 	       
 	        rowView.setTag(jobsItemView); //for later access
 	    }
 	    else jobsItemView = (jobsView) rowView.getTag();
 	    {
-	    	Job currentCourse = (Job) jobsObject.get(position); //casts as course
+	    	Job currentJob = (Job) jobsObject.get(position); //casts as course
 	
-	    	jobsItemView.name.setText(currentCourse.getText("code")); //sets the data
-	    	jobsItemView.location.setText(currentCourse.getText("type"));
-	    	jobsItemView.date.setText(currentCourse.getText("location"));
+	    	jobsItemView.name.setText(currentJob.getClient()); //sets the data
+	    	jobsItemView.location.setText(currentJob.getLocation());
+	    	//jobsItemView.date.setText(currentJob.getText("date"));
 
 	    }
 	
