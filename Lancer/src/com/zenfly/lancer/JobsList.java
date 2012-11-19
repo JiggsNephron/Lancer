@@ -37,6 +37,15 @@ public class JobsList extends ListActivity {
         return true;
     }
     
+    public void addNewJob(View v) {
+    	
+    	// FIXME Richard: Adding this so I can test my view via this button
+    	Intent intent = new Intent(JobsList.this, AddNewTask.class);
+    	
+    	startActivity(intent);
+    	
+    }
+    
     
 	@Override
 	  public void onListItemClick(ListView parent, View v, int position, long id)
