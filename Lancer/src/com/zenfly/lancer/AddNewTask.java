@@ -31,8 +31,8 @@ public class AddNewTask extends Activity {
         add_deadline = (Button)findViewById(R.id.button_add_deadline);
         
         
-        //add_new_location.setOnClickListener(add_locationListener);				// TODO Add New Location Dialog
-        //add_deadline.setOnClickListener(add_deadlineListener); 					// TODO Date Picker Dialog
+        //add_new_location.setOnClickListener(add_locationListener);			// TODO Add New Location Dialog
+        //add_deadline.setOnClickListener(add_deadlineListener); 				// TODO Date Picker Dialog
         
         
         
@@ -42,7 +42,8 @@ public class AddNewTask extends Activity {
         
     /**
      * Function to load the spinner data from SQLite database
-     **/    
+     **/
+    																			// TODO Test Function to load the spinner data from SQLite database
     private void loadSpinnerData() {
     	
         // database handler
