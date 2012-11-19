@@ -71,3 +71,5 @@ public class JobsList extends ListActivity {
 	  }//*/
 	
 }
+
+// a test comment
