@@ -28,16 +28,12 @@ public class AddNewJob extends Activity {
     	
         // Getting each EditText
         EditText jobName = (EditText) findViewById(R.id.job_name);
-        EditText jobLocation = (EditText) findViewById(R.id.job_location);
-        EditText jobDeadline = (EditText) findViewById(R.id.job_deadline); 	// not yet used
         
         // get the data from each element and store it
     	String stjobName = jobName.getText().toString();
-    	String stjobLocation = jobLocation.getText().toString();
-    	String stjobDeadline = jobDeadline.getText().toString(); 			// not yet used
     	
     	// add new job based on user entered data    		
-    	db.addJob(new Job(stjobName, stjobLocation)); 						// TODO: need to be able to add deadline
+    	db.addJob(new Job(stjobName));
     	
     	startActivity(backToJobsList);
     	
