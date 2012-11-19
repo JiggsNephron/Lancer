@@ -6,5 +6,6 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_jobs_list">JobsList</string>
     <string name="title_activity_jobs_options">JobsOptions</string>
+    <string name="title_activity_add_task">AddTask</string>
 
 </resources>
