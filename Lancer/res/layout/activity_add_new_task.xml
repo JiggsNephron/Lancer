@@ -33,14 +33,16 @@
         android:text="@string/AddNewTask_task_deadline_title" />
 
 
-    <Button
+    <EditText
         android:id="@+id/button_add_deadline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignRight="@+id/task_name"
         android:layout_below="@+id/task_deadline_title"
-        android:text="@string/button_add_task_deadline" />
+        android:text="@string/button_add_task_deadline"
+        android:focusableInTouchMode="false" 
+        android:ems="10" />
 
     <TextView
         android:id="@+id/task_note_title"
