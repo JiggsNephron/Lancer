@@ -6,8 +6,21 @@
         <ListView
         android:id="@android:id/list"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:divider="@null"
-        android:dividerHeight="10dp" />
+        android:layout_height="fill_parent" />
 
+        <Button
+        android:id="@+id/add_new_job"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:textColor="@color/white"
+        android:textSize="35dp"
+        android:paddingTop="10dp"
+        android:background="@color/lancer_blue"
+        android:paddingBottom="10dp" 
+        android:onClick="addNewJob"
+        android:text="@string/add_new_job" />
+        
 </RelativeLayout>
