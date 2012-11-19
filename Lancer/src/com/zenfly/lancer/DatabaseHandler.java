@@ -254,7 +254,6 @@ public class DatabaseHandler extends SQLiteOpenHelper
         }
         catch(Exception e)
         {
-        	Log.v("No worky", e.toString());
         	db.close();
         }
         db.close();
