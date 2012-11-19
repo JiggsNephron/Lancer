@@ -40,6 +40,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".TaskAdapter"
+            android:label="@string/title_activity_task_adapter" >
+
+        </activity>
     </application>
 
 </manifest>
