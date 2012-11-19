@@ -40,7 +40,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignRight="@+id/task_name"
         android:layout_below="@+id/task_deadline_title"
-        android:text="@string/add_task_deadline" />
+        android:text="@string/button_add_task_deadline" />
 
     <TextView
         android:id="@+id/task_note_title"

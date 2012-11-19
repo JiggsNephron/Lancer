@@ -32,17 +32,8 @@
                 android:value="com.zenfly.lancer.JobsList" />
         </activity>
         <activity
-            android:name="com.zenfly.lancer.AddNewTask"
+            android:name=".AddNewTask"
             android:label="@string/title_activity_add_new_task" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".TaskAdapter"
-            android:label="@string/title_activity_task_adapter" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
