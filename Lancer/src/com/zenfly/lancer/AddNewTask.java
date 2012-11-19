@@ -21,4 +21,28 @@ public class AddNewTask extends Activity {
         getMenuInflater().inflate(R.menu.activity_add_new_task, menu);
         return true;
     }
+    
+    
+    /** OPTIONS MENU CODE DISABLED FOR NOW
+    
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_add_new_job, menu);
+        return true;
+    }
+
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    
+	**/    
+    
+    
 }

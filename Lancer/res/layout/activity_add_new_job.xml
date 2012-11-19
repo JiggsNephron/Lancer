@@ -12,8 +12,8 @@
         android:text="@string/AddNewJob_job_name_title"
         android:textColor="@color/lancer_blue"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="25dp"
         android:textSize="25dp" />
 
     <EditText
@@ -24,7 +24,7 @@
         android:layout_below="@+id/job_name_title"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:ems="10"
+        android:ems="20"
         android:inputType="text" >
 
         <requestFocus />
@@ -38,7 +38,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:textColor="@color/white"
-        android:textSize="30dp"
+        android:textSize="35dp"
         android:paddingTop="10dp"
         android:background="@color/lancer_blue"
         android:paddingBottom="10dp" 
