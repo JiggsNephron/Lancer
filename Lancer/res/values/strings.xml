@@ -11,6 +11,7 @@
     
     <string name="button_save">Save</string>
     <string name="button_add_new_task">Save</string>
+    <string name="button_add_new_location">" + "</string>
     
     <string name="AddNewJob_job_name_title">Job Name:</string>
     <string name="AddNewJob_job_location_title">Job Location: (Optional)</string>
@@ -20,6 +21,7 @@
     <string name="AddNewTask_task_deadline_title">Task Deadline: (Optional)</string>
     <string name="AddNewTask_task_notes_title">Task Notes: (Optional)</string>
     <string name="AddNewTask_task_location_title">Task Location: (Optional)</string>
+    <string name="add_task_deadline">Add a Deadline</string>
     
     
 

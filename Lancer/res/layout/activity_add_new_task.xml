@@ -3,6 +3,87 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
+
+
+    <TextView
+        android:id="@+id/task_name_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/AddNewTask_task_name_title" />
+
+    <EditText
+        android:id="@+id/task_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/task_name_title"
+        android:ems="10" >
+
+        <requestFocus />
+    </EditText>
+
+    <TextView
+        android:id="@+id/task_deadline_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/task_name"
+        android:text="@string/AddNewTask_task_deadline_title" />
+
+
+    <Button
+        android:id="@+id/button_add_deadline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/task_name"
+        android:layout_below="@+id/task_deadline_title"
+        android:text="@string/add_task_deadline" />
+
+    <TextView
+        android:id="@+id/task_note_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/button_add_deadline"
+        android:text="@string/AddNewTask_task_notes_title" />
+
+    <EditText
+        android:id="@+id/task_note"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/task_note_title"
+        android:ems="10" />
+
+    <TextView
+        android:id="@+id/task_location_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/task_note"
+        android:text="@string/AddNewTask_task_location_title" />
+
+
+
+    <Spinner
+        android:id="@+id/spinner_location_names"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/task_note"
+        android:layout_centerVertical="true" />
+    
+    <Button
+        android:id="@+id/button_add_new_"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/spinner_location_names"
+        android:layout_toRightOf="@+id/spinner_location_names"
+        android:text="@string/button_add_new_location" />    
+    
     <Button
         android:id="@+id/save_job"
         android:layout_width="wrap_content"
@@ -12,81 +93,5 @@
         android:layout_alignParentRight="true"
         android:onClick="saveTask"
         android:text="@string/button_add_new_task" />
-
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:text="TextView" />
-
-    <EditText
-        android:id="@+id/editText1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView1"
-        android:ems="10" >
-
-        <requestFocus />
-    </EditText>
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/editText1"
-        android:text="TextView" />
-
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignRight="@+id/editText1"
-        android:layout_below="@+id/textView2"
-        android:text="Button" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/button1"
-        android:text="TextView" />
-
-    <EditText
-        android:id="@+id/editText2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView3"
-        android:ems="10" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/editText2"
-        android:text="TextView" />
-
-    <Spinner
-        android:id="@+id/spinner1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignRight="@+id/editText2"
-        android:layout_centerVertical="true" />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/spinner1"
-        android:layout_toRightOf="@+id/spinner1"
-        android:text="Button" />
-
+    
 </RelativeLayout>
