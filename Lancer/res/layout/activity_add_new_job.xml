@@ -22,38 +22,6 @@
         <requestFocus />
     </EditText>
 
-    <TextView
-        android:id="@+id/job_location_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/job_name"
-        android:text="@string/AddNewJob_job_location_title" />
-
-    <EditText
-        android:id="@+id/job_location"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/job_location_title"
-        android:ems="10" />
-
-    <TextView
-        android:id="@+id/job_deadline_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/job_location"
-        android:text="@string/AddNewJob_job_deadline_title" />
-
-    <EditText
-        android:id="@+id/job_deadline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/job_deadline_title"
-        android:ems="10" />
-
     <Button
         android:id="@+id/save_job"
         android:layout_width="wrap_content"
@@ -62,6 +30,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:onClick="saveJob"
-        android:text="@string/save" />
+        android:text="@string/button_save" />
 
 </RelativeLayout>

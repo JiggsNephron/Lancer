@@ -5,12 +5,10 @@ public class Job
 
 	private int id;
 	private String client;
-	private String location;
 	
-	public Job(String client, String location)
+	public Job(String client)
 	{
 		this.client = client;
-		this.location = location;
 	}
 	
 	public int getId()
@@ -23,11 +21,6 @@ public class Job
 		return client;
 	}
 	
-	public String getLocation()
-	{
-		return location;
-	}
-	
 	public void setId(int id)
 	{
 		this.id = id;
@@ -38,8 +31,4 @@ public class Job
 		this.client = client;
 	}
 	
-	public void setLocation(String location)
-	{
-		this.location = location;
-	}
 }
