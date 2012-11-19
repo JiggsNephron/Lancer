@@ -4,8 +4,8 @@ public class Task
 {
 	private int id;
 	private String name;
-	private String job;
-	private String location;
+	private int job;
+	private int location;
 	private String deadline;
 	
 	/*public Task(String name, int job)
@@ -22,7 +22,7 @@ public class Task
 		else this.deadline = info;
 	}*/
 	
-	public Task(String name, String job, String deadline, String location)
+	public Task(String name, int job, String deadline, int location)
 	{
 		this.name = name;
 		this.job = job;
@@ -30,7 +30,7 @@ public class Task
 		this.location = location;
 	}
 	
-	public String getLocation()
+	public int getLocation()
 	{
 		return location;
 	}
@@ -40,7 +40,7 @@ public class Task
 		return name;
 	}
 	
-	public String getJob()
+	public int getJob()
 	{
 		return job;
 	}
