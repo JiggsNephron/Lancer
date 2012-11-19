@@ -52,7 +52,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
         		"CREATE TABLE " + TABLE_JOBS + 
         		"("
 	                + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_CLIENT 
-	                + " TEXT," + KEY_LOCATION + " INTEGER, " + KEY_DONE + " INTEGER" + 
+	                + " TEXT" + 
                 ")";
         String CREATE_TASKS_TABLE = 
         		"CREATE TABLE " + TABLE_TASKS + 
@@ -117,13 +117,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        int location;
-        Cursor cursor = db.query(TABLE_LOCATIONS, new String[] { KEY_ID }, KEY_LOCATION + "=?",
-                new String[] { "'"+job.getLocation()+"'"}, null, null, null, null);
-        if (cursor != null) cursor.moveToFirst();
-        location = Integer.parseInt((cursor.getString(0)));
         values.put(KEY_CLIENT, job.getClient());
-        values.put(KEY_LOCATION, location);
         try
         {
         	db.insertOrThrow(TABLE_JOBS, null, values);
@@ -269,8 +263,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
         		"." + KEY_ID + "=" + TABLE_JOBS + "." + KEY_LOCATION;
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor != null) cursor.moveToFirst();
-        Job job = new Job(cursor.getString(1),
-                cursor.getString(2));
+        Job job = new Job(cursor.getString(1));
         return job;
     }
     
@@ -298,8 +291,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
         {
             do
             {
-            	Job job = new Job(cursor.getString(1),
-                        cursor.getString(2));
+            	Job job = new Job(cursor.getString(1));
 
                 jobList.add(job);
             } while (cursor.moveToNext());
@@ -313,13 +305,8 @@ public class DatabaseHandler extends SQLiteOpenHelper
     	boolean success = true;
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        int location, id = job.getId();
-        Cursor cursor = db.query(TABLE_LOCATIONS, new String[] { KEY_ID }, KEY_LOCATION + "=?",
-                new String[] { "'"+job.getLocation()+"'"}, null, null, null, null);
-        if (cursor != null) cursor.moveToFirst();
-        location = Integer.parseInt((cursor.getString(0)));
+        int id = job.getId();
         values.put(KEY_CLIENT, job.getClient());
-        values.put(KEY_LOCATION, location);
         try
         {
         	db.update(TABLE_JOBS, values, KEY_ID + "=?", new String[] { Integer.toString(id)});
