@@ -62,6 +62,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:onClick="saveJob"
-        android:text="@string/save" />
+        android:text="@string/button_save" />
 
 </RelativeLayout>
