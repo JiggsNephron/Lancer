@@ -9,26 +9,39 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:text="@string/AddNewJob_job_name_title" />
+        android:text="@string/AddNewJob_job_name_title"
+        android:textColor="@color/lancer_blue"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:textSize="25dp" />
 
     <EditText
         android:id="@+id/job_name"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/job_name_title"
-        android:ems="10" >
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:ems="10"
+        android:inputType="text" >
 
         <requestFocus />
     </EditText>
 
     <Button
         android:id="@+id/save_job"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
+        android:textColor="@color/white"
+        android:textSize="30dp"
+        android:paddingTop="10dp"
+        android:background="@color/lancer_blue"
+        android:paddingBottom="10dp" 
         android:onClick="saveJob"
         android:text="@string/button_save" />
 
