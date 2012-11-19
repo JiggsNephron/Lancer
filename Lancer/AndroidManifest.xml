@@ -43,7 +43,11 @@
         <activity
             android:name=".TaskAdapter"
             android:label="@string/title_activity_task_adapter" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 
