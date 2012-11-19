@@ -3,17 +3,17 @@ package com.zenfly.lancer;
 public class JobItem 
 {
 	private int image;
-	private String text;//image id
-	private String text2;
-	private String text3;
+	private String name;//image id
+	private String location;
+	private String date;
 
 	
-	public JobItem(String text, String text2, String text3)//constructor
+	public JobItem(String name, String location, String date)//constructor
 	{
 		super();
-		this.text = text;  //this refers to this course object although it has no name yet it cant be referenced.
-		this.text2 = text2;
-		this.text3 = text3;
+		this.name = name;  //this refers to this course object although it has no name yet it cant be referenced.
+		this.location = location;
+		this.date = date;
 
 	}
 
@@ -24,23 +24,23 @@ public class JobItem
 	
 	public String getText(String temp)
 	{
-		if(temp.equals("1"))
+		if(temp.equals("date"))
 		{
-			return text;
+			return date;
 		}
-		else if(temp.equals("2"))
+		else if(temp.equals("location"))
 		{
-			return text2;
+			return location;
 		}
-		else if(temp == "3")
+		else if(temp == "date")
 		{
-			return text3;
+			return date;
 		}
 		
 		else
 		{
-			text = null;
-			return text;
+			name = null;
+			return name + " caused an error";
 		}
 	}	
 }

@@ -38,9 +38,9 @@ public class JobsAdapter extends ArrayAdapter<JobItem>
 	        LayoutInflater inflater = activity.getLayoutInflater();
 	        rowView = inflater.inflate(R.layout.job_item, null);
 	        jobsItemView = new jobsView(); //for holding the data
-	        jobsItemView.text = (TextView) rowView.findViewById(R.id.text0);
-	        jobsItemView.text2 = (TextView) rowView.findViewById(R.id.text1);
-	        jobsItemView.text3 = (TextView) rowView.findViewById(R.id.text2);
+	        jobsItemView.name = (TextView) rowView.findViewById(R.id.text0);
+	        jobsItemView.location = (TextView) rowView.findViewById(R.id.text1);
+	        jobsItemView.date = (TextView) rowView.findViewById(R.id.text2);
 	       
 	        rowView.setTag(jobsItemView); //for later access
 	    }
@@ -48,9 +48,9 @@ public class JobsAdapter extends ArrayAdapter<JobItem>
 	    {
 	    	JobItem currentCourse = (JobItem) jobsObject.get(position); //casts as course
 	
-	    	jobsItemView.text.setText(currentCourse.getText("code")); //sets the data
-	    	jobsItemView.text2.setText(currentCourse.getText("type"));
-	    	jobsItemView.text3.setText(currentCourse.getText("location"));
+	    	jobsItemView.name.setText(currentCourse.getText("code")); //sets the data
+	    	jobsItemView.location.setText(currentCourse.getText("type"));
+	    	jobsItemView.date.setText(currentCourse.getText("location"));
 
 	    }
 	
@@ -59,9 +59,9 @@ public class JobsAdapter extends ArrayAdapter<JobItem>
 
     protected static class jobsView
     {
-        protected TextView text;
-        protected TextView text2;
-        protected TextView text3;
+        protected TextView name;
+        protected TextView location;
+        protected TextView date;
 
     }
 }
