@@ -1,9 +1,13 @@
 package com.zenfly.lancer;
 
+import java.util.Calendar;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -12,6 +16,9 @@ public class AddNewTask extends Activity {
 	
 	Spinner task_location_spinner;
 	Button add_new_location;
+	Button add_deadline;
+	
+	static final int ID_DEADLINE = 1;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -21,13 +28,18 @@ public class AddNewTask extends Activity {
         
         task_location_spinner  = (Spinner) findViewById(R.id.spinner_location_names);
         add_new_location = (Button)findViewById(R.id.button_add_deadline);
+        add_deadline = (Button)findViewById(R.id.button_add_deadline);
+        
+        
+        //add_new_location.setOnClickListener(add_locationListener);				// TODO Add New Location Dialog
+        //add_deadline.setOnClickListener(add_deadlineListener); 					// TODO Date Picker Dialog
+        
         
         
         loadSpinnerData();       
         
-    }
-    
-    
+    }    
+        
     /**
      * Function to load the spinner data from SQLite database
      **/    
