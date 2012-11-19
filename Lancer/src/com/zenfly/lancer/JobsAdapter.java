@@ -47,7 +47,7 @@ public class JobsAdapter extends ArrayAdapter<Job>
 	    	Job currentJob = (Job) jobsObject.get(position); //casts as course
 	
 	    	jobsItemView.name.setText(currentJob.getClient()); //sets the data
-	    	jobsItemView.location.setText(currentJob.getLocation());
+	    	//jobsItemView.location.setText(currentJob.getLocation());
 	    	//jobsItemView.date.setText(currentJob.getText("date"));
 
 	    }
