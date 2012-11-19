@@ -19,11 +19,11 @@ public class JobsOptions extends Activity {
         return true;
     }
       	
-    public void createInvoice()
+/*    public void createInvoice()
     {
     	Intent createIncoice = new Intent(JobsOptions.this, CreateInvoice.class);
     	startActivity(createIncoice);
-    }
+    }//*/
     	
     public void viewTasks()
     {
@@ -36,11 +36,5 @@ public class JobsOptions extends Activity {
     	Intent viewExpences = new Intent(JobsOptions.this, ExpensesList .class);
     	startActivity(viewExpences);
     }
-    
-    public void deleteJob()
-    {
-    	Intent deleteJob = new Intent(JobsOptions.this, DeleteJob.class);
-    	startActivity(deleteJob);
-    }
-       
+           
 }
