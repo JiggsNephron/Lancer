@@ -13,18 +13,18 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 
-public class JobsAdapter extends ArrayAdapter<JobItem>
+public class JobsAdapter extends ArrayAdapter<Job>
 {
 	//public static final String PREFS_COUNT = "MyPrefsFile";
 	  private final Activity activity;
-	  private final List<JobItem> jobsObject;
+	  private final List<Job> jobsObject;
 	
-	public JobsAdapter(Activity activity, List<JobItem> objects) 
+	public JobsAdapter(Activity activity, List<Job> objects) 
 	{
         super(activity, R.layout.activity_jobs_list , objects);
         this.activity = activity;
         this.jobsObject = objects;
-	}
+	} 
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent)
@@ -46,7 +46,7 @@ public class JobsAdapter extends ArrayAdapter<JobItem>
 	    }
 	    else jobsItemView = (jobsView) rowView.getTag();
 	    {
-	    	JobItem currentCourse = (JobItem) jobsObject.get(position); //casts as course
+	    	Job currentCourse = (Job) jobsObject.get(position); //casts as course
 	
 	    	jobsItemView.name.setText(currentCourse.getText("code")); //sets the data
 	    	jobsItemView.location.setText(currentCourse.getText("type"));

@@ -27,7 +27,7 @@ public class JobsList extends ListActivity {
         db.getWritableDatabase();
         
         
-        List<JobItem> jobs = new ArrayList<JobItem>(); //makes a list of jobs to send to the list View
+        List<Job> jobs = new ArrayList<Job>(); //makes a list of jobs to send to the list View
         
         setListAdapter(new JobsAdapter(this, jobs)); //starts the list View
     }
