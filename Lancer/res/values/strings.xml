@@ -7,10 +7,11 @@
     <string name="title_activity_jobs_list">JobsList</string>
     <string name="title_activity_jobs_options">JobsOptions</string>
     <string name="title_activity_add_task">AddTask</string>
-	<string name="title_activity_add_new_job">Add New Job</string>
+    <string name="title_activity_add_new_job">Add New Job</string>
     <string name="AddNewJob_job_name_title">Job Name:</string>
     <string name="AddNewJob_job_location_title">Job Location: (Optional)</string>
     <string name="AddNewJob_job_deadline_title">Job Deadline: (Optional)</string>
     <string name="save">Save</string>
+    <string name="title_activity_add_new_task">Add New Task</string>
 
 </resources>
