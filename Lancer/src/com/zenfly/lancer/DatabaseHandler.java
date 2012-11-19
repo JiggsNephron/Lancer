@@ -1,4 +1,4 @@
-package com.example.lancer;
+package com.zenfly.lancer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +37,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
     private static final String KEY_SUBJECT = "subject";
     private static final String KEY_BODY = "body";
 	private static final String KEY_ID = "id";
+	private static final String KEY_DONE = "done";
     
 	public DatabaseHandler(Context context)
 	{
@@ -51,14 +52,15 @@ public class DatabaseHandler extends SQLiteOpenHelper
         		"CREATE TABLE " + TABLE_JOBS + 
         		"("
 	                + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_CLIENT 
-	                + " TEXT," + KEY_LOCATION + " INTEGER" +
+	                + " TEXT," + KEY_LOCATION + " INTEGER, " + KEY_DONE + " INTEGER" + 
                 ")";
         String CREATE_TASKS_TABLE = 
         		"CREATE TABLE " + TABLE_TASKS + 
         		"("
 	                + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_NAME 
 	                + " TEXT," + KEY_JOB + " INTEGER," 
-	                + KEY_DEADLINE + " TEXT," + KEY_LOCATION + " INTEGER" +
+	                + KEY_DEADLINE + " TEXT," + KEY_LOCATION + " INTEGER, " +
+	                KEY_DONE + " INTEGER" +
                 ")";
         String CREATE_NOTES_TABLE = 
         		"CREATE TABLE " + TABLE_NOTES + 
@@ -272,6 +274,19 @@ public class DatabaseHandler extends SQLiteOpenHelper
                 cursor.getString(2));
         return job;
     }
+    
+    //a method that returns a single location
+    Location getLocation(int id)
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selectQuery = 
+        		"SELECT " + KEY_LOCATION + " FROM " + TABLE_LOCATIONS;
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor != null) cursor.moveToFirst();
+        Location location = new Location(cursor.getString(1),
+                cursor.getString(2));
+        return location;
+    }
  
     //a method to return all jobs in the database
     public List<Job> getAllJobs() 
@@ -317,6 +332,26 @@ public class DatabaseHandler extends SQLiteOpenHelper
                
         return success;
     }
+    
+    public boolean getJobDone(int id)
+    {
+    	int done;
+    	String selectQuery = "SELECT " + KEY_DONE + " FROM " + TABLE_JOBS + " WHERE " + KEY_ID + "=" + id;
+    	SQLiteDatabase db = this.getWritableDatabase();
+    	Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor != null) cursor.moveToFirst();
+        done = Integer.parseInt(cursor.getString(0));
+        if(done == 0) return false;
+        else return true;
+    }
+    
+    public void setJobDone(int id, int done)
+    {
+    	SQLiteDatabase db = this.getWritableDatabase();
+    	ContentValues values = new ContentValues();
+    	values.put(KEY_DONE, Integer.toString(done));
+        db.update(TABLE_JOBS, values, KEY_ID + "=?", new String[] { Integer.toString(id)});
+    }
 
     //a method to delete a specified job
     public void deleteJob(int id)
@@ -327,6 +362,26 @@ public class DatabaseHandler extends SQLiteOpenHelper
         db.close();
     }
  
+    public boolean getTaskDone(int id)
+    {
+    	int done;
+    	String selectQuery = "SELECT " + KEY_DONE + " FROM " + TABLE_TASKS + " WHERE " + KEY_ID + "=" + id;
+    	SQLiteDatabase db = this.getWritableDatabase();
+    	Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor != null) cursor.moveToFirst();
+        done = Integer.parseInt(cursor.getString(0));
+        if(done == 0) return false;
+        else return true;
+    }
+    
+    public void setTaskDone(int id, int done)
+    {
+    	SQLiteDatabase db = this.getWritableDatabase();
+    	ContentValues values = new ContentValues();
+    	values.put(KEY_DONE, Integer.toString(done));
+        db.update(TABLE_TASKS, values, KEY_ID + "=?", new String[] { Integer.toString(id)});
+    }
+    
     //methods for getting counts of database items
     public int getJobCount()
     {
@@ -367,6 +422,57 @@ public class DatabaseHandler extends SQLiteOpenHelper
         cursor.close();
         return count;
     }
+    
+    public int getExpenseCount()
+    {
+        String countQuery = "SELECT  * FROM " + TABLE_EXPENSES;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+        int count = cursor.getCount();
+        cursor.close();
+        return count;
+    }
+    
+    public int getJobExpenseCount(int job)
+    {
+        String countQuery = "SELECT  * FROM " + TABLE_EXPENSES + " WHERE " + KEY_JOB + "=" + job;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+        int count = cursor.getCount();
+        cursor.close();
+        return count;
+    }
+    
+    public int getTaskExpenseCount(int task)
+    {
+        String countQuery = "SELECT  * FROM " + TABLE_EXPENSES + " WHERE " + KEY_TASK + "=" + task;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+        int count = cursor.getCount();
+        cursor.close();
+        return count;
+    }
+    
+    public int getJobNoteCount(int job)
+    {
+        String countQuery = "SELECT  * FROM " + TABLE_NOTES + " WHERE " + KEY_JOB + "=" + job;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+        int count = cursor.getCount();
+        cursor.close();
+        return count;
+    }
+    
+    public int getTaskNoteCount(int task)
+    {
+        String countQuery = "SELECT  * FROM " + TABLE_NOTES + " WHERE " + KEY_TASK + "=" + task;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+        int count = cursor.getCount();
+        cursor.close();
+        return count;
+    }
+    
     
     public int getNoteCount()
     {

@@ -1,4 +1,4 @@
-package com.example.lancer;
+package com.zenfly.lancer;
 
 public class JobItem 
 {
