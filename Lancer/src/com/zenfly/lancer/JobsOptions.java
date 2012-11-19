@@ -1,7 +1,5 @@
 package com.zenfly.lancer;
 
-import com.example.lancer.R;
-
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;

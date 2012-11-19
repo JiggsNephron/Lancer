@@ -3,8 +3,6 @@ package com.zenfly.lancer;
 
 import java.util.List;
 
-import com.example.lancer.R;
-
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
