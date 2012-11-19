@@ -1,6 +1,6 @@
 package com.zenfly.lancer;
 
-import com.example.lancer.R;
+import com.zenfly.lancer.R;
 
 import android.os.Bundle;
 import android.app.Activity;

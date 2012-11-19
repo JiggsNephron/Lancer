@@ -1,8 +1,8 @@
 package com.zenfly.lancer;
 
-import com.example.lancer.R;
-import com.example.lancer.R.layout;
-import com.example.lancer.R.menu;
+import com.zenfly.lancer.R;
+import com.zenfly.lancer.R.layout;
+import com.zenfly.lancer.R.menu;
 
 import android.os.Bundle;
 import android.app.Activity;

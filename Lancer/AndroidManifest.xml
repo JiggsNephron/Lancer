@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.lancer"
+    package="com.zenfly.lancer"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -25,13 +25,6 @@
             android:label="@string/title_activity_jobs_options" >
         </activity>
         <activity
-            android:name=".AddTask"
-            android:label="@string/title_activity_add_task" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
             android:name="com.zenfly.lancer.AddNewJob"
             android:label="@string/title_activity_add_new_job" >
             <meta-data
