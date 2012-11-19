@@ -51,8 +51,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/job_location"
         android:layout_below="@+id/job_deadline_title"
-        android:ems="10" />    
+        android:ems="10" />
 
     <TextView
         android:id="@+id/textView1"
@@ -61,15 +62,6 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/job_deadline"
         android:text="@string/AddNewTask_task_location_title" />
-
-    <EditText
-        android:id="@+id/editText1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignRight="@+id/job_deadline"
-        android:layout_below="@+id/textView1"
-        android:ems="10" />
 
     <Button
         android:id="@+id/save_job"
@@ -80,5 +72,22 @@
         android:layout_alignParentRight="true"
         android:onClick="saveJob"
         android:text="@string/button_save" />
+
+    <Spinner
+        android:id="@+id/spinner1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/job_deadline"
+        android:layout_centerVertical="true" />
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/spinner1"
+        android:layout_alignBottom="@+id/spinner1"
+        android:layout_toRightOf="@+id/spinner1"
+        android:text="Button" />
 
 </RelativeLayout>
