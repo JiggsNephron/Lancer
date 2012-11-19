@@ -3,8 +3,6 @@ package com.zenfly.lancer;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.lancer.R;
-
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,15 +11,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 
+
 public class JobsList extends ListActivity {
 
+	public DatabaseHandler db;
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jobs_list);
         
         
-        List<JobItem> jobs = new ArrayList<JobItem>(); //makes a list of jobs to send to the list View
+       // List<JobItem> jobs = new ArrayList<JobItem>(); //makes a list of jobs to send to the list View
+        db = new DatabaseHandler(this.getApplicationContext());
+        List<JobItem> jobs = db.getAllJobs();
         setListAdapter(new JobsAdapter(this, jobs)); //starts the list View
     }
 
