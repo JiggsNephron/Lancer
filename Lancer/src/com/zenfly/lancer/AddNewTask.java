@@ -1,9 +1,18 @@
+/**
+ * Author: Richard Cody 
+ * 
+ */
+
+
 package com.zenfly.lancer;
 
 import java.util.List;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -11,6 +20,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 public class AddNewTask extends Activity {
+	
+	final Context context = this;
 	
 	Spinner task_location_spinner;
 	Button add_new_location;
@@ -41,7 +52,20 @@ public class AddNewTask extends Activity {
     View.OnClickListener add_deadlineListener = new View.OnClickListener() {
 		
 		public void onClick(View v) {
-			setContentView(R.layout.dialog_task_deadline);
+			
+			// getting the dialog_task_deadline.xml view as pop up
+			LayoutInflater li = LayoutInflater.from(context);
+			View promptsView = li.inflate(R.layout.dialog_task_deadline, null);
+			
+			AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+			
+			alertDialogBuilder.setView(promptsView);
+			
+			// create alert dialog
+			AlertDialog alertDialog = alertDialogBuilder.create();
+
+			// show it
+			alertDialog.show();			
 			
 		}
 	};
