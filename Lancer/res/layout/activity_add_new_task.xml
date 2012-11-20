@@ -71,21 +71,16 @@
 
 
 
-    <Spinner
-        android:id="@+id/spinner_location_names"
+    <EditText
+        android:id="@+id/button_location_names"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignRight="@+id/task_note"
-        android:layout_centerVertical="true" />
-    
-    <Button
-        android:id="@+id/button_add_new_location"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/spinner_location_names"
-        android:layout_toRightOf="@+id/spinner_location_names"
-        android:text="@string/button_add_new_location" />    
+        android:layout_centerVertical="true"
+        android:focusableInTouchMode="false" 
+        android:onClick="chooseLocation" />
+
     
     <Button
         android:id="@+id/save_job"

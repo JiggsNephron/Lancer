@@ -10,8 +10,8 @@
     <string name="title_activity_task_adapter">TaskAdapter</string>
     <string name="button_save">Save</string>
     <string name="button_add_new_task">Save</string>
-    <string name="button_add_new_location">" + "</string>
     <string name="button_add_task_deadline">" + "</string>
+    <string name="button_add_new_location">+Location</string>
     <string name="AddNewJob_job_name_title">Job Name:</string>
     <string name="AddNewJob_job_location_title">Job Location: (Optional)</string>
     <string name="AddNewJob_job_deadline_title">Job Deadline: (Optional)</string>
@@ -22,5 +22,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_expences_list">ExpencesList</string>
     <string name="title_activity_tasks_list">TasksList</string>
+    <string name="title_activity_locations_list">LocationsList</string>
 
 </resources>

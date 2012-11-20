@@ -7,26 +7,25 @@
 package com.zenfly.lancer;
 
 import java.util.Calendar;
-import java.util.List;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Spinner;
 
 public class AddNewTask extends FragmentActivity {
 	
 	final Context context = this;
 	
-	Spinner task_location_spinner;
+	EditText task_location_box;
 	Button add_new_location;
 	EditText add_deadline;
 	
@@ -41,18 +40,14 @@ public class AddNewTask extends FragmentActivity {
         
         calendar = Calendar.getInstance();
         
-        task_location_spinner  = (Spinner) findViewById(R.id.spinner_location_names);
-        add_new_location = (Button)findViewById(R.id.button_add_new_location);
+        task_location_box  = (EditText)findViewById(R.id.button_add_new_location);
         add_deadline = (EditText)findViewById(R.id.button_add_deadline);
         
         // FIXME RC: FOR SK > change here to show something else on the deadline EditText view when first shown
         add_deadline.setText("Choose a Deadline");
         
         //add_new_location.setOnClickListener(add_locationListener);			// TODO RC: Add New Location Dialog
-
-        
-        
-        loadSpinnerData();       
+    
         
     }
     
@@ -80,30 +75,26 @@ public class AddNewTask extends FragmentActivity {
     		populateSetDate(yy, mm+1, dd);
     	}
     }
-        
-    /**
-     * Function to load the spinner data from SQLite database
-     **/
-    																			// TODO RC: Test Function to load the spinner data from SQLite database
-    private void loadSpinnerData() {
+    
+    public void chooseLocation(View v) {
     	
-        // database handler
-        DatabaseHandler db = new DatabaseHandler(this);
- 
-        // Spinner Drop down elements
-        List<String> lables = db.getAllLocationStrings();
- 
-        // Creating adapter for spinner
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, lables);
- 
-        // Drop down layout style - list view with radio button
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
- 
-        // attaching data adapter to spinner
-        task_location_spinner.setAdapter(dataAdapter);
-    }    
+    	// TODO RC: chooseLocation dialog actions
+    	LayoutInflater li = LayoutInflater.from(context);
+		View promptsView = li.inflate(R.layout.activity_locations_list, null);
+		
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+		
+		alertDialogBuilder.setView(promptsView);
+		
+		// create alert dialog
+		AlertDialog alertDialog = alertDialogBuilder.create();
 
-  
+		// show it
+		alertDialog.show();
+		
+    	}
+    
+        
     /** OPTIONS MENU CODE DISABLED FOR NOW
     
     @Override
