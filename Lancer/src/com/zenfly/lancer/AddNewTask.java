@@ -92,7 +92,25 @@ public class AddNewTask extends FragmentActivity {
 		// show it
 		alertDialog.show();
 		
-    	}
+    }
+    
+    public void addLocation(View v) {
+    	
+    	// TODO RC: addLocation dialog actions
+    	LayoutInflater li = LayoutInflater.from(context);
+		View promptsView = li.inflate(R.layout.activity_add_new_location, null);
+		
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+		
+		alertDialogBuilder.setView(promptsView);
+		
+		// create alert dialog
+		AlertDialog alertDialog = alertDialogBuilder.create();
+
+		// show it
+		alertDialog.show();
+		
+    }
     
         
     /** OPTIONS MENU CODE DISABLED FOR NOW
