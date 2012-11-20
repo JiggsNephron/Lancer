@@ -39,7 +39,7 @@ public class JobsList extends ListActivity {
     
     public void addNewJob(View v) {
     	
-    	// FIXME RC: Adding this so I can test my view via this button
+    	// FIXME RC: FOR SB > Adding this so I can test my view via this button
     	Intent intent = new Intent(JobsList.this, AddNewTask.class);
     	
     	startActivity(intent);
