@@ -7,6 +7,8 @@ public class Task
 	private int job;
 	private int location;
 	private String deadline;
+	private int hoursWorked;
+	private int hourlyWage;
 	
 	/*public Task(String name, int job)
 	{
@@ -22,12 +24,13 @@ public class Task
 		else this.deadline = info;
 	}*/
 	
-	public Task(String name, int job, String deadline, int location)
+	public Task(String name, int job, String deadline, int location, int wage, int hours)
 	{
 		this.name = name;
 		this.job = job;
 		this.deadline = deadline;
 		this.location = location;
+		this.hoursWorked = hours;
 	}
 	
 	public int getLocation()
@@ -48,5 +51,15 @@ public class Task
 	public String getDeadline()
 	{
 		return deadline;
+	}
+	
+	public int getWage()
+	{
+		return hourlyWage;
+	}
+	
+	public int getHoursWorked()
+	{
+		return hoursWorked;
 	}
 }

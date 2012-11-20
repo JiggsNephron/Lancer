@@ -38,6 +38,8 @@ public class DatabaseHandler extends SQLiteOpenHelper
     private static final String KEY_BODY = "body";
 	private static final String KEY_ID = "id";
 	private static final String KEY_DONE = "done";
+	private static final String KEY_HOURLY_WAGE = "hourlyWage";
+	private static final String KEY_HOURS_WORKED = "hoursWorked";
     
 	public DatabaseHandler(Context context)
 	{
@@ -59,7 +61,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
 	                + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_NAME 
 	                + " TEXT," + KEY_JOB + " INTEGER," 
 	                + KEY_DEADLINE + " TEXT," + KEY_LOCATION + " INTEGER, " +
-	                KEY_DONE + " INTEGER" +
+	                KEY_DONE + " INTEGER, " + KEY_HOURLY_WAGE + " INTEGER, " + KEY_HOURS_WORKED + " INTEGER" +
                 ")";
         String CREATE_NOTES_TABLE = 
         		"CREATE TABLE " + TABLE_NOTES + 
@@ -145,6 +147,8 @@ public class DatabaseHandler extends SQLiteOpenHelper
         values.put(KEY_JOB, task.getJob());
         values.put(KEY_DEADLINE, task.getDeadline());
         values.put(KEY_LOCATION, task.getLocation());
+        values.put(KEY_HOURLY_WAGE, task.getWage());
+        values.put(KEY_HOURS_WORKED, task.getHoursWorked());
         try
         {
         	db.insertOrThrow(TABLE_TASKS, null, values);
@@ -280,7 +284,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
         String selectQuery = "SELECT * FROM " + TABLE_TASKS + " WHERE " + KEY_ID + "=" + id;
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor != null) cursor.moveToFirst();
-        Task task = new Task(cursor.getString(1), Integer.parseInt(cursor.getString(2)), cursor.getString(3), Integer.parseInt(cursor.getString(4)));
+        Task task = new Task(cursor.getString(1), Integer.parseInt(cursor.getString(2)), cursor.getString(3), Integer.parseInt(cursor.getString(4)), Integer.parseInt(cursor.getString(5)), Integer.parseInt(cursor.getString(6)));
         return task;
     }
     
@@ -290,7 +294,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
         String selectQuery = "SELECT * FROM " + TABLE_TASKS + " ORDER BY " + KEY_DEADLINE + " ASC";
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor != null) cursor.moveToFirst();
-        Task task = new Task(cursor.getString(1), Integer.parseInt(cursor.getString(2)), cursor.getString(3), Integer.parseInt(cursor.getString(4)));
+        Task task = new Task(cursor.getString(1), Integer.parseInt(cursor.getString(2)), cursor.getString(3), Integer.parseInt(cursor.getString(4)), Integer.parseInt(cursor.getString(5)), Integer.parseInt(cursor.getString(6)));
         return task;
     }
     
@@ -300,7 +304,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
         String selectQuery = "SELECT * FROM " + TABLE_TASKS + " ORDER BY " + KEY_DEADLINE + " DESC";
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor != null) cursor.moveToFirst();
-        Task task = new Task(cursor.getString(1), Integer.parseInt(cursor.getString(2)), cursor.getString(3), Integer.parseInt(cursor.getString(4)));
+        Task task = new Task(cursor.getString(1), Integer.parseInt(cursor.getString(2)), cursor.getString(3), Integer.parseInt(cursor.getString(4)), Integer.parseInt(cursor.getString(5)), Integer.parseInt(cursor.getString(6)));
         return task;
     }
  
@@ -350,6 +354,18 @@ public class DatabaseHandler extends SQLiteOpenHelper
                 new String[] { Integer.toString(id) });
         db.close();
     }
+    
+    public void setTaskHours(int id, int hours)
+    {
+    	String selectQuery = "SELECT " + KEY_HOURS_WORKED + " FROM " + TABLE_TASKS + " WHERE " + KEY_ID + "=" + id;
+    	SQLiteDatabase db = this.getWritableDatabase();
+    	ContentValues values = new ContentValues();
+    	Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor != null) cursor.moveToFirst();
+        hours += Integer.parseInt(cursor.getString(0));
+        values.put(KEY_HOURS_WORKED, hours);
+        db.update(TABLE_TASKS, values, KEY_ID + "=?", new String[] { Integer.toString(id)});
+    }
  
     public List<Task> getAllDoneTasks()
     {
@@ -361,7 +377,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
     	{
     		do
     		{
-    			Task task = new Task(cursor.getString(1), Integer.parseInt(cursor.getString(2)), cursor.getString(3), Integer.parseInt(cursor.getString(4)));
+    			Task task = new Task(cursor.getString(1), Integer.parseInt(cursor.getString(2)), cursor.getString(3), Integer.parseInt(cursor.getString(4)), Integer.parseInt(cursor.getString(5)), Integer.parseInt(cursor.getString(6)));
     			taskList.add(task);
     		}while(cursor.moveToNext());
     	}
