@@ -51,8 +51,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
         String CREATE_JOBS_TABLE = 
         		"CREATE TABLE " + TABLE_JOBS + 
         		"("
-	                + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_CLIENT 
-	                + " TEXT" + 
+	                + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_CLIENT + " TEXT" + 
                 ")";
         String CREATE_TASKS_TABLE = 
         		"CREATE TABLE " + TABLE_TASKS + 
@@ -257,8 +256,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
     Job getJob(int id)
     {
         SQLiteDatabase db = this.getReadableDatabase();
-        String selectQuery = 
-        		"SELECT * FROM " + TABLE_JOBS + " WHERE " + KEY_ID + "=" + id;
+        String selectQuery = "SELECT * FROM " + TABLE_JOBS + " WHERE " + KEY_ID + "=" + id;
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor != null) cursor.moveToFirst();
         Job job = new Job(cursor.getString(1));
@@ -298,7 +296,6 @@ public class DatabaseHandler extends SQLiteOpenHelper
             do
             {
             	Job job = new Job(cursor.getString(1));
-
                 jobList.add(job);
             } while (cursor.moveToNext());
         }
@@ -483,7 +480,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
     	{
     		do
     		{
-    			locList.add(cursor.getString(2));
+    			locList.add(cursor.getString(1));
     		}while(cursor.moveToNext());
     	}
     	return locList;
