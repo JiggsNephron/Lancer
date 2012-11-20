@@ -42,6 +42,7 @@
         android:layout_below="@+id/task_deadline_title"
         android:text="@string/button_add_task_deadline"
         android:focusableInTouchMode="false" 
+        android:onClick="selectDate"
         android:ems="10" />
 
     <TextView

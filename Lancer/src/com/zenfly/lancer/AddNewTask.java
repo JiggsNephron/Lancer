@@ -6,14 +6,15 @@
 
 package com.zenfly.lancer;
 
+import java.util.Calendar;
 import java.util.List;
 
-import android.app.Activity;
-import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -21,7 +22,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-public class AddNewTask extends Activity {
+public class AddNewTask extends FragmentActivity {
 	
 	final Context context = this;
 	
@@ -29,7 +30,6 @@ public class AddNewTask extends Activity {
 	Button add_new_location;
 	EditText add_deadline;
 	
-	static final int ID_DEADLINE = 1;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -43,51 +43,37 @@ public class AddNewTask extends Activity {
         
         
         //add_new_location.setOnClickListener(add_locationListener);			// TODO Add New Location Dialog
-        add_deadline.setOnClickListener(add_deadlineListener); 				// TODO Date Picker Dialog
-        
+
         
         
         loadSpinnerData();       
         
     }
     
-    View.OnClickListener add_deadlineListener = new View.OnClickListener() {
-		
-		public void onClick(View v) {
-			
-			// getting the dialog_task_deadline.xml view as pop up
-			LayoutInflater li = LayoutInflater.from(context);
-			View promptsView = li.inflate(R.layout.dialog_task_deadline, null);
-			
-			AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-			
-			alertDialogBuilder.setView(promptsView);
-			
-			final DatePicker datePicker = (DatePicker) findViewById( R.id.picker_task_deadline );
-			
-			alertDialogBuilder.setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
-			    public void onClick(DialogInterface dialog,int id) {
-			    	// get user input and set it to result
-			    	// edit text
-			    	add_deadline.setText(Integer.toString(datePicker.getDayOfMonth()) + "/" + Integer.toString(datePicker.getMonth()) + "/" + Integer.toString(datePicker.getYear()));
-			    }
-			  })
-			.setNegativeButton("Cancel",
-			  new DialogInterface.OnClickListener() {
-			    public void onClick(DialogInterface dialog,int id) {
-				dialog.cancel();
-			    }
-			  });
-			
-			
-			// create alert dialog
-			AlertDialog alertDialog = alertDialogBuilder.create();
-
-			// show it
-			alertDialog.show();			
-			
-		}
-	};
+    public void selectDate(View v) {
+    	DialogFragment newFragment = new SelectDateFragment();
+    	newFragment.show(getSupportFragmentManager(), "DatePicker");
+    	}
+    
+    public void populateSetDate(int year, int month, int day) {
+    	 	add_deadline.setText(day+"/"+month+"/"+year);
+    	}
+    
+    
+    public class SelectDateFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
+    	@Override
+    	public Dialog onCreateDialog(Bundle savedInstanceState) {
+    	final Calendar calendar = Calendar.getInstance();
+    	int yy = calendar.get(Calendar.YEAR);
+    	int mm = calendar.get(Calendar.MONTH);
+    	int dd = calendar.get(Calendar.DAY_OF_MONTH);
+    	return new DatePickerDialog(getActivity(), this, yy, mm, dd);
+    	}
+    	 
+    	public void onDateSet(DatePicker view, int yy, int mm, int dd) {
+    	populateSetDate(yy, mm+1, dd);
+    	}
+    }
         
     /**
      * Function to load the spinner data from SQLite database
