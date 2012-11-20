@@ -77,8 +77,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignRight="@+id/task_note"
-        android:layout_centerVertical="true"
-        android:focusableInTouchMode="false" 
+        android:focusableInTouchMode="false"
+        android:layout_below="@+id/task_location_title" 
         android:onClick="chooseLocation" />
 
     
