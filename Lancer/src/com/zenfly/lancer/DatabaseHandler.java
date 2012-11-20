@@ -258,9 +258,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
     {
         SQLiteDatabase db = this.getReadableDatabase();
         String selectQuery = 
-        		"SELECT " + TABLE_JOBS + "." + KEY_ID + ", " + TABLE_JOBS + "." + KEY_CLIENT + ", " + 
-        		TABLE_LOCATIONS + "." + KEY_LOCATION + " FROM " + TABLE_JOBS + " JOIN " + TABLE_LOCATIONS + " ON " + TABLE_LOCATIONS + 
-        		"." + KEY_ID + "=" + TABLE_JOBS + "." + KEY_LOCATION;
+        		"SELECT * FROM " + TABLE_JOBS + " WHERE " + KEY_ID + "=" + id;
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor != null) cursor.moveToFirst();
         Job job = new Job(cursor.getString(1));
@@ -271,13 +269,21 @@ public class DatabaseHandler extends SQLiteOpenHelper
     Location getLocation(int id)
     {
         SQLiteDatabase db = this.getReadableDatabase();
-        String selectQuery = 
-        		"SELECT " + KEY_LOCATION + " FROM " + TABLE_LOCATIONS;
+        String selectQuery = "SELECT * FROM " + TABLE_LOCATIONS;
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor != null) cursor.moveToFirst();
-        Location location = new Location(cursor.getString(1),
-                cursor.getString(2));
+        Location location = new Location(cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4));
         return location;
+    }
+    
+    Task getTask(int id)
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selectQuery = "SELECT * FROM " + TABLE_TASKS;
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor != null) cursor.moveToFirst();
+        Task task = new Task(cursor.getString(1), Integer.parseInt(cursor.getString(2)), cursor.getString(3), Integer.parseInt(cursor.getString(4)));
+        return task;
     }
  
     //a method to return all jobs in the database
