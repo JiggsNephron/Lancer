@@ -30,19 +30,25 @@ public class AddNewTask extends FragmentActivity {
 	Button add_new_location;
 	EditText add_deadline;
 	
+	Calendar calendar;
+	int day, month, year;
+	
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_task);
         
+        calendar = Calendar.getInstance();
         
         task_location_spinner  = (Spinner) findViewById(R.id.spinner_location_names);
         add_new_location = (Button)findViewById(R.id.button_add_new_location);
         add_deadline = (EditText)findViewById(R.id.button_add_deadline);
         
+        // FIXME RC: FOR SK > change here to show something else on the deadline EditText view when first shown
+        add_deadline.setText("Choose a Deadline");
         
-        //add_new_location.setOnClickListener(add_locationListener);			// TODO Add New Location Dialog
+        //add_new_location.setOnClickListener(add_locationListener);			// TODO RC: Add New Location Dialog
 
         
         
@@ -50,35 +56,35 @@ public class AddNewTask extends FragmentActivity {
         
     }
     
+    // OnClick of the Deadline EditText
     public void selectDate(View v) {
     	DialogFragment newFragment = new SelectDateFragment();
     	newFragment.show(getSupportFragmentManager(), "DatePicker");
     	}
-    
+    // Used to populate the deadline EditText with the chosen date
     public void populateSetDate(int year, int month, int day) {
+    		// FIXME RC: FOR SK > change here to show something else on the deadline EditText view when date chosen
     	 	add_deadline.setText(day+"/"+month+"/"+year);
-    	}
-    
-    
+    	}    
+    // Extends DialogFragment to show a date picker dialog to the user
     public class SelectDateFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
     	@Override
     	public Dialog onCreateDialog(Bundle savedInstanceState) {
-    	final Calendar calendar = Calendar.getInstance();
-    	int yy = calendar.get(Calendar.YEAR);
-    	int mm = calendar.get(Calendar.MONTH);
-    	int dd = calendar.get(Calendar.DAY_OF_MONTH);
-    	return new DatePickerDialog(getActivity(), this, yy, mm, dd);
+    		year = calendar.get(Calendar.YEAR);
+    		month = calendar.get(Calendar.MONTH);
+    		day = calendar.get(Calendar.DAY_OF_MONTH);
+    		return new DatePickerDialog(getActivity(), this, year, month, day);
     	}
     	 
     	public void onDateSet(DatePicker view, int yy, int mm, int dd) {
-    	populateSetDate(yy, mm+1, dd);
+    		populateSetDate(yy, mm+1, dd);
     	}
     }
         
     /**
      * Function to load the spinner data from SQLite database
      **/
-    																			// TODO Test Function to load the spinner data from SQLite database
+    																			// TODO RC: Test Function to load the spinner data from SQLite database
     private void loadSpinnerData() {
     	
         // database handler
