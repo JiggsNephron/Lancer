@@ -253,7 +253,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
     }
  
     //a method that returns a single job
-    Job getJob(int id)
+    public Job getJob(int id)
     {
         SQLiteDatabase db = this.getReadableDatabase();
         String selectQuery = "SELECT * FROM " + TABLE_JOBS + " WHERE " + KEY_ID + "=" + id;
@@ -264,20 +264,40 @@ public class DatabaseHandler extends SQLiteOpenHelper
     }
     
     //a method that returns a single location
-    Location getLocation(int id)
+    public Location getLocation(int id)
     {
         SQLiteDatabase db = this.getReadableDatabase();
-        String selectQuery = "SELECT * FROM " + TABLE_LOCATIONS;
+        String selectQuery = "SELECT * FROM " + TABLE_LOCATIONS + " WHERE " + KEY_ID + "=" + id;
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor != null) cursor.moveToFirst();
         Location location = new Location(cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4));
         return location;
     }
     
-    Task getTask(int id)
+    public Task getTask(int id)
     {
         SQLiteDatabase db = this.getReadableDatabase();
-        String selectQuery = "SELECT * FROM " + TABLE_TASKS;
+        String selectQuery = "SELECT * FROM " + TABLE_TASKS + " WHERE " + KEY_ID + "=" + id;
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor != null) cursor.moveToFirst();
+        Task task = new Task(cursor.getString(1), Integer.parseInt(cursor.getString(2)), cursor.getString(3), Integer.parseInt(cursor.getString(4)));
+        return task;
+    }
+    
+    public Task getNearestDeadlineTask()
+    {
+    	SQLiteDatabase db = this.getReadableDatabase();
+        String selectQuery = "SELECT * FROM " + TABLE_TASKS + " ORDER BY " + KEY_DEADLINE + " ASC";
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor != null) cursor.moveToFirst();
+        Task task = new Task(cursor.getString(1), Integer.parseInt(cursor.getString(2)), cursor.getString(3), Integer.parseInt(cursor.getString(4)));
+        return task;
+    }
+    
+    public Task getFarthestDeadlineTask()
+    {
+    	SQLiteDatabase db = this.getReadableDatabase();
+        String selectQuery = "SELECT * FROM " + TABLE_TASKS + " ORDER BY " + KEY_DEADLINE + " DESC";
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor != null) cursor.moveToFirst();
         Task task = new Task(cursor.getString(1), Integer.parseInt(cursor.getString(2)), cursor.getString(3), Integer.parseInt(cursor.getString(4)));
