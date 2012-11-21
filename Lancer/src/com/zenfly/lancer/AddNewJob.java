@@ -19,7 +19,6 @@ public class AddNewJob extends Activity {
     	
     }
     
-    // on pressing Back, go back to main
     public void saveJob(View v) {
     	
     	DatabaseHandler db = new DatabaseHandler(this);
