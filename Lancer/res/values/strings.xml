@@ -28,6 +28,9 @@
     <string name="location_address1">Address Line 1:</string>
     <string name="location_address2">Address Line 2:</string>
     <string name="location_address3">Address Line 3:</string>
+    <string name="tasks">Tasks</string>
+    <string name="expenses">Expenses</string>
+    <string name="notes">Notes</string>
     
 
 </resources>

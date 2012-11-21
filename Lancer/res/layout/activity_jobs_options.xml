@@ -3,25 +3,76 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <TextView
+    
+    
+     <TextView
+        android:id="@+id/Tasks"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="nothing"
-        tools:context=".JobsOptions" />
-
-
-
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:onClick="addNewTask"
-        android:text="Button" />
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/tasks"
+        android:textColor="@color/lancer_blue"
+        android:textSize="35dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:onClick="" />
+
+    
+    <View android:id="@+id/separator1" 
+ 	    android:background="@color/lancer_blue"
+ 		android:layout_width = "fill_parent"
+ 		android:layout_below="@+id/Tasks"
+ 		android:layout_height="0.5dp"
+ 		android:layout_marginTop="20dp"
+ 		android:layout_marginLeft="20dp"
+ 		android:layout_marginRight="20dp"
+ 		android:layout_centerVertical ="true"
+ 		/>
+    
+    <TextView
+        android:id="@+id/Expenses"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="40dp"
+        android:layout_below="@+id/Tasks"
+        android:text="@string/expenses"
+        android:textColor="@color/lancer_blue"
+        android:textSize="35dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:onClick="" />
+
+    
+    <View android:id="@+id/separator2" 
+ 	    android:background="@color/lancer_blue"
+ 		android:layout_width = "fill_parent"
+ 		android:layout_below="@+id/Expenses"
+ 		android:layout_height="0.5dp"
+ 		android:layout_marginTop="20dp"
+ 		android:layout_marginLeft="20dp"
+ 		android:layout_marginRight="20dp"
+ 		android:layout_centerVertical ="true"
+ 		/>
+    
+    <TextView
+        android:id="@+id/Notes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="40dp"
+        android:layout_below="@+id/Expenses"
+        android:text="@string/notes"
+        android:textColor="@color/lancer_blue"
+        android:textSize="35dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:onClick="" />
 
     
 </RelativeLayout>
