@@ -3,6 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
+    <View android:id="@+id/nav_list_bg" 
+ 	    android:background="@color/lancer_blue"
+ 		android:layout_width = "fill_parent"
+ 		android:layout_alignParentTop="true"
+ 		android:layout_height="55dp"
+ 		android:layout_centerVertical ="true"
+ 		/>
+    
     
     
      <TextView
@@ -10,10 +18,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="25dp"
+        android:layout_below="@+id/nav_list_bg"
         android:text="@string/tasks"
         android:textColor="@color/lancer_blue"
         android:textSize="35dp"
@@ -26,7 +34,7 @@
  		android:layout_width = "fill_parent"
  		android:layout_below="@+id/Tasks"
  		android:layout_height="0.5dp"
- 		android:layout_marginTop="20dp"
+ 		android:layout_marginTop="25dp"
  		android:layout_marginLeft="20dp"
  		android:layout_marginRight="20dp"
  		android:layout_centerVertical ="true"
@@ -39,7 +47,7 @@
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="45dp"
         android:layout_below="@+id/Tasks"
         android:text="@string/expenses"
         android:textColor="@color/lancer_blue"
@@ -53,7 +61,7 @@
  		android:layout_width = "fill_parent"
  		android:layout_below="@+id/Expenses"
  		android:layout_height="0.5dp"
- 		android:layout_marginTop="20dp"
+ 		android:layout_marginTop="25dp"
  		android:layout_marginLeft="20dp"
  		android:layout_marginRight="20dp"
  		android:layout_centerVertical ="true"
@@ -66,13 +74,65 @@
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="45dp"
         android:layout_below="@+id/Expenses"
         android:text="@string/notes"
         android:textColor="@color/lancer_blue"
         android:textSize="35dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:onClick="" />
+    
+    <Button
+        android:id="@+id/create_invoice"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:textColor="@color/white"
+        android:textSize="30dp"
+        android:paddingTop="10dp"
+        android:background="@color/lancer_blue"
+        android:paddingBottom="10dp" 
+        android:onClick="createInvoice"
+        android:text="@string/create_invoice" />
 
+    <TextView
+        android:id="@+id/jobs_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="10dp"
+        android:text="@string/jobs"
+        android:textSize="20dp"
+        android:textColor="@color/white"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:onClick="" />
+
+    <TextView
+        android:id="@+id/arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/jobs_list"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="25dp"
+        android:textColor="@color/white"
+        android:text="@string/arrow"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+    
+    <TextView
+        android:id="@+id/job_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/arrow"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="10dp"
+        android:text="@string/job_name"
+        android:textSize="20dp"
+        android:textColor="@color/white"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
     
 </RelativeLayout>

@@ -31,6 +31,9 @@
     <string name="tasks">Tasks</string>
     <string name="expenses">Expenses</string>
     <string name="notes">Notes</string>
-    
+    <string name="create_invoice">Create Job Invoice</string>
+    <string name="jobs">Jobs</string>
+    <string name="arrow">></string>
+    <string name="job_name">Job Name</string>
 
 </resources>
