@@ -20,6 +20,11 @@ public class Task
 		this.hoursWorked = hours;
 	}
 	
+	public int getId()
+	{
+		return id;
+	}
+	
 	public int getLocation()
 	{
 		return location;

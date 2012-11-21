@@ -46,7 +46,8 @@ public class TaskAdapter extends ArrayAdapter<Task> {
 	
 	    	taskItemView.name.setText(currentTask.getName()); //sets the data
 	    	
-	    	boolean isTicked = db.getTaskDone(position);
+	    	int ID = currentTask.getId();
+	    	boolean isTicked = db.getTaskDone(ID);
 	    	//jobsItemView.checkBox.setText(currentJob.getLocation());
 	    	if(isTicked == true)
 	    	{
