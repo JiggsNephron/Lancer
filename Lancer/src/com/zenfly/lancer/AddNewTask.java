@@ -126,45 +126,42 @@ public class AddNewTask extends FragmentActivity {
 		    	String stlocation_address2 = location_address2.getText().toString();
 		    	String stlocation_address3 = location_address3.getText().toString();
 		    	
-		    	if(!location_nickname.equals("") && stlocation_address1.equals("") && stlocation_address2.equals("") && stlocation_address3.equals(""))
+		    	
+		    	if(!stlocation_nickname.equals("") && stlocation_address1.equals("") && stlocation_address2.equals("") && stlocation_address3.equals(""))
 		    	{
 			    	// add new location based on user entered data
 		    		db.addLocation(new Location(stlocation_nickname));
 		    		Toast.makeText(getApplicationContext(), "Saved Location: " + stlocation_nickname, Toast.LENGTH_LONG).show();
 		    		dialog.dismiss();
 		    	}
-		    	if(!location_nickname.equals("") && !stlocation_address1.equals("") && stlocation_address2.equals("") && stlocation_address3.equals(""))
+		    	if(!stlocation_nickname.equals("") && !stlocation_address1.equals("") && stlocation_address2.equals("") && stlocation_address3.equals(""))
 		    	{
 			    	// add new location based on user entered data
 		    		db.addLocation(new Location(stlocation_nickname, stlocation_address1));
 		    		Toast.makeText(getApplicationContext(), "Saved Location: " + stlocation_nickname, Toast.LENGTH_LONG).show();
 		    		dialog.dismiss();
 		    	}  
-		    	if(!location_nickname.equals("") && !stlocation_address1.equals("") && !stlocation_address2.equals("") && stlocation_address3.equals(""))
+		    	if(!stlocation_nickname.equals("") && !stlocation_address1.equals("") && !stlocation_address2.equals("") && stlocation_address3.equals(""))
 		    	{
 			    	// add new location based on user entered data
 		    		db.addLocation(new Location(stlocation_nickname, stlocation_address1, stlocation_address2));
 		    		Toast.makeText(getApplicationContext(), "Saved Location: " + stlocation_nickname, Toast.LENGTH_LONG).show();
 		    		dialog.dismiss();
 		    	}  
-		    	if(!location_nickname.equals("") && !stlocation_address1.equals("") && !stlocation_address2.equals("") && !stlocation_address3.equals(""))
+		    	if(!stlocation_nickname.equals("") && !stlocation_address1.equals("") && !stlocation_address2.equals("") && !stlocation_address3.equals(""))
 		    	{
 			    	// add new location based on user entered data
 		    		db.addLocation(new Location(stlocation_nickname, stlocation_address1, stlocation_address2, stlocation_address3));
 		    		Toast.makeText(getApplicationContext(), "Saved Location: " + stlocation_nickname, Toast.LENGTH_LONG).show();
 		    		dialog.dismiss();
-		    	} else if (location_nickname.equals("")) {
+		    	} else if (stlocation_nickname.equals("")) {
 		    		Toast.makeText(getApplicationContext(), "Location Nickname cannot be empty", Toast.LENGTH_LONG).show();		    		
-		    	}
-		    			    	 	
-		    			        
+		    	}		        
 		     }
-		 });		
+		 });	
 		
 		// show the dialog
-		dialog.show();
-
-		
+		dialog.show();		
     }   
         
     /** OPTIONS MENU CODE DISABLED FOR NOW
