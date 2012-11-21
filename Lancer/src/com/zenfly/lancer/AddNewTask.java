@@ -79,10 +79,21 @@ public class AddNewTask extends FragmentActivity {
     	}
     }
     
+    public void saveTask (View v) {
+    	
+    }
+    
     // TODO RC: ???move chooseLocation to its own class???
     public void chooseLocation(View v) {    	
     	
     	Intent show_locations = new Intent(this, LocationsList.class);
+    	
+    	EditText task_name  = (EditText) findViewById(R.id.task_name);
+    	
+    	String sttask_name = task_name.getText().toString();
+    	
+    	show_locations.putExtra("task_name", sttask_name);
+    	
     	startActivity(show_locations);
     	
     	// TODO RC: send the already filled data via addExtra and then receive the location thats been chosen
