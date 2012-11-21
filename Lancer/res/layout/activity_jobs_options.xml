@@ -11,8 +11,6 @@
  		android:layout_centerVertical ="true"
  		/>
     
-    
-    
      <TextView
         android:id="@+id/Tasks"
         android:layout_width="wrap_content"
@@ -20,13 +18,13 @@
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="20dp"
         android:layout_below="@+id/nav_list_bg"
         android:text="@string/tasks"
         android:textColor="@color/lancer_blue"
-        android:textSize="35dp"
+        android:textSize="30dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:onClick="" />
+        android:onClick="viewTasks" />
 
     
     <View android:id="@+id/separator1" 
@@ -47,11 +45,11 @@
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="45dp"
-        android:layout_below="@+id/Tasks"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/separator1"
         android:text="@string/expenses"
         android:textColor="@color/lancer_blue"
-        android:textSize="35dp"
+        android:textSize="30dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:onClick="" />
 
@@ -74,11 +72,11 @@
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="45dp"
-        android:layout_below="@+id/Expenses"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/separator2"
         android:text="@string/notes"
         android:textColor="@color/lancer_blue"
-        android:textSize="35dp"
+        android:textSize="30dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:onClick="" />
     
@@ -90,7 +88,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:textColor="@color/white"
-        android:textSize="30dp"
+        android:textSize="20dp"
         android:paddingTop="10dp"
         android:background="@color/lancer_blue"
         android:paddingBottom="10dp" 
@@ -116,7 +114,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/jobs_list"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="12dp"
         android:layout_marginLeft="10dp"
         android:textSize="25dp"
         android:textColor="@color/white"
