@@ -11,18 +11,18 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 
-public class LocationsAdapter extends ArrayAdapter<Job>
+public class LocationsAdapter extends ArrayAdapter<Location>
 {
 	//public static final String PREFS_COUNT = "MyPrefsFile";
 	  private final Activity activity;
-	  private final List<Job> jobsObject;
+	  private final List<Location> locationsObject;
 	  public DatabaseHandler db;
 	
-	public LocationsAdapter(Activity activity, List<Job> objects) 
+	public LocationsAdapter(Activity activity, List<Location> objects) 
 	{
-        super(activity, R.layout.activity_jobs_list , objects);
+        super(activity, R.layout.activity_locations_list , objects);
         this.activity = activity;
-        this.jobsObject = objects;
+        this.locationsObject = objects;
         db = new DatabaseHandler(this.getContext());
 	} 
 
@@ -30,56 +30,30 @@ public class LocationsAdapter extends ArrayAdapter<Job>
 	public View getView(int position, View convertView, ViewGroup parent)
 	{
 	    View rowView = convertView;
-	    jobsView jobsItemView = null;
+	    locationsView locationItemView = null;
 	
 	    if(rowView == null)
 	    {
 	    	//creates new instance of row layout view
 	        LayoutInflater inflater = activity.getLayoutInflater();
-	        rowView = inflater.inflate(R.layout.job_item, null);
-	        jobsItemView = new jobsView(); //for holding the data
-	        jobsItemView.name = (TextView) rowView.findViewById(R.id.JobNameDisplay); 
-	        jobsItemView.location = (TextView) rowView.findViewById(R.id.JobLocationDisplay);
-	        jobsItemView.date = (TextView) rowView.findViewById(R.id.JobDateDisplay);
+	        rowView = inflater.inflate(R.layout.location_item, null);
+	        locationItemView = new locationsView(); //for holding the data
+	        locationItemView.name = (TextView) rowView.findViewById(R.id.LocationNameDisplay); 
 	       
-	        rowView.setTag(jobsItemView); //for later access
+	        rowView.setTag(locationItemView); //for later access
 	    }
-	    else jobsItemView = (jobsView) rowView.getTag();
+	    else locationItemView = (locationsView) rowView.getTag();
 	    {
-	    	Job currentJob = (Job) jobsObject.get(position); //casts as course
-	    	
-	    	
-	    	if(db.getJobTaskCount(currentJob.getId()) != 0)
-	    	{
-		    	Task tempTask = db.getNearestDeadlineTask();
-		    	
-		    	int tempLocation = tempTask.getLocation();// finds the location in the data base we are looking for
-		    	Location a  = db.getLocation(tempLocation); // extracts the location from the database
-		    	String b = a.getLocation(); // puts the location into a string
-		    	
-		    	String tempDate = tempTask.getDeadline();// just returns the raw date string
-		    	
-		    	
-		    	jobsItemView.name.setText("Test");//currentJob.getClient()); //sets the data
-		    	jobsItemView.location.setText(b);				   //sets the data
-		    	jobsItemView.date.setText(tempDate);			   //sets the data
-		    	return rowView;
-	    	}
-	    	else
-	    	{
-	    		jobsItemView.location.setText("");
-	    		jobsItemView.date.setText("");
-	    	}
-	    	jobsItemView.name.setText(currentJob.getClient()); //sets the data
+	    	Location currentLocation = (Location) locationsObject.get(position); //casts as course		    	
+	    
+	    	locationItemView.name.setText(currentLocation.getClient()); //sets the data
 	    }
 	    return rowView;
 	}
 
-    protected static class jobsView
+    protected static class locationsView
     {
         protected TextView name;
-        protected TextView location;
-        protected TextView date;
 
     }
 }

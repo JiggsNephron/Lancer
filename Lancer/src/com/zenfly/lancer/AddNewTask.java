@@ -20,7 +20,6 @@ import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -96,17 +95,12 @@ public class AddNewTask extends FragmentActivity {
 		
 		ListView listView1 = (ListView) alertDialog.findViewById(R.id.locations_list);
 		
-		List<String> locations = new ArrayList<String>();
+		List<Location> locations = new ArrayList<Location>();
 		
 		DatabaseHandler db = new DatabaseHandler(AddNewTask.this);
-		locations = db.getAllLocationStrings();
-		
-		String[] sl = (String[]) locations.toArray(new String[0]);
-		
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, sl);
+		locations = db.getAllLocations();
    
-		listView1.setAdapter(adapter);
+		setListAdapter(new LocationsAdapter(AddNewTask.this, locations));
 
 		// show it
 		alertDialog.show();
