@@ -16,9 +16,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -76,9 +76,9 @@ public class AddNewTask extends FragmentActivity {
     	}
     }
     
-    public void chooseLocation(View v) {
+    // TODO RC: chooseLocation dialog action (this needs to act as a locations listview)
+    public void chooseLocation(View v) {    	
     	
-    	// TODO RC: chooseLocation dialog actions
     	LayoutInflater li = LayoutInflater.from(context);
 		View promptsView = li.inflate(R.layout.activity_locations_list, null);
 		
@@ -94,50 +94,78 @@ public class AddNewTask extends FragmentActivity {
 		
     }
     
-    public void addLocation(View v) {
+    // TODO RC: addLocation needs to save to database
+    public void addLocation(View v) {   	
     	
-    	// TODO RC: addLocation dialog actions
-    	LayoutInflater li = LayoutInflater.from(context);
-		View promptsView = li.inflate(R.layout.activity_add_new_location, null);
-		
-		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-		
-		alertDialogBuilder.setView(promptsView);
-		
-		// create alert dialog
-		AlertDialog alertDialog = alertDialogBuilder.create();
+    	// create new dialog object
+    	final Dialog dialog = new Dialog(AddNewTask.this);
+    	
+    	// set the correct layout for this dialog
+    	dialog.setContentView(R.layout.activity_add_new_location);
+    	dialog.setTitle("Add a new location");    	
 
-		// show it
-		alertDialog.show();
+    	// find the save button
+		Button button = (Button) dialog.findViewById(R.id.saveLocation);
 		
-    }
-    
-    public void saveLocation(View v){
-    	
-    	setContentView(R.layout.activity_add_new_location);
-    	
-    	Intent backToJobsList = new Intent(this, JobsList.class);
-    	
-    	EditText location_nickname  = (EditText)findViewById(R.id.location_name);
-//    	EditText location_address1  = (EditText)findViewById(R.id.address_line1);
-//    	EditText location_address2  = (EditText)findViewById(R.id.address_line2);
-//    	EditText location_address3  = (EditText)findViewById(R.id.address_line3);
-    	
+		
+		
+		// what to do when the button is clicked
+		button.setOnClickListener(new OnClickListener() {
+			// get each EditText field, put the contents to string, and then save these to the locations database
+			public void onClick(View v) {
+				
+				DatabaseHandler db = new DatabaseHandler(AddNewTask.this); 
+				
+		    	EditText location_nickname  = (EditText)dialog.findViewById(R.id.location_name);
+		    	EditText location_address1  = (EditText)dialog.findViewById(R.id.address_line1);
+		    	EditText location_address2  = (EditText)dialog.findViewById(R.id.address_line2);
+		    	EditText location_address3  = (EditText)dialog.findViewById(R.id.address_line3);
+		    	
+		    	String stlocation_nickname = location_nickname.getText().toString();
+		    	String stlocation_address1 = location_address1.getText().toString();
+		    	String stlocation_address2 = location_address2.getText().toString();
+		    	String stlocation_address3 = location_address3.getText().toString();
+		    	
+		    	if(!location_nickname.equals("") && stlocation_address1.equals("") && stlocation_address2.equals("") && stlocation_address3.equals(""))
+		    	{
+			    	// add new location based on user entered data
+		    		db.addLocation(new Location(stlocation_nickname));
+		    		Toast.makeText(getApplicationContext(), "Saved Location: " + stlocation_nickname, Toast.LENGTH_LONG).show();
+		    		dialog.dismiss();
+		    	}
+		    	if(!location_nickname.equals("") && !stlocation_address1.equals("") && stlocation_address2.equals("") && stlocation_address3.equals(""))
+		    	{
+			    	// add new location based on user entered data
+		    		db.addLocation(new Location(stlocation_nickname, stlocation_address1));
+		    		Toast.makeText(getApplicationContext(), "Saved Location: " + stlocation_nickname, Toast.LENGTH_LONG).show();
+		    		dialog.dismiss();
+		    	}  
+		    	if(!location_nickname.equals("") && !stlocation_address1.equals("") && !stlocation_address2.equals("") && stlocation_address3.equals(""))
+		    	{
+			    	// add new location based on user entered data
+		    		db.addLocation(new Location(stlocation_nickname, stlocation_address1, stlocation_address2));
+		    		Toast.makeText(getApplicationContext(), "Saved Location: " + stlocation_nickname, Toast.LENGTH_LONG).show();
+		    		dialog.dismiss();
+		    	}  
+		    	if(!location_nickname.equals("") && !stlocation_address1.equals("") && !stlocation_address2.equals("") && !stlocation_address3.equals(""))
+		    	{
+			    	// add new location based on user entered data
+		    		db.addLocation(new Location(stlocation_nickname, stlocation_address1, stlocation_address2, stlocation_address3));
+		    		Toast.makeText(getApplicationContext(), "Saved Location: " + stlocation_nickname, Toast.LENGTH_LONG).show();
+		    		dialog.dismiss();
+		    	} else if (location_nickname.equals("")) {
+		    		Toast.makeText(getApplicationContext(), "Location Nickname cannot be empty", Toast.LENGTH_LONG).show();		    		
+		    	}
+		    			    	 	
+		    			        
+		     }
+		 });		
+		
+		// show the dialog
+		dialog.show();
 
-    	
-    	String stlocation_nickname = location_nickname.getText().toString();
-    	
-    	    	
-    	if(!location_nickname.equals(""))
-    	{
-	    	// add new location based on user entered data
-    		Toast.makeText(getApplicationContext(), "saved:" + stlocation_nickname, Toast.LENGTH_LONG).show();
-	    	startActivity(backToJobsList);	    	
-    	}    	
-    	
-    	Toast.makeText(getApplicationContext(), " Saved Nothing", Toast.LENGTH_LONG).show();
-    }
-    
+		
+    }   
         
     /** OPTIONS MENU CODE DISABLED FOR NOW
     

@@ -71,13 +71,12 @@
         android:ems="10" />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/saveLocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:onClick="saveLocation"
         android:text="Button" />
 
 </RelativeLayout>
