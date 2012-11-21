@@ -91,7 +91,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
 	        		+ KEY_ADD3 + " TEXT" +
                 ")";
         
-        //execute the statements
+        //execute the statements and create the tables
         db.execSQL(CREATE_JOBS_TABLE);
         db.execSQL(CREATE_TASKS_TABLE);
         db.execSQL(CREATE_NOTES_TABLE);
@@ -133,15 +133,6 @@ public class DatabaseHandler extends SQLiteOpenHelper
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        /*int location, job;
-        Cursor cursor = db.query(TABLE_LOCATIONS, new String[] { KEY_ID }, KEY_LOCATION + "=?",
-                new String[] { task.getLocation()}, null, null, null, null);
-        if (cursor != null) cursor.moveToFirst();
-        location = Integer.parseInt((cursor.getString(0)));
-        cursor = db.query(TABLE_JOBS, new String[] { KEY_ID }, KEY_CLIENT + "=?",
-                new String[] { task.getJob()}, null, null, null, null);
-        if (cursor != null) cursor.moveToFirst();
-        job = Integer.parseInt((cursor.getString(0)));*/
         values.put(KEY_NAME, task.getName());
         values.put(KEY_JOB, task.getJob());
         values.put(KEY_DEADLINE, task.getDeadline());
@@ -279,6 +270,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
         return location;
     }
     
+    //a method that returns a single task
     public Task getTask(int id)
     {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -290,6 +282,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
         return task;
     }
     
+    //methods for getting the task with either the nearest of farthest deadline
     public Task getNearestDeadlineTask()
     {
     	SQLiteDatabase db = this.getReadableDatabase();
@@ -367,16 +360,6 @@ public class DatabaseHandler extends SQLiteOpenHelper
         db.close();
     }
     
-    //deletes all database items linked to a deleted job
-    public void deleteJobAssociates(int job)
-    {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_TASKS, KEY_JOB + " = ?", new String[] { Integer.toString(job) }); //deletes all tasks associated with the job
-        db.delete(TABLE_NOTES, KEY_JOB + " = ?", new String[] { Integer.toString(job) }); //deletes all notes associated with the job
-        db.delete(TABLE_EXPENSES , KEY_JOB + " = ?", new String[] { Integer.toString(job) }); //deletes all expenses associated with the job
-        db.close();
-    }
-    
     public void deleteLocation(int id)
     {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -405,6 +388,17 @@ public class DatabaseHandler extends SQLiteOpenHelper
         db.close();
     }
     
+    //deletes all database items linked to a deleted job
+    public void deleteJobAssociates(int job)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_TASKS, KEY_JOB + " = ?", new String[] { Integer.toString(job) }); //deletes all tasks associated with the job
+        db.delete(TABLE_NOTES, KEY_JOB + " = ?", new String[] { Integer.toString(job) }); //deletes all notes associated with the job
+        db.delete(TABLE_EXPENSES , KEY_JOB + " = ?", new String[] { Integer.toString(job) }); //deletes all expenses associated with the job
+        db.close();
+    }
+    
+    //updates the hours the user has worked on a particular task
     public void setTaskHours(int id, int hours)
     {
     	String selectQuery = "SELECT " + KEY_HOURS_WORKED + " FROM " + TABLE_TASKS + " WHERE " + KEY_ID + "=" + id; //gets the current hours worked
@@ -420,7 +414,8 @@ public class DatabaseHandler extends SQLiteOpenHelper
         }
         db.close();
     }
- 
+
+    //returns all tasks that are marked as done
     public List<Task> getAllDoneTasks()
     {
     	List<Task> taskList = new ArrayList<Task>();
@@ -439,6 +434,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
     	return taskList;
     }
     
+    //returns true or false if a task is done or not
     public boolean getTaskDone(int id)
     {
     	int done;
