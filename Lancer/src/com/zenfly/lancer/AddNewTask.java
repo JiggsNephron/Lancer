@@ -81,33 +81,26 @@ public class AddNewTask extends FragmentActivity {
     // TODO RC: chooseLocation dialog action (this needs to act as a locations listview)
     public void chooseLocation(View v) {    	
     	
-    	LayoutInflater li = LayoutInflater.from(context);
-		View promptsView = li.inflate(R.layout.activity_locations_list, null);
+    	// create new dialog object
+    	final Dialog dialog = new Dialog(AddNewTask.this);
 		
-		
-		
-		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-		
-		alertDialogBuilder.setView(promptsView);
-		
-		// create alert dialog
-		AlertDialog alertDialog = alertDialogBuilder.create();
-		
-		ListView listView1 = (ListView) alertDialog.findViewById(R.id.locations_list);
+    	// set the correct layout for this dialog
+    	dialog.setContentView(R.layout.activity_locations_list);
+    	dialog.setTitle("Choose from a location"); 
 		
 		List<Location> locations = new ArrayList<Location>();
 		
 		DatabaseHandler db = new DatabaseHandler(AddNewTask.this);
 		locations = db.getAllLocations();
    
-		setListAdapter(new LocationsAdapter(AddNewTask.this, locations));
+		//setListAdapter(new LocationsAdapter(AddNewTask.this, locations));
 
 		// show it
-		alertDialog.show();
+		dialog.show();
 		
     }
     
-    // TODO RC: addLocation needs to save to database
+    
     public void addLocation(View v) {   	
     	
     	// create new dialog object
@@ -139,29 +132,7 @@ public class AddNewTask extends FragmentActivity {
 		    	String stlocation_address2 = location_address2.getText().toString();
 		    	String stlocation_address3 = location_address3.getText().toString();
 		    	
-		    	
-		    	if(!stlocation_nickname.equals("") && stlocation_address1.equals("") && stlocation_address2.equals("") && stlocation_address3.equals(""))
-		    	{
-			    	// add new location based on user entered data
-		    		db.addLocation(new Location(stlocation_nickname));
-		    		Toast.makeText(getApplicationContext(), "Saved Location: " + stlocation_nickname, Toast.LENGTH_LONG).show();
-		    		dialog.dismiss();
-		    	}
-		    	if(!stlocation_nickname.equals("") && !stlocation_address1.equals("") && stlocation_address2.equals("") && stlocation_address3.equals(""))
-		    	{
-			    	// add new location based on user entered data
-		    		db.addLocation(new Location(stlocation_nickname, stlocation_address1));
-		    		Toast.makeText(getApplicationContext(), "Saved Location: " + stlocation_nickname, Toast.LENGTH_LONG).show();
-		    		dialog.dismiss();
-		    	}  
-		    	if(!stlocation_nickname.equals("") && !stlocation_address1.equals("") && !stlocation_address2.equals("") && stlocation_address3.equals(""))
-		    	{
-			    	// add new location based on user entered data
-		    		db.addLocation(new Location(stlocation_nickname, stlocation_address1, stlocation_address2));
-		    		Toast.makeText(getApplicationContext(), "Saved Location: " + stlocation_nickname, Toast.LENGTH_LONG).show();
-		    		dialog.dismiss();
-		    	}  
-		    	if(!stlocation_nickname.equals("") && !stlocation_address1.equals("") && !stlocation_address2.equals("") && !stlocation_address3.equals(""))
+		    	if(!stlocation_nickname.equals(""))
 		    	{
 			    	// add new location based on user entered data
 		    		db.addLocation(new Location(stlocation_nickname, stlocation_address1, stlocation_address2, stlocation_address3));
