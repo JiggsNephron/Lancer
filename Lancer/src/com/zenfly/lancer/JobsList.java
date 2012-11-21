@@ -12,6 +12,7 @@ import android.view.Menu;
 //import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class JobsList extends ListActivity {
 	
@@ -25,7 +26,12 @@ public class JobsList extends ListActivity {
         db = new DatabaseHandler(this.getApplicationContext());
         //SMcD: this line isn't actually needed
         //db.getWritableDatabase();
-        
+        if(db.getJobCount() == 0)
+        {
+        	Intent intent = new Intent(JobsList.this, AddNewJob.class);
+        	Toast.makeText(getApplicationContext(), "You have no current jobs. Please add one", Toast.LENGTH_LONG).show();
+        	startActivity(intent);
+        }
         //SMcD: just adding this to see if it grabs jobs from the DB. And it does. Happy days
         List<Job> jobs = db.getAllJobs();//= new ArrayList<Job>(); //makes a list of jobs to send to the list View
         
@@ -41,8 +47,7 @@ public class JobsList extends ListActivity {
     public void addNewJob(View v) {
     	
 
-    	Intent intent = new Intent(JobsList.this, AddNewJob.class);
-    	
+    	Intent intent = new Intent(JobsList.this, AddNewJob.class); 	
     	startActivity(intent);
     	
    }
