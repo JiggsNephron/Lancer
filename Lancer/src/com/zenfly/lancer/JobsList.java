@@ -23,11 +23,11 @@ public class JobsList extends ListActivity {
         setContentView(R.layout.activity_jobs_list);
         
         db = new DatabaseHandler(this.getApplicationContext());
-        db.getWritableDatabase();
+        //SMcD: this line isn't actually needed
+        //db.getWritableDatabase();
         
-        
-        List<Job> jobs = db.getAllJobs();//= new ArrayList<Job>(); //makes a list of jobs to send to the list View
         //SMcD: just adding this to see if it grabs jobs from the DB. And it does. Happy days
+        List<Job> jobs = db.getAllJobs();//= new ArrayList<Job>(); //makes a list of jobs to send to the list View
         
         setListAdapter(new JobsAdapter(this, jobs)); //starts the list View
     }
