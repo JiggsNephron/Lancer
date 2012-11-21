@@ -1,9 +1,10 @@
 package com.zenfly.lancer;
 
-import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
 
 public class JobsOptions extends Activity {
 
@@ -17,6 +18,15 @@ public class JobsOptions extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_jobs_options, menu);
         return true;
+    }
+    
+public void addNewTask(View v) {
+    	
+    	// FIXME RC: FOR SB > Adding this so I can test my view via this button
+    	Intent intent = new Intent(JobsOptions.this, AddNewTask.class);
+    	
+    	startActivity(intent);
+    	
     }
       	
 /*    public void createInvoice()
