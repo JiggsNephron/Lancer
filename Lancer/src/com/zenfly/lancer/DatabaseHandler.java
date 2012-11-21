@@ -437,6 +437,25 @@ public class DatabaseHandler extends SQLiteOpenHelper
     	return taskList;
     }
     
+    
+    public List<Task> getAllTasksForJob(int thisJob)
+    {
+    	List<Task> taskList = new ArrayList<Task>();
+    	String selectQuery = "SELECT * FROM " + TABLE_TASKS + " WHERE " + KEY_JOB + "=" + thisJob; //makes sure we only retrieve finished tasks
+    	SQLiteDatabase db = this.getWritableDatabase();
+    	Cursor cursor = db.rawQuery(selectQuery, null);
+    	if(cursor.moveToFirst()) //makes sure we have results
+    	{
+    		do
+    		{
+    			Task task = new Task(cursor.getString(1), Integer.parseInt(cursor.getString(2)), cursor.getString(3), Integer.parseInt(cursor.getString(4)), Integer.parseInt(cursor.getString(5)), Integer.parseInt(cursor.getString(6)));
+    			taskList.add(task);
+    		}while(cursor.moveToNext());
+    	}
+    	db.close();
+    	return taskList;
+    }
+    
     //returns true or false if a task is done or not
     public boolean getTaskDone(int id)
     {
