@@ -65,6 +65,12 @@ public class JobsAdapter extends ArrayAdapter<Job>
 		    	jobsItemView.date.setText(tempDate);			   //sets the data
 		    	return rowView;
 	    	}
+	    	else
+	    	{
+	    		jobsItemView.location.setText("");
+	    		jobsItemView.date.setText("");
+	    	}
+	    	jobsItemView.name.setText(currentJob.getClient()); //sets the data
 	    }
 	    return rowView;
 	}
