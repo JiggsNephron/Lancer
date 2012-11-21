@@ -52,7 +52,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
         String CREATE_JOBS_TABLE = 
         		"CREATE TABLE " + TABLE_JOBS + 
         		"("
-	                + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_CLIENT + " TEXT" + 
+	                + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_CLIENT + " TEXT UNIQUE" + 
                 ")";
         String CREATE_TASKS_TABLE = 
         		"CREATE TABLE " + TABLE_TASKS + 
@@ -355,8 +355,8 @@ public class DatabaseHandler extends SQLiteOpenHelper
     public void deleteJob(int id)
     {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_JOBS, KEY_ID + " = ?", new String[] { Integer.toString(id) });
-        db.delete(TABLE_TASKS, KEY_JOB + " = ?", new String[] { Integer.toString(id) }); //deletes all tasks associated with the job
+        db.delete(TABLE_JOBS, KEY_ID + " = ?", new String[] { Integer.toString(id) }); //deletes the specified job
+        deleteJobAssociates(id);
         db.close();
     }
     
@@ -364,6 +364,16 @@ public class DatabaseHandler extends SQLiteOpenHelper
     {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_TASKS, KEY_ID + " = ?", new String[] { Integer.toString(id) });
+        db.close();
+    }
+    
+    //deletes all database items linked to a deleted job
+    public void deleteJobAssociates(int job)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_TASKS, KEY_JOB + " = ?", new String[] { Integer.toString(job) }); //deletes all tasks associated with the job
+        db.delete(TABLE_NOTES, KEY_JOB + " = ?", new String[] { Integer.toString(job) }); //deletes all notes associated with the job
+        db.delete(TABLE_EXPENSES , KEY_JOB + " = ?", new String[] { Integer.toString(job) }); //deletes all expenses associated with the job
         db.close();
     }
     
