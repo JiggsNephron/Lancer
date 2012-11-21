@@ -317,6 +317,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
             do
             {
             	Job job = new Job(cursor.getString(1)); //creates a new job for each one returned by the database
+            	job.setId(Integer.parseInt(cursor.getString(0)));
                 jobList.add(job); //adds new job to the list
             } while (cursor.moveToNext()); //loop continues while there are results
         }
