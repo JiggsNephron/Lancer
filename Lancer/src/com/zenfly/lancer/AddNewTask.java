@@ -85,6 +85,8 @@ public class AddNewTask extends FragmentActivity {
     	Intent show_locations = new Intent(this, LocationsList.class);
     	startActivity(show_locations);
     	
+    	// TODO RC: send the already filled data via addExtra and then receive the location thats been chosen
+    	
 //    	LayoutInflater li = LayoutInflater.from(context);
 //		View promptsView = li.inflate(R.layout.activity_locations_list, null);		
 //		
