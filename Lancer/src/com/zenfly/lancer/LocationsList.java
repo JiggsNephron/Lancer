@@ -93,7 +93,7 @@ public class LocationsList extends ListActivity {
 	{	 
 	  	Intent intent = new Intent(LocationsList.this, AddNewTask.class);
 	  	String locationId = locations.get(position).getLocation();
-	  	intent.putExtra("location", locationId); //sends the job id
+	  	intent.putExtra("location", locationId);
 	    startActivity(intent);
 	}
 
