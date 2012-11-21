@@ -14,6 +14,7 @@ public class TaskAdapter extends ArrayAdapter<Task> {
 
 	  private final Activity activity;
 	  private final List<Task> taskObject;
+	  public DatabaseHandler db;
 	
 	public TaskAdapter(Activity activity, List<Task> objects) 
 	{
@@ -44,13 +45,12 @@ public class TaskAdapter extends ArrayAdapter<Task> {
 	    	Task currentTask = (Task) taskObject.get(position); //casts as course
 	
 	    	taskItemView.name.setText(currentTask.getName()); //sets the data
-	    	boolean isTicked = getTaskDone(id);
+	    	
+	    	boolean isTicked = db.getTaskDone(position);
 	    	//jobsItemView.checkBox.setText(currentJob.getLocation());
 	    	if(isTicked == true)
 	    	{
 	    		CheckBox checkBox = (CheckBox)convertView.findViewById(R.id.taskCheckBox);
-	    		//checkBox;
-	    		//jobsItemView.
 	    		checkBox.setChecked(!checkBox.isChecked());
 	    	}
 	    	
