@@ -8,7 +8,7 @@ public class Location
 	private String add2;
 	private String add3;
 	
-	public Location(String location)
+	/*public Location(String location)
 	{
 		this.location = location;
 	}
@@ -25,13 +25,18 @@ public class Location
 		this.add1 = add1;
 		this.add2 = add2;
 	}
-	
+	*/
 	public Location(String location, String add1, String add2, String add3)
 	{
 		this.location = location;
 		this.add1 = add1;
 		this.add2 = add2;
 		this.add3 = add3;
+	}
+	
+	public int getId()
+	{
+		return id;
 	}
 	
 	public String getLocation()
@@ -52,6 +57,11 @@ public class Location
 	public String getAdd3()
 	{
 		return add3;
+	}
+	
+	public void setId(int id)
+	{
+		this.id = id;
 	}
 	
 	public void setLocation(String location)
