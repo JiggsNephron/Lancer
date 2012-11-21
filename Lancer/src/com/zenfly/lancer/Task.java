@@ -9,27 +9,14 @@ public class Task
 	private String deadline;
 	private int hoursWorked;
 	private int hourlyWage;
-	
-	/*public Task(String name, int job)
-	{
-		this.name = name;
-		this.job = job;
-	}
-	
-	public Task(String name, int job, String info, int choice)
-	{
-		this.name = name;
-		this.job = job;
-		if(choice == 0) this.location = info;
-		else this.deadline = info;
-	}*/
-	
+
 	public Task(String name, int job, String deadline, int location, int wage, int hours)
 	{
 		this.name = name;
 		this.job = job;
 		this.deadline = deadline;
 		this.location = location;
+		this.hourlyWage = wage;
 		this.hoursWorked = hours;
 	}
 	
