@@ -75,9 +75,10 @@ public class LocationsList extends ListActivity {
 		    	if(!stlocation_nickname.equals(""))
 		    	{
 			    	// add new location based on user entered data
+		    		Intent added_a_task_done = new Intent(LocationsList.this, LocationsList.class);
 		    		db.addLocation(new Location(stlocation_nickname, stlocation_address1, stlocation_address2, stlocation_address3));
 		    		Toast.makeText(getApplicationContext(), "Saved Location: " + stlocation_nickname, Toast.LENGTH_LONG).show();
-		    		dialog.dismiss();
+		    		startActivity(added_a_task_done);
 		    	} else if (stlocation_nickname.equals("")) {
 		    		Toast.makeText(getApplicationContext(), "Location Nickname cannot be empty", Toast.LENGTH_LONG).show();		    		
 		    	}		        
