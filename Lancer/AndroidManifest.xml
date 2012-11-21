@@ -52,6 +52,7 @@
         </activity>
         <activity
             android:name="com.zenfly.lancer.LocationsList"
+            android:theme="@android:style/Theme.Dialog"
             android:label="@string/title_activity_locations_list"
             android:screenOrientation="portrait" >
         </activity>
