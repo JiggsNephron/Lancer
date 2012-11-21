@@ -5,16 +5,10 @@
 
 package com.zenfly.lancer;
 
-import com.zenfly.lancer.AddNewTask.SelectDateFragment;
-
-import android.os.Bundle;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.support.v4.app.DialogFragment;
-import android.view.LayoutInflater;
+import android.os.Bundle;
 import android.view.Menu;
-import android.view.View;
 
 public class LocationsList extends Activity {
 

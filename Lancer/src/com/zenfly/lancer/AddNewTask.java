@@ -6,22 +6,25 @@
 
 package com.zenfly.lancer;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
 
 public class AddNewTask extends FragmentActivity {
@@ -82,12 +85,28 @@ public class AddNewTask extends FragmentActivity {
     	LayoutInflater li = LayoutInflater.from(context);
 		View promptsView = li.inflate(R.layout.activity_locations_list, null);
 		
+		
+		
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
 		
 		alertDialogBuilder.setView(promptsView);
 		
 		// create alert dialog
 		AlertDialog alertDialog = alertDialogBuilder.create();
+		
+		ListView listView1 = (ListView) alertDialog.findViewById(R.id.locations_list);
+		
+		List<String> locations = new ArrayList<String>();
+		
+		DatabaseHandler db = new DatabaseHandler(AddNewTask.this);
+		locations = db.getAllLocationStrings();
+		
+		String[] sl = (String[]) locations.toArray(new String[0]);
+		
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, sl);
+   
+		listView1.setAdapter(adapter);
 
 		// show it
 		alertDialog.show();
