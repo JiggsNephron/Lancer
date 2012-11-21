@@ -1,5 +1,5 @@
 /**
- * Authors: Richard Cody,
+ * Authors: Richard Cody (main), Simon McDonnell (edits)
  * 
  */
 
