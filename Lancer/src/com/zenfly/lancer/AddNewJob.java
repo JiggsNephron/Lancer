@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 import android.support.v4.app.NavUtils;
 
 public class AddNewJob extends Activity {
@@ -36,13 +37,14 @@ public class AddNewJob extends Activity {
     	String stjobName = jobName.getText().toString();
     	stjobName = stjobName.trim(); // removes spaces on the ends of the string
     	
-    	if((stjobName != "") && (stjobName != null) )
+    	if(!(stjobName.equals("")) && (stjobName != null) )
     	{
 	    	// add new job based on user entered data    		
 	    	db.addJob(new Job(stjobName));
 	    	
 	    	startActivity(backToJobsList);
     	}
+    	else Toast.makeText(getApplicationContext(), "You must provide a name for your job", Toast.LENGTH_LONG).show();
     	
     }    
     
