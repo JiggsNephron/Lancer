@@ -37,7 +37,7 @@ public class AddNewJob extends Activity {
     	String stjobName = jobName.getText().toString();
     	stjobName = stjobName.trim(); // removes spaces on the ends of the string
     	
-    	if(!(stjobName.equals("")) || (stjobName != null) )
+    	if(!stjobName.equals(""))
     	{
 	    	// add new job based on user entered data    		
 	    	db.addJob(new Job(stjobName));
