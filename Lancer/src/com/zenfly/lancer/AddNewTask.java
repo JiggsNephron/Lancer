@@ -55,12 +55,14 @@ public class AddNewTask extends FragmentActivity {
     public void selectDate(View v) {
     	DialogFragment newFragment = new SelectDateFragment();
     	newFragment.show(getSupportFragmentManager(), "DatePicker");
-    	}
+    }
+    
     // Used to populate the deadline EditText with the chosen date
     public void populateSetDate(int year, int month, int day) {
-    		// FIXME RC: FOR SK > change here to show something else on the deadline EditText view when date chosen
-    	 	add_deadline.setText(day+"/"+month+"/"+year);
-    	}    
+    	// FIXME RC: FOR SK > change here to show something else on the deadline EditText view when date chosen
+    	 add_deadline.setText(year+"/"+month+"/"+day);
+    } 
+    
     // Extends DialogFragment to show a date picker dialog to the user
     public class SelectDateFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
     	@Override
