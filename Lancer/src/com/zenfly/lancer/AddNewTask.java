@@ -81,22 +81,25 @@ public class AddNewTask extends FragmentActivity {
     // TODO RC: chooseLocation dialog action (this needs to act as a locations listview)
     public void chooseLocation(View v) {    	
     	
-    	// create new dialog object
-    	final Dialog dialog = new Dialog(AddNewTask.this);
+    	LayoutInflater li = LayoutInflater.from(context);
+		View promptsView = li.inflate(R.layout.activity_locations_list, null);		
 		
-    	// set the correct layout for this dialog
-    	dialog.setContentView(R.layout.activity_locations_list);
-    	dialog.setTitle("Choose from a location"); 
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+		
+		alertDialogBuilder.setView(promptsView);
+		
+		// create alert dialog
+		AlertDialog alertDialog = alertDialogBuilder.create();
 		
 		List<Location> locations = new ArrayList<Location>();
 		
 		DatabaseHandler db = new DatabaseHandler(AddNewTask.this);
 		locations = db.getAllLocations();
    
-		//setListAdapter(new LocationsAdapter(AddNewTask.this, locations));
+		setListAdapter(new LocationsAdapter(AddNewTask.this, locations));
 
 		// show it
-		dialog.show();
+		alertDialog.show();
 		
     }
     
