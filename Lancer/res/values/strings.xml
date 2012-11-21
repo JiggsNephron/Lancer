@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <string name="app_name">Lancer</string>
@@ -36,5 +37,8 @@
     <string name="jobs">Jobs</string>
     <string name="arrow">></string>
     <string name="job_name">Job Name</string>
+    <string name="title_activity_view_task">ViewTask</string>
+    <string name="title_activity_view_expenses">ViewExpenses</string>
+    <string name="title_activity_view_notes">ViewNotes</string>
 
 </resources>
