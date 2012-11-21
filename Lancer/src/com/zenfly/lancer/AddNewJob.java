@@ -22,7 +22,7 @@ public class AddNewJob extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_job);    	
-    	
+    	 
     }
     
     public void saveJob(View v) {
