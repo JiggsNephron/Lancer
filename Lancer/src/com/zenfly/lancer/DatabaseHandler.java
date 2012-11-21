@@ -7,6 +7,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class DatabaseHandler extends SQLiteOpenHelper 
 {
@@ -115,7 +116,8 @@ public class DatabaseHandler extends SQLiteOpenHelper
     //methods for adding objects to the databases
     public void addJob(Job job)
     {
-        SQLiteDatabase db = this.getWritableDatabase();
+        Log.v("Name is: ", job.getClient());
+    	SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_CLIENT, job.getClient());
         try
@@ -472,10 +474,12 @@ public class DatabaseHandler extends SQLiteOpenHelper
     
     public int getJobTaskCount(int job)
     {
-        String countQuery = "SELECT  * FROM " + TABLE_TASKS + " WHERE " + KEY_JOB + "=" + job;
+        Log.v("Count", "This way");
+    	String countQuery = "SELECT  * FROM " + TABLE_TASKS + " WHERE " + KEY_JOB + "=" + job;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(countQuery, null);
         int count = cursor.getCount();
+        Log.v("Count", count+"");
         cursor.close();
         return count;
     }

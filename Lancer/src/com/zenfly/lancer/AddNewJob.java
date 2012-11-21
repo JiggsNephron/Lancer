@@ -9,6 +9,7 @@ package com.zenfly.lancer;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -41,7 +42,7 @@ public class AddNewJob extends Activity {
     	{
 	    	// add new job based on user entered data    		
 	    	db.addJob(new Job(stjobName));
-	    	
+	    	Log.v("Name:", stjobName);
 	    	startActivity(backToJobsList);
     	}
     	else Toast.makeText(getApplicationContext(), "You must provide a name for your job", Toast.LENGTH_LONG).show();

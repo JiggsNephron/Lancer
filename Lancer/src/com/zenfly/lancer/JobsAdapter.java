@@ -23,6 +23,7 @@ public class JobsAdapter extends ArrayAdapter<Job>
         super(activity, R.layout.activity_jobs_list , objects);
         this.activity = activity;
         this.jobsObject = objects;
+        db = new DatabaseHandler(this.getContext());
 	} 
 
 	@Override
@@ -48,24 +49,23 @@ public class JobsAdapter extends ArrayAdapter<Job>
 	    	Job currentJob = (Job) jobsObject.get(position); //casts as course
 	    	
 	    	
-	    	if(db.getJobTaskCount(position) != 0)
+	    	if(db.getJobTaskCount(currentJob.getId()) != 0)
 	    	{
 		    	Task tempTask = db.getNearestDeadlineTask();
 		    	
 		    	int tempLocation = tempTask.getLocation();// finds the location in the data base we are looking for
-		    	Location a  = db.getLocation(tempLocation); // extracts the location from the database
-		    	String b = a.getLocation(); // puts the location into a string
+		    	//Location a  = db.getLocation(tempLocation); // extracts the location from the database
+		    	String b = "Yo";//a.getLocation(); // puts the location into a string
 		    	
 		    	String tempDate = tempTask.getDeadline();// just returns the raw date string
 		    	
 		    	
-		    	jobsItemView.name.setText(currentJob.getClient()); //sets the data
+		    	jobsItemView.name.setText("Test");//currentJob.getClient()); //sets the data
 		    	jobsItemView.location.setText(b);				   //sets the data
 		    	jobsItemView.date.setText(tempDate);			   //sets the data
+		    	return rowView;
 	    	}
-
 	    }
-	
 	    return rowView;
 	}
 
