@@ -4,7 +4,7 @@
     android:layout_height="match_parent" >
 
     <TextView
-        android:id="@+id/location__name_title"
+        android:id="@+id/location_name_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -12,11 +12,11 @@
         android:text="@string/location_name_title" />
 
     <EditText
-        android:id="@+id/location__name"
+        android:id="@+id/location_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/location__name_title"
+        android:layout_below="@+id/location_name_title"
         android:ems="10" >
 
         <requestFocus />
@@ -27,7 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/location__name"
+        android:layout_below="@+id/location_name"
         android:text="@string/location_address1" />
 
     <EditText
@@ -77,6 +77,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
+        android:onClick="saveLocation"
         android:text="Button" />
 
 </RelativeLayout>
