@@ -44,21 +44,18 @@ public class TasksList extends ListActivity {
         return true;
     }
     
-    public void addNewJob(View v) {
-    	
-
-    	Intent intent = new Intent(TasksList.this, AddNewJob.class); 	
-    	startActivity(intent);
-    	
+    public void addNewTask(View v) {
+       	Intent intent = new Intent(TasksList.this, AddNewTask.class); 	
+    	startActivity(intent);	
    }
     
     
 	@Override
 	  public void onListItemClick(ListView parent, View v, int position, long id)
 	  {	 
-	  	Intent intent = new Intent(TasksList.this, JobsOptions.class);
-	  	int jobId = task.get(position).getId();
-	  	intent.putExtra("task", jobId); //sends the job name
+	  	Intent intent = new Intent(TasksList.this, ViewTask.class);
+	  	int taskId = task.get(position).getId();
+	  	intent.putExtra("task", taskId); //sends the job name
 	    startActivity(intent);
 	  }
 	
