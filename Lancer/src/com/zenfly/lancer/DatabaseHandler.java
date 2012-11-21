@@ -408,10 +408,10 @@ public class DatabaseHandler extends SQLiteOpenHelper
     public List<Task> getAllDoneTasks()
     {
     	List<Task> taskList = new ArrayList<Task>();
-    	String selectQuery = "SELECT * FROM " + TABLE_TASKS + " WHERE " + KEY_DONE + "=" + 1;
+    	String selectQuery = "SELECT * FROM " + TABLE_TASKS + " WHERE " + KEY_DONE + "=" + 1; //makes sure we only retrieve finished tasks
     	SQLiteDatabase db = this.getWritableDatabase();
     	Cursor cursor = db.rawQuery(selectQuery, null);
-    	if(cursor.moveToFirst())
+    	if(cursor.moveToFirst()) //makes sure we have results
     	{
     		do
     		{
@@ -426,16 +426,18 @@ public class DatabaseHandler extends SQLiteOpenHelper
     public boolean getTaskDone(int id)
     {
     	int done;
-    	String selectQuery = "SELECT " + KEY_DONE + " FROM " + TABLE_TASKS + " WHERE " + KEY_ID + "=" + id;
+    	String selectQuery = "SELECT " + KEY_DONE + " FROM " + TABLE_TASKS + " WHERE " + KEY_ID + "=" + id; //retrieves the done field from the tasks table
     	SQLiteDatabase db = this.getWritableDatabase();
     	Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor != null) cursor.moveToFirst();
-        done = Integer.parseInt(cursor.getString(0));
+        done = Integer.parseInt(cursor.getString(0)); //assigns the value of the field to a variable
         db.close();
+        //depending on if the task is set to done (1) or not done (0), we return true or false
         if(done == 0) return false;
         else return true;
     }
     
+    //sets a task as done (1) or not done (0)
     public void setTaskDone(int id, int done)
     {
     	SQLiteDatabase db = this.getWritableDatabase();

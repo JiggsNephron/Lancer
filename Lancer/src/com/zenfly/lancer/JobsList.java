@@ -26,7 +26,8 @@ public class JobsList extends ListActivity {
         db.getWritableDatabase();
         
         
-        List<Job> jobs = new ArrayList<Job>(); //makes a list of jobs to send to the list View
+        List<Job> jobs = db.getAllJobs();//= new ArrayList<Job>(); //makes a list of jobs to send to the list View
+        //SMcD: just adding this to see if it grabs jobs from the DB. And it does. Happy days
         
         setListAdapter(new JobsAdapter(this, jobs)); //starts the list View
     }
