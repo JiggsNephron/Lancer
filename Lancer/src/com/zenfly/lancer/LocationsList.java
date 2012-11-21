@@ -1,3 +1,8 @@
+/**
+ * Authors: Richard Cody,
+ * 
+ */
+
 package com.zenfly.lancer;
 
 import com.zenfly.lancer.AddNewTask.SelectDateFragment;
