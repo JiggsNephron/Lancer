@@ -22,20 +22,15 @@ public class JobsList extends ListActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_jobs_list);
-        
-        db = new DatabaseHandler(this.getApplicationContext());
-        //SMcD: this line isn't actually needed
-        //db.getWritableDatabase();
+        setContentView(R.layout.activity_jobs_list);     
+        db = new DatabaseHandler(this.getApplicationContext());;
         if(db.getJobCount() == 0)
         {
         	Intent intent = new Intent(JobsList.this, AddNewJob.class);
         	Toast.makeText(getApplicationContext(), "You have no current jobs. Please add one", Toast.LENGTH_LONG).show();
         	startActivity(intent);
         }
-        //SMcD: just adding this to see if it grabs jobs from the DB. And it does. Happy days
-        jobs = db.getAllJobs();//= new ArrayList<Job>(); //makes a list of jobs to send to the list View
-        
+        jobs = db.getAllJobs();       
         setListAdapter(new JobsAdapter(this, jobs)); //starts the list View
     }
 
@@ -52,7 +47,6 @@ public class JobsList extends ListActivity {
     	startActivity(intent);
     	
    }
-    
     
 	@Override
 	  public void onListItemClick(ListView parent, View v, int position, long id)
