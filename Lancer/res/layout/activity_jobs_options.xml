@@ -24,6 +24,7 @@
         android:textColor="@color/lancer_blue"
         android:textSize="30dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
+        android:clickable="true"
         android:onClick="viewTasks" />
 
     
@@ -51,6 +52,7 @@
         android:textColor="@color/lancer_blue"
         android:textSize="30dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
+        android:clickable="true"
         android:onClick="" />
 
     
@@ -78,6 +80,7 @@
         android:textColor="@color/lancer_blue"
         android:textSize="30dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
+        android:clickable="true"
         android:onClick="" />
     
     <Button

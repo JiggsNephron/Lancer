@@ -7,13 +7,14 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
 
-public class JobsOptions extends Activity {
+public class JobsOptions extends Activity  {
 
 	DatabaseHandler db;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jobs_options);
+        
         db = new DatabaseHandler(this.getApplicationContext());
         int id = getIntent().getExtras().getInt("job");
         Job job = db.getJob(id);
@@ -26,6 +27,9 @@ public class JobsOptions extends Activity {
         getMenuInflater().inflate(R.menu.activity_jobs_options, menu);
         return true;
     }
+    
+    
+    
     
 public void addNewTask(View v) {
     	
@@ -42,13 +46,13 @@ public void addNewTask(View v) {
     	startActivity(createIncoice);
     }//*/
     	
-    public void viewTasks()
+    public void viewTasks(View v)
     {
     	Intent viewTasks = new Intent(JobsOptions.this, TasksList.class);
     	startActivity(viewTasks); 
     }
     
-    public void viewExpences()
+    public void viewExpences(View v)
     {
     	Intent viewExpences = new Intent(JobsOptions.this, ExpensesList .class);
     	startActivity(viewExpences);
