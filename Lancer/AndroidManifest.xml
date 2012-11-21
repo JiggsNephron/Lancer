@@ -10,9 +10,11 @@
     <application
         android:icon="@drawable/app_icon"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme"
+         >
         <activity
             android:name=".JobsList"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_jobs_list" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,10 +24,12 @@
         </activity>
         <activity
             android:name=".JobsOptions"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_jobs_options" >
         </activity>
         <activity
             android:name="com.zenfly.lancer.AddNewJob"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_add_new_job" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -33,22 +37,27 @@
         </activity>
         <activity
             android:name=".AddNewTask"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_add_new_task" >
         </activity>
         <activity
             android:name=".ExpensesList"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_expences_list" >
         </activity>
         <activity
             android:name=".TasksList"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_tasks_list" >
         </activity>
         <activity
             android:name=".LocationsList"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_locations_list" >
         </activity>
         <activity
             android:name=".AddNewLocation"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_add_new_location" >
         </activity>
     </application>
