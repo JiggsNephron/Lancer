@@ -1,5 +1,5 @@
 /**
- * Author: Richard Cody 
+ * Authors: Richard Cody,
  * 
  */
 
