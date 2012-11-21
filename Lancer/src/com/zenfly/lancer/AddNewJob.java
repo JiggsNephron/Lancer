@@ -34,11 +34,15 @@ public class AddNewJob extends Activity {
         
         // get the data from each element and store it
     	String stjobName = jobName.getText().toString();
+    	stjobName = stjobName.trim(); // removes spaces on the ends of the string
     	
-    	// add new job based on user entered data    		
-    	db.addJob(new Job(stjobName));
-    	
-    	startActivity(backToJobsList);
+    	if((stjobName != "") && (stjobName != null) )
+    	{
+	    	// add new job based on user entered data    		
+	    	db.addJob(new Job(stjobName));
+	    	
+	    	startActivity(backToJobsList);
+    	}
     	
     }    
     
