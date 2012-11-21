@@ -27,24 +27,13 @@ public class JobsOptions extends Activity  {
         getMenuInflater().inflate(R.menu.activity_jobs_options, menu);
         return true;
     }
-    
-    
-    
-    
-public void addNewTask(View v) {
-    	
-    	// FIXME RC: FOR SB > Adding this so I can test my view via this button
-    	Intent intent = new Intent(JobsOptions.this, AddNewTask.class);
-    	
-    	startActivity(intent);
-    	
-    }
       	
-/*    public void createInvoice()
+	public void createInvoice(View v)
     {
-    	Intent createIncoice = new Intent(JobsOptions.this, CreateInvoice.class);
+		// FIXME RC: FOR SB > Adding this so I can test my view via this button
+    	Intent createIncoice = new Intent(JobsOptions.this, AddNewTask.class);
     	startActivity(createIncoice);
-    }//*/
+    }
     	
     public void viewTasks(View v)
     {
