@@ -46,7 +46,7 @@ public class LocationsAdapter extends ArrayAdapter<Location>
 	    {
 	    	Location currentLocation = (Location) locationsObject.get(position); //casts as course		    	
 	    
-	    	locationItemView.name.setText(currentLocation.getClient()); //sets the data
+	    	locationItemView.name.setText(currentLocation.getLocation()); //sets the data
 	    }
 	    return rowView;
 	}
