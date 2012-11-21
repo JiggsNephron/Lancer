@@ -54,4 +54,9 @@ public class Task
 	{
 		return hoursWorked;
 	}
+	
+	public void setId(int id)
+	{
+		this.id = id;
+	}
 }
