@@ -7,7 +7,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 public class DatabaseHandler extends SQLiteOpenHelper 
 {
@@ -38,6 +37,8 @@ public class DatabaseHandler extends SQLiteOpenHelper
     private static final String KEY_BODY = "body";
 	private static final String KEY_ID = "id";
 	private static final String KEY_DONE = "done";
+	private static final String KEY_HOURLY_WAGE = "hourlyWage";
+	private static final String KEY_HOURS_WORKED = "hoursWorked";
     
 	public DatabaseHandler(Context context)
 	{
@@ -51,7 +52,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
         String CREATE_JOBS_TABLE = 
         		"CREATE TABLE " + TABLE_JOBS + 
         		"("
-	                + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_CLIENT + " TEXT" + 
+	                + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_CLIENT + " TEXT UNIQUE" + 
                 ")";
         String CREATE_TASKS_TABLE = 
         		"CREATE TABLE " + TABLE_TASKS + 
@@ -59,7 +60,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
 	                + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_NAME 
 	                + " TEXT," + KEY_JOB + " INTEGER," 
 	                + KEY_DEADLINE + " TEXT," + KEY_LOCATION + " INTEGER, " +
-	                KEY_DONE + " INTEGER" +
+	                KEY_DONE + " INTEGER, " + KEY_HOURLY_WAGE + " INTEGER, " + KEY_HOURS_WORKED + " INTEGER" +
                 ")";
         String CREATE_NOTES_TABLE = 
         		"CREATE TABLE " + TABLE_NOTES + 
@@ -90,7 +91,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
 	        		+ KEY_ADD3 + " TEXT" +
                 ")";
         
-        //execute the statements
+        //execute the statements and create the tables
         db.execSQL(CREATE_JOBS_TABLE);
         db.execSQL(CREATE_TASKS_TABLE);
         db.execSQL(CREATE_NOTES_TABLE);
@@ -132,19 +133,12 @@ public class DatabaseHandler extends SQLiteOpenHelper
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        /*int location, job;
-        Cursor cursor = db.query(TABLE_LOCATIONS, new String[] { KEY_ID }, KEY_LOCATION + "=?",
-                new String[] { task.getLocation()}, null, null, null, null);
-        if (cursor != null) cursor.moveToFirst();
-        location = Integer.parseInt((cursor.getString(0)));
-        cursor = db.query(TABLE_JOBS, new String[] { KEY_ID }, KEY_CLIENT + "=?",
-                new String[] { task.getJob()}, null, null, null, null);
-        if (cursor != null) cursor.moveToFirst();
-        job = Integer.parseInt((cursor.getString(0)));*/
         values.put(KEY_NAME, task.getName());
         values.put(KEY_JOB, task.getJob());
         values.put(KEY_DEADLINE, task.getDeadline());
         values.put(KEY_LOCATION, task.getLocation());
+        values.put(KEY_HOURLY_WAGE, task.getWage());
+        values.put(KEY_HOURS_WORKED, task.getHoursWorked());
         try
         {
         	db.insertOrThrow(TABLE_TASKS, null, values);
@@ -253,34 +247,61 @@ public class DatabaseHandler extends SQLiteOpenHelper
     }
  
     //a method that returns a single job
-    Job getJob(int id)
+    public Job getJob(int id)
     {
         SQLiteDatabase db = this.getReadableDatabase();
         String selectQuery = "SELECT * FROM " + TABLE_JOBS + " WHERE " + KEY_ID + "=" + id;
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor != null) cursor.moveToFirst();
         Job job = new Job(cursor.getString(1));
+        db.close();
         return job;
     }
     
     //a method that returns a single location
-    Location getLocation(int id)
+    public Location getLocation(int id)
     {
         SQLiteDatabase db = this.getReadableDatabase();
-        String selectQuery = "SELECT * FROM " + TABLE_LOCATIONS;
+        String selectQuery = "SELECT * FROM " + TABLE_LOCATIONS + " WHERE " + KEY_ID + "=" + id;
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor != null) cursor.moveToFirst();
         Location location = new Location(cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4));
+        db.close();
         return location;
     }
     
-    Task getTask(int id)
+    //a method that returns a single task
+    public Task getTask(int id)
     {
         SQLiteDatabase db = this.getReadableDatabase();
-        String selectQuery = "SELECT * FROM " + TABLE_TASKS;
+        String selectQuery = "SELECT * FROM " + TABLE_TASKS + " WHERE " + KEY_ID + "=" + id;
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor != null) cursor.moveToFirst();
-        Task task = new Task(cursor.getString(1), Integer.parseInt(cursor.getString(2)), cursor.getString(3), Integer.parseInt(cursor.getString(4)));
+        Task task = new Task(cursor.getString(1), Integer.parseInt(cursor.getString(2)), cursor.getString(3), Integer.parseInt(cursor.getString(4)), Integer.parseInt(cursor.getString(5)), Integer.parseInt(cursor.getString(6)));
+        db.close();
+        return task;
+    }
+    
+    //methods for getting the task with either the nearest of farthest deadline
+    public Task getNearestDeadlineTask()
+    {
+    	SQLiteDatabase db = this.getReadableDatabase();
+        String selectQuery = "SELECT * FROM " + TABLE_TASKS + " ORDER BY " + KEY_DEADLINE + " ASC";
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor != null) cursor.moveToFirst();
+        Task task = new Task(cursor.getString(1), Integer.parseInt(cursor.getString(2)), cursor.getString(3), Integer.parseInt(cursor.getString(4)), Integer.parseInt(cursor.getString(5)), Integer.parseInt(cursor.getString(6)));
+        db.close();
+        return task;
+    }
+    
+    public Task getFarthestDeadlineTask()
+    {
+    	SQLiteDatabase db = this.getReadableDatabase();
+        String selectQuery = "SELECT * FROM " + TABLE_TASKS + " ORDER BY " + KEY_DEADLINE + " DESC";
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor != null) cursor.moveToFirst();
+        Task task = new Task(cursor.getString(1), Integer.parseInt(cursor.getString(2)), cursor.getString(3), Integer.parseInt(cursor.getString(4)), Integer.parseInt(cursor.getString(5)), Integer.parseInt(cursor.getString(6)));
+        db.close();
         return task;
     }
  
@@ -295,10 +316,11 @@ public class DatabaseHandler extends SQLiteOpenHelper
         {
             do
             {
-            	Job job = new Job(cursor.getString(1));
-                jobList.add(job);
-            } while (cursor.moveToNext());
+            	Job job = new Job(cursor.getString(1)); //creates a new job for each one returned by the database
+                jobList.add(job); //adds new job to the list
+            } while (cursor.moveToNext()); //loop continues while there are results
         }
+        db.close();
         return jobList;
     }
  
@@ -318,48 +340,116 @@ public class DatabaseHandler extends SQLiteOpenHelper
         {
         	success = false; //in case the job conflicts with an already present job
         }
-               
+        db.close();
         return success;
     }
 
-    //a method to delete a specified job
+    //methods to delete specified database items (such as a job, a task, a location, etc)
     public void deleteJob(int id)
     {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_JOBS, KEY_ID + " = ?",
-                new String[] { Integer.toString(id) });
+        db.delete(TABLE_JOBS, KEY_ID + " = ?", new String[] { Integer.toString(id) }); //deletes the specified job
+        deleteJobAssociates(id);
         db.close();
     }
- 
+    
+    public void deleteTask(int id)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_TASKS, KEY_ID + " = ?", new String[] { Integer.toString(id) });
+        db.close();
+    }
+    
+    public void deleteLocation(int id)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_LOCATIONS, KEY_ID + " = ?", new String[] { Integer.toString(id) });
+        db.close();
+    }
+    
+    public void deleteNote(int id)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_NOTES, KEY_ID + " = ?", new String[] { Integer.toString(id) });
+        db.close();
+    }
+    
+    public void deleteItem(int id)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_ITEMS, KEY_ID + " = ?", new String[] { Integer.toString(id) });
+        db.close();
+    }
+    
+    public void deleteExpense(int id)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_EXPENSES, KEY_ID + " = ?", new String[] { Integer.toString(id) });
+        db.close();
+    }
+    
+    //deletes all database items linked to a deleted job
+    public void deleteJobAssociates(int job)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_TASKS, KEY_JOB + " = ?", new String[] { Integer.toString(job) }); //deletes all tasks associated with the job
+        db.delete(TABLE_NOTES, KEY_JOB + " = ?", new String[] { Integer.toString(job) }); //deletes all notes associated with the job
+        db.delete(TABLE_EXPENSES , KEY_JOB + " = ?", new String[] { Integer.toString(job) }); //deletes all expenses associated with the job
+        db.close();
+    }
+    
+    //updates the hours the user has worked on a particular task
+    public void setTaskHours(int id, int hours)
+    {
+    	String selectQuery = "SELECT " + KEY_HOURS_WORKED + " FROM " + TABLE_TASKS + " WHERE " + KEY_ID + "=" + id; //gets the current hours worked
+    	SQLiteDatabase db = this.getWritableDatabase();
+    	ContentValues values = new ContentValues();
+    	Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor != null)
+        {	
+        	cursor.moveToFirst();
+	        hours += Integer.parseInt(cursor.getString(0)); //adds the new hours worked to the old hours worked
+	        values.put(KEY_HOURS_WORKED, hours);
+	        db.update(TABLE_TASKS, values, KEY_ID + "=?", new String[] {Integer.toString(id)}); //updates the table with the new value for hours worked
+        }
+        db.close();
+    }
+
+    //returns all tasks that are marked as done
     public List<Task> getAllDoneTasks()
     {
     	List<Task> taskList = new ArrayList<Task>();
-    	String selectQuery = "SELECT * FROM " + TABLE_TASKS + " WHERE " + KEY_DONE + "=" + 1;
+    	String selectQuery = "SELECT * FROM " + TABLE_TASKS + " WHERE " + KEY_DONE + "=" + 1; //makes sure we only retrieve finished tasks
     	SQLiteDatabase db = this.getWritableDatabase();
     	Cursor cursor = db.rawQuery(selectQuery, null);
-    	if(cursor.moveToFirst())
+    	if(cursor.moveToFirst()) //makes sure we have results
     	{
     		do
     		{
-    			Task task = new Task(cursor.getString(1), Integer.parseInt(cursor.getString(2)), cursor.getString(3), Integer.parseInt(cursor.getString(4)));
+    			Task task = new Task(cursor.getString(1), Integer.parseInt(cursor.getString(2)), cursor.getString(3), Integer.parseInt(cursor.getString(4)), Integer.parseInt(cursor.getString(5)), Integer.parseInt(cursor.getString(6)));
     			taskList.add(task);
     		}while(cursor.moveToNext());
     	}
+    	db.close();
     	return taskList;
     }
     
+    //returns true or false if a task is done or not
     public boolean getTaskDone(int id)
     {
     	int done;
-    	String selectQuery = "SELECT " + KEY_DONE + " FROM " + TABLE_TASKS + " WHERE " + KEY_ID + "=" + id;
+    	String selectQuery = "SELECT " + KEY_DONE + " FROM " + TABLE_TASKS + " WHERE " + KEY_ID + "=" + id; //retrieves the done field from the tasks table
     	SQLiteDatabase db = this.getWritableDatabase();
     	Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor != null) cursor.moveToFirst();
-        done = Integer.parseInt(cursor.getString(0));
+        done = Integer.parseInt(cursor.getString(0)); //assigns the value of the field to a variable
+        db.close();
+        //depending on if the task is set to done (1) or not done (0), we return true or false
         if(done == 0) return false;
         else return true;
     }
     
+    //sets a task as done (1) or not done (0)
     public void setTaskDone(int id, int done)
     {
     	SQLiteDatabase db = this.getWritableDatabase();
