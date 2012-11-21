@@ -16,6 +16,7 @@ public class JobsAdapter extends ArrayAdapter<Job>
 	//public static final String PREFS_COUNT = "MyPrefsFile";
 	  private final Activity activity;
 	  private final List<Job> jobsObject;
+	  public DatabaseHandler db;
 	
 	public JobsAdapter(Activity activity, List<Job> objects) 
 	{
@@ -45,10 +46,19 @@ public class JobsAdapter extends ArrayAdapter<Job>
 	    else jobsItemView = (jobsView) rowView.getTag();
 	    {
 	    	Job currentJob = (Job) jobsObject.get(position); //casts as course
-	
+	    	
+	    	Task tempTask = db.getNearestDeadlineTask();
+	    	
+	    	int tempLocation = tempTask.getLocation();// finds the location in the data base we are looking for
+	    	Location a  = db.getLocation(tempLocation); // extracts the location from the database
+	    	String b = a.getLocation(); // puts the location into a string
+	    	
+	    	String tempDate = tempTask.getDeadline();// just returns the raw date string
+	    	
+	    	
 	    	jobsItemView.name.setText(currentJob.getClient()); //sets the data
-	    	//jobsItemView.location.setText(currentJob.getLocation());
-	    	//jobsItemView.date.setText(currentJob.getText("date"));
+	    	jobsItemView.location.setText(b);				   //sets the data
+	    	jobsItemView.date.setText(tempDate);			   //sets the data
 
 	    }
 	
