@@ -5,13 +5,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.widget.TextView;
 
 public class JobsOptions extends Activity {
 
+	DatabaseHandler db;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jobs_options);
+        db = new DatabaseHandler(this.getApplicationContext());
+        int id = getIntent().getExtras().getInt("job");
+        Job job = db.getJob(id);
+        TextView jobName = (TextView) findViewById(R.id.job_name);
+        jobName.setText(job.getClient());
     }
 
     @Override

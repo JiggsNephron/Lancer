@@ -17,6 +17,7 @@ import android.widget.Toast;
 public class JobsList extends ListActivity {
 	
 	public DatabaseHandler db;
+	List<Job> jobs = new ArrayList<Job>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -33,7 +34,7 @@ public class JobsList extends ListActivity {
         	startActivity(intent);
         }
         //SMcD: just adding this to see if it grabs jobs from the DB. And it does. Happy days
-        List<Job> jobs = db.getAllJobs();//= new ArrayList<Job>(); //makes a list of jobs to send to the list View
+        jobs = db.getAllJobs();//= new ArrayList<Job>(); //makes a list of jobs to send to the list View
         
         setListAdapter(new JobsAdapter(this, jobs)); //starts the list View
     }
@@ -57,9 +58,9 @@ public class JobsList extends ListActivity {
 	  public void onListItemClick(ListView parent, View v, int position, long id)
 	  {	 
 	  	Intent intent = new Intent(JobsList.this, JobsOptions.class);
-	  	intent.putExtra("course", position); //sends the job name
-
-	      startActivity(intent);
+	  	int jobId = jobs.get(position).getId();
+	  	intent.putExtra("job", jobId); //sends the job name
+	    startActivity(intent);
 	  }
 	
 	  //below is the code that creates the menu using the right xml file
