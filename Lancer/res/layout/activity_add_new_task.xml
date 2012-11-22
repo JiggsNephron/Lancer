@@ -46,37 +46,19 @@
         android:ems="10" />
 
     <TextView
-        android:id="@+id/task_note_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/button_add_deadline"
-        android:text="@string/AddNewTask_task_notes_title" />
-
-    <EditText
-        android:id="@+id/task_note"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/task_note_title"
-        android:ems="10" />
-
-    <TextView
         android:id="@+id/task_location_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/task_note"
+        android:layout_below="@+id/button_add_deadline"
         android:text="@string/AddNewTask_task_location_title" />
-
-
 
     <EditText
         android:id="@+id/button_location_names"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignRight="@+id/task_note"
+        android:layout_alignRight="@+id/button_add_deadline"
         android:focusableInTouchMode="false"
         android:layout_below="@+id/task_location_title" 
         android:onClick="chooseLocation" />
