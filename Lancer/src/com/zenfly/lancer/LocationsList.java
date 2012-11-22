@@ -1,4 +1,6 @@
 /**
+ * Shows the list of locations and allows the user to add new ones
+ * 
  * Authors: Richard Cody,
  * 
  */
@@ -31,8 +33,6 @@ public class LocationsList extends ListActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_locations_list);
-        
-        // TODO RC: show list of location names 
         
 		DatabaseHandler db = new DatabaseHandler(this);
 		locations = db.getAllLocations();
