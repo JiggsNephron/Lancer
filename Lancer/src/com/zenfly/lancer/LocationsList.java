@@ -76,6 +76,8 @@ public class LocationsList extends ListActivity {
 		    	{
 			    	// add new location based on user entered data
 		    		Intent added_a_task_done = new Intent(LocationsList.this, LocationsList.class);
+		    		added_a_task_done.putExtra("task_name", getIntent().getStringExtra("task_name"));
+		    	  	added_a_task_done.putExtra("task_date", getIntent().getStringExtra("task_date"));
 		    		db.addLocation(new Location(stlocation_nickname, stlocation_address1, stlocation_address2, stlocation_address3));
 		    		Toast.makeText(getApplicationContext(), "Saved Location: " + stlocation_nickname, Toast.LENGTH_LONG).show();
 		    		startActivity(added_a_task_done);
@@ -93,8 +95,10 @@ public class LocationsList extends ListActivity {
 	public void onListItemClick(ListView parent, View v, int position, long id)
 	{	 
 	  	Intent intent = new Intent(LocationsList.this, AddNewTask.class);
-	  	String locationId = locations.get(position).getLocation();
+	  	int locationId = locations.get(position).getId();
 	  	intent.putExtra("location", locationId);
+	  	intent.putExtra("task_name", getIntent().getStringExtra("task_name"));
+	  	intent.putExtra("task_date", getIntent().getStringExtra("task_date"));
 	    startActivity(intent);
 	}
 

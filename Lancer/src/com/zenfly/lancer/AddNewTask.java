@@ -1,5 +1,5 @@
 /**
- * Authors: Richard Cody,
+ * Authors: Richard Cody, Simon McDonnell,
  * 
  */
 
@@ -18,6 +18,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -32,8 +33,10 @@ public class AddNewTask extends FragmentActivity {
 	final Context context = this;
 	
 	EditText task_location_box;
+	EditText task_name;
 	Button add_new_location;
 	EditText add_deadline;
+	DatabaseHandler db;
 	
 	Calendar calendar;
 	int year, month, day;
@@ -43,14 +46,23 @@ public class AddNewTask extends FragmentActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_task);
-        
+        task_name  = (EditText) findViewById(R.id.task_name);
+        task_location_box  = (EditText)findViewById(R.id.button_location_names);//button_add_new_location);
+        add_deadline = (EditText)findViewById(R.id.button_add_deadline);
+        db = new DatabaseHandler(this.getApplicationContext());
+        if(getIntent().getStringExtra("task_name") != null) task_name.setText(getIntent().getStringExtra("task_name"));
+        if(getIntent().getStringExtra("task_date") != null) add_deadline.setText(getIntent().getStringExtra("task_date"));
+        if(getIntent().getIntExtra("location", 0) != 0) 
+        {
+        	Location location = db.getLocation(getIntent().getIntExtra("location", 0));
+        	task_location_box.setText(location.getLocation());
+        }
         calendar = Calendar.getInstance();
         
-        task_location_box  = (EditText)findViewById(R.id.button_add_new_location);
-        add_deadline = (EditText)findViewById(R.id.button_add_deadline);
         
+        if(getIntent().getStringExtra("task_date") != null) add_deadline.setText(getIntent().getStringExtra("task_date"));
         // FIXME RC: FOR SK > change here to show something else on the deadline EditText view when first shown
-        add_deadline.setText("Choose a Deadline");
+        else add_deadline.setText("Choose a Deadline");
     }
     
     // OnClick of the Deadline EditText
@@ -88,11 +100,11 @@ public class AddNewTask extends FragmentActivity {
     	
     	Intent show_locations = new Intent(this, LocationsList.class);
     	
-    	EditText task_name  = (EditText) findViewById(R.id.task_name);
-    	
     	String sttask_name = task_name.getText().toString();
-    	
+    	String sttask_date = add_deadline.getText().toString();
+    	Log.v("Hello", sttask_date);
     	show_locations.putExtra("task_name", sttask_name);
+    	show_locations.putExtra("task_date", sttask_date);
     	
     	startActivity(show_locations);
     	
