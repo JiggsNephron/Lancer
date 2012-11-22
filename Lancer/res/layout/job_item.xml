@@ -10,7 +10,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginRight="5dp"
         android:layout_marginTop="20dp"
         android:text="Update Servers"
         android:textColor="@color/lancer_blue"
@@ -50,5 +50,14 @@
  		android:layout_marginRight="20dp"
  		android:layout_centerVertical ="true"
  		/>
+
+    <CheckBox
+        android:id="@+id/job_done"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+       	android:layout_marginTop="25dp"
+       	android:layout_marginRight="5dp"
+        android:layout_alignParentRight="true"
+       />
         
 </RelativeLayout>
