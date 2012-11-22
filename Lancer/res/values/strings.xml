@@ -41,6 +41,6 @@
     <string name="title_activity_view_expenses">ViewExpenses</string>
     <string name="title_activity_view_notes">ViewNotes</string>
     <string name="welcome_text">Hi there! To get started simply add a Job name.</string>
-    <string name="welcome_text2">You can call it whatever you like, it is a simple aid to help remind you which job is which.</string>
+    <string name="welcome_text2">You can call it whatever you like, it\'s a simple aid to help you remember which job is which.</string>
 
 </resources>
