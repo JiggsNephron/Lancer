@@ -1,5 +1,7 @@
 /**
- * Authors: Richard Cody (main), Simon McDonnell (edits)
+ * Allows the user to add a new Job
+ * 
+ * Authors: Richard Cody, Simon McDonnell (small edits)
  * 
  */
 
@@ -31,7 +33,7 @@ public class AddNewJob extends Activity {
     	DatabaseHandler db = new DatabaseHandler(this);
     	Intent backToJobsList = new Intent(this, JobsList.class);
     	
-        // Getting each EditText
+        // Get the EditText
         EditText jobName = (EditText) findViewById(R.id.job_name);
         
         // get the data from each element and store it
@@ -42,10 +44,13 @@ public class AddNewJob extends Activity {
     	{
 	    	// add new job based on user entered data    		
 	    	db.addJob(new Job(stjobName));
+	    	Toast.makeText(getApplicationContext(), "Job: " + stjobName + " added.", Toast.LENGTH_SHORT).show();
 	    	Log.v("Name:", stjobName);
 	    	startActivity(backToJobsList);
     	}
-    	else Toast.makeText(getApplicationContext(), "You must provide a name for your job", Toast.LENGTH_LONG).show();
+    	else {
+    		Toast.makeText(getApplicationContext(), "You must provide a name for your job", Toast.LENGTH_LONG).show();
+    	}
     	
     }    
     

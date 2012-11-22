@@ -1,8 +1,9 @@
 /**
+ * Allows the user to add new tasks to their job
+ * 
  * Authors: Richard Cody, Simon McDonnell,
  * 
  */
-
 
 package com.zenfly.lancer;
 
@@ -37,6 +38,8 @@ public class AddNewTask extends FragmentActivity {
 	String sttask_date = "";
 	int task_location_id;
 	int job_id;
+	int hourlyWage = 0;
+	int hoursWorked = 0;
 	
 	Calendar calendar;
 	int year, month, day;
@@ -114,7 +117,7 @@ public class AddNewTask extends FragmentActivity {
     	
     	sttask_name = task_name.getText().toString();
     	
-    	Task task = new Task(sttask_name, job_id, sttask_date, task_location_id, 0, 0);
+    	Task task = new Task(sttask_name, job_id, sttask_date, task_location_id, hourlyWage, hoursWorked);
     	db.addTask(task);   	
     	
     	intent.putExtra("job", job_id);

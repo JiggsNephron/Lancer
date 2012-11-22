@@ -1,3 +1,10 @@
+/**
+ * Used for showing the list of locations
+ * 
+ * Authors: Richard Cody,
+ * 
+ */
+
 package com.zenfly.lancer;
 
 
