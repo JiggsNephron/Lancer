@@ -40,5 +40,7 @@
     <string name="title_activity_view_task">ViewTask</string>
     <string name="title_activity_view_expenses">ViewExpenses</string>
     <string name="title_activity_view_notes">ViewNotes</string>
+    <string name="welcome_text">Hi there! To get started simply add a Job name.</string>
+    <string name="welcome_text2">You can call it whatever you like, it is a simple aid for you to remind you which job is which.</string>
 
 </resources>
