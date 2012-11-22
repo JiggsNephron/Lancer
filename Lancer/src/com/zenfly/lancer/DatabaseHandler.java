@@ -130,7 +130,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
         db.close();
     }
     
-    public void addTask(Task task)
+    public long addTask(Task task)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -142,13 +142,14 @@ public class DatabaseHandler extends SQLiteOpenHelper
         values.put(KEY_HOURS_WORKED, task.getHoursWorked());
         try
         {
-        	db.insertOrThrow(TABLE_TASKS, null, values);
+        	return db.insertOrThrow(TABLE_TASKS, null, values);
         }
         catch(Exception e)
         {
         	db.close();
+        	return 0;
         }
-        db.close();
+        //db.close();
     }
     
     public void addNote(Note note)

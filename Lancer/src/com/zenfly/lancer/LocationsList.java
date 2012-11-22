@@ -99,6 +99,7 @@ public class LocationsList extends ListActivity {
 	  	intent.putExtra("location", locationId);
 	  	intent.putExtra("task_name", getIntent().getStringExtra("task_name"));
 	  	intent.putExtra("task_date", getIntent().getStringExtra("task_date"));
+	  	intent.putExtra("job", getIntent().getIntExtra("job", 0));
 	    startActivity(intent);
 	}
 

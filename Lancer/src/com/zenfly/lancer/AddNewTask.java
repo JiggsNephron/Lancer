@@ -28,6 +28,8 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+//TODO SMcD: Add hourly wage 
+
 public class AddNewTask extends FragmentActivity {
 	
 	final Context context = this;
@@ -92,7 +94,11 @@ public class AddNewTask extends FragmentActivity {
     }
     
     public void saveTask (View v) {
-    	
+    	Task task = new Task(task_name.getText().toString(), getIntent().getIntExtra("job", 0), add_deadline.getText().toString(), getIntent().getIntExtra("location", 0), 0, 0);
+    	db.addTask(task); 
+    	Intent intent = new Intent(AddNewTask.this, JobsOptions.class);
+    	intent.putExtra("job", getIntent().getIntExtra("job", 0));
+    	startActivity(intent);
     }
     
     // TODO RC: ???move chooseLocation to its own class???
@@ -102,9 +108,9 @@ public class AddNewTask extends FragmentActivity {
     	
     	String sttask_name = task_name.getText().toString();
     	String sttask_date = add_deadline.getText().toString();
-    	Log.v("Hello", sttask_date);
     	show_locations.putExtra("task_name", sttask_name);
     	show_locations.putExtra("task_date", sttask_date);
+    	show_locations.putExtra("job", getIntent().getIntExtra("job", 0));
     	
     	startActivity(show_locations);
     	

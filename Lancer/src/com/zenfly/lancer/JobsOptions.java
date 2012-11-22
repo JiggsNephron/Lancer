@@ -32,8 +32,9 @@ public class JobsOptions extends Activity  {
 	public void createInvoice(View v)
     {
 		// FIXME RC: FOR SB > Adding this so I can test my view via this button
-    	Intent createIncoice = new Intent(JobsOptions.this, AddNewTask.class);
-    	startActivity(createIncoice);
+    	Intent createInvoice = new Intent(JobsOptions.this, AddNewTask.class);
+    	createInvoice.putExtra("job", id);
+    	startActivity(createInvoice);
     }
     	
     public void viewTasks(View v)
