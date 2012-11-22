@@ -54,8 +54,8 @@
         android:textColor="@color/lancer_blue"
         android:layout_marginTop="25dp"
         android:gravity="center"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:text="@string/welcome_text"
         android:textAppearance="?android:attr/textAppearanceMedium" />
     <TextView
