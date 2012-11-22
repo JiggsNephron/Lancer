@@ -59,20 +59,20 @@ public class AddNewTask extends FragmentActivity {
         
         job_id = getIntent().getIntExtra("job_id", 0);
         
-        // if there has been a received intent and it has the task name, put it into the EditText
+        // check if there is a task_name in the received intent and put it into the EditText
         if(getIntent().getStringExtra("task_name") != null) {
         	sttask_name = task_name.getText().toString();
         	task_name.setText(sttask_name);
         }
         
-        // if there has been a received intent and it has the task location ID, put it into the EditText        
+        // check if there is a location in the received intent and put it into the EditText       
         if(getIntent().getIntExtra("location", 0) != 0) {
         	task_location_id = getIntent().getIntExtra("location", 0);
         	Location location = db.getLocation(task_location_id);
         	task_location_box.setText(location.getLocation());
         }  
         
-        // if there has been a received intent and it has the task date, put it into the EditText
+        // check if there is a task_date in the received intent and put it into the EditText
         // otherwise just add an instruction
         if(getIntent().getStringExtra("task_date") != null) {
         	sttask_date = getIntent().getStringExtra("task_date");
@@ -91,7 +91,10 @@ public class AddNewTask extends FragmentActivity {
     
     // Used to populate the deadline EditText with the chosen date
     public void populateSetDate(int year, int month, int day) {
+    	
     	sttask_date = year+"/"+month+"/"+day;
+    	
+    	// TODO RC: format to system setting date view
     	add_deadline.setText(sttask_date);
     } 
     
