@@ -20,7 +20,7 @@
         android:paddingTop="10dp"
         android:background="@color/lancer_blue"
         android:paddingBottom="10dp" 
-        android:onClick="addNewJob"
+        android:onClick="addNewTask"
         android:text="@string/add_new_task" />
         
 </RelativeLayout>

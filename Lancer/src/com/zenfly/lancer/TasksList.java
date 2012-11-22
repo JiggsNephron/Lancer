@@ -20,7 +20,7 @@ public class TasksList extends ListActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_jobs_list);
+        setContentView(R.layout.activity_tasks_list);
         
         db = new DatabaseHandler(this.getApplicationContext());
         //SMcD: this line isn't actually needed
@@ -40,7 +40,7 @@ public class TasksList extends ListActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_jobs_list, menu);
+        getMenuInflater().inflate(R.menu.activity_tasks_list, menu);
         return true;
     }
     
