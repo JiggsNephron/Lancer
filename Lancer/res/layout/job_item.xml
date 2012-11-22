@@ -26,7 +26,7 @@
         android:layout_below="@+id/JobNameDisplay"
         android:layout_marginTop="10dp"
         android:textColor="@color/lancer_blue"
-        android:text="Next Task Location"
+        android:text="No Tasks"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
