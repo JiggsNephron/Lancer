@@ -7,6 +7,7 @@ import com.zenfly.lancer.DatabaseHandler;
 
 import android.app.ListActivity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 //import android.view.MenuItem;
@@ -18,11 +19,14 @@ public class JobsList extends ListActivity {
 	
 	public DatabaseHandler db;
 	List<Job> jobs = new ArrayList<Job>();
+	SharedPreferences prefs;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_jobs_list);     
+        setContentView(R.layout.activity_jobs_list);
+        String order;
+        prefs = getSharedPreferences("com.zenfly.lancer",0);
         db = new DatabaseHandler(this.getApplicationContext());;
         if(db.getJobCount() == 0)
         {
@@ -30,7 +34,11 @@ public class JobsList extends ListActivity {
         	Toast.makeText(getApplicationContext(), "You have no current jobs. Please add one", Toast.LENGTH_LONG).show();
         	startActivity(intent);
         }
-        jobs = db.getAllJobs();       
+        order = prefs.getString("order", "none");
+        if(order.equals("none"))jobs = db.getAllJobs();
+        else if(order.equals("deadline"))jobs = db.getAllJobsByDeadline();
+        else if(order.equals("alphaAsc"))jobs = db.getAllJobsByAlphaAsc();
+        else if(order.equals("alphaDesc"))jobs = db.getAllJobsByAlphaDesc();
         setListAdapter(new JobsAdapter(this, jobs)); //starts the list View
     }
 

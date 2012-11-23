@@ -351,7 +351,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
     	return jobList;
     }
     
-    public List<Job> getAllJobsAlphabetically()
+    public List<Job> getAllJobsByAlphaAsc()
     {
     	List<Job> jobList = new ArrayList<Job>();
     	String selectQuery = "SELECT " + KEY_ID + ", " + KEY_CLIENT + 
@@ -371,7 +371,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
     	return jobList;
     }
     
-    public List<Job> getAllJobsAlphabeticallyReverse()
+    public List<Job> getAllJobsByAlphaDesc()
     {
     	List<Job> jobList = new ArrayList<Job>();
     	String selectQuery = "SELECT " + KEY_ID + ", " + KEY_CLIENT + 
