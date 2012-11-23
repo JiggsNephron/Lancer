@@ -327,6 +327,27 @@ public class DatabaseHandler extends SQLiteOpenHelper
         db.close();
         return jobList;
     }
+    
+    public List<Job> getAllJobsByDeadline()
+    {
+    	List<Job> jobList = new ArrayList<Job>();
+    	String selectQuery = "SELECT " + TABLE_JOBS + "." + KEY_ID + ", " + TABLE_JOBS + "." + KEY_CLIENT + ", " + "MIN(" + TABLE_TASKS + "." + KEY_DEADLINE + 
+    			") FROM " + TABLE_JOBS + " JOIN " + TABLE_TASKS + " ON " + TABLE_JOBS + "." + KEY_ID + " = " + TABLE_TASKS + "." + KEY_JOB + " GROUP BY " + TABLE_JOBS + 
+    			"." + KEY_ID + " ORDER BY " + TABLE_TASKS + "." + KEY_DEADLINE + " ASC";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst())
+        {
+            do
+            {
+            	Job job = new Job(cursor.getString(1)); //creates a new job for each one returned by the database
+            	job.setId(Integer.parseInt(cursor.getString(0)));
+                jobList.add(job); //adds new job to the list
+            } while (cursor.moveToNext()); //loop continues while there are results
+        }
+        db.close();
+    	return jobList;
+    }
  
     public List<Location> getAllLocations()
     {
