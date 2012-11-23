@@ -11,22 +11,21 @@
  		android:layout_centerVertical ="true"
  		/>
     
-     <TextView
+
+    <Button
         android:id="@+id/Tasks"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_alignParentRight="true"
         android:layout_below="@+id/nav_list_bg"
-        android:text="@string/tasks"
         android:textColor="@color/lancer_blue"
         android:textSize="30dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:clickable="true"
-        android:onClick="viewTasks" />
-
+        android:paddingTop="10dp"
+        android:background="@color/white"
+        android:paddingBottom="10dp" 
+        android:onClick="viewTasks"
+        android:text="@string/tasks" />
     
     <View android:id="@+id/separator1" 
  	    android:background="@color/lancer_blue"
@@ -39,21 +38,21 @@
  		android:layout_centerVertical ="true"
  		/>
     
-    <TextView
+
+        <Button
         android:id="@+id/Expenses"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_alignParentRight="true"
         android:layout_below="@+id/separator1"
-        android:text="@string/expenses"
         android:textColor="@color/lancer_blue"
         android:textSize="30dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:clickable="true"
-        android:onClick="" />
+        android:paddingTop="10dp"
+        android:background="@color/white"
+        android:paddingBottom="10dp" 
+        android:onClick="viewExpences"
+        android:text="@string/expenses" />
 
     
     <View android:id="@+id/separator2" 
@@ -67,21 +66,21 @@
  		android:layout_centerVertical ="true"
  		/>
     
-    <TextView
+
+            <Button
         android:id="@+id/Notes"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_alignParentRight="true"
         android:layout_below="@+id/separator2"
-        android:text="@string/notes"
         android:textColor="@color/lancer_blue"
         android:textSize="30dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:clickable="true"
-        android:onClick="" />
+        android:paddingTop="10dp"
+        android:background="@color/white"
+        android:paddingBottom="10dp" 
+        android:onClick="viewNotes"
+        android:text="@string/notes" />
     
     <Button
         android:id="@+id/create_invoice"

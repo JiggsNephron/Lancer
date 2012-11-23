@@ -2,9 +2,11 @@ package com.zenfly.lancer;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class JobsOptions extends Activity  {
@@ -21,6 +23,18 @@ public class JobsOptions extends Activity  {
         Job job = db.getJob(id);
         TextView jobName = (TextView) findViewById(R.id.job_name);
         jobName.setText(job.getClient());
+        
+        Button taskButton = (Button)findViewById(R.id.create_invoice);
+        taskButton.setVisibility(View.VISIBLE);
+        taskButton.setBackgroundColor(Color.TRANSPARENT);
+        
+        Button expensesButton = (Button)findViewById(R.id.create_invoice);
+        expensesButton.setVisibility(View.VISIBLE);
+        expensesButton.setBackgroundColor(Color.TRANSPARENT);
+        
+        Button NotesButton = (Button)findViewById(R.id.create_invoice);
+        NotesButton.setVisibility(View.VISIBLE);
+        NotesButton.setBackgroundColor(Color.TRANSPARENT);
     }
 
     @Override
@@ -45,6 +59,12 @@ public class JobsOptions extends Activity  {
     }
     
     public void viewExpences(View v)
+    {
+    	Intent viewExpences = new Intent(JobsOptions.this, ExpensesList .class);
+    	startActivity(viewExpences);
+    }
+    
+    public void viewNotes(View v)
     {
     	Intent viewExpences = new Intent(JobsOptions.this, ExpensesList .class);
     	startActivity(viewExpences);
