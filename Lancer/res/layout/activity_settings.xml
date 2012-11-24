@@ -4,11 +4,54 @@
     android:layout_height="match_parent" >
 
     <TextView
+        android:id="@+id/settings_heading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="@string/hello_world"
-        tools:context=".Settings" />
+        android:text="@string/title_activity_settings" />
+    <TextView 
+        android:id="@+id/job_order_label"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/job_order_label"
+        android:layout_below="@id/settings_heading" />
+    <RadioGroup
+        android:id="@+id/job_order_radio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/job_order_label" >
+ 
+        <RadioButton
+            android:id="@+id/order_none"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/order_none"
+            android:checked="true" />
+ 
+        <RadioButton
+            android:id="@+id/order_alpha_asc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/order_alpha_asc" />
+        
+        <RadioButton
+            android:id="@+id/order_alpha_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/order_alpha_desc" />
+ 
+        <RadioButton
+            android:id="@+id/order_deadline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/order_deadline" />
+    </RadioGroup>
+    
+    <Button
+        android:id="@+id/settings_save_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_save"
+        android:layout_below="@id/job_order_radio" />
 
 </RelativeLayout>
