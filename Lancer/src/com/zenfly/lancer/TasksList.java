@@ -36,7 +36,7 @@ public class TasksList extends ListActivity {
         int thisJob = getIntent().getIntExtra("job_id", 0);
         task = db.getAllTasksForJob(thisJob);//= new ArrayList<Job>(); //makes a list of jobs to send to the list View
         
-        if(task != null)setListAdapter(new TaskAdapter(this, task)); //starts the list View
+        setListAdapter(new TaskAdapter(this, task)); //starts the list View
     }
 
     @Override

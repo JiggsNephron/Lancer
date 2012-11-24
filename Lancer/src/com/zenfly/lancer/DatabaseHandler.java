@@ -282,7 +282,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
         String selectQuery = "SELECT * FROM " + TABLE_TASKS + " WHERE " + KEY_ID + "=" + id;
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor != null) cursor.moveToFirst();
-        Task task = new Task(cursor.getString(1), Integer.parseInt(cursor.getString(2)), cursor.getString(3), Integer.parseInt(cursor.getString(4)), Integer.parseInt(cursor.getString(5)), Integer.parseInt(cursor.getString(6)));
+        Task task = new Task(cursor.getString(1), Integer.parseInt(cursor.getString(2)), cursor.getString(3), Integer.parseInt(cursor.getString(4)), Integer.parseInt(cursor.getString(6)), Integer.parseInt(cursor.getString(7)));
         db.close();
         return task;
     }
@@ -513,7 +513,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
     		do
     		{
     			//SMcD FIXME: Returns null values
-    			Task task = new Task(cursor.getString(1), Integer.parseInt(cursor.getString(2)), cursor.getString(3), Integer.parseInt(cursor.getString(4)), Integer.parseInt(cursor.getString(5)), Integer.parseInt(cursor.getString(6)));
+    			Task task = new Task(cursor.getString(1), Integer.parseInt(cursor.getString(2)), cursor.getString(3), Integer.parseInt(cursor.getString(4)), Integer.parseInt(cursor.getString(6)), Integer.parseInt(cursor.getString(7)));
     			taskList.add(task);
     		}while(cursor.moveToNext());
     	}
@@ -532,11 +532,11 @@ public class DatabaseHandler extends SQLiteOpenHelper
     	{
     		do
     		{
-    			Task task = new Task(cursor.getString(1), Integer.parseInt(cursor.getString(2)), cursor.getString(3), Integer.parseInt(cursor.getString(4)), Integer.parseInt(cursor.getString(5)), Integer.parseInt(cursor.getString(6)));
+    			Task task = new Task(cursor.getString(1), Integer.parseInt(cursor.getString(2)), cursor.getString(3), Integer.parseInt(cursor.getString(4)), Integer.parseInt(cursor.getString(6)), Integer.parseInt(cursor.getString(7)));
     			taskList.add(task);
     		}while(cursor.moveToNext());
     	}
-    	else taskList = null;
+    	//else taskList = null;
     	db.close();
     	return taskList;
     }
