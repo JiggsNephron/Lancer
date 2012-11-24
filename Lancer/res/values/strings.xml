@@ -38,6 +38,7 @@
     <string name="jobs">Jobs</string>
     <string name="arrow">></string>
     <string name="job_name">Job Name</string>
+    <string name="job">Job</string>
     <string name="title_activity_view_task">ViewTask</string>
     <string name="title_activity_view_expenses">ViewExpenses</string>
     <string name="title_activity_view_notes">ViewNotes</string>

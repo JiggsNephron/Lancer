@@ -2,41 +2,58 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-
+    
+    
     <TextView
         android:id="@+id/location_name_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:text="@string/location_name_title" />
+        android:layout_below="@+id/nav_list_bg"
+        android:text="@string/location_name_title"
+        android:textColor="@color/lancer_blue"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="10dp"
+        android:textSize="20dp" />
 
     <EditText
         android:id="@+id/location_name"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/location_name_title"
-        android:ems="10" >
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:ems="10"
+        android:inputType="text" >
 
         <requestFocus />
     </EditText>
-
+    
     <TextView
         android:id="@+id/address_line1_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/location_name"
-        android:text="@string/location_address1" />
+        android:text="@string/location_address1"
+        android:textColor="@color/lancer_blue"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="10dp"
+        android:textSize="20dp" />
 
     <EditText
         android:id="@+id/address_line1"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/address_line1_title"
-        android:ems="10" />
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:ems="10"
+        android:inputType="text" />
 
     <TextView
         android:id="@+id/address_line2_title"
@@ -44,15 +61,23 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/address_line1"
-        android:text="@string/location_address2" />
+        android:text="@string/location_address2"
+        android:textColor="@color/lancer_blue"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="10dp"
+        android:textSize="20dp" />
 
     <EditText
         android:id="@+id/address_line2"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/address_line2_title"
-        android:ems="10" />
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:ems="10"
+        android:inputType="text"/>
 
     <TextView
         android:id="@+id/address_line3_title"
@@ -60,23 +85,39 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/address_line2"
-        android:text="@string/location_address3" />
+        android:text="@string/location_address3"
+        android:textColor="@color/lancer_blue"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="10dp"
+        android:textSize="20dp" />
 
     <EditText
         android:id="@+id/address_line3"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/address_line3_title"
-        android:ems="10" />
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:ems="10"
+        android:inputType="text" />
 
     <Button
         android:id="@+id/saveLocation"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/address_line3"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:text="Button" />
+        android:text="@string/button_save"
+        android:background="@color/lancer_blue"
+        android:onClick="addNewLocation"
+        android:layout_marginTop="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:textColor="@color/white"
+        android:textSize="20dp" />
+    
 
 </RelativeLayout>
