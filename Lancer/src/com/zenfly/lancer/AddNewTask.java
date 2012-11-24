@@ -7,7 +7,11 @@
 
 package com.zenfly.lancer;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -36,12 +40,14 @@ public class AddNewTask extends FragmentActivity {
 	
 	String sttask_name;
 	String sttask_date = "";
+	String stformatted_task_date = "";
 	int task_location_id;
 	int job_id;
 	int hourlyWage = 0;
 	int hoursWorked = 0;
 	
 	Calendar calendar;
+	Date date_locale; 
 	int year, month, day;
 	
 
@@ -61,7 +67,7 @@ public class AddNewTask extends FragmentActivity {
         
         // check if there is a task_name in the received intent and put it into the EditText
         if(getIntent().getStringExtra("task_name") != null) {
-        	sttask_name = task_name.getText().toString();
+        	sttask_name = getIntent().getStringExtra("task_name");
         	task_name.setText(sttask_name);
         }
         
@@ -75,8 +81,8 @@ public class AddNewTask extends FragmentActivity {
         // check if there is a task_date in the received intent and put it into the EditText
         // otherwise just add an instruction
         if(getIntent().getStringExtra("task_date") != null) {
-        	sttask_date = getIntent().getStringExtra("task_date");
-        	add_deadline.setText(sttask_date);        
+        	stformatted_task_date = getIntent().getStringExtra("task_date");
+        	add_deadline.setText(stformatted_task_date);        
         }
         else {
         	add_deadline.setText("Choose a Deadline"); // FIXME RC: FOR SK > change here to show something else on the deadline EditText view when first shown
@@ -92,10 +98,24 @@ public class AddNewTask extends FragmentActivity {
     // Used to populate the deadline EditText with the chosen date
     public void populateSetDate(int year, int month, int day) {
     	
+    	// stores the user chosen deadline date into a string
     	sttask_date = year+"/"+month+"/"+day;
     	
-    	// TODO RC: format to system setting date view
-    	add_deadline.setText(sttask_date);
+    	// creates a SimpleDateFormat object with the same template as the user chosen deadline date string
+    	SimpleDateFormat date_formater = new SimpleDateFormat("yyyy/MM/dd");
+
+    	// creates a date object based on the SimpleDateFormat object
+    	try {
+			date_locale = date_formater.parse(sttask_date);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+    	// formats the date to a locale friendly string and saves it
+    	stformatted_task_date = DateFormat.getDateInstance().format(date_locale);
+    	// sets the text of the deadline EditText box to the date string
+    	add_deadline.setText(stformatted_task_date);
     } 
     
     // Extends DialogFragment to show a date picker dialog to the user
@@ -139,7 +159,7 @@ public class AddNewTask extends FragmentActivity {
     	// Forward the saved entries to the locations list activity
     	// which then sends it back to re-populate those fields in this activity
     	show_locations.putExtra("task_name", sttask_name);
-    	show_locations.putExtra("task_date", sttask_date);
+    	show_locations.putExtra("task_date", stformatted_task_date);
     	show_locations.putExtra("job_id", job_id);
     	
     	// show the locations list

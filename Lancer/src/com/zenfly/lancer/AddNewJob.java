@@ -1,7 +1,7 @@
 /**
  * Allows the user to add a new Job
  * 
- * Authors: Richard Cody, Simon McDonnell (small edits)
+ * Authors: Richard Cody, Simon McDonnell,
  * 
  */
 
