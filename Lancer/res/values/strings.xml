@@ -19,11 +19,11 @@
     <!-- Buttons -->
     
     <string name="add_new_job">+ New Job</string>
-    <string name="add_new_task">+ New Task</string>
-    <string name="button_save">Save</string>
-    <string name="button_add_new_task">Save</string>
-    <string name="button_add_task_deadline">" + "</string>
+    <string name="button_add_new_task">+ New Task</string>
     <string name="button_add_new_location">+ Location</string>
+    <string name="button_add_new_expense">+ Expense</string>
+    <string name="button_save">Save</string>
+    <string name="button_add_task_deadline">"+ Deadline"</string>
     
     <!-- Layout: Jobs - Strings -->
     

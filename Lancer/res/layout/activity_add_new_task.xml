@@ -73,7 +73,7 @@
         android:textSize="20dp"
         android:textColor="@color/white"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:onClick="" /> <!-- To Job Options List -->
+        android:onClick="" /> <!-- To Tasks List -->
     
 
     <TextView
@@ -168,7 +168,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:onClick="saveTask"
-        android:text="@string/button_add_new_task"
+        android:text="@string/button_save"
         android:layout_marginTop="20dp"
         android:background="@color/lancer_blue"
         android:paddingTop="10dp"
