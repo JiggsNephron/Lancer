@@ -37,26 +37,19 @@ public class TaskAdapter extends ArrayAdapter<Task> {
 	        taskItemView = new taskView(); //for holding the data
 	        taskItemView.name = (TextView) rowView.findViewById(R.id.taskNameDisplay); 
 	        taskItemView.checkBox = (TextView) rowView.findViewById(R.id.taskCheckBox);
-	       
 	        rowView.setTag(taskItemView); //for later access
 	    }
 	    else taskItemView = (taskView) rowView.getTag();
+	    Task currentTask = (Task) taskObject.get(position); //casts as course
+	    taskItemView.name.setText(currentTask.getName()); //sets the data
+	    int ID = currentTask.getId();
+	    boolean isTicked = db.getTaskDone(ID);
+	    //jobsItemView.checkBox.setText(currentJob.getLocation());
+	    if(isTicked)
 	    {
-	    	Task currentTask = (Task) taskObject.get(position); //casts as course
-	
-	    	taskItemView.name.setText(currentTask.getName()); //sets the data
-	    	
-	    	int ID = currentTask.getId();
-	    	boolean isTicked = db.getTaskDone(ID);
-	    	//jobsItemView.checkBox.setText(currentJob.getLocation());
-	    	if(isTicked == true)
-	    	{
-	    		CheckBox checkBox = (CheckBox)convertView.findViewById(R.id.taskCheckBox);
-	    		checkBox.setChecked(!checkBox.isChecked());
-	    	}
-	    	
+	    	CheckBox checkBox = (CheckBox)convertView.findViewById(R.id.taskCheckBox);
+	    	checkBox.setChecked(!checkBox.isChecked());
 	    }
-	
 	    return rowView;
 	}
 
