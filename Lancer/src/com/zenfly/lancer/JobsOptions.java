@@ -61,14 +61,14 @@ public class JobsOptions extends Activity  {
     public void viewExpences(View v)
     {
     	Intent viewExpences = new Intent(JobsOptions.this, ExpensesList .class);
-    	viewExpences.putExtra("job", id); //sends the job id
+    	viewExpences.putExtra("job_id", id); //sends the job id
     	startActivity(viewExpences);
     }
     
     public void viewNotes(View v)
     {
     	Intent ViewNotes = new Intent(JobsOptions.this, ViewNotes .class);
-    	ViewNotes.putExtra("job", id); //sends the job id
+    	ViewNotes.putExtra("job_id", id); //sends the job id
     	startActivity(ViewNotes);
     }
            
