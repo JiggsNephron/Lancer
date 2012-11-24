@@ -31,8 +31,9 @@ public class TasksList extends ListActivity {
         	Toast.makeText(getApplicationContext(), "You have no current jobs. Please add one", Toast.LENGTH_LONG).show();
         	startActivity(intent);
         }
+        
         //SMcD: just adding this to see if it grabs jobs from the DB. And it does. Happy days
-        int thisJob = getIntent().getExtras().getInt("job");
+        int thisJob = getIntent().getIntExtra("job_id", 0);
         task = db.getAllTasksForJob(thisJob);//= new ArrayList<Job>(); //makes a list of jobs to send to the list View
         
         setListAdapter(new TaskAdapter(this, task)); //starts the list View
@@ -45,7 +46,8 @@ public class TasksList extends ListActivity {
     }
     
     public void addNewTask(View v) {
-       	Intent intent = new Intent(TasksList.this, AddNewTask.class); 	
+       	Intent intent = new Intent(TasksList.this, AddNewTask.class);
+       	intent.putExtra("job_id", getIntent().getIntExtra("job_id", 0));
     	startActivity(intent);	
    }
     

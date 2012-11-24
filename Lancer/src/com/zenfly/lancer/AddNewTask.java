@@ -7,8 +7,13 @@
 
 package com.zenfly.lancer;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -21,8 +26,6 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
-//TODO SMcD: Add hourly wage (should we do this like notes? let the user add it after the task is added?) 
-
 public class AddNewTask extends FragmentActivity {
 	
 	final Context context = this;
@@ -30,21 +33,24 @@ public class AddNewTask extends FragmentActivity {
 	EditText task_location_box;
 	EditText task_name;
 	EditText add_deadline;
+	EditText task_hourly_wage;
 	Button add_new_location;	
 	
 	DatabaseHandler db;
 	
 	String sttask_name;
 	String sttask_date = "";
+	String stformatted_task_date = "";
 	int task_location_id;
 	int job_id;
 	int hourlyWage = 0;
+	String sthourly_wage = "";
 	int hoursWorked = 0;
 	
 	Calendar calendar;
+	Date date_locale; 
 	int year, month, day;
 	
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,15 +59,18 @@ public class AddNewTask extends FragmentActivity {
         calendar = Calendar.getInstance(); 
         db = new DatabaseHandler(this.getApplicationContext());
         
+        // define the layout elements
         task_name  = (EditText) findViewById(R.id.task_name);
         task_location_box  = (EditText)findViewById(R.id.button_location_names);
         add_deadline = (EditText)findViewById(R.id.button_add_deadline);
+        task_hourly_wage = (EditText)findViewById(R.id.task_hourly_wage);
         
-        job_id = getIntent().getIntExtra("job_id", 0);
+        // get intent content      
+        job_id = getIntent().getIntExtra("job_id", 0);        
         
         // check if there is a task_name in the received intent and put it into the EditText
         if(getIntent().getStringExtra("task_name") != null) {
-        	sttask_name = task_name.getText().toString();
+        	sttask_name = getIntent().getStringExtra("task_name");
         	task_name.setText(sttask_name);
         }
         
@@ -75,11 +84,16 @@ public class AddNewTask extends FragmentActivity {
         // check if there is a task_date in the received intent and put it into the EditText
         // otherwise just add an instruction
         if(getIntent().getStringExtra("task_date") != null) {
-        	sttask_date = getIntent().getStringExtra("task_date");
-        	add_deadline.setText(sttask_date);        
+        	stformatted_task_date = getIntent().getStringExtra("task_date");
+        	add_deadline.setText(stformatted_task_date);        
         }
+        // check if there is a hourly wage in the received intent and put it into the EditText
+        if(getIntent().getStringExtra("hourly_wage") != null) {
+        	sthourly_wage = getIntent().getStringExtra("hourly_wage");
+        	task_hourly_wage.setText(sthourly_wage);        
+        }  
         else {
-        	add_deadline.setText("Choose a Deadline"); // FIXME RC: FOR SK > change here to show something else on the deadline EditText view when first shown
+        	add_deadline.setText(""); // FIXME RC: FOR SK > change here to show something else on the deadline EditText view when first shown
         }
     }
     
@@ -92,14 +106,29 @@ public class AddNewTask extends FragmentActivity {
     // Used to populate the deadline EditText with the chosen date
     public void populateSetDate(int year, int month, int day) {
     	
+    	// stores the user chosen deadline date into a string
     	sttask_date = year+"/"+month+"/"+day;
     	
-    	// TODO RC: format to system setting date view
-    	add_deadline.setText(sttask_date);
+    	// creates a SimpleDateFormat object with the same template as the user chosen deadline date string
+    	SimpleDateFormat date_formater = new SimpleDateFormat("yyyy/MM/dd");
+
+    	try {
+    		// creates a date object based on the SimpleDateFormat object
+			date_locale = date_formater.parse(sttask_date);
+			// formats the date to a locale friendly string and saves it
+			stformatted_task_date = DateFormat.getDateInstance().format(date_locale);
+		} catch (ParseException e) {
+			stformatted_task_date = "";
+		}   	
+    	
+    	// sets the text of the deadline EditText box to the date string
+    	add_deadline.setText(stformatted_task_date);
     } 
     
     // Extends DialogFragment to show a date picker dialog to the user
-    public class SelectDateFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
+    @SuppressLint("ValidFragment")
+	public class SelectDateFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
+    	
     	@Override
     	public Dialog onCreateDialog(Bundle savedInstanceState) {
     		year = calendar.get(Calendar.YEAR);
@@ -107,7 +136,7 @@ public class AddNewTask extends FragmentActivity {
     		day = calendar.get(Calendar.DAY_OF_MONTH);
     		return new DatePickerDialog(getActivity(), this, year, month, day);
     	}
-    	 
+    	
     	public void onDateSet(DatePicker view, int yy, int mm, int dd) {
     		populateSetDate(yy, mm+1, dd);
     	}
@@ -117,13 +146,16 @@ public class AddNewTask extends FragmentActivity {
     public void saveTask (View v) {
     	
     	Intent intent = new Intent(AddNewTask.this, JobsOptions.class);
+    	DatabaseHandler db = new DatabaseHandler(this);
     	
     	sttask_name = task_name.getText().toString();
+    	sthourly_wage = task_hourly_wage.getText().toString();
+    	hourlyWage = Integer.parseInt(sthourly_wage);    	
     	
     	Task task = new Task(sttask_name, job_id, sttask_date, task_location_id, hourlyWage, hoursWorked);
-    	db.addTask(task);   	
+    	db.addTask(task); 
     	
-    	intent.putExtra("job", job_id);
+    	intent.putExtra("job_id", job_id);
     	
     	startActivity(intent);
     }
@@ -135,18 +167,18 @@ public class AddNewTask extends FragmentActivity {
     	
     	// Preserve the already entered options
     	sttask_name = task_name.getText().toString();
+    	sthourly_wage = task_hourly_wage.getText().toString();
     	    	
     	// Forward the saved entries to the locations list activity
     	// which then sends it back to re-populate those fields in this activity
     	show_locations.putExtra("task_name", sttask_name);
-    	show_locations.putExtra("task_date", sttask_date);
+    	show_locations.putExtra("task_date", stformatted_task_date);
+    	show_locations.putExtra("hourly_wage", sthourly_wage);
     	show_locations.putExtra("job_id", job_id);
     	
     	// show the locations list
-    	startActivity(show_locations);
-	
-    }
- 
+    	startActivity(show_locations);	
+    } 
         
     /** OPTIONS MENU CODE DISABLED FOR NOW
     
@@ -155,7 +187,6 @@ public class AddNewTask extends FragmentActivity {
         getMenuInflater().inflate(R.menu.activity_add_new_job, menu);
         return true;
     }
-
     
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -167,7 +198,5 @@ public class AddNewTask extends FragmentActivity {
         return super.onOptionsItemSelected(item);
     }
     
-	**/    
-    
-    
+	**/        
 }

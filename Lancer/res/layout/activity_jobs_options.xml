@@ -22,9 +22,11 @@
         android:layout_below="@+id/nav_list_bg"
         android:textColor="@color/lancer_blue"
         android:textSize="30dp"
-        android:paddingTop="10dp"
+        android:gravity="left"
+        android:paddingTop="25dp"
+        android:paddingLeft="25dp"
         android:background="@color/white"
-        android:paddingBottom="10dp" 
+        android:paddingBottom="25dp" 
         android:onClick="viewTasks"
         android:text="@string/tasks" />
     
@@ -33,7 +35,6 @@
  		android:layout_width = "fill_parent"
  		android:layout_below="@+id/Tasks"
  		android:layout_height="0.5dp"
- 		android:layout_marginTop="25dp"
  		android:layout_marginLeft="20dp"
  		android:layout_marginRight="20dp"
  		android:layout_centerVertical ="true"
@@ -49,9 +50,11 @@
         android:layout_below="@+id/separator1"
         android:textColor="@color/lancer_blue"
         android:textSize="30dp"
-        android:paddingTop="10dp"
+        android:paddingTop="25dp"
+        android:paddingLeft="25dp"
         android:background="@color/white"
-        android:paddingBottom="10dp" 
+        android:gravity="left"
+        android:paddingBottom="25dp" 
         android:onClick="viewExpences"
         android:text="@string/expenses" />
 
@@ -61,14 +64,13 @@
  		android:layout_width = "fill_parent"
  		android:layout_below="@+id/Expenses"
  		android:layout_height="0.5dp"
- 		android:layout_marginTop="25dp"
  		android:layout_marginLeft="20dp"
  		android:layout_marginRight="20dp"
  		android:layout_centerVertical ="true"
  		/>
     
 
-            <Button
+    <Button
         android:id="@+id/Notes"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -77,9 +79,11 @@
         android:layout_below="@+id/separator2"
         android:textColor="@color/lancer_blue"
         android:textSize="30dp"
-        android:paddingTop="10dp"
+        android:paddingLeft="25dp"
+        android:paddingTop="25dp"
         android:background="@color/white"
-        android:paddingBottom="10dp" 
+        android:gravity="left"
+        android:paddingBottom="25dp" 
         android:onClick="viewNotes"
         android:text="@string/notes" />
     

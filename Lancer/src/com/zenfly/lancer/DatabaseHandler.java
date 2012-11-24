@@ -1,3 +1,5 @@
+//Author: Simon McDonnell
+//handles all database interaction
 package com.zenfly.lancer;
 
 import java.util.ArrayList;
@@ -280,7 +282,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
         String selectQuery = "SELECT * FROM " + TABLE_TASKS + " WHERE " + KEY_ID + "=" + id;
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor != null) cursor.moveToFirst();
-        Task task = new Task(cursor.getString(1), Integer.parseInt(cursor.getString(2)), cursor.getString(3), Integer.parseInt(cursor.getString(4)), Integer.parseInt(cursor.getString(5)), Integer.parseInt(cursor.getString(6)));
+        Task task = new Task(cursor.getString(1), Integer.parseInt(cursor.getString(2)), cursor.getString(3), Integer.parseInt(cursor.getString(4)), Integer.parseInt(cursor.getString(6)), Integer.parseInt(cursor.getString(7)));
         db.close();
         return task;
     }
@@ -326,6 +328,67 @@ public class DatabaseHandler extends SQLiteOpenHelper
         }
         db.close();
         return jobList;
+    }
+    
+    public List<Job> getAllJobsByDeadline()
+    {
+    	List<Job> jobList = new ArrayList<Job>();
+    	String selectQuery = "SELECT " + TABLE_JOBS + "." + KEY_ID + ", " + TABLE_JOBS + "." + KEY_CLIENT + ", " + "MIN(" + TABLE_TASKS + "." + KEY_DEADLINE + 
+    			") FROM " + TABLE_JOBS + " JOIN " + TABLE_TASKS + " ON " + TABLE_JOBS + "." + KEY_ID + " = " + TABLE_TASKS + "." + KEY_JOB + " GROUP BY " + TABLE_JOBS + 
+    			"." + KEY_ID + " ORDER BY " + TABLE_TASKS + "." + KEY_DEADLINE + " ASC";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst())
+        {
+            do
+            {
+            	Job job = new Job(cursor.getString(1)); //creates a new job for each one returned by the database
+            	job.setId(Integer.parseInt(cursor.getString(0)));
+                jobList.add(job); //adds new job to the list
+            } while (cursor.moveToNext()); //loop continues while there are results
+        }
+        db.close();
+    	return jobList;
+    }
+    
+    public List<Job> getAllJobsByAlphaAsc()
+    {
+    	List<Job> jobList = new ArrayList<Job>();
+    	String selectQuery = "SELECT " + KEY_ID + ", " + KEY_CLIENT + 
+    			" FROM " + TABLE_JOBS + " ORDER BY " + KEY_CLIENT + " ASC";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst())
+        {
+            do
+            {
+            	Job job = new Job(cursor.getString(1)); //creates a new job for each one returned by the database
+            	job.setId(Integer.parseInt(cursor.getString(0)));
+                jobList.add(job); //adds new job to the list
+            } while (cursor.moveToNext()); //loop continues while there are results
+        }
+        db.close();
+    	return jobList;
+    }
+    
+    public List<Job> getAllJobsByAlphaDesc()
+    {
+    	List<Job> jobList = new ArrayList<Job>();
+    	String selectQuery = "SELECT " + KEY_ID + ", " + KEY_CLIENT + 
+    			" FROM " + TABLE_JOBS + " ORDER BY " + KEY_CLIENT + " DESC";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst())
+        {
+            do
+            {
+            	Job job = new Job(cursor.getString(1)); //creates a new job for each one returned by the database
+            	job.setId(Integer.parseInt(cursor.getString(0)));
+                jobList.add(job); //adds new job to the list
+            } while (cursor.moveToNext()); //loop continues while there are results
+        }
+        db.close();
+    	return jobList;
     }
  
     public List<Location> getAllLocations()
@@ -449,7 +512,8 @@ public class DatabaseHandler extends SQLiteOpenHelper
     	{
     		do
     		{
-    			Task task = new Task(cursor.getString(1), Integer.parseInt(cursor.getString(2)), cursor.getString(3), Integer.parseInt(cursor.getString(4)), Integer.parseInt(cursor.getString(5)), Integer.parseInt(cursor.getString(6)));
+    			//SMcD FIXME: Returns null values
+    			Task task = new Task(cursor.getString(1), Integer.parseInt(cursor.getString(2)), cursor.getString(3), Integer.parseInt(cursor.getString(4)), Integer.parseInt(cursor.getString(6)), Integer.parseInt(cursor.getString(7)));
     			taskList.add(task);
     		}while(cursor.moveToNext());
     	}
@@ -468,10 +532,11 @@ public class DatabaseHandler extends SQLiteOpenHelper
     	{
     		do
     		{
-    			Task task = new Task(cursor.getString(1), Integer.parseInt(cursor.getString(2)), cursor.getString(3), Integer.parseInt(cursor.getString(4)), Integer.parseInt(cursor.getString(5)), Integer.parseInt(cursor.getString(6)));
+    			Task task = new Task(cursor.getString(1), Integer.parseInt(cursor.getString(2)), cursor.getString(3), Integer.parseInt(cursor.getString(4)), Integer.parseInt(cursor.getString(6)), Integer.parseInt(cursor.getString(7)));
     			taskList.add(task);
     		}while(cursor.moveToNext());
     	}
+    	//else taskList = null;
     	db.close();
     	return taskList;
     }

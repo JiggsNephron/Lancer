@@ -6,22 +6,27 @@
         <ListView
         android:id="@android:id/list"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" />
-        
-       
-        <Button
-        android:id="@+id/add_new_job"
-        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:textColor="@color/white"
-        android:textSize="25dp"
-        android:paddingTop="10dp"
-        android:background="@color/lancer_blue"
-        android:paddingBottom="10dp" 
-        android:onClick="addNewJob"
-        android:text="@string/add_new_job" />
-        
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/add_new_job" >
+        </ListView>
+
+   
+
+       <Button
+           android:id="@+id/add_new_job"
+           android:layout_width="fill_parent"
+           android:layout_height="wrap_content"
+           android:layout_alignParentBottom="true"
+           android:layout_alignParentLeft="true"
+           android:layout_alignParentRight="true"
+           android:background="@color/lancer_blue"
+           android:onClick="addNewJob"
+           android:paddingBottom="10dp"
+           android:paddingTop="10dp"
+           android:text="@string/add_new_job"
+           android:textColor="@color/white"
+           android:textSize="25dp" />
+   
 </RelativeLayout>
