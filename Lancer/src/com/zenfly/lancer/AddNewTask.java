@@ -160,7 +160,7 @@ public class AddNewTask extends FragmentActivity {
     	
     	db.addTask(task);
     	
-    	intent.putExtra("job", job_id);
+    	intent.putExtra("job_id", job_id);
     	
     	startActivity(intent);
     }

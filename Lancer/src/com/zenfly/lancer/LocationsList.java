@@ -101,7 +101,7 @@ public class LocationsList extends ListActivity {
 	  	intent.putExtra("task_name", getIntent().getStringExtra("task_name"));
 	  	intent.putExtra("task_date", getIntent().getStringExtra("task_date"));
 	  	intent.putExtra("hourly_wage", getIntent().getStringExtra("hourly_wage"));
-	  	intent.putExtra("job", getIntent().getIntExtra("job", 0));
+	  	intent.putExtra("job_id", getIntent().getIntExtra("job_id", 0));
 	    startActivity(intent);
 	}
 
