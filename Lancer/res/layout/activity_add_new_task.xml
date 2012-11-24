@@ -3,9 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
+    <!-- Navigation -->
+    
 	<View android:id="@+id/nav_list_bg" 
  	    android:background="@color/lancer_blue"
- 		android:layout_width = "fill_parent"
+ 		android:layout_width="fill_parent"
  		android:layout_alignParentTop="true"
  		android:layout_height="55dp"
  		android:layout_centerVertical ="true"
@@ -74,13 +76,14 @@
         android:textColor="@color/white"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:onClick="" /> <!-- To Tasks List -->
-    
+        
+
+	<!-- Add New Task content  -->
 
     <TextView
         android:id="@+id/task_name_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
         android:layout_below="@+id/nav_list_bg"
         android:text="@string/AddNewTask_task_name_title"
         android:textColor="@color/lancer_blue"
@@ -93,11 +96,10 @@
         android:id="@+id/task_name"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
         android:layout_below="@+id/task_name_title"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:ems="20"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:ems="15"
         android:inputType="text" >
 
         <requestFocus />
@@ -119,17 +121,16 @@
 
     <EditText
         android:id="@+id/button_add_deadline"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignRight="@+id/task_name"
         android:layout_below="@+id/task_deadline_title"
         android:text="@string/button_add_task_deadline"
         android:focusableInTouchMode="false" 
         android:onClick="selectDate"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:ems="20"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:ems="15"
         android:inputType="text" />
 
     <TextView
@@ -147,7 +148,7 @@
 
     <EditText
         android:id="@+id/button_location_names"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignRight="@+id/button_add_deadline"
@@ -156,25 +157,9 @@
         android:onClick="chooseLocation"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:ems="20"
+        android:ems="15"
         android:inputType="text" />
 
-    
-    <Button
-        android:id="@+id/save_job"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:onClick="saveTask"
-        android:text="@string/button_save"
-        android:layout_marginTop="20dp"
-        android:background="@color/lancer_blue"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:textColor="@color/white"
-        android:textSize="25dp" />
 
     <TextView
         android:id="@+id/task_hourly_wage_title"
@@ -191,13 +176,30 @@
 
     <EditText
         android:id="@+id/task_hourly_wage"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/task_hourly_wage_title"
-        android:ems="20"
+        android:ems="15"
         android:inputType="numberDecimal"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp" />
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp" />
+    
+    
+    <Button
+        android:id="@+id/save_task"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:onClick="saveTask"
+        android:text="@string/button_save"
+        android:background="@color/lancer_blue"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:textColor="@color/white"
+        android:textSize="25dp" />
     
 </RelativeLayout>

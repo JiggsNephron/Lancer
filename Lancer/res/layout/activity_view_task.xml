@@ -4,29 +4,193 @@
     android:layout_height="match_parent"
     tools:context=".ViewTask" >
 
+    <!--  Navigation -->
     
-        <TextView
+    <View android:id="@+id/nav_list_bg" 
+ 	    android:background="@color/lancer_blue"
+ 		android:layout_width="fill_parent"
+ 		android:layout_alignParentTop="true"
+ 		android:layout_height="55dp"
+ 		android:layout_centerVertical ="true"
+ 		/>
+	
+	<TextView
+        android:id="@+id/jobs_list"
         android:layout_width="wrap_content"
-        android:id="@+id/thisTaskName"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="@string/hello_world" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="10dp"
+        android:text="@string/jobs"
+        android:textSize="20dp"
+        android:textColor="@color/white"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:onClick="" /> <!-- To Jobs List -->
+
+    <TextView
+        android:id="@+id/arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/jobs_list"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="25dp"
+        android:textColor="@color/white"
+        android:text="@string/arrow"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+    
+    <TextView
+        android:id="@+id/job_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/arrow"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="10dp"
+        android:text="@string/job"
+        android:textSize="20dp"
+        android:textColor="@color/white"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:onClick="" /> <!-- To Job Options List -->
+    
+    <TextView
+        android:id="@+id/arrow2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/job_name"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="25dp"
+        android:textColor="@color/white"
+        android:text="@string/arrow"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+    
+    <TextView
+        android:id="@+id/job_option"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/arrow2"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="10dp"
+        android:text="@string/tasks"
+        android:textSize="20dp"
+        android:textColor="@color/white"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:onClick="" /> <!-- To Tasks List -->
+    
+    <!-- View Tasks Content -->
+    
+    <TextView
+        android:id="@+id/thisTaskName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/nav_list_bg"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/lancer_blue"
+        android:textSize="25dp"
+    	android:text="Task Name" />
+    
+    <View android:id="@+id/separator" 
+ 	    android:background="@color/lancer_blue"
+ 		android:layout_width = "fill_parent"
+ 		android:layout_below="@+id/thisTaskName"
+ 		android:layout_height="0.5dp"
+ 		android:layout_marginTop="25dp"
+ 		android:layout_marginLeft="20dp"
+ 		android:layout_marginRight="20dp"
+ 		android:layout_centerVertical ="true"
+ 		/>
+    
+        
+        <TextView
+        android:id="@+id/thisTaskDeadlineTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/separator"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/lancer_blue"
+        android:textSize="20dp"
+    	android:text="@string/due_date" />
         
         <TextView
         android:id="@+id/thisTaskDeadline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="@string/hello_world" />
+        android:layout_toRightOf="@+id/thisTaskDeadlineTitle"
+        android:layout_alignBaseline="@+id/thisTaskDeadlineTitle"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textColor="@color/lancer_blue"
+        android:textSize="20dp"
+        android:textStyle="italic"
+    	android:text="@string/due_date" />
             
+        <TextView
+        android:id="@+id/thisTaskLocationTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/thisTaskDeadlineTitle"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="25dp"
+        android:textColor="@color/lancer_blue"
+        android:textSize="20dp"
+    	android:text="@string/location" />
+        
         <TextView
         android:id="@+id/thisTaskLocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="@string/hello_world" />
+        android:layout_toRightOf="@+id/thisTaskLocationTitle"
+        android:layout_alignBaseline="@+id/thisTaskLocationTitle"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textColor="@color/lancer_blue"
+        android:textSize="20dp"
+        android:textStyle="italic"
+    	android:text="@string/location" />
+        
+        <TextView
+        android:id="@+id/thisTaskNotesTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/thisTaskLocationTitle"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="25dp"
+        android:textColor="@color/lancer_blue"
+        android:textSize="20dp"
+    	android:text="@string/notes" />
+        
+        <TextView
+        android:id="@+id/thisTaskNotes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/thisTaskNotesTitle"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:paddingBottom="20dp"
+        android:textColor="@color/lancer_blue"
+        android:textSize="20dp"
+        android:textStyle="italic"
+    	android:text="@string/notes" />
 
+        <Button
+        android:id="@+id/delete_task"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:onClick="deleteTask"
+        android:text="@string/button_delete_task"
+        android:background="@color/lancer_blue"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:textColor="@color/white"
+        android:textSize="25dp" />
+    
+        
 </RelativeLayout>
