@@ -19,7 +19,7 @@ public class JobsOptions extends Activity  {
         setContentView(R.layout.activity_jobs_options);
         
         db = new DatabaseHandler(this.getApplicationContext());
-        id = getIntent().getExtras().getInt("job");
+        id = getIntent().getExtras().getInt("job_id");
         Job job = db.getJob(id);
         TextView jobName = (TextView) findViewById(R.id.job_name);
         jobName.setText(job.getClient());
@@ -54,7 +54,7 @@ public class JobsOptions extends Activity  {
     public void viewTasks(View v)
     {
     	Intent viewTasks = new Intent(JobsOptions.this, TasksList.class);
-    	viewTasks.putExtra("job", id); //sends the job id
+    	viewTasks.putExtra("job_id", id); //sends the job id
     	startActivity(viewTasks); 
     }
     

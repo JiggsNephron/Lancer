@@ -73,5 +73,22 @@
         android:layout_alignParentRight="true"
         android:onClick="saveTask"
         android:text="@string/button_add_new_task" />
+
+    <TextView
+        android:id="@+id/task_hourly_wage_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/button_location_names"
+        android:text="@string/AddNewTask_task_hourly_wage_title" />
+
+    <EditText
+        android:id="@+id/task_hourly_wage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/task_hourly_wage_title"
+        android:ems="10"
+        android:inputType="numberDecimal" />
     
 </RelativeLayout>

@@ -21,6 +21,7 @@
     <string name="AddNewTask_task_deadline_title">Task Deadline: (Optional)</string>
     <string name="AddNewTask_task_notes_title">Task Notes: (Optional)</string>
     <string name="AddNewTask_task_location_title">Task Location: (Optional)</string>
+    <string name="AddNewTask_task_hourly_wage_title">Task Hourly Wage: (Optional)</string>    
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_expences_list">ExpencesList</string>
     <string name="title_activity_tasks_list">TasksList</string>
