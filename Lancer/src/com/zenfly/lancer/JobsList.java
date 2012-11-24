@@ -61,7 +61,7 @@ public class JobsList extends ListActivity {
 	  {	 
 	  	Intent intent = new Intent(JobsList.this, JobsOptions.class);
 	  	int jobId = jobs.get(position).getId();
-	  	intent.putExtra("job", jobId); //sends the job id
+	  	intent.putExtra("job_id", jobId); //sends the job id
 	    startActivity(intent);
 	  }
 	
