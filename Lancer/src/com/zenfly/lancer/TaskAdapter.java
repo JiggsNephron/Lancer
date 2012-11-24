@@ -18,7 +18,7 @@ public class TaskAdapter extends ArrayAdapter<Task> {
 	
 	public TaskAdapter(Activity activity, List<Task> objects) 
 	{
-      super(activity, R.layout.activity_jobs_list , objects);
+      super(activity, R.layout.activity_tasks_list , objects);
       this.activity = activity;
       this.taskObject = objects;
 	}
