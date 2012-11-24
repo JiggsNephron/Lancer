@@ -512,6 +512,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
     	{
     		do
     		{
+    			//SMcD FIXME: Returns null values
     			Task task = new Task(cursor.getString(1), Integer.parseInt(cursor.getString(2)), cursor.getString(3), Integer.parseInt(cursor.getString(4)), Integer.parseInt(cursor.getString(5)), Integer.parseInt(cursor.getString(6)));
     			taskList.add(task);
     		}while(cursor.moveToNext());
@@ -527,7 +528,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
     	String selectQuery = "SELECT * FROM " + TABLE_TASKS + " WHERE " + KEY_JOB + "=" + thisJob; //makes sure we only retrieve finished tasks
     	SQLiteDatabase db = this.getWritableDatabase();
     	Cursor cursor = db.rawQuery(selectQuery, null);
-    	if(cursor.moveToFirst() && cursor.getCount() > 0) //makes sure we have results
+    	if(cursor.moveToFirst()) //makes sure we have results
     	{
     		do
     		{
