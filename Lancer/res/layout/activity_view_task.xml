@@ -92,6 +92,7 @@
         android:textSize="25dp"
     	android:text="Task Name" />
     
+    
     <View android:id="@+id/separator" 
  	    android:background="@color/lancer_blue"
  		android:layout_width = "fill_parent"
@@ -110,7 +111,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/separator"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:textColor="@color/lancer_blue"
         android:textSize="20dp"
     	android:text="@string/due_date" />
@@ -134,7 +135,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/thisTaskDeadlineTitle"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="30dp"
         android:textColor="@color/lancer_blue"
         android:textSize="20dp"
     	android:text="@string/location" />
@@ -151,31 +152,6 @@
         android:textSize="20dp"
         android:textStyle="italic"
     	android:text="@string/location" />
-        
-        <!--  <TextView
-        android:id="@+id/thisTaskNotesTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/thisTaskLocationTitle"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="25dp"
-        android:textColor="@color/lancer_blue"
-        android:textSize="20dp"
-    	android:text="@string/notes" />
-        
-        <TextView
-        android:id="@+id/thisTaskNotes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/thisTaskNotesTitle"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
-        android:paddingBottom="20dp"
-        android:textColor="@color/lancer_blue"
-        android:textSize="20dp"
-        android:textStyle="italic"
-    	android:text="@string/notes" /> -->
 
         <Button
         android:id="@+id/delete_task"
@@ -191,6 +167,21 @@
         android:paddingBottom="10dp"
         android:textColor="@color/white"
         android:textSize="25dp" />
-    
+
+        <Button
+        android:id="@+id/view_or_add_task_notes"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/thisTaskLocationTitle"
+        android:layout_marginTop="50dp"
+        android:background="@color/lancer_blue"
+        android:onClick="viewJobNotes"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:text="@string/viewadd_task_notes"
+        android:textColor="@color/white"
+        android:textSize="20dp" />
         
 </RelativeLayout>
