@@ -84,7 +84,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
 	                + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_NAME 
 	                + " TEXT," + KEY_JOB + " INTEGER," 
 	                + KEY_TASK + " INTEGER," + KEY_ITEM + " INTEGER," 
-	        		+ KEY_QUANTITY +
+	        		+ KEY_QUANTITY + "INTEGER" +
                 ")";
         String CREATE_LOCATIONS_TABLE = 
         		"CREATE TABLE " + TABLE_LOCATIONS + 
@@ -158,7 +158,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        int task, job;
+        /*int task, job;
         Cursor cursor = db.query(TABLE_JOBS, new String[] { KEY_ID }, KEY_LOCATION + "=?",
                 new String[] { note.getJob()}, null, null, null, null);
         if (cursor != null) cursor.moveToFirst();
@@ -166,9 +166,9 @@ public class DatabaseHandler extends SQLiteOpenHelper
         cursor = db.query(TABLE_TASKS, new String[] { KEY_ID }, KEY_LOCATION + "=?",
                 new String[] { note.getTask()}, null, null, null, null);
         if (cursor != null) cursor.moveToFirst();
-        task = Integer.parseInt((cursor.getString(0)));
-        values.put(KEY_JOB, job);
-        values.put(KEY_TASK, task);
+        task = Integer.parseInt((cursor.getString(0)));*/
+        values.put(KEY_JOB, note.getJob());
+        values.put(KEY_TASK, note.getTask());
         values.put(KEY_SUBJECT, note.getSubject());
         values.put(KEY_BODY, note.getBody());
         try
@@ -203,22 +203,22 @@ public class DatabaseHandler extends SQLiteOpenHelper
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        int task, job, item;
+        /*int task, job, item;
         Cursor cursor = db.query(TABLE_JOBS, new String[] { KEY_ID }, KEY_LOCATION + "=?",
-                new String[] { expense.getJob()}, null, null, null, null);
+                new String[] { Integer.toString(expense.getJob())}, null, null, null, null);
         if (cursor != null) cursor.moveToFirst();
         job = Integer.parseInt((cursor.getString(0)));
         cursor = db.query(TABLE_TASKS, new String[] { KEY_ID }, KEY_LOCATION + "=?",
-                new String[] { expense.getTask()}, null, null, null, null);
+                new String[] { Integer.toString(expense.getTask())}, null, null, null, null);
         if (cursor != null) cursor.moveToFirst();
         task = Integer.parseInt((cursor.getString(0)));
         cursor = db.query(TABLE_ITEMS, new String[] { KEY_ID }, KEY_LOCATION + "=?",
-                new String[] { expense.getItem()}, null, null, null, null);
+                new String[] { Integer.toString(expense.getItem())}, null, null, null, null);
         if (cursor != null) cursor.moveToFirst();
-        item = Integer.parseInt((cursor.getString(0)));
-        values.put(KEY_JOB, job);
-        values.put(KEY_TASK, task);
-        values.put(KEY_ITEM, item);
+        item = Integer.parseInt((cursor.getString(0)));*/
+        values.put(KEY_JOB, expense.getJob());
+        values.put(KEY_TASK, expense.getTask());
+        values.put(KEY_ITEM, expense.getItem());
         values.put(KEY_QUANTITY, expense.getQuantity());
         try
         {
@@ -285,6 +285,17 @@ public class DatabaseHandler extends SQLiteOpenHelper
         Task task = new Task(cursor.getString(1), Integer.parseInt(cursor.getString(2)), cursor.getString(3), Integer.parseInt(cursor.getString(4)), Integer.parseInt(cursor.getString(6)), Integer.parseInt(cursor.getString(7)));
         db.close();
         return task;
+    }
+    
+    public Item getItem(int id)
+    {
+    	SQLiteDatabase db = this.getReadableDatabase();
+        String selectQuery = "SELECT * FROM " + TABLE_ITEMS + " WHERE " + KEY_ID + "=" + id;
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor != null) cursor.moveToFirst();
+        Item item = new Item(cursor.getString(1), cursor.getString(2));
+        db.close();
+        return item;
     }
     
     //methods for getting the task with either the nearest of farthest deadline
@@ -512,7 +523,6 @@ public class DatabaseHandler extends SQLiteOpenHelper
     	{
     		do
     		{
-    			//SMcD FIXME: Returns null values
     			Task task = new Task(cursor.getString(1), Integer.parseInt(cursor.getString(2)), cursor.getString(3), Integer.parseInt(cursor.getString(4)), Integer.parseInt(cursor.getString(6)), Integer.parseInt(cursor.getString(7)));
     			taskList.add(task);
     		}while(cursor.moveToNext());

@@ -2,12 +2,12 @@ package com.zenfly.lancer;
 
 public class Expense
 {
-	private String job;
-	private String task;
-	private String item;
+	private int job;
+	private int task;
+	private int item;
 	private int quantity;
 	
-	public Expense(String job, String task, String item, int quantity)
+	public Expense(int job, int task, int item, int quantity)
 	{
 		this.job = job;
 		this.task = task;
@@ -15,17 +15,17 @@ public class Expense
 		this.quantity = quantity;
 	}
 	
-	public String getJob()
+	public int getJob()
 	{
 		return job;
 	}
 	
-	public String getTask()
+	public int getTask()
 	{
 		return task;
 	}
 	
-	public String getItem()
+	public int getItem()
 	{
 		return item;
 	}

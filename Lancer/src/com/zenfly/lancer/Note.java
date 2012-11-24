@@ -3,12 +3,12 @@ package com.zenfly.lancer;
 public class Note 
 {
 	private int id;
-	private String job;
-	private String task;
+	private int job;
+	private int task;
 	private String subject;
 	private String body;
 	
-	public Note(String job, String task, String subject, String body)
+	public Note(int job, int task, String subject, String body)
 	{
 		this.job = job;
 		this.task = task;
@@ -16,12 +16,12 @@ public class Note
 		this.body = body;
 	}
 	
-	public String getJob()
+	public int getJob()
 	{
 		return job;
 	}
 	
-	public String getTask()
+	public int getTask()
 	{
 		return task;
 	}
