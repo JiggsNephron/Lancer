@@ -512,6 +512,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
     	{
     		do
     		{
+    			//SMcD FIXME: Returns null values
     			Task task = new Task(cursor.getString(1), Integer.parseInt(cursor.getString(2)), cursor.getString(3), Integer.parseInt(cursor.getString(4)), Integer.parseInt(cursor.getString(5)), Integer.parseInt(cursor.getString(6)));
     			taskList.add(task);
     		}while(cursor.moveToNext());
@@ -535,6 +536,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
     			taskList.add(task);
     		}while(cursor.moveToNext());
     	}
+    	else taskList = null;
     	db.close();
     	return taskList;
     }
