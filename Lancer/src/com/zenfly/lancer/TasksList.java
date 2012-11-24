@@ -45,7 +45,8 @@ public class TasksList extends ListActivity {
     }
     
     public void addNewTask(View v) {
-       	Intent intent = new Intent(TasksList.this, AddNewTask.class); 	
+       	Intent intent = new Intent(TasksList.this, AddNewTask.class);
+       	intent.putExtra("job_id", getIntent().getIntExtra("job_id", 0));
     	startActivity(intent);	
    }
     
