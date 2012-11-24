@@ -136,6 +136,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
+        long success = 0;
         values.put(KEY_NAME, task.getName());
         values.put(KEY_JOB, task.getJob());
         values.put(KEY_DEADLINE, task.getDeadline());
@@ -144,14 +145,14 @@ public class DatabaseHandler extends SQLiteOpenHelper
         values.put(KEY_HOURS_WORKED, task.getHoursWorked());
         try
         {
-        	return db.insertOrThrow(TABLE_TASKS, null, values);
+        	success = db.insertOrThrow(TABLE_TASKS, null, values);
         }
         catch(Exception e)
         {
         	db.close();
         	return 0;
         }
-        //db.close();
+        return success;
     }
     
     public void addNote(Note note)
