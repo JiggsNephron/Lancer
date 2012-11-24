@@ -527,7 +527,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
     	String selectQuery = "SELECT * FROM " + TABLE_TASKS + " WHERE " + KEY_JOB + "=" + thisJob; //makes sure we only retrieve finished tasks
     	SQLiteDatabase db = this.getWritableDatabase();
     	Cursor cursor = db.rawQuery(selectQuery, null);
-    	if(cursor.moveToFirst()) //makes sure we have results
+    	if(cursor.moveToFirst() && cursor.getCount() > 0) //makes sure we have results
     	{
     		do
     		{
@@ -535,6 +535,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
     			taskList.add(task);
     		}while(cursor.moveToNext());
     	}
+    	else taskList = null;
     	db.close();
     	return taskList;
     }
