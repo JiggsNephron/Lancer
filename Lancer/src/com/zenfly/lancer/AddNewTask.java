@@ -82,19 +82,19 @@ public class AddNewTask extends FragmentActivity {
         }  
         
         // check if there is a task_date in the received intent and put it into the EditText
-        // otherwise just add an instruction
         if(getIntent().getStringExtra("task_date") != null) {
         	stformatted_task_date = getIntent().getStringExtra("task_date");
         	add_deadline.setText(stformatted_task_date);        
         }
+        else {
+        	add_deadline.setText(""); // FIXME RC: FOR SK > change here to show something else on the deadline EditText view when first shown
+        }
+        
         // check if there is a hourly wage in the received intent and put it into the EditText
         if(getIntent().getStringExtra("hourly_wage") != null) {
         	sthourly_wage = getIntent().getStringExtra("hourly_wage");
         	task_hourly_wage.setText(sthourly_wage);        
-        }  
-        else {
-        	add_deadline.setText(""); // FIXME RC: FOR SK > change here to show something else on the deadline EditText view when first shown
-        }
+        }        
     }
     
     // OnClick of the Deadline EditText
@@ -102,6 +102,23 @@ public class AddNewTask extends FragmentActivity {
     	DialogFragment newFragment = new SelectDateFragment();
     	newFragment.show(getSupportFragmentManager(), "DatePicker");
     }
+    
+    // Extends DialogFragment to show a date picker dialog to the user
+    @SuppressLint("ValidFragment")
+	public class SelectDateFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
+    	// show the dialog with the current date
+    	@Override
+    	public Dialog onCreateDialog(Bundle savedInstanceState) {
+    		year = calendar.get(Calendar.YEAR);
+    		month = calendar.get(Calendar.MONTH);
+    		day = calendar.get(Calendar.DAY_OF_MONTH);
+    		return new DatePickerDialog(getActivity(), this, year, month, day);
+    	}
+    	// once the user chooses a date and clicks set, populateSetDate() is called
+    	public void onDateSet(DatePicker view, int yy, int mm, int dd) {
+    		populateSetDate(yy, mm+1, dd);
+    	}
+    }    
     
     // Used to populate the deadline EditText with the chosen date
     public void populateSetDate(int year, int month, int day) {
@@ -121,26 +138,9 @@ public class AddNewTask extends FragmentActivity {
 			stformatted_task_date = "";
 		}   	
     	
-    	// sets the text of the deadline EditText box to the date string
+    	// sets the text of the deadline EditText box to the locale formatted date string
     	add_deadline.setText(stformatted_task_date);
-    } 
-    
-    // Extends DialogFragment to show a date picker dialog to the user
-    @SuppressLint("ValidFragment")
-	public class SelectDateFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
-    	
-    	@Override
-    	public Dialog onCreateDialog(Bundle savedInstanceState) {
-    		year = calendar.get(Calendar.YEAR);
-    		month = calendar.get(Calendar.MONTH);
-    		day = calendar.get(Calendar.DAY_OF_MONTH);
-    		return new DatePickerDialog(getActivity(), this, year, month, day);
-    	}
-    	
-    	public void onDateSet(DatePicker view, int yy, int mm, int dd) {
-    		populateSetDate(yy, mm+1, dd);
-    	}
-    }
+    }     
 
     // Saves the all the chosen entries as a new task
     public void saveTask (View v) {
@@ -148,15 +148,16 @@ public class AddNewTask extends FragmentActivity {
     	Intent intent = new Intent(AddNewTask.this, JobsOptions.class);
     	DatabaseHandler db = new DatabaseHandler(this);
     	
+    	// get the EditText fields and convert the wage to an integer
     	sttask_name = task_name.getText().toString();
     	sthourly_wage = task_hourly_wage.getText().toString();
     	hourlyWage = Integer.parseInt(sthourly_wage);    	
     	
-    	Task task = new Task(sttask_name, job_id, sttask_date, task_location_id, hourlyWage, hoursWorked);
-    	db.addTask(task); 
+    	// create a new task using the users preferences and add it to the database
+    	Task new_task = new Task(sttask_name, job_id, sttask_date, task_location_id, hourlyWage, hoursWorked);
+    	db.addTask(new_task); 
     	
-    	intent.putExtra("job_id", job_id);
-    	
+    	intent.putExtra("job_id", job_id);    	
     	startActivity(intent);
     }
     
