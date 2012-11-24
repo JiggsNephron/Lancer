@@ -32,7 +32,7 @@ public class TasksList extends ListActivity {
         	startActivity(intent);
         }
         //SMcD: just adding this to see if it grabs jobs from the DB. And it does. Happy days
-        int thisJob = getIntent().getExtras().getInt("job");
+        int thisJob = getIntent().getIntExtra("job_id", 0);
         task = db.getAllTasksForJob(thisJob);//= new ArrayList<Job>(); //makes a list of jobs to send to the list View
         
         setListAdapter(new TaskAdapter(this, task)); //starts the list View

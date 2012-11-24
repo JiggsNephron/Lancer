@@ -26,8 +26,6 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
-//TODO SMcD: Add hourly wage (should we do this like notes? let the user add it after the task is added?) 
-
 public class AddNewTask extends FragmentActivity {
 	
 	final Context context = this;
@@ -53,7 +51,6 @@ public class AddNewTask extends FragmentActivity {
 	Date date_locale; 
 	int year, month, day;
 	
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,7 +93,7 @@ public class AddNewTask extends FragmentActivity {
         	task_hourly_wage.setText(sthourly_wage);        
         }  
         else {
-        	add_deadline.setText("Choose a Deadline"); // FIXME RC: FOR SK > change here to show something else on the deadline EditText view when first shown
+        	add_deadline.setText(""); // FIXME RC: FOR SK > change here to show something else on the deadline EditText view when first shown
         }
     }
     
@@ -131,6 +128,7 @@ public class AddNewTask extends FragmentActivity {
     // Extends DialogFragment to show a date picker dialog to the user
     @SuppressLint("ValidFragment")
 	public class SelectDateFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
+    	
     	@Override
     	public Dialog onCreateDialog(Bundle savedInstanceState) {
     		year = calendar.get(Calendar.YEAR);
@@ -138,7 +136,7 @@ public class AddNewTask extends FragmentActivity {
     		day = calendar.get(Calendar.DAY_OF_MONTH);
     		return new DatePickerDialog(getActivity(), this, year, month, day);
     	}
-    	 
+    	
     	public void onDateSet(DatePicker view, int yy, int mm, int dd) {
     		populateSetDate(yy, mm+1, dd);
     	}
@@ -152,13 +150,10 @@ public class AddNewTask extends FragmentActivity {
     	
     	sttask_name = task_name.getText().toString();
     	sthourly_wage = task_hourly_wage.getText().toString();
-    	hourlyWage = Integer.parseInt(sthourly_wage);
-    	
+    	hourlyWage = Integer.parseInt(sthourly_wage);    	
     	
     	Task task = new Task(sttask_name, job_id, sttask_date, task_location_id, hourlyWage, hoursWorked);
     	db.addTask(task); 
-    	
-    	db.addTask(task);
     	
     	intent.putExtra("job_id", job_id);
     	
@@ -182,10 +177,8 @@ public class AddNewTask extends FragmentActivity {
     	show_locations.putExtra("job_id", job_id);
     	
     	// show the locations list
-    	startActivity(show_locations);
-	
-    }
- 
+    	startActivity(show_locations);	
+    } 
         
     /** OPTIONS MENU CODE DISABLED FOR NOW
     
@@ -194,7 +187,6 @@ public class AddNewTask extends FragmentActivity {
         getMenuInflater().inflate(R.menu.activity_add_new_job, menu);
         return true;
     }
-
     
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -206,7 +198,5 @@ public class AddNewTask extends FragmentActivity {
         return super.onOptionsItemSelected(item);
     }
     
-	**/    
-    
-    
+	**/        
 }
