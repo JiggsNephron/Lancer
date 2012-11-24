@@ -287,6 +287,17 @@ public class DatabaseHandler extends SQLiteOpenHelper
         return task;
     }
     
+    public Item getItem(int id)
+    {
+    	SQLiteDatabase db = this.getReadableDatabase();
+        String selectQuery = "SELECT * FROM " + TABLE_ITEMS + " WHERE " + KEY_ID + "=" + id;
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor != null) cursor.moveToFirst();
+        Item item = new Item(cursor.getString(1), cursor.getString(2));
+        db.close();
+        return item;
+    }
+    
     //methods for getting the task with either the nearest of farthest deadline
     public Task getNearestDeadlineTask()
     {
