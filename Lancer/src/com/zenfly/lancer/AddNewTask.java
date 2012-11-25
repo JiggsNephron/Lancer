@@ -151,7 +151,8 @@ public class AddNewTask extends FragmentActivity {
     	// get the EditText fields and convert the wage to an integer
     	sttask_name = task_name.getText().toString();
     	sthourly_wage = task_hourly_wage.getText().toString();
-    	hourlyWage = Integer.parseInt(sthourly_wage);    	
+    	if (sthourly_wage.equals("")) hourlyWage = 0;
+    	else hourlyWage = Integer.parseInt(sthourly_wage);
     	
     	// create a new task using the users preferences and add it to the database
     	Task new_task = new Task(sttask_name, job_id, sttask_date, task_location_id, hourlyWage, hoursWorked);
