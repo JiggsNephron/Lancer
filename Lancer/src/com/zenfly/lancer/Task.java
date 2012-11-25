@@ -9,8 +9,9 @@ public class Task
 	private String deadline;
 	private int hoursWorked;
 	private int hourlyWage;
+	int done;
 
-	public Task(String name, int job, String deadline, int location, int wage, int hours)
+	public Task(String name, int job, String deadline, int location, int wage, int hours, int done)
 	{
 		this.name = name;
 		this.job = job;
@@ -18,6 +19,7 @@ public class Task
 		this.location = location;
 		this.hourlyWage = wage;
 		this.hoursWorked = hours;
+		this.done = done;
 	}
 	
 	public int getId()
@@ -53,6 +55,11 @@ public class Task
 	public int getHoursWorked()
 	{
 		return hoursWorked;
+	}
+	
+	public int getDone()
+	{
+		return done;
 	}
 	
 	public void setId(int id)

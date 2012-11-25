@@ -46,6 +46,7 @@ public class AddNewTask extends FragmentActivity {
 	int hourlyWage = 0;
 	String sthourly_wage = "";
 	int hoursWorked = 0;
+	int done = 0;
 	
 	Calendar calendar;
 	Date date_locale; 
@@ -155,7 +156,7 @@ public class AddNewTask extends FragmentActivity {
     	else hourlyWage = Integer.parseInt(sthourly_wage);
     	
     	// create a new task using the users preferences and add it to the database
-    	Task new_task = new Task(sttask_name, job_id, sttask_date, task_location_id, hourlyWage, hoursWorked);
+    	Task new_task = new Task(sttask_name, job_id, sttask_date, task_location_id, hourlyWage, hoursWorked, done);
     	db.addTask(new_task); 
     	
     	intent.putExtra("job_id", job_id);    	
