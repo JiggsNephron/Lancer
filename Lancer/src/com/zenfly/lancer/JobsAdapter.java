@@ -51,13 +51,13 @@ public class JobsAdapter extends ArrayAdapter<Job>
 	    	
 	    	if(db.getJobTaskCount(currentJob.getId()) != 0)
 	    	{
-		    	Task tempTask = db.getNearestDeadlineTask();
+		    	//Task tempTask = db.getNearestDeadlineTask();
 		    	
-		    	int tempLocation = tempTask.getLocation();// finds the location in the data base we are looking for
-		    	Location a  = db.getLocation(tempLocation); // extracts the location from the database
-		    	String b = a.getLocation(); // puts the location into a string
+		    	//int tempLocation = tempTask.getLocation();// finds the location in the data base we are looking for
+		    	//Location a  = db.getLocation(tempLocation); // extracts the location from the database
+		    	String b = "temp";//a.getLocation(); // puts the location into a string
 		    	
-		    	String tempDate = tempTask.getDeadline();// just returns the raw date string
+		    	String tempDate = "temp";//tempTask.getDeadline();// just returns the raw date string
 		    	
 		    	
 		    	jobsItemView.name.setText("Test");//currentJob.getClient()); //sets the data
