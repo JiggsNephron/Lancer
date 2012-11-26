@@ -39,6 +39,7 @@ public class JobsList extends ListActivity {
         else if(order.equals("deadline"))jobs = db.getAllJobsByDeadline();
         else if(order.equals("alphaAsc"))jobs = db.getAllJobsByAlphaAsc();
         else if(order.equals("alphaDesc"))jobs = db.getAllJobsByAlphaDesc();
+        
         setListAdapter(new JobsAdapter(this, jobs)); //starts the list View
     }
 

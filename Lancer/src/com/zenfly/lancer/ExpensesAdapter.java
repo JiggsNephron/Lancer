@@ -44,8 +44,8 @@ public class ExpensesAdapter extends ArrayAdapter<Expense> {
 	  
 	    ExpenseItemView.quantity.setText(currentExpense.getQuantity()); //sets the data
 	    int quantityOfItem = currentExpense.getQuantity();
-	    
 	    ExpenseItemView.item.setText(currentExpense.getItem()); //sets the data
+	    String itemName = null;
 	    ExpenseItemView.cost.setText(currentExpense.getQuantity()); //sets the data
 	   // int ID = currentExpense.getQuantity();
 	  
