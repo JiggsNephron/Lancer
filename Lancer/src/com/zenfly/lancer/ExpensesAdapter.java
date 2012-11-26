@@ -34,12 +34,14 @@ public class ExpensesAdapter extends ArrayAdapter<Expense> {
 	        LayoutInflater inflater = activity.getLayoutInflater();
 	        rowView = inflater.inflate(R.layout.expense_item, null);
 	        ExpenseItemView = new ExpenseView(); //for holding the data
+	        
 	        ExpenseItemView.item = (TextView) rowView.findViewById(R.id.ExpenseItemDisplay);
 	        ExpenseItemView.cost = (TextView) rowView.findViewById(R.id.ExpenseCostDisplay);
 	        rowView.setTag(ExpenseItemView); //for later access
 	    }
 	    else ExpenseItemView = (ExpenseView) rowView.getTag();
 	    Expense currentExpense = (Expense) ExpenseObject.get(position); //casts as course
+	  
 	    ExpenseItemView.quantity.setText(currentExpense.getQuantity()); //sets the data
 	    int quantityOfItem = currentExpense.getQuantity();
 	    
