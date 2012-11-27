@@ -62,6 +62,7 @@
     <string name="AddNewExpense_choose_item_title">Pick an item:</string>
     <string name="AddNewExpense_number_of_items_title">no. of items:</string>
 
+
     <!-- Layout: Notes - Strings -->
 
     <string name="notes">Notes</string>
