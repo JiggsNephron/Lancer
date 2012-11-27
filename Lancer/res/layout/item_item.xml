@@ -5,7 +5,7 @@
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/LocationNameDisplay"
+        android:id="@+id/ItemNameDisplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -21,7 +21,7 @@
     <View android:id="@+id/separator" 
  	    android:background="@color/lancer_blue"
  		android:layout_width = "fill_parent"
- 		android:layout_below="@+id/LocationNameDisplay"
+ 		android:layout_below="@+id/ItemNameDisplay"
  		android:layout_height="0.5dp"
  		android:layout_marginTop="20dp"
  		android:layout_marginLeft="20dp"
