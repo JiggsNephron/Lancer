@@ -150,7 +150,6 @@
         android:layout_height="wrap_content"
         android:layout_alignRight="@+id/edittext_number_of_items"
         android:layout_below="@+id/assign_expense_to_task"
-        android:layout_marginTop="15dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp" />
 
