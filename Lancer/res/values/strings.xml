@@ -59,9 +59,15 @@
     <!-- Layout: Expenses - Strings -->
 
     <string name="expenses">Expenses</string>
+<<<<<<< HEAD
     <string name="AddNewExpense_expense_name_title">Expense Name:</string>
 	<string name="expense_cost">Cost:</string>
     
+=======
+    <string name="AddNewExpense_choose_item_title">Pick an item: </string>
+    <string name="AddNewExpense_number_of_items_title">No. of items:</string>
+
+>>>>>>> branch 'TeamStartsHere' of git@github.com:JiggsNephron/Lancer.git
     <!-- Layout: Notes - Strings -->
 
     <string name="notes">Notes</string>

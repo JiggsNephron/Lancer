@@ -64,7 +64,7 @@ public class AddNewTask extends FragmentActivity {
         setContentView(R.layout.activity_add_new_task);
         
         calendar = Calendar.getInstance(); 
-        db = new DatabaseHandler(this.getApplicationContext());
+        db = new DatabaseHandler(context);
         
         // define the layout elements
         task_name  = (EditText) findViewById(R.id.task_name);
@@ -152,8 +152,7 @@ public class AddNewTask extends FragmentActivity {
     // Saves the all the chosen entries as a new task
     public void saveTask (View v) {
     	
-    	Intent intent = new Intent(AddNewTask.this, JobsOptions.class);
-    	DatabaseHandler db = new DatabaseHandler(this);
+    	Intent intent = new Intent(context, JobsOptions.class);
     	
     	// get the EditText fields and convert the wage to an integer
     	sttask_name = task_name.getText().toString();
@@ -172,7 +171,7 @@ public class AddNewTask extends FragmentActivity {
     // Lets the user choose from their list of saved locations (or add a new one)
     public void chooseLocation(View v) {    	
     	
-    	Intent show_locations = new Intent(this, LocationsList.class);
+    	Intent show_locations = new Intent(context, LocationsList.class);
     	
     	// Preserve the already entered options
     	sttask_name = task_name.getText().toString();
