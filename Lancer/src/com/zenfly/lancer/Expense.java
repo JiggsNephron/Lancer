@@ -2,6 +2,7 @@ package com.zenfly.lancer;
 
 public class Expense
 {
+	int id;
 	private int job;
 	private int task;
 	private int item;
@@ -14,6 +15,11 @@ public class Expense
 		this.task = task;
 		this.item = item;
 		this.quantity = quantity;
+	}
+	
+	public int getId()
+	{
+		return id;
 	}
 	
 	
@@ -40,5 +46,10 @@ public class Expense
 	public int getQuantity()
 	{
 		return quantity;
+	}
+
+	public void setId(int parseInt)
+	{
+		this.id = id;
 	}
 }
