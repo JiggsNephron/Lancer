@@ -33,7 +33,7 @@ public class AddNewJob extends Activity {
         // Get the EditText
         EditText jobName = (EditText) findViewById(R.id.job_name);
         
-        // get the data from each element and store it
+        // Get the data from the EditText and store it
     	String stjobName = jobName.getText().toString();
     	stjobName = stjobName.trim(); // removes spaces on the ends of the string
     	

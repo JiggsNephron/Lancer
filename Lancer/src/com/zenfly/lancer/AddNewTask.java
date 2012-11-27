@@ -34,18 +34,24 @@ public class AddNewTask extends FragmentActivity {
 	EditText task_name;
 	EditText add_deadline;
 	EditText task_hourly_wage;
+	
 	Button add_new_location;	
 	
 	DatabaseHandler db;
 	
 	String sttask_name;
+	
 	String sttask_date = "";
 	String stformatted_task_date = "";
+	
 	int task_location_id;
+	
 	int job_id;
+	
 	int hourlyWage = 0;
 	String sthourly_wage = "";
 	int hoursWorked = 0;
+	
 	int done = 0;
 	
 	Calendar calendar;
