@@ -24,7 +24,7 @@ public class ExpensesList extends ListActivity {
         
         //SMcD: just adding this to see if it grabs jobs from the DB. And it does. Happy days
         int thisJob = getIntent().getIntExtra("job_id", 0);
-       // expense = db.getAllExpensesForJob(thisJob); //makes a list of jobs to send to the list View
+        expense = db.getAllExpensesForJob(thisJob); //makes a list of jobs to send to the list View
         
         setListAdapter(new ExpensesAdapter(this, expense)); //starts the list View
     }
