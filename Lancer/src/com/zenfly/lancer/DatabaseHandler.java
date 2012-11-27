@@ -421,6 +421,25 @@ public class DatabaseHandler extends SQLiteOpenHelper
     	return locList;
     }
     
+    public List<Expense> getAllExpensesByJob(int id)
+    {
+    	List<Expense> expenseList = new ArrayList<Expense>();
+    	String selectQuery = "SELECT  * FROM " + TABLE_EXPENSES + " WHERE " + KEY_JOB + " = " + id;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst())
+        {
+            do
+            {
+            	Expense expense = new Expense(cursor.getInt(1), cursor.getInt(2), cursor.getInt(3), cursor.getInt(4)); //creates a new location for each one returned by the database
+            	expense.setId(cursor.getInt(0));
+                expenseList.add(expense); //adds new location to the list
+            } while (cursor.moveToNext()); //loop continues while there are results
+        }
+        db.close();
+    	return expenseList;
+    }
+    
     //a method to update the data in a specified job
     public boolean updateJob(Job job) 
     {
