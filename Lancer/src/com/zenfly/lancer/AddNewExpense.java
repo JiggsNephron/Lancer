@@ -1,10 +1,14 @@
 package com.zenfly.lancer;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
@@ -23,6 +27,8 @@ public class AddNewExpense extends Activity {
 	
 	int job_id;
 	int task_id;
+	
+	List<Task> all_tasks = new ArrayList<Task>();
 
 	
     @Override
@@ -34,7 +40,14 @@ public class AddNewExpense extends Activity {
         
         et_item_choice  = (EditText) findViewById(R.id.button_choose_item);
         et_item_amount  = (EditText)findViewById(R.id.edittext_number_of_items);
+        sp_assign_to_task  = (Spinner)findViewById(R.id.expense_to_task);
         
+        all_tasks = db.getAllTasksForJob(job_id);
+
+        ArrayAdapter <CharSequence> adapter = new ArrayAdapter <CharSequence> (this, android.R.layout.simple_spinner_item );
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        		
+        		
         // get intent content 
         job_id = getIntent().getIntExtra("job_id", 0);
         task_id = getIntent().getIntExtra("task_id", 0);
@@ -67,7 +80,7 @@ public class AddNewExpense extends Activity {
     }        
     
     // Saves the all the chosen entries as a new expense
-    public void saveTask (View v) {
+    public void saveExpense (View v) {
     	
     	Intent intent = new Intent(context, JobsOptions.class);
     	
@@ -75,11 +88,12 @@ public class AddNewExpense extends Activity {
     	
     	// Create a new expense using the users preferences and add it to the database
     	
-    	Expense new_expense = new Expense(job_id, task_id, 0, 0);
+    	//Expense new_expense = new Expense(job_id, task_id, 0, 0);
     	
+    	//db.addExpense(new_expense);
     	
-    	
-    	intent.putExtra("job_id", job_id);    	
+    	intent.putExtra("job_id", job_id);
+    	intent.putExtra("task_id", task_id);
     	startActivity(intent);
     }
 
