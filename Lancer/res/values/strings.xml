@@ -42,7 +42,7 @@
 
     <string name="tasks">Tasks</string>
     <string name="due_date">Due Date:</string>
-    <string name="AddNewTask_task_name_title">Task Title:</string>
+    <string name="AddNewTask_task_name_title">Task Name:</string>
     <string name="AddNewTask_task_deadline_title">Task Deadline: (Optional)</string>
     <string name="AddNewTask_task_notes_title">Task Notes: (Optional)</string>
     <string name="AddNewTask_task_location_title">Task Location: (Optional)</string>
@@ -59,7 +59,9 @@
     <!-- Layout: Expenses - Strings -->
 
     <string name="expenses">Expenses</string>
-
+    <string name="AddNewExpense_expense_name_title">Expense Name:</string>
+	<string name="expense_cost">Cost:</string>
+    
     <!-- Layout: Notes - Strings -->
 
     <string name="notes">Notes</string>

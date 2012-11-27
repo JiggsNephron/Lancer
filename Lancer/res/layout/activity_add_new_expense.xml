@@ -3,12 +3,200 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <TextView
+    <!-- Navigation -->
+    
+	<View android:id="@+id/nav_list_bg" 
+ 	    android:background="@color/lancer_blue"
+ 		android:layout_width="fill_parent"
+ 		android:layout_alignParentTop="true"
+ 		android:layout_height="55dp"
+ 		android:layout_centerVertical ="true"
+ 		/>
+	
+	<TextView
+        android:id="@+id/jobs_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="@string/hello_world"
-        tools:context=".AddNewExpense" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="10dp"
+        android:text="@string/jobs"
+        android:textSize="20dp"
+        android:textColor="@color/white"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:onClick="" /> <!-- To Jobs List -->
+
+    <TextView
+        android:id="@+id/arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/jobs_list"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="25dp"
+        android:textColor="@color/white"
+        android:text="@string/arrow"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+    
+    <TextView
+        android:id="@+id/job_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/arrow"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="10dp"
+        android:text="@string/job"
+        android:textSize="20dp"
+        android:textColor="@color/white"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:onClick="" /> <!-- To Job Options List -->
+    
+    <TextView
+        android:id="@+id/arrow2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/job_name"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="25dp"
+        android:textColor="@color/white"
+        android:text="@string/arrow"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+    
+    <TextView
+        android:id="@+id/expense_option"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/arrow2"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="10dp"
+        android:text="@string/expenses"
+        android:textSize="20dp"
+        android:textColor="@color/white"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:onClick="" /> <!-- To Tasks List -->
+        
+
+	<!-- Add New Task content  -->
+
+    <TextView
+        android:id="@+id/expense_name_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/nav_list_bg"
+        android:text="@string/AddNewExpense_expense_name_title"
+        android:textColor="@color/lancer_blue"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="10dp"
+        android:textSize="20dp" />
+
+    <EditText
+        android:id="@+id/expense_name"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/expense_name_title"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:ems="15"
+        android:inputType="text" >
+
+        <requestFocus />
+    </EditText>
+
+    <TextView
+        android:id="@+id/expense_cost_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/expense_name"
+        android:text="@string/expense_cost"
+        android:textColor="@color/lancer_blue"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="10dp"
+        android:textSize="20dp" />
+
+
+    <EditText
+        android:id="@+id/add_expense_cost"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/expense_cost_title"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:ems="15"
+        android:inputType="text" />
+
+    <TextView
+        android:id="@+id/expense_quantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/button_add_deadline"
+        android:text="@string/AddNewExpense_expense_quantity_title"
+        android:textColor="@color/lancer_blue"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="10dp"
+        android:textSize="20dp" />
+
+    <EditText
+        android:id="@+id/button_location_names"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/button_add_deadline"
+        android:focusableInTouchMode="false"
+        android:layout_below="@+id/task_location_title" 
+        android:onClick="chooseLocation"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:ems="15"
+        android:inputType="text" />
+
+
+    <TextView
+        android:id="@+id/task_hourly_wage_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/button_location_names"
+        android:text="@string/AddNewTask_task_hourly_wage_title"
+        android:textColor="@color/lancer_blue"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="10dp"
+        android:textSize="20dp" />
+
+    <EditText
+        android:id="@+id/task_hourly_wage"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/task_hourly_wage_title"
+        android:ems="15"
+        android:inputType="numberDecimal"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp" />
+    
+    
+    <Button
+        android:id="@+id/save_task"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:onClick="saveTask"
+        android:text="@string/button_save"
+        android:background="@color/lancer_blue"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:textColor="@color/white"
+        android:textSize="25dp" />
 
 </RelativeLayout>
