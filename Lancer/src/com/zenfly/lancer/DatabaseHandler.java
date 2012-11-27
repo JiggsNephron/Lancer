@@ -75,7 +75,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
         		"CREATE TABLE " + TABLE_ITEMS + 
         		"("
 	                + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_NAME 
-	                + " TEXT," + KEY_PRICE + " TEXT" +
+	                + " TEXT," + KEY_PRICE + " REAL" +
                 ")";
         String CREATE_EXPENSES_TABLE = 
         		"CREATE TABLE " + TABLE_EXPENSES + 
@@ -293,7 +293,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
         String selectQuery = "SELECT * FROM " + TABLE_ITEMS + " WHERE " + KEY_ID + "=" + id;
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor != null) cursor.moveToFirst();
-        Item item = new Item(cursor.getString(1), cursor.getString(2));
+        Item item = new Item(cursor.getString(1), cursor.getFloat(2));
         db.close();
         return item;
     }
@@ -431,13 +431,89 @@ public class DatabaseHandler extends SQLiteOpenHelper
         {
             do
             {
-            	Expense expense = new Expense(cursor.getInt(1), cursor.getInt(2), cursor.getInt(3), cursor.getInt(4)); //creates a new location for each one returned by the database
+            	Expense expense = new Expense(cursor.getInt(1), cursor.getInt(2), cursor.getInt(3), cursor.getInt(4)); //creates a new expense for each one returned by the database
             	expense.setId(cursor.getInt(0));
                 expenseList.add(expense); //adds new expense to the list
             } while (cursor.moveToNext()); //loop continues while there are results
         }
         db.close();
     	return expenseList;
+    }
+    
+    public List<Expense> getAllExpensesForTask(int id)
+    {
+    	List<Expense> expenseList = new ArrayList<Expense>();
+    	String selectQuery = "SELECT  * FROM " + TABLE_EXPENSES + " WHERE " + KEY_TASK + " = " + id;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst())
+        {
+            do
+            {
+            	Expense expense = new Expense(cursor.getInt(1), cursor.getInt(2), cursor.getInt(3), cursor.getInt(4)); //creates a new expense for each one returned by the database
+            	expense.setId(cursor.getInt(0));
+                expenseList.add(expense); //adds new expense to the list
+            } while (cursor.moveToNext()); //loop continues while there are results
+        }
+        db.close();
+    	return expenseList;
+    }
+    
+    public List<Item> getAllItemsForJob(int id)
+    {
+    	List<Item> itemList = new ArrayList<Item>();
+    	String selectQuery = "SELECT " + KEY_ITEM + " FROM " + TABLE_EXPENSES + " WHERE " + KEY_JOB + " = " + id;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst())
+        {
+            do
+            {
+            	Item item = new Item(cursor.getString(1), cursor.getFloat(2)); //creates a new item for each one returned by the database
+            	item.setId(cursor.getInt(0));
+                itemList.add(item); //adds new item to the list
+            } while (cursor.moveToNext()); //loop continues while there are results
+        }
+        db.close();
+    	return itemList;
+    }
+    
+    public List<Item> getAllItemsForTask(int id)
+    {
+    	List<Item> itemList = new ArrayList<Item>();
+    	String selectQuery = "SELECT " + KEY_ITEM + " FROM " + TABLE_EXPENSES + " WHERE " + KEY_TASK + " = " + id;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst())
+        {
+            do
+            {
+            	Item item = new Item(cursor.getString(1), cursor.getFloat(2)); //creates a new item for each one returned by the database
+            	item.setId(cursor.getInt(0));
+                itemList.add(item); //adds new item to the list
+            } while (cursor.moveToNext()); //loop continues while there are results
+        }
+        db.close();
+    	return itemList;
+    }
+    
+    public List<Item> getAllItems()
+    {
+    	List<Item> itemList = new ArrayList<Item>();
+    	String selectQuery = "SELECT " + KEY_ITEM + " FROM " + TABLE_EXPENSES;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst())
+        {
+            do
+            {
+            	Item item = new Item(cursor.getString(1), cursor.getFloat(2)); //creates a new item for each one returned by the database
+            	item.setId(cursor.getInt(0));
+                itemList.add(item); //adds new item to the list
+            } while (cursor.moveToNext()); //loop continues while there are results
+        }
+        db.close();
+    	return itemList;
     }
     
     //a method to update the data in a specified job
