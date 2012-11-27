@@ -100,6 +100,7 @@
         android:layout_below="@+id/choose_item_title"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
+        android:focusableInTouchMode="false" 
         android:ems="15"
         android:inputType="text"
         android:onClick="chooseItems" >

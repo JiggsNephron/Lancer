@@ -48,32 +48,32 @@ public class ItemsList extends ListActivity {
     	final Dialog dialog = new Dialog(ItemsList.this);
     	
     	// set the correct layout for this dialog
-    	dialog.setContentView(R.layout.activity_add_new_location);
-    	dialog.setTitle("Add a new location");    	
+    	dialog.setContentView(R.layout.activity_add_new_item);
+    	dialog.setTitle("Add a new item");    	
 
     	// find the save button
-		Button button = (Button) dialog.findViewById(R.id.saveLocation);
-		
-		
+		Button button = (Button) dialog.findViewById(R.id.saveNewItem);		
 		
 		// what to do when the button is clicked
 		button.setOnClickListener(new OnClickListener() {
-			// get each EditText field, put the contents to string, and then save these to the locations database
+			// get each EditText field, put the contents to string, and then save these to the items database
 			public void onClick(View v) {
 				
 				DatabaseHandler db = new DatabaseHandler(ItemsList.this); 
 				
-		    	EditText location_nickname  = (EditText)dialog.findViewById(R.id.location_name);
-		    	EditText location_address1  = (EditText)dialog.findViewById(R.id.address_line1);
-		    	EditText location_address2  = (EditText)dialog.findViewById(R.id.address_line2);
-		    	EditText location_address3  = (EditText)dialog.findViewById(R.id.address_line3);
+		    	EditText item_name  = (EditText)dialog.findViewById(R.id.item_name);
+		    	EditText item_cost = (EditText)dialog.findViewById(R.id.item_cost);
+
 		    	
-		    	String stlocation_nickname = location_nickname.getText().toString();
-		    	String stlocation_address1 = location_address1.getText().toString();
-		    	String stlocation_address2 = location_address2.getText().toString();
-		    	String stlocation_address3 = location_address3.getText().toString();
+		    	String stitem_name = item_name.getText().toString();
+		    	String stitem_cost = item_cost.getText().toString();
 		    	
-		    	if(!stlocation_nickname.equals(""))
+		    	int intitem_cost;
+		    	if (stitem_cost.equals("")) intitem_cost = 0;
+		    	else intitem_cost = Integer.parseInt(stitem_cost);
+
+		    	
+		    	if(!stitem_name.equals(""))
 		    	{
 			    	// add new location based on user entered data
 		    		Intent added_an_item_done = new Intent(ItemsList.this, ItemsList.class);
@@ -81,12 +81,12 @@ public class ItemsList extends ListActivity {
 		    		added_an_item_done.putExtra("task_spinner", getIntent().getStringExtra("task_spinner"));
 		    		added_an_item_done.putExtra("job_id", getIntent().getStringExtra("job_id"));
 
-		    		db.addItem(new Item("ha", 0));
-		    		Toast.makeText(getApplicationContext(), "Saved Location: " + stlocation_nickname, Toast.LENGTH_LONG).show();
+		    		db.addItem(new Item(stitem_name, intitem_cost));
+		    		Toast.makeText(getApplicationContext(), "Saved Item: " + item_name, Toast.LENGTH_LONG).show();
 		    		startActivity(added_an_item_done);
 		    		
-		    	} else if (stlocation_nickname.equals("")) {
-		    		Toast.makeText(getApplicationContext(), "Location Nickname cannot be empty", Toast.LENGTH_LONG).show();		    		
+		    	} else if (stitem_name.equals("")) {
+		    		Toast.makeText(getApplicationContext(), "Item Name cannot be empty", Toast.LENGTH_LONG).show();		    		
 		    	}		        
 		     }
 		 });	

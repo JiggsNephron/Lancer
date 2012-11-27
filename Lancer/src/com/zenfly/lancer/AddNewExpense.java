@@ -32,6 +32,7 @@ public class AddNewExpense extends Activity {
 	int spinner_position;
 	
 	Task chosen_task;
+	Item item;
 	
 	List<Task> all_tasks = new ArrayList<Task>();
 	
@@ -40,31 +41,39 @@ public class AddNewExpense extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_expense);
         
-        // get intent content 
-        job_id = getIntent().getIntExtra("job_id", 0);
-        item_id = getIntent().getIntExtra("item_id", 0);
-        spinner_position = getIntent().getIntExtra("task_spinner", 0); 
-        
         db = new DatabaseHandler(context);
         
+        // get intent content 
+        job_id = getIntent().getIntExtra("job_id", 0);					// The ID of the Job this expense is being added under
+        spinner_position = getIntent().getIntExtra("task_spinner", 0);  // The spinner position (to restore it to the user's choice after choosing an item)
+              
+        // Get the view elements
         et_item_choice  = (EditText) findViewById(R.id.button_choose_item);
-        et_item_amount  = (EditText)findViewById(R.id.edittext_number_of_items);
+        et_item_amount  = (EditText)findViewById(R.id.edittext_number_of_items);        
         sp_assign_to_task  = (Spinner)findViewById(R.id.expense_to_task);
         
+        // get a list of all tasks to be used for populating the spinner
         all_tasks = db.getAllTasksForJob(job_id);
-
+        // create an ArrayAdapter to fill with task names
         ArrayAdapter <CharSequence> adapter = new ArrayAdapter <CharSequence> (this, android.R.layout.simple_spinner_item );
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        
+        // add one default task choice (no task chosen)
         adapter.add("Not assigned to a task");
-        
+        // go through the list of tasks, and for each one, get its name and add it to the adapter array
         for (Task task: all_tasks) {
         	adapter.add(task.getName());
         }      
-               
+        // set the spinner to use the array contents       
         sp_assign_to_task.setAdapter(adapter);
-        
+        // set the spinner to the position it was at before choosing an item
         sp_assign_to_task.setSelection(spinner_position, true);
+
+        // get the item id (available if an item as been chosen)
+        if(getIntent().getIntExtra("item_id", 0) != 0) {
+        	item_id = getIntent().getIntExtra("item_id", 0);
+        	item = db.getItem(item_id);
+        	et_item_choice.setText(item.getName());
+        }
  
     }
     
@@ -74,9 +83,7 @@ public class AddNewExpense extends Activity {
     	Intent show_items = new Intent(context, ItemsList.class);
     	
     	// Preserve the already entered options
-
-    	stitem_amount = et_item_amount.getText().toString();
-    	
+    	stitem_amount = et_item_amount.getText().toString();    	
     	if (stitem_amount.equals("")) intitem_amount = 0;
     	else intitem_amount = Integer.parseInt(stitem_amount);
     	    	
@@ -95,6 +102,8 @@ public class AddNewExpense extends Activity {
     	
     	Intent intent = new Intent(context, JobsOptions.class);
 
+    	// get the ID of the task chosen by the user in the spinner by spinner's position
+    	// if no task was chosen, 0 is used
     	if ((sp_assign_to_task.getSelectedItemPosition()-1) >= 1) {
     		chosen_task = all_tasks.get(sp_assign_to_task.getSelectedItemPosition()-1);
     		task_id = chosen_task.getId();
@@ -103,16 +112,20 @@ public class AddNewExpense extends Activity {
     	if (stitem_amount.equals("")) intitem_amount = 0;
     	else intitem_amount = Integer.parseInt(stitem_amount);
     	
+    	// if the user has chosen an item and given a quantity, the expense is added to the database
+    	if (item_id != 0 && intitem_amount != 0) {
+    		
+    		Expense new_expense = new Expense(job_id, task_id, item_id, intitem_amount);   	   	
     	
-    	Expense new_expense = new Expense(job_id, task_id, item_id, intitem_amount);
-    	
-    	db.addExpense(new_expense);
-    	
+    		db.addExpense(new_expense);    	
 
-    	Toast.makeText(getApplicationContext(), chosen_task.getName(), Toast.LENGTH_SHORT).show();
+    		Toast.makeText(getApplicationContext(), "Added Expense: " + intitem_amount + " of " + item.getName() + ". The total of this expense is " + (intitem_amount*item.getPrice()), Toast.LENGTH_LONG).show();
     	
-    	intent.putExtra("job_id", job_id);
-    	startActivity(intent);
+    		intent.putExtra("job_id", job_id);
+    		startActivity(intent);
+    		
+    	} else Toast.makeText(getApplicationContext(), "Please choose an item and quantity of items", Toast.LENGTH_SHORT).show();
+    	
     }
 
 
