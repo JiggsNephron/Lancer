@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-<<<<<<< HEAD
     <!-- Navigation -->
     
 	<View android:id="@+id/nav_list_bg" 
@@ -16,15 +15,10 @@
 	
 	<TextView
         android:id="@+id/jobs_list"
-=======
-    <TextView
-        android:id="@+id/choose_item_title"
->>>>>>> branch 'TeamStartsHere' of git@github.com:JiggsNephron/Lancer.git
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-<<<<<<< HEAD
         android:layout_marginTop="15dp"
         android:layout_marginLeft="10dp"
         android:text="@string/jobs"
@@ -87,11 +81,11 @@
 	<!-- Add New Task content  -->
 
     <TextView
-        android:id="@+id/expense_name_title"
+        android:id="@+id/choose_item_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/nav_list_bg"
-        android:text="@string/AddNewExpense_expense_name_title"
+        android:text="Item title"
         android:textColor="@color/lancer_blue"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="15dp"
@@ -99,121 +93,14 @@
         android:textSize="20dp" />
 
     <EditText
-        android:id="@+id/expense_name"
+        android:id="@+id/button_choose_item"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/expense_name_title"
+        android:layout_below="@+id/choose_item_title"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:ems="15"
         android:inputType="text" >
-
-        <requestFocus />
-    </EditText>
-
-    <TextView
-        android:id="@+id/expense_cost_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/expense_name"
-        android:text="@string/expense_cost"
-        android:textColor="@color/lancer_blue"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="10dp"
-        android:textSize="20dp" />
-
-
-    <EditText
-        android:id="@+id/add_expense_cost"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/expense_cost_title"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:ems="15"
-        android:inputType="text" />
-
-    <TextView
-        android:id="@+id/expense_quantity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/button_add_deadline"
-        android:text="@string/AddNewExpense_expense_quantity_title"
-        android:textColor="@color/lancer_blue"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="10dp"
-        android:textSize="20dp" />
-
-    <EditText
-        android:id="@+id/button_location_names"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignRight="@+id/button_add_deadline"
-        android:focusableInTouchMode="false"
-        android:layout_below="@+id/task_location_title" 
-        android:onClick="chooseLocation"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:ems="15"
-        android:inputType="text" />
-
-
-    <TextView
-        android:id="@+id/task_hourly_wage_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/button_location_names"
-        android:text="@string/AddNewTask_task_hourly_wage_title"
-        android:textColor="@color/lancer_blue"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="10dp"
-        android:textSize="20dp" />
-
-    <EditText
-        android:id="@+id/task_hourly_wage"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/task_hourly_wage_title"
-        android:ems="15"
-        android:inputType="numberDecimal"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="10dp" />
-    
-    
-    <Button
-        android:id="@+id/save_task"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:onClick="saveTask"
-        android:text="@string/button_save"
-        android:background="@color/lancer_blue"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:textColor="@color/white"
-        android:textSize="25dp" />
-=======
-        android:text="@string/AddNewExpense_choose_item_title" />
-
-    <EditText
-        android:id="@+id/button_choose_item"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/choose_item_title"
-        android:ems="10" >
 
         <requestFocus />
     </EditText>
@@ -224,16 +111,23 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/button_choose_item"
-        android:text="@string/AddNewExpense_number_of_items_title" />
+        android:text="Choose item"
+        android:textColor="@color/lancer_blue"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="10dp"
+        android:textSize="20dp" />
+
 
     <EditText
         android:id="@+id/edittext_number_of_items"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/number_of_items_title"
-        android:ems="10"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:ems="15"
         android:inputType="number" />
->>>>>>> branch 'TeamStartsHere' of git@github.com:JiggsNephron/Lancer.git
 
 </RelativeLayout>
