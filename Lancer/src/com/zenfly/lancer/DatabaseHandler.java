@@ -282,7 +282,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
         String selectQuery = "SELECT * FROM " + TABLE_TASKS + " WHERE " + KEY_ID + "=" + id;
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor != null) cursor.moveToFirst();
-        Task task = new Task(cursor.getString(1), Integer.parseInt(cursor.getString(2)), cursor.getString(3), Integer.parseInt(cursor.getString(4)), Integer.parseInt(cursor.getString(6)), Integer.parseInt(cursor.getString(7)), Integer.parseInt(cursor.getString(5)));
+        Task task = new Task(cursor.getString(1), cursor.getInt(2), cursor.getString(3), cursor.getInt(4), cursor.getInt(6), cursor.getInt(7), cursor.getInt(5));
         db.close();
         return task;
     }
@@ -305,7 +305,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
         String selectQuery = "SELECT * FROM " + TABLE_TASKS + " ORDER BY " + KEY_DEADLINE + " ASC";
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor != null) cursor.moveToFirst();
-        Task task = new Task(cursor.getString(1), Integer.parseInt(cursor.getString(2)), cursor.getString(3), Integer.parseInt(cursor.getString(4)), Integer.parseInt(cursor.getString(6)), Integer.parseInt(cursor.getString(7)), Integer.parseInt(cursor.getString(5)));
+        Task task = new Task(cursor.getString(1), cursor.getInt(2), cursor.getString(3), cursor.getInt(4), cursor.getInt(6), cursor.getInt(7), cursor.getInt(5));
         db.close();
         return task;
     }
@@ -316,7 +316,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
         String selectQuery = "SELECT * FROM " + TABLE_TASKS + " ORDER BY " + KEY_DEADLINE + " DESC";
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor != null) cursor.moveToFirst();
-        Task task = new Task(cursor.getString(1), Integer.parseInt(cursor.getString(2)), cursor.getString(3), Integer.parseInt(cursor.getString(4)), Integer.parseInt(cursor.getString(6)), Integer.parseInt(cursor.getString(7)), Integer.parseInt(cursor.getString(5)));
+        Task task = new Task(cursor.getString(1), cursor.getInt(2), cursor.getString(3), cursor.getInt(4), cursor.getInt(6), cursor.getInt(7), cursor.getInt(5));
         db.close();
         return task;
     }
@@ -333,7 +333,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
             do
             {
             	Job job = new Job(cursor.getString(1)); //creates a new job for each one returned by the database
-            	job.setId(Integer.parseInt(cursor.getString(0)));
+            	job.setId(cursor.getInt(0));
                 jobList.add(job); //adds new job to the list
             } while (cursor.moveToNext()); //loop continues while there are results
         }
@@ -354,7 +354,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
             do
             {
             	Job job = new Job(cursor.getString(1)); //creates a new job for each one returned by the database
-            	job.setId(Integer.parseInt(cursor.getString(0)));
+            	job.setId(cursor.getInt(0));
                 jobList.add(job); //adds new job to the list
             } while (cursor.moveToNext()); //loop continues while there are results
         }
@@ -374,7 +374,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
             do
             {
             	Job job = new Job(cursor.getString(1)); //creates a new job for each one returned by the database
-            	job.setId(Integer.parseInt(cursor.getString(0)));
+            	job.setId(cursor.getInt(0));
                 jobList.add(job); //adds new job to the list
             } while (cursor.moveToNext()); //loop continues while there are results
         }
@@ -394,7 +394,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
             do
             {
             	Job job = new Job(cursor.getString(1)); //creates a new job for each one returned by the database
-            	job.setId(Integer.parseInt(cursor.getString(0)));
+            	job.setId(cursor.getInt(0));
                 jobList.add(job); //adds new job to the list
             } while (cursor.moveToNext()); //loop continues while there are results
         }
@@ -413,7 +413,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
             do
             {
             	Location location = new Location(cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4)); //creates a new location for each one returned by the database
-            	location.setId(Integer.parseInt(cursor.getString(0)));
+            	location.setId(cursor.getInt(0));
                 locList.add(location); //adds new location to the list
             } while (cursor.moveToNext()); //loop continues while there are results
         }
@@ -600,7 +600,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
         if (cursor != null)
         {	
         	cursor.moveToFirst();
-	        hours += Integer.parseInt(cursor.getString(0)); //adds the new hours worked to the old hours worked
+	        hours += cursor.getInt(0); //adds the new hours worked to the old hours worked
 	        values.put(KEY_HOURS_WORKED, hours);
 	        db.update(TABLE_TASKS, values, KEY_ID + "=?", new String[] {Integer.toString(id)}); //updates the table with the new value for hours worked
         }
@@ -618,7 +618,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
     	{
     		do
     		{
-    			Task task = new Task(cursor.getString(1), Integer.parseInt(cursor.getString(2)), cursor.getString(3), Integer.parseInt(cursor.getString(4)), Integer.parseInt(cursor.getString(6)), Integer.parseInt(cursor.getString(7)), Integer.parseInt(cursor.getString(5)));
+    			Task task = new Task(cursor.getString(1), cursor.getInt(2), cursor.getString(3), cursor.getInt(4), cursor.getInt(6), cursor.getInt(7), cursor.getInt(5));
     			taskList.add(task);
     		}while(cursor.moveToNext());
     	}
@@ -637,7 +637,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
     	{
     		do
     		{
-    			Task task = new Task(cursor.getString(1), Integer.parseInt(cursor.getString(2)), cursor.getString(3), Integer.parseInt(cursor.getString(4)), Integer.parseInt(cursor.getString(6)), Integer.parseInt(cursor.getString(7)), Integer.parseInt(cursor.getString(5)));
+    			Task task = new Task(cursor.getString(1), cursor.getInt(2), cursor.getString(3), cursor.getInt(4), cursor.getInt(6), cursor.getInt(7), cursor.getInt(5));
     			taskList.add(task);
     		}while(cursor.moveToNext());
     	}
@@ -654,7 +654,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
     	SQLiteDatabase db = this.getWritableDatabase();
     	Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor != null) cursor.moveToFirst();
-        done = Integer.parseInt(cursor.getString(0)); //assigns the value of the field to a variable
+        done = cursor.getInt(0); //assigns the value of the field to a variable
         db.close();
         //depending on if the task is set to done (1) or not done (0), we return true or false
         if(done == 0) return false;
