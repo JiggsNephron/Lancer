@@ -153,5 +153,20 @@
         android:layout_below="@+id/assign_expense_to_task"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp" />
+    
+    <Button
+        android:id="@+id/add_new_expense"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:onClick="saveExpense"
+        android:text="@string/button_save"
+        android:background="@color/lancer_blue"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:textColor="@color/white"
+        android:textSize="25dp" />
 
 </RelativeLayout>
