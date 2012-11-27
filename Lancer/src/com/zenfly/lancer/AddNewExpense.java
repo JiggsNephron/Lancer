@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 public class AddNewExpense extends Activity {
 	
@@ -23,18 +24,26 @@ public class AddNewExpense extends Activity {
 	DatabaseHandler db;
 	
 	String stitem_amount;
-	int inttask_amount;
+	int intitem_amount;
 	
 	int job_id;
+	int item_id;
 	int task_id;
+	int spinner_position;
+	
+	Task chosen_task;
 	
 	List<Task> all_tasks = new ArrayList<Task>();
-
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_expense);
+        
+        // get intent content 
+        job_id = getIntent().getIntExtra("job_id", 0);
+        item_id = getIntent().getIntExtra("item_id", 0);
+        spinner_position = getIntent().getIntExtra("task_spinner", 0); 
         
         db = new DatabaseHandler(context);
         
@@ -46,15 +55,17 @@ public class AddNewExpense extends Activity {
 
         ArrayAdapter <CharSequence> adapter = new ArrayAdapter <CharSequence> (this, android.R.layout.simple_spinner_item );
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        		
-        		
-        // get intent content 
-        job_id = getIntent().getIntExtra("job_id", 0);
-        task_id = getIntent().getIntExtra("task_id", 0);
         
+        adapter.add("Not assigned to a task");
         
+        for (Task task: all_tasks) {
+        	adapter.add(task.getName());
+        }      
+               
+        sp_assign_to_task.setAdapter(adapter);
         
-        
+        sp_assign_to_task.setSelection(spinner_position, true);
+ 
     }
     
     // Lets the user choose from their list of saved items (or add a new one)
@@ -66,14 +77,14 @@ public class AddNewExpense extends Activity {
 
     	stitem_amount = et_item_amount.getText().toString();
     	
-    	if (stitem_amount.equals("")) inttask_amount = 0;
-    	else inttask_amount = Integer.parseInt(stitem_amount);
+    	if (stitem_amount.equals("")) intitem_amount = 0;
+    	else intitem_amount = Integer.parseInt(stitem_amount);
     	    	
     	// Forward the saved entries to the items list activity
     	// which then sends it back to re-populate those fields in this activity
-    	show_items.putExtra("item_amount", inttask_amount);
+    	show_items.putExtra("item_amount", intitem_amount);
     	show_items.putExtra("job_id", job_id);
-    	show_items.putExtra("task_id", task_id);
+    	show_items.putExtra("task_spinner", sp_assign_to_task.getSelectedItemPosition());
     	
     	// show the locations list
     	startActivity(show_items);	
@@ -83,17 +94,24 @@ public class AddNewExpense extends Activity {
     public void saveExpense (View v) {
     	
     	Intent intent = new Intent(context, JobsOptions.class);
+
+    	if ((sp_assign_to_task.getSelectedItemPosition()-1) >= 1) {
+    		chosen_task = all_tasks.get(sp_assign_to_task.getSelectedItemPosition()-1);
+    		task_id = chosen_task.getId();
+    	} else task_id = 0;
     	
-    	// Get the EditText fields
+    	if (stitem_amount.equals("")) intitem_amount = 0;
+    	else intitem_amount = Integer.parseInt(stitem_amount);
     	
-    	// Create a new expense using the users preferences and add it to the database
     	
-    	//Expense new_expense = new Expense(job_id, task_id, 0, 0);
+    	Expense new_expense = new Expense(job_id, task_id, item_id, intitem_amount);
     	
-    	//db.addExpense(new_expense);
+    	db.addExpense(new_expense);
+    	
+
+    	Toast.makeText(getApplicationContext(), chosen_task.getName(), Toast.LENGTH_SHORT).show();
     	
     	intent.putExtra("job_id", job_id);
-    	intent.putExtra("task_id", task_id);
     	startActivity(intent);
     }
 

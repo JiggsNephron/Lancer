@@ -152,7 +152,7 @@ public class AddNewTask extends FragmentActivity {
     // Saves the all the chosen entries as a new task
     public void saveTask (View v) {
     	
-    	Intent intent = new Intent(context, JobsOptions.class);
+    	Intent intent = new Intent(context, TasksList.class);
     	
     	// get the EditText fields and convert the wage to an integer
     	sttask_name = task_name.getText().toString();

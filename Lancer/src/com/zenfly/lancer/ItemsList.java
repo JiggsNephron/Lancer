@@ -76,13 +76,15 @@ public class ItemsList extends ListActivity {
 		    	if(!stlocation_nickname.equals(""))
 		    	{
 			    	// add new location based on user entered data
-		    		Intent added_a_task_done = new Intent(ItemsList.this, ItemsList.class);
-		    		added_a_task_done.putExtra("task_name", getIntent().getStringExtra("task_name"));
-		    	  	added_a_task_done.putExtra("task_date", getIntent().getStringExtra("task_date"));
-		    	  	added_a_task_done.putExtra("hourly_wage", getIntent().getStringExtra("hourly_wage"));
-		    		db.addLocation(new Location(stlocation_nickname, stlocation_address1, stlocation_address2, stlocation_address3));
+		    		Intent added_an_item_done = new Intent(ItemsList.this, ItemsList.class);
+		    		added_an_item_done.putExtra("item_amount", getIntent().getStringExtra("item_amount"));
+		    		added_an_item_done.putExtra("task_spinner", getIntent().getStringExtra("task_spinner"));
+		    		added_an_item_done.putExtra("job_id", getIntent().getStringExtra("job_id"));
+
+		    		db.addItem(new Item("ha", 0));
 		    		Toast.makeText(getApplicationContext(), "Saved Location: " + stlocation_nickname, Toast.LENGTH_LONG).show();
-		    		startActivity(added_a_task_done);
+		    		startActivity(added_an_item_done);
+		    		
 		    	} else if (stlocation_nickname.equals("")) {
 		    		Toast.makeText(getApplicationContext(), "Location Nickname cannot be empty", Toast.LENGTH_LONG).show();		    		
 		    	}		        
@@ -98,9 +100,10 @@ public class ItemsList extends ListActivity {
 	{	 
 	  	Intent intent = new Intent(ItemsList.this, AddNewTask.class);
 	  	int itemId = items.get(position).getId();
+	  	intent.putExtra("item_amount", getIntent().getStringExtra("item_amount"));
+	  	intent.putExtra("task_spinner", getIntent().getStringExtra("task_spinner"));
+	  	intent.putExtra("job_id", getIntent().getStringExtra("job_id"));
 	  	intent.putExtra("item_id", itemId);
-	  	intent.putExtra("job_id", getIntent().getIntExtra("job_id", 0));
-	  	intent.putExtra("task_id", getIntent().getIntExtra("task_id", 0));
 	  	
 	    startActivity(intent);
 	}
