@@ -7,7 +7,6 @@ public class Expense
 	private int task;
 	private int item;
 	private int quantity;
-	private int ID;
 	
 	public Expense(int job, int task, int item, int quantity)
 	{
@@ -17,15 +16,10 @@ public class Expense
 		this.quantity = quantity;
 	}
 	
+	
 	public int getId()
 	{
 		return id;
-	}
-	
-	
-	public int getId()
-	{
-		return ID;
 	}
 	
 	public int getJob()
