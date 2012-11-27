@@ -85,7 +85,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/nav_list_bg"
-        android:text="Item title"
+        android:text="@string/AddNewExpense_choose_item_title"
         android:textColor="@color/lancer_blue"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="15dp"
@@ -111,9 +111,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/button_choose_item"
-        android:text="Choose item"
         android:textColor="@color/lancer_blue"
         android:layout_marginLeft="20dp"
+        android:text="@string/AddNewExpense_number_of_items_title"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="10dp"
         android:textSize="20dp" />
@@ -129,5 +129,15 @@
         android:layout_marginRight="15dp"
         android:ems="15"
         android:inputType="number" />
+
+    <Spinner
+        android:id="@+id/spinner1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/number_of_items_title"
+        android:layout_below="@+id/edittext_number_of_items"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp" />
 
 </RelativeLayout>
