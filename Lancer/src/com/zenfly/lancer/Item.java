@@ -2,13 +2,19 @@ package com.zenfly.lancer;
 
 public class Item
 {
+	private int id;
 	private String name;
-	private String price;
+	private float price;
 	
-	public Item(String name, String price)
+	public Item(String name, float price)
 	{
 		this.name = name;
 		this.price = price;
+	}
+	
+	public int getId()
+	{
+		return id;
 	}
 	
 	public String getName()
@@ -16,8 +22,13 @@ public class Item
 		return name;
 	}
 	
-	public String getPrice()
+	public float getPrice()
 	{
 		return price;
+	}
+	
+	public void setId(int id)
+	{
+		this.id = id;
 	}
 }
