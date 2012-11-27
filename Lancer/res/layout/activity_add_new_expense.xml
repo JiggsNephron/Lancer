@@ -148,7 +148,7 @@
         android:id="@+id/expense_to_task"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/number_of_items_title"
+        android:layout_alignRight="@+id/edittext_number_of_items"
         android:layout_below="@+id/assign_expense_to_task"
         android:layout_marginTop="15dp"
         android:layout_marginLeft="15dp"
