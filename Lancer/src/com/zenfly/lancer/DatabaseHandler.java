@@ -433,7 +433,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
             {
             	Expense expense = new Expense(cursor.getInt(1), cursor.getInt(2), cursor.getInt(3), cursor.getInt(4)); //creates a new location for each one returned by the database
             	expense.setId(cursor.getInt(0));
-                expenseList.add(expense); //adds new location to the list
+                expenseList.add(expense); //adds new expense to the list
             } while (cursor.moveToNext()); //loop continues while there are results
         }
         db.close();
