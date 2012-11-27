@@ -64,6 +64,7 @@
         android:text="@string/arrow"
         android:textAppearance="?android:attr/textAppearanceLarge" />
     
+    
     <TextView
         android:id="@+id/expense_option"
         android:layout_width="wrap_content"
@@ -78,7 +79,7 @@
         android:onClick="" /> <!-- To Tasks List -->
         
 
-	<!-- Add New Task content  -->
+	<!--  Add New Expense -->
 
     <TextView
         android:id="@+id/choose_item_title"
@@ -129,13 +130,26 @@
         android:layout_marginRight="15dp"
         android:ems="15"
         android:inputType="number" />
+    
+    <TextView
+        android:id="@+id/assign_expense_to_task"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/edittext_number_of_items"
+        android:textColor="@color/lancer_blue"
+        android:layout_marginLeft="20dp"
+        android:text="@string/AddNewExpense_assign_expense_to_task"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="10dp"
+        android:textSize="20dp" />
 
     <Spinner
-        android:id="@+id/spinner1"
+        android:id="@+id/expense_to_task"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignRight="@+id/number_of_items_title"
-        android:layout_below="@+id/edittext_number_of_items"
+        android:layout_below="@+id/assign_expense_to_task"
         android:layout_marginTop="15dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp" />
