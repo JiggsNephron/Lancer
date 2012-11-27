@@ -1,0 +1,31 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent" >
+
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/button_add_new_item" >
+    </ListView>
+
+    <Button
+        android:id="@+id/button_add_new_item"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:background="@color/lancer_blue"
+        android:onClick="addLocation"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:text="@string/button_add_new_item"
+        android:textColor="@color/white"
+        android:textSize="25dp" />
+    
+
+</RelativeLayout>

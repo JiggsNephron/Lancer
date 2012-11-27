@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<TextView
+        android:id="@+id/taskNameDisplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="20dp"
+        android:text="Update Servers"
+        android:textColor="@color/lancer_blue"
+        android:textSize="35dp"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/taskLocationDisplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/taskNameDisplay"
+        android:layout_below="@+id/taskNameDisplay"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/lancer_blue"
+        android:text="No Location"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/taskDateDisplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/taskLocationDisplay"
+        android:layout_alignBottom="@+id/taskLocationDisplay"
+        android:layout_alignParentRight="true"
+        android:textColor="@color/lancer_blue"
+        android:layout_marginRight="25dp"
+        android:text="Deadline"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+    
+    <View android:id="@+id/separator" 
+ 	    android:background="@color/lancer_blue"
+ 		android:layout_width = "fill_parent"
+ 		android:layout_below="@+id/taskLocationDisplay"
+ 		android:layout_height="0.5dp"
+ 		android:layout_marginTop="10dp"
+ 		android:layout_marginLeft="20dp"
+ 		android:layout_marginRight="20dp"
+ 		android:layout_centerVertical ="true"
+ 		/>
+
+    <CheckBox
+        android:id="@+id/taskCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+       	android:layout_marginTop="25dp"
+       	android:layout_marginRight="10dp"
+        android:layout_alignParentRight="true"
+        android:focusable="false"
+       />
+        
+</RelativeLayout>
