@@ -25,23 +25,24 @@ import android.widget.Toast;
 
 public class ItemsList extends ListActivity {
 	
-	List<Location> locations = new ArrayList<Location>();
+	List<Item> items = new ArrayList<Item>();
 
 	final Context context = this;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_locations_list);
+        setContentView(R.layout.activity_items_list);
         
 		DatabaseHandler db = new DatabaseHandler(this);
-		locations = db.getAllLocations();
+		items = db.getAllItems();
    
-		setListAdapter(new LocationsAdapter(this, locations));
+		setListAdapter(new ItemsAdapter(this, items));
         
     }
     
-    public void addLocation(View v) {   	
+    // TODO RC: addItem
+    public void addItem(View v) {   	
     	
     	// create new dialog object
     	final Dialog dialog = new Dialog(ItemsList.this);
@@ -96,12 +97,11 @@ public class ItemsList extends ListActivity {
 	public void onListItemClick(ListView parent, View v, int position, long id)
 	{	 
 	  	Intent intent = new Intent(ItemsList.this, AddNewTask.class);
-	  	int locationId = locations.get(position).getId();
-	  	intent.putExtra("location", locationId);
-	  	intent.putExtra("task_name", getIntent().getStringExtra("task_name"));
-	  	intent.putExtra("task_date", getIntent().getStringExtra("task_date"));
-	  	intent.putExtra("hourly_wage", getIntent().getStringExtra("hourly_wage"));
+	  	int itemId = items.get(position).getId();
+	  	intent.putExtra("item_id", itemId);
 	  	intent.putExtra("job_id", getIntent().getIntExtra("job_id", 0));
+	  	intent.putExtra("task_id", getIntent().getIntExtra("task_id", 0));
+	  	
 	    startActivity(intent);
 	}
 

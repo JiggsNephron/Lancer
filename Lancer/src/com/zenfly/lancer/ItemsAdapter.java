@@ -1,5 +1,5 @@
 /**
- * Used for showing the list of locations
+ * Used for showing the list of items
  * 
  * Authors: Richard Cody,
  * 
@@ -18,18 +18,18 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 
-public class ItemsAdapter extends ArrayAdapter<Location>
+public class ItemsAdapter extends ArrayAdapter<Item>
 {
 	//public static final String PREFS_COUNT = "MyPrefsFile";
 	  private final Activity activity;
-	  private final List<Location> locationsObject;
+	  private final List<Item> itemsObject;
 	  public DatabaseHandler db;
 	
-	public ItemsAdapter(Activity activity, List<Location> objects) 
+	public ItemsAdapter(Activity activity, List<Item> objects) 
 	{
-        super(activity, R.layout.activity_locations_list , objects);
+        super(activity, R.layout.activity_items_list , objects);
         this.activity = activity;
-        this.locationsObject = objects;
+        this.itemsObject = objects;
         db = new DatabaseHandler(this.getContext());
 	} 
 
@@ -37,28 +37,28 @@ public class ItemsAdapter extends ArrayAdapter<Location>
 	public View getView(int position, View convertView, ViewGroup parent)
 	{
 	    View rowView = convertView;
-	    locationsView locationItemView = null;
+	    itemsView itemItemView = null;
 	
 	    if(rowView == null)
 	    {
 	    	//creates new instance of row layout view
 	        LayoutInflater inflater = activity.getLayoutInflater();
-	        rowView = inflater.inflate(R.layout.location_item, null);
-	        locationItemView = new locationsView(); //for holding the data
-	        locationItemView.name = (TextView) rowView.findViewById(R.id.LocationNameDisplay); 
+	        rowView = inflater.inflate(R.layout.item_item, null);
+	        itemItemView = new itemsView(); //for holding the data
+	        itemItemView.name = (TextView) rowView.findViewById(R.id.ItemNameDisplay); 
 	       
-	        rowView.setTag(locationItemView); //for later access
+	        rowView.setTag(itemItemView); //for later access
 	    }
-	    else locationItemView = (locationsView) rowView.getTag();
+	    else itemItemView = (itemsView) rowView.getTag();
 	    {
-	    	Location currentLocation = (Location) locationsObject.get(position); //casts as course		    	
+	    	Item currentItem = (Item) itemsObject.get(position); //casts as course		    	
 	    
-	    	locationItemView.name.setText(currentLocation.getLocation()); //sets the data
+	    	itemItemView.name.setText(currentItem.getName()); //sets the data
 	    }
 	    return rowView;
 	}
 
-    protected static class locationsView
+    protected static class itemsView
     {
         protected TextView name;
 

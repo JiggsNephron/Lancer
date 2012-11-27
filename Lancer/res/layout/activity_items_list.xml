@@ -20,7 +20,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:background="@color/lancer_blue"
-        android:onClick="addLocation"
+        android:onClick="addItem"
         android:paddingBottom="10dp"
         android:paddingTop="10dp"
         android:text="@string/button_add_new_item"
