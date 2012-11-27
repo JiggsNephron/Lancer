@@ -11,6 +11,7 @@
     <string name="title_activity_expences_list">ExpencesList</string>
     <string name="title_activity_tasks_list">TasksList</string>
     <string name="title_activity_locations_list">LocationsList</string>
+    <string name="title_activity_items_list">ItemsList</string>
     <string name="title_activity_add_new_location">AddNewLocation</string>
     <string name="title_activity_view_task">ViewTask</string>
     <string name="title_activity_view_expenses">ViewExpenses</string>

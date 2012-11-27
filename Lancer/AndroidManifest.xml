@@ -57,6 +57,12 @@
             android:theme="@android:style/Theme.Dialog" >
         </activity>
         <activity
+            android:name="com.zenfly.lancer.ItemsList"
+            android:label="@string/title_activity_items_list"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Dialog" >
+        </activity>        
+        <activity
             android:name="com.zenfly.lancer.ViewTask"
             android:label="@string/title_activity_view_task" >
         </activity>
