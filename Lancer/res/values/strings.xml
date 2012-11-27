@@ -59,8 +59,8 @@
     <!-- Layout: Expenses - Strings -->
 
     <string name="expenses">Expenses</string>
-    <string name="AddNewExpense_choose_item_title">Pick an item:</string>
-    <string name="AddNewExpense_number_of_items_title">no. of items:</string>
+    <string name="AddNewExpense_choose_item_title">Expense name:</string>
+    <string name="AddNewExpense_number_of_items_title">Quantity:</string>
 
 
     <!-- Layout: Notes - Strings -->
