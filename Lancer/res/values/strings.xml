@@ -16,12 +16,14 @@
     <string name="title_activity_view_expenses">ViewExpenses</string>
     <string name="title_activity_view_notes">ViewNotes</string>
     <string name="title_activity_settings">Settings</string>
+    <string name="title_activity_add_new_expense">Add New Expense</string>
 
     <!-- Buttons -->
 
     <string name="add_new_job">+ New Job</string>
     <string name="button_add_new_task">+ New Task</string>
     <string name="button_add_new_location">+ Location</string>
+    <string name="button_add_new_item">+ Item</string>
     <string name="button_add_new_expense">+ Expense</string>
     <string name="button_save">Save</string>
     <string name="button_add_task_deadline">+ Deadline</string>
@@ -66,9 +68,9 @@
     <!-- Layout: Invoices - Strings -->
 
     <string name="create_invoice">Create Job Invoice</string>
-    
-    <!--  Layout: Settings - Strings -->
-    
+
+    <!-- Layout: Settings - Strings -->
+
     <string name="job_order_label">Sort Jobs By:</string>
     <string name="order_none">Do not sort</string>
     <string name="order_deadline">Sort by closest deadline</string>
@@ -82,6 +84,6 @@
     <string name="arrow">></string>
     <string name="welcome_text">Hi there! To get started simply add a Job name.</string>
     <string name="welcome_text2">You can call it whatever you like, it is a simple aid to help you remember which job is which.</string>
-    <string name="hello_world">Hello.... this is Hal. I know what you are up to.</string>
+    <string name="hello_world">Hello.... this is Hal. I know what you are up to.</string>    
 
 </resources>
