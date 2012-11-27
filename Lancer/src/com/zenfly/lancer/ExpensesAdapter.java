@@ -33,30 +33,34 @@ public class ExpensesAdapter extends ArrayAdapter<Expense> {
 	    	//creates new instance of row layout view
 	        LayoutInflater inflater = activity.getLayoutInflater();
 	        rowView = inflater.inflate(R.layout.expense_item, null);
-	        ExpenseItemView = new ExpenseView(); //for holding the data
+	        ExpenseItemView = new ExpenseView(); 						//for holding the data
 	        
-	        ExpenseItemView.item = (TextView) rowView.findViewById(R.id.ExpenseItemDisplay);
+	        ExpenseItemView.itemName = (TextView) rowView.findViewById(R.id.ExpenseItemDisplay);
 	        ExpenseItemView.cost = (TextView) rowView.findViewById(R.id.ExpenseCostDisplay);
-	        rowView.setTag(ExpenseItemView); //for later access
+	        rowView.setTag(ExpenseItemView); 							//for later access
 	    }
 	    else ExpenseItemView = (ExpenseView) rowView.getTag();
 	    Expense currentExpense = (Expense) ExpenseObject.get(position); //casts as course
 	  
 	    ExpenseItemView.quantity.setText(currentExpense.getQuantity()); //sets the data
-	    int quantityOfItem = currentExpense.getQuantity();
-	    ExpenseItemView.item.setText(currentExpense.getItem()); //sets the data
-	    String itemName = null;
-	    ExpenseItemView.cost.setText(currentExpense.getQuantity()); //sets the data
-	   // int ID = currentExpense.getQuantity();
+	    int quantityOfItem = currentExpense.getQuantity(); 				//gets the quantity of the Item
+	    ExpenseItemView.item = (currentExpense.getItem()); 				//gets the item ID
+	    Item itemName = db.getItem(ExpenseItemView.item); 				// gets data on this Item
+	    
+	    int cost = currentExpense.getQuantity() * quantityOfItem; 		// calculates the current cost for that item 
+	    String itemcost = Integer.toString(cost);				  		// converts the int to string
+	    
+	    ExpenseItemView.itemName.setText(itemName.getName());			//sets the data
+	    ExpenseItemView.cost.setText(itemcost); 						//sets the data
+	     
 	  
 	    return rowView;
 	}
 
     protected static class ExpenseView
     {
-        protected TextView job;
-        protected TextView task;
-        protected TextView item;
+        protected TextView itemName;
+        protected int item;
         protected TextView cost;
         protected TextView quantity;
 

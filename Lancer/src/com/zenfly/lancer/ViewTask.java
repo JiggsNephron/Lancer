@@ -2,12 +2,14 @@ package com.zenfly.lancer;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.widget.TextView;
 
 public class ViewTask extends Activity {
 	
 	private DatabaseHandler db;
+	private static final String TAG = "ViewTasks";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -16,7 +18,7 @@ public class ViewTask extends Activity {
 		
 		
 		int thisTask = getIntent().getExtras().getInt("task");
-		
+		Log.v(TAG, "thisTask=" + thisTask);
 		Task task  =  db.getTask(thisTask);
 		
 		String taskName = task.getName();
