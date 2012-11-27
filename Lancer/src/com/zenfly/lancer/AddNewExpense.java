@@ -1,23 +1,11 @@
 package com.zenfly.lancer;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-
-import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.view.View;
-import android.widget.DatePicker;
 import android.widget.EditText;
-
-import com.zenfly.lancer.AddNewTask.SelectDateFragment;
 
 public class AddNewExpense extends Activity {
 	
@@ -28,8 +16,12 @@ public class AddNewExpense extends Activity {
 
 	DatabaseHandler db;
 	
+	String stitem_amount;
+	int inttask_amount;
+	
 	int job_id;
 	int task_id;
+
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,14 +48,15 @@ public class AddNewExpense extends Activity {
     	Intent show_items = new Intent(context, ItemsList.class);
     	
     	// Preserve the already entered options
-    	sttask_name = task_name.getText().toString();
-    	item_amount = task_hourly_wage.getText().toString();
+
+    	stitem_amount = item_amount.getText().toString();
+    	
+    	if (stitem_amount.equals("")) inttask_amount = 0;
+    	else inttask_amount = Integer.parseInt(stitem_amount);
     	    	
     	// Forward the saved entries to the locations list activity
     	// which then sends it back to re-populate those fields in this activity
-    	show_items.putExtra("item_amount", item_amount);
-    	show_items.putExtra("task_date", stformatted_task_date);
-    	show_items.putExtra("hourly_wage", sthourly_wage);
+    	show_items.putExtra("item_amount", inttask_amount);
     	show_items.putExtra("job_id", job_id);
     	
     	// show the locations list
@@ -79,7 +72,9 @@ public class AddNewExpense extends Activity {
     	
     	// Create a new expense using the users preferences and add it to the database
     	
-    	Expense new_expense = Expense(job_id, task_id, item_choice, item_amount);
+    	Expense new_expense = new Expense(job_id, task_id, 0, 0);
+    	
+    	
     	
     	intent.putExtra("job_id", job_id);    	
     	startActivity(intent);
