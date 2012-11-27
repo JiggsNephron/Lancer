@@ -101,7 +101,8 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:ems="15"
-        android:inputType="text" >
+        android:inputType="text"
+        android:onClick="chooseItems" >
 
         <requestFocus />
     </EditText>
