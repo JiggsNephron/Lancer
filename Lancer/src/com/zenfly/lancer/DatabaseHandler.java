@@ -421,7 +421,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
     	return locList;
     }
     
-    public List<Expense> getAllExpensesByJob(int id)
+    public List<Expense> getAllExpensesForJob(int id)
     {
     	List<Expense> expenseList = new ArrayList<Expense>();
     	String selectQuery = "SELECT  * FROM " + TABLE_EXPENSES + " WHERE " + KEY_JOB + " = " + id;
