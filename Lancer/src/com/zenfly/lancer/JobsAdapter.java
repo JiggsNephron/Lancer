@@ -4,6 +4,7 @@ package com.zenfly.lancer;
 import java.util.List;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +14,6 @@ import android.widget.TextView;
 
 public class JobsAdapter extends ArrayAdapter<Job>
 {
-	//public static final String PREFS_COUNT = "MyPrefsFile";
 	  private final Activity activity;
 	  private final List<Job> jobsObject;
 	  public DatabaseHandler db;
@@ -51,26 +51,46 @@ public class JobsAdapter extends ArrayAdapter<Job>
 	    	
 	    	if(db.getJobTaskCount(currentJob.getId()) != 0)
 	    	{
-		    	//Task tempTask = db.getNearestDeadlineTask();
+		    	Task tempTask = db.getNearestDeadlineTask();
+		    	//private static final String TAG = "MainActivity";
+
+		    	Log.v("JobsAdapter", "tempTask  . . . . . =" + tempTask);				//testing staement
 		    	
-		    	//int tempLocation = tempTask.getLocation();// finds the location in the data base we are looking for
-		    	//Location a  = db.getLocation(tempLocation); // extracts the location from the database
-		    	String b = "temp";//a.getLocation(); // puts the location into a string
+
+		    	int tempLocation = tempTask.getLocation();								// finds the location in the data base we are looking for
+		    	if(tempLocation != 0){
 		    	
-		    	String tempDate = "temp";//tempTask.getDeadline();// just returns the raw date string
+			    	Log.v("JobsAdapter", "tempLocation  . . . . . =" + tempLocation);
+			    	Location a  = db.getLocation(tempLocation); 						// extracts the location from the database
+			    	//String b = "temp";//a.getLocation(); 								// puts the location into a string
+			    	String b = a.getLocation(); 										// puts the location into a string
+			    	
+			    	jobsItemView.location.setText(b);								   //sets the data
+		    	}
 		    	
+		    	//String tempDate = "temp";//tempTask.getDeadline();// just returns the raw date string
+		    	String tempDate = tempTask.getDeadline();// just returns the raw date string
+		    	tempDate = tempDate.trim();
 		    	
-		    	jobsItemView.name.setText("Test");//currentJob.getClient()); //sets the data
-		    	jobsItemView.location.setText(b);				   //sets the data
-		    	jobsItemView.date.setText(tempDate);			   //sets the data
+		    	if((tempDate != null) && (tempDate != ""))
+		    	{
+		    		Log.v("JobsAdapter", "tempDate  . . . . . =" + tempDate);
+			    	
+			    	jobsItemView.date.setText(tempDate);								//sets the data
+		    	}
+		    	else
+		    	{
+		    		jobsItemView.name.setText("No task has a Deadline");
+		    	}
+		    	jobsItemView.name.setText(currentJob.getClient());//currentJob.getClient()); //sets the data
 		    	return rowView;
 	    	}
-	    	else
+	    	else																		// if there is no job run the code here
 	    	{
-	    		jobsItemView.location.setText("");
-	    		jobsItemView.date.setText("");
+	    		jobsItemView.location.setText("");										// sets the locaition
+	    		jobsItemView.date.setText("");											// sets the date
 	    	}
-	    	jobsItemView.name.setText(currentJob.getClient()); //sets the data
+	    	jobsItemView.name.setText(currentJob.getClient()); 							//sets the Name 
 	    }
 	    return rowView;
 	}
