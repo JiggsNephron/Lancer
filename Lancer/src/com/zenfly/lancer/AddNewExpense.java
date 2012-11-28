@@ -121,6 +121,7 @@ public class AddNewExpense extends Activity {
     		task_id = chosen_task.getId();
     	} else task_id = 0;
     	
+    	// get the quantity of items as a string and convert it to an integer
     	stitem_amount = et_item_amount.getText().toString();
     	if (stitem_amount.equals("")) intitem_amount = 0;
     	else intitem_amount = Integer.parseInt(stitem_amount);
@@ -131,8 +132,19 @@ public class AddNewExpense extends Activity {
     		Expense new_expense = new Expense(job_id, task_id, item_id, intitem_amount);   	   	
     	
     		db.addExpense(new_expense);    	
-
-    		Toast.makeText(getApplicationContext(), "Added Expense: " + item.getName() + " x " + intitem_amount + ". " + "The total of this expense is " + locale_currency_format.format((intitem_amount*item.getPrice()) + ". "), Toast.LENGTH_LONG).show();
+    		
+    		float total_cost = intitem_amount*item.getPrice();
+    		
+    		Toast.makeText(getApplicationContext(), 
+    				"Added Expense: " 
+    						+ item.getName() 
+    						+ " x " 
+    						+ intitem_amount 
+    						+ ". " 
+    						+ "The total of this expense is " 
+    						+ locale_currency_format.format(total_cost) 
+    						+ ". ", 
+    				Toast.LENGTH_LONG).show();
     	
     		intent.putExtra("job_id", job_id);
     		startActivity(intent);
