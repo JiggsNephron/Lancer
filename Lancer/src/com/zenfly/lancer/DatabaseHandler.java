@@ -9,6 +9,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class DatabaseHandler extends SQLiteOpenHelper 
 {
@@ -278,13 +279,20 @@ public class DatabaseHandler extends SQLiteOpenHelper
     //a method that returns a single task
     public Task getTask(int id)
     {
+    	Log.v("Getting task ", ""+id);
         SQLiteDatabase db = this.getReadableDatabase();
         String selectQuery = "SELECT * FROM " + TABLE_TASKS + " WHERE " + KEY_ID + "=" + id;
         Cursor cursor = db.rawQuery(selectQuery, null);
-        if (cursor != null) cursor.moveToFirst();
-        Task task = new Task(cursor.getString(1), cursor.getInt(2), cursor.getString(3), cursor.getInt(4), cursor.getInt(6), cursor.getInt(7), cursor.getInt(5));
+        if (cursor != null)
+        {
+        	cursor.moveToFirst();
+        	Task task = new Task(cursor.getString(1), cursor.getInt(2), cursor.getString(3), cursor.getInt(4), cursor.getInt(6), cursor.getInt(7), cursor.getInt(5));
+        	task.setId(cursor.getInt(0));
+        	db.close();
+            return task;
+        }
         db.close();
-        return task;
+        return null;
     }
     
     public Item getItem(int id)
@@ -423,16 +431,19 @@ public class DatabaseHandler extends SQLiteOpenHelper
     
     public List<Expense> getAllExpensesForJob(int id)
     {
+    	Log.v("I see you baby", "Grabbing that task");
     	List<Expense> expenseList = new ArrayList<Expense>();
     	String selectQuery = "SELECT  * FROM " + TABLE_EXPENSES + " WHERE " + KEY_JOB + " = " + id;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
+        
         if (cursor.moveToFirst())
         {
             do
             {
             	Expense expense = new Expense(cursor.getInt(1), cursor.getInt(2), cursor.getInt(3), cursor.getInt(4)); //creates a new expense for each one returned by the database
             	expense.setId(cursor.getInt(0));
+            	Log.v("Setting id as ", cursor.getString(0));
                 expenseList.add(expense); //adds new expense to the list
             } while (cursor.moveToNext()); //loop continues while there are results
         }
@@ -638,6 +649,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
     		do
     		{
     			Task task = new Task(cursor.getString(1), cursor.getInt(2), cursor.getString(3), cursor.getInt(4), cursor.getInt(6), cursor.getInt(7), cursor.getInt(5));
+    			task.setId(cursor.getInt(0));
     			taskList.add(task);
     		}while(cursor.moveToNext());
     	}

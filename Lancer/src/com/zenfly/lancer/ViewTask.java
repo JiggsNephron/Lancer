@@ -16,7 +16,7 @@ public class ViewTask extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_task);
 		
-		
+		db = new DatabaseHandler(this);
 		int thisTask = getIntent().getExtras().getInt("task");
 		Log.v(TAG, "thisTask=" + thisTask);
 		Task task  =  db.getTask(thisTask);

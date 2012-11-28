@@ -16,7 +16,7 @@ import android.widget.ListView;
 public class TasksList extends ListActivity {
 	
 	public DatabaseHandler db;
-	List<Task> task = new ArrayList<Task>();
+	List<Task> task;// = //new ArrayList<Task>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,6 +51,7 @@ public class TasksList extends ListActivity {
 	  {	 
 	  	Intent intent = new Intent(TasksList.this, ViewTask.class);
 	  	int taskId = task.get(position).getId();
+	  	Log.v("Id is: ", taskId+"");
 	  	intent.putExtra("task", taskId); //sends the job name
 	    startActivity(intent);
 	  }
