@@ -8,10 +8,10 @@ public class Task
 	private int location;
 	private String deadline;
 	private int hoursWorked;
-	private int hourlyWage;
+	private float hourlyWage;
 	int done;
 
-	public Task(String name, int job, String deadline, int location, int wage, int hours, int done)
+	public Task(String name, int job, String deadline, int location, float wage, int hours, int done)
 	{
 		this.name = name;
 		this.job = job;
@@ -47,7 +47,7 @@ public class Task
 		return deadline;
 	}
 	
-	public int getWage()
+	public float getWage()
 	{
 		return hourlyWage;
 	}
