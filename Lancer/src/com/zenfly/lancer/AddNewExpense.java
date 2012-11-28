@@ -44,10 +44,7 @@ public class AddNewExpense extends Activity {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_add_new_expense);
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        
-        
-        
+       
         db = new DatabaseHandler(context);
         locale_currency_format = NumberFormat.getCurrencyInstance();
         
