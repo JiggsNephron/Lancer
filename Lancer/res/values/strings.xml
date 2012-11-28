@@ -27,6 +27,7 @@
     <string name="button_add_new_location">+ Location</string>
     <string name="button_add_new_item">+ Item</string>
     <string name="button_add_new_expense">+ Expense</string>
+    <string name="button_add_new_note">+ Note</string>    
     <string name="button_save">Save</string>
     <string name="button_add_task_deadline">+ Deadline</string>
     <string name="button_delete_task">Delete Task</string>
