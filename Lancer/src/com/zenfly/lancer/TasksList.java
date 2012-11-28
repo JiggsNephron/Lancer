@@ -6,8 +6,10 @@ import java.util.List;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.ListView;
 //import android.view.MenuItem;
 
@@ -52,6 +54,18 @@ public class TasksList extends ListActivity {
 	  	intent.putExtra("task", taskId); //sends the job name
 	    startActivity(intent);
 	  }
+	
+	public void onCheckedChanged (CompoundButton taskCheckBox, boolean isChecked)
+	{
+		if(isChecked ==  true)
+		{
+			
+		}
+		else if(isChecked ==  false)
+		{
+			Log.v("task list  . . . . . ", "thisTask=" + isChecked);
+		}
+	}
 	
 	  //below is the code that creates the menu using the right xml file
 	 /*
