@@ -20,6 +20,7 @@ public class ViewTask extends Activity {
 		int thisTask = getIntent().getExtras().getInt("task");
 		Log.v(TAG, "thisTask=" + thisTask);
 		Task task  =  db.getTask(thisTask);
+		Log.v(TAG, "thisTask=" + task);
 		
 		String taskName = task.getName();
 		String taskLocation = task.getDeadline();
