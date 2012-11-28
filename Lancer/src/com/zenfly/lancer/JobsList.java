@@ -3,15 +3,13 @@ package com.zenfly.lancer;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.AlertDialog;
 import android.app.ListActivity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.Menu;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -22,7 +20,7 @@ public class JobsList extends ListActivity {
 	public DatabaseHandler db;
 	List<Job> jobs = new ArrayList<Job>();
 	SharedPreferences prefs;
-	int backpress;
+	int backpress = 0;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,20 +51,32 @@ public class JobsList extends ListActivity {
         return true;
     }
     
-    // RC: Makes sure that back always exits, but only on 2nd press in case user didnt mean to exit
+    // Done by RC: Makes sure that back always exits, but only on 2nd press in case user didnt mean to exit
     @Override
     public void onBackPressed() {
     	
+    	if (backpress == 0){    		
+    		Toast.makeText(getApplicationContext(), " Press Back again to Exit ", Toast.LENGTH_SHORT).show();
+    	}
+    	
     	backpress = (backpress + 1);
-        Toast.makeText(getApplicationContext(), " Press Back again to Exit ", Toast.LENGTH_SHORT).show();
         
-        if (backpress>1) {
-        	Intent intent = new Intent(Intent.ACTION_MAIN);
-        	intent.addCategory(Intent.CATEGORY_HOME);
-        	intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        	startActivity(intent);
-        }
-    }  
+    	// after 3 seconds, the backpress counter is reset to 0
+        new CountDownTimer(3000, 50) {
+            public void onTick(long millisUntilFinished) {
+            	if (backpress > 1) {
+                	Intent intent = new Intent(Intent.ACTION_MAIN);
+                	intent.addCategory(Intent.CATEGORY_HOME);
+                	intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                	backpress = 0;
+                	startActivity(intent);
+                }
+            }
+            public void onFinish() {
+            	backpress = 0;
+            }
+         }.start();   
+    } 
     
     public void addNewJob(View v) {
     	
