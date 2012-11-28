@@ -61,8 +61,8 @@ public class JobsList extends ListActivity {
     	
     	backpress = (backpress + 1);
         
-    	// after 3 seconds, the backpress counter is reset to 0
-        new CountDownTimer(3000, 50) {
+    	// after 5 seconds, the backpress counter is reset to 0
+        new CountDownTimer(5000, 50) {
             public void onTick(long millisUntilFinished) {
             	if (backpress > 1) {
                 	Intent intent = new Intent(Intent.ACTION_MAIN);
