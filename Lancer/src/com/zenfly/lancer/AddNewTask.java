@@ -49,7 +49,7 @@ public class AddNewTask extends FragmentActivity {
 	
 	int job_id;
 	
-	int hourlyWage = 0;
+	float hourlyWage = 0;
 	String sthourly_wage = "";
 	int hoursWorked = 0;
 	
@@ -160,7 +160,7 @@ public class AddNewTask extends FragmentActivity {
     	sttask_name = task_name.getText().toString();
     	sthourly_wage = task_hourly_wage.getText().toString();
     	if (sthourly_wage.equals("")) hourlyWage = 0;
-    	else hourlyWage = Integer.parseInt(sthourly_wage);
+    	else hourlyWage = Float.parseFloat(sthourly_wage);
     	
     	// create a new task using the users preferences and add it to the database
     	Task new_task = new Task(sttask_name, job_id, sttask_date, task_location_id, hourlyWage, hoursWorked, done);
