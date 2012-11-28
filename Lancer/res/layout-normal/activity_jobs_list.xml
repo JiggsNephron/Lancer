@@ -9,6 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:divider="@color/white"
         android:layout_above="@+id/add_new_job" >
         </ListView>
 
