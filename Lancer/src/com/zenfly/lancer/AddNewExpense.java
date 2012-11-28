@@ -157,29 +157,15 @@ public class AddNewExpense extends Activity {
     		startActivity(intent);
     		
     	} else Toast.makeText(getApplicationContext(), "Please choose an item and quantity of items", Toast.LENGTH_SHORT).show();
-    	
     }
 
-
-    
-    /** OPTIONS MENU CODE DISABLED FOR NOW
-    
+    // Override back button to create a more consistent experience
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_add_new_expense, menu);
-        return true;
-    }
-    
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                NavUtils.navigateUpFromSameTask(this);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-    
-	**/    
+    public void onBackPressed() {
+    	Intent intent = new Intent(AddNewExpense.this, ExpensesList.class);
+    	intent.putExtra("job_id", job_id);
+    	startActivity(intent);
+    	return;
+    }       
 }
 

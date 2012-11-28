@@ -188,25 +188,14 @@ public class AddNewTask extends FragmentActivity {
     	
     	// show the locations list
     	startActivity(show_locations);	
-    } 
-        
-    /** OPTIONS MENU CODE DISABLED FOR NOW
-    
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_add_new_job, menu);
-        return true;
     }
-    
+
+    // Override back button to create a more consistent experience
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                NavUtils.navigateUpFromSameTask(this);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-    
-	**/        
+    public void onBackPressed() {
+    	Intent intent = new Intent(AddNewTask.this, TasksList.class);
+    	intent.putExtra("job_id", job_id);
+    	startActivity(intent);
+    	return;
+    }      
 }

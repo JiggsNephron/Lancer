@@ -51,26 +51,13 @@ public class AddNewJob extends Activity {
     		Toast.makeText(getApplicationContext(), "You must provide a name for your job", Toast.LENGTH_LONG).show();
     	}
     	
-    }    
-    
-    /** OPTIONS MENU CODE DISABLED FOR NOW
-    
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_add_new_job, menu);
-        return true;
-    }
-
-    
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                NavUtils.navigateUpFromSameTask(this);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
     
-	**/
+    // Override back button to create a more consistent experience
+    @Override
+    public void onBackPressed() {
+    	Intent intent = new Intent(AddNewJob.this, JobsList.class);
+    	startActivity(intent);
+    	return;
+    }      
 }

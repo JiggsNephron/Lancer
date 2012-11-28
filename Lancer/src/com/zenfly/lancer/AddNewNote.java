@@ -14,7 +14,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
 import android.view.Window;
 import android.widget.ArrayAdapter;
@@ -73,10 +72,10 @@ public class AddNewNote extends Activity {
         sp_assign_to_task.setAdapter(adapter);
     }
     
-    // TODO RC: saveNote (@Bailey: need NotesList class)
+    // called when the save button is pressed
     public void saveNote (View v) {
     	
-    	Intent intent = new Intent(context, NotesList.class);
+    	Intent back_to_notes_list = new Intent(context, NotesList.class);
     	
     	// get the user entered note body and subject and put to string
     	stnote_body = et_note_body.getText().toString();
@@ -90,20 +89,24 @@ public class AddNewNote extends Activity {
     	} else task_id = 0;
     	
     	// if the body and subject are populated, a new note is added
+    	// if not, a toast is shown to inform the user
     	if (!stnote_body.equals("") || !stnote_subject.equals("")) {
     		
     		Note new_note = new Note(job_id, task_id, stnote_subject, stnote_body);        	
     		db.addNote(new_note);
     		Toast.makeText(getApplicationContext(), "Note " + stnote_subject + " added.", Toast.LENGTH_SHORT).show();
-    		intent.putExtra("job_id", job_id);
-    		startActivity(intent);
+    		back_to_notes_list.putExtra("job_id", job_id);
+    		startActivity(back_to_notes_list);
     		
     	} else Toast.makeText(getApplicationContext(), "Please enter a note subject and body", Toast.LENGTH_SHORT).show();
     }
-
+    
+    // Override back button to create a more consistent experience
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_add_new_note, menu);
-        return true;
-    }
+    public void onBackPressed() {
+    	Intent intent = new Intent(AddNewNote.this, NotesList.class);
+    	intent.putExtra("job_id", job_id);
+    	startActivity(intent);
+    	return;
+    }       
 }
