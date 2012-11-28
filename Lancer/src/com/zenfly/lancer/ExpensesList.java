@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.view.Window;
 import android.widget.ListView;
 
 public class ExpensesList extends ListActivity {
@@ -18,6 +19,7 @@ public class ExpensesList extends ListActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE); // RC: this removed the black bar at the top of activities.
         setContentView(R.layout.activity_expenses_list);
         
         db = new DatabaseHandler(this.getApplicationContext());
