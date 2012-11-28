@@ -641,7 +641,6 @@ public class DatabaseHandler extends SQLiteOpenHelper
     			taskList.add(task);
     		}while(cursor.moveToNext());
     	}
-    	//else taskList = null;
     	db.close();
     	return taskList;
     }
