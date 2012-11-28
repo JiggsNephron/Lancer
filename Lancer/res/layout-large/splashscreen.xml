@@ -8,7 +8,6 @@
         android:layout_height="fill_parent"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:contentDescription="@string/lancer_splash screen"
         android:background="@drawable/lancer_launch_image_480x800"
      
         />
