@@ -2,7 +2,6 @@ package com.zenfly.lancer;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import android.app.ListActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -19,7 +18,7 @@ public class JobsList extends ListActivity {
 	public DatabaseHandler db;
 	List<Job> jobs = new ArrayList<Job>();
 	SharedPreferences prefs;
-
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
