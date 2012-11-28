@@ -90,7 +90,7 @@ public class AddNewNote extends Activity {
     	} else task_id = 0;
     	
     	// if the body and subject are populated, a new note is added
-    	if (stnote_body.equals("") || stnote_subject.equals("")) {
+    	if (!stnote_body.equals("") || !stnote_subject.equals("")) {
     		
     		Note new_note = new Note(job_id, task_id, stnote_subject, stnote_body);        	
     		db.addNote(new_note);
