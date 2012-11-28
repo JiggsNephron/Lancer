@@ -85,6 +85,7 @@
 
     <!-- Miscellaneuous - Strings -->
 
+	<string name="lancer_splash_screen">Lancer Splash Screen</string>
     <string name="app_name">Lancer</string>
     <string name="menu_settings">Settings</string>
     <string name="arrow">></string>
