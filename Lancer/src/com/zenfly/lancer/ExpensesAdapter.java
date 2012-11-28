@@ -1,5 +1,6 @@
 package com.zenfly.lancer;
 
+import java.text.NumberFormat;
 import java.util.List;
 
 import android.app.Activity;
@@ -13,13 +14,16 @@ public class ExpensesAdapter extends ArrayAdapter<Expense> {
 
 	  private final Activity activity;
 	  private final List<Expense> ExpenseObject;
-	  public DatabaseHandler db;
+	  private DatabaseHandler db;
+	  private NumberFormat locale_currency_format;
 	
 	public ExpensesAdapter(Activity activity, List<Expense> objects) 
 	{
       super(activity, R.layout.activity_expenses_list , objects);
       this.activity = activity;
       this.ExpenseObject = objects;
+      db = new DatabaseHandler(this.getContext());
+      locale_currency_format = NumberFormat.getCurrencyInstance();
 	}
 	
 	@Override
@@ -39,19 +43,19 @@ public class ExpensesAdapter extends ArrayAdapter<Expense> {
 	        ExpenseItemView.cost = (TextView) rowView.findViewById(R.id.ExpenseCostDisplay);
 	        rowView.setTag(ExpenseItemView); 							//for later access
 	    }
-	    else ExpenseItemView = (ExpenseView) rowView.getTag();
-	    Expense currentExpense = (Expense) ExpenseObject.get(position); //casts as course
+	    ExpenseItemView = (ExpenseView) rowView.getTag();
+	    Expense currentExpense = (Expense) ExpenseObject.get(position); //casts as expense
 	  
-	    ExpenseItemView.quantity.setText(currentExpense.getQuantity()); //sets the data
-	    int quantityOfItem = currentExpense.getQuantity(); 				//gets the quantity of the Item
+	    //ExpenseItemView.quantity.setText(currentExpense.getQuantity()); //sets the data
+	    //int quantityOfItem = currentExpense.getQuantity(); 				//gets the quantity of the Item
 	    ExpenseItemView.item = (currentExpense.getItem()); 				//gets the item ID
 	    Item itemName = db.getItem(ExpenseItemView.item); 				// gets data on this Item
 	    
-	    int cost = currentExpense.getQuantity() * quantityOfItem; 		// calculates the current cost for that item 
-	    String itemcost = Integer.toString(cost);				  		// converts the int to string
+	    float cost = currentExpense.getQuantity() * itemName.getPrice(); 		// calculates the current cost for that item 
+	    //String itemcost = Float.toString(cost);				  		// converts the float to string
 	    
 	    ExpenseItemView.itemName.setText(itemName.getName());			//sets the data
-	    ExpenseItemView.cost.setText(itemcost); 						//sets the data
+	    ExpenseItemView.cost.setText(locale_currency_format.format(cost)); 						//sets the data
 	     
 	  
 	    return rowView;

@@ -42,7 +42,7 @@ public class Expense
 		return quantity;
 	}
 
-	public void setId(int parseInt)
+	public void setId(int id)
 	{
 		this.id = id;
 	}

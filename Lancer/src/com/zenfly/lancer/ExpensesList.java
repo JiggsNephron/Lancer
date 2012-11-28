@@ -2,7 +2,6 @@ package com.zenfly.lancer;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;

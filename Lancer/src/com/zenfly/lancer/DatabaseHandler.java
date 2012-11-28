@@ -14,7 +14,7 @@ import android.util.Log;
 public class DatabaseHandler extends SQLiteOpenHelper 
 {
 	//database info
-	private static final int DATABASE_VERSION = 2;
+	private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "Lancer";
     //table info
     private static final String TABLE_JOBS = "jobs";
@@ -296,13 +296,19 @@ public class DatabaseHandler extends SQLiteOpenHelper
     
     public Item getItem(int id)
     {
+    	Log.v("Item ID is ", ""+id);
     	SQLiteDatabase db = this.getReadableDatabase();
         String selectQuery = "SELECT * FROM " + TABLE_ITEMS + " WHERE " + KEY_ID + "=" + id;
         Cursor cursor = db.rawQuery(selectQuery, null);
-        if (cursor != null) cursor.moveToFirst();
-        Item item = new Item(cursor.getString(1), cursor.getFloat(2));
+        if (cursor != null)
+        {
+        	cursor.moveToFirst();
+        	Item item = new Item(cursor.getString(1), cursor.getFloat(2));
+        	db.close();
+        	return item;
+        }
         db.close();
-        return item;
+        return null;
     }
     
     //methods for getting the task with either the nearest of farthest deadline
