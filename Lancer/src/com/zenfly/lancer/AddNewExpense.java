@@ -109,6 +109,7 @@ public class AddNewExpense extends Activity {
     		task_id = chosen_task.getId();
     	} else task_id = 0;
     	
+    	stitem_amount = et_item_amount.getText().toString();
     	if (stitem_amount.equals("")) intitem_amount = 0;
     	else intitem_amount = Integer.parseInt(stitem_amount);
     	

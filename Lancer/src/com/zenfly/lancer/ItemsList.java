@@ -15,7 +15,6 @@ import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -82,7 +81,7 @@ public class ItemsList extends ListActivity {
 		    		added_an_item_done.putExtra("job_id", getIntent().getStringExtra("job_id"));
 
 		    		db.addItem(new Item(stitem_name, intitem_cost));
-		    		Toast.makeText(getApplicationContext(), "Saved Item: " + item_name, Toast.LENGTH_LONG).show();
+		    		Toast.makeText(getApplicationContext(), "Saved Item: " + stitem_name, Toast.LENGTH_LONG).show();
 		    		startActivity(added_an_item_done);
 		    		
 		    	} else if (stitem_name.equals("")) {
@@ -108,9 +107,4 @@ public class ItemsList extends ListActivity {
 	    startActivity(intent);
 	}
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_locations_list, menu);
-        return true;
-    }
 }
