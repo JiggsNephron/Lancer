@@ -3,17 +3,16 @@ package com.zenfly.lancer;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.zenfly.lancer.DatabaseHandler;
-
 import android.app.ListActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
-//import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.ListView;
 import android.widget.Toast;
+//import android.view.MenuItem;
 
 public class JobsList extends ListActivity {
 	
@@ -24,6 +23,7 @@ public class JobsList extends ListActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE); // RC: this removed the black bar at the top of activities. 
         setContentView(R.layout.activity_jobs_list);
         String order;
         prefs = getSharedPreferences("com.zenfly.lancer",0);
