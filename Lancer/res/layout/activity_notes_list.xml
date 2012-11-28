@@ -10,7 +10,7 @@
         android:layout_alignParentLeft="true"
         android:layout_above="@+id/add_new_note" >
        </ListView>
-
+
        <Button
            android:id="@+id/add_new_note"
            android:layout_width="fill_parent"
