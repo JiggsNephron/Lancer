@@ -19,6 +19,7 @@ import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 public class AddNewNote extends Activity {
 	
@@ -48,8 +49,10 @@ public class AddNewNote extends Activity {
         
         db = new DatabaseHandler(context);
         
+        // get job id from the passed intent
         job_id = getIntent().getIntExtra("job_id", 0);
         
+        // assign each widget in the view to a variable
         et_note_subject  = (EditText) findViewById(R.id.note_subject);
         et_note_body  = (EditText) findViewById(R.id.note_body);
         sp_assign_to_task  = (Spinner)findViewById(R.id.note_to_task);
@@ -67,15 +70,14 @@ public class AddNewNote extends Activity {
         }      
         // set the spinner to use the array contents       
         sp_assign_to_task.setAdapter(adapter);
-        
-        
-        
     }
+    
     // TODO RC: saveNote (@Bailey: need NotesList class)
     public void saveNote (View v) {
     	
-    	//Intent intent = new Intent(context, NotesList.class);
+    	Intent intent = new Intent(context, NotesList.class);
     	
+    	// get the user entered note body and subject and put to string
     	stnote_body = et_note_body.getText().toString();
     	stnote_subject = et_note_subject.getText().toString();
     	
@@ -86,13 +88,16 @@ public class AddNewNote extends Activity {
     		task_id = chosen_task.getId();
     	} else task_id = 0;
     	
-    	Note new_note = new Note(job_id, task_id, stnote_subject, stnote_body);   	   	
-    	
-		db.addNote(new_note);
-		
-		//intent.putExtra("job_id", job_id);
-		//startActivity(intent);
-    	
+    	// if the body and subject are populated, a new note is added
+    	if (stnote_body.equals("") || stnote_subject.equals("")) {
+    		
+    		Note new_note = new Note(job_id, task_id, stnote_subject, stnote_body);        	
+    		db.addNote(new_note);
+    		Toast.makeText(getApplicationContext(), "Note " + stnote_subject + " added.", Toast.LENGTH_SHORT).show();
+    		intent.putExtra("job_id", job_id);
+    		startActivity(intent);
+    		
+    	} else Toast.makeText(getApplicationContext(), "Please enter a note subject and body", Toast.LENGTH_SHORT).show();
     }
 
     @Override
