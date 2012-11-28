@@ -70,10 +70,10 @@
     <!-- Layout: Notes - Strings -->
 
     <string name="notes">Notes</string>
-    <string name="viewadd_task_notes">View/Add Task Notes</string>    
+    <string name="viewadd_task_notes">View/Add Task Notes</string>
     <string name="AddNewNote_note_subject">Note Subject:</string>
     <string name="AddNewNote_note_body">Note Body:</string>
-    <string name="AddNewNote_note_to_task">Assign to a Task: (Optional)</string> 
+    <string name="AddNewNote_note_to_task">Assign to a Task: (Optional)</string>
 
     <!-- Layout: Invoices - Strings -->
 
@@ -96,6 +96,6 @@
     <string name="welcome_text">Hi there! To get started simply add a Job name.</string>
     <string name="welcome_text2">You can call it whatever you like, it is a simple aid to help you remember which job is which.</string>
     <string name="hello_world">Hello.... this is Hal. I know what you are up to.</string>
- 
+    <string name="title_activity_notes_list">NotesList</string>
 
 </resources>
