@@ -41,9 +41,15 @@ public class AddNewExpense extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+<<<<<<< HEAD
         setContentView(R.layout.activity_add_new_expense);
         
         
+=======
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        setContentView(R.layout.activity_add_new_expense);
+       
+>>>>>>> branch 'TeamStartsHere' of git@github.com:JiggsNephron/Lancer.git
         db = new DatabaseHandler(context);
         locale_currency_format = NumberFormat.getCurrencyInstance();
         
