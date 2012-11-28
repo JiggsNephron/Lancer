@@ -1,7 +1,7 @@
 /**
  * Allows the user to add new tasks to their job
  * 
- * Authors: Richard Cody, Simon McDonnell,
+ * Authors: Richard Cody, Simon McDonnell (small things),
  * 
  */
 

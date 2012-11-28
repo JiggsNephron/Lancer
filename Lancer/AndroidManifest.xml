@@ -61,7 +61,7 @@
             android:label="@string/title_activity_items_list"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Dialog" >
-        </activity>        
+        </activity>
         <activity
             android:name="com.zenfly.lancer.ViewTask"
             android:label="@string/title_activity_view_task" >
@@ -81,6 +81,15 @@
         <activity
             android:name=".AddNewExpense"
             android:label="@string/title_activity_add_new_expense" >
+        </activity>
+        <activity
+            android:name=".AddNewNote"
+            android:label="@string/title_activity_add_new_note" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

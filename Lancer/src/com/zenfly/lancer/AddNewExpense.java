@@ -1,3 +1,10 @@
+/**
+ * Allows the user to add new expenses to their job (and task)
+ * 
+ * Authors: Richard Cody, 
+ * 
+ */
+
 package com.zenfly.lancer;
 
 import java.text.NumberFormat;
