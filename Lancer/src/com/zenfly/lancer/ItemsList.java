@@ -44,7 +44,6 @@ public class ItemsList extends ListActivity {
         
     }
     
-    // TODO RC: addItem
     public void addItem(View v) {   	
     	
     	// create new dialog object

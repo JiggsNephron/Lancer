@@ -1,12 +1,18 @@
+/**
+ * Allows the user to add new notes to their job (and task)
+ * 
+ * Authors: Richard Cody,
+ * 
+ */
+
 package com.zenfly.lancer;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.Window;
@@ -65,7 +71,7 @@ public class AddNewNote extends Activity {
         
         
     }
-    
+    // TODO RC: saveNote (@Bailey: need NotesList class)
     public void saveNote (View v) {
     	
     	//Intent intent = new Intent(context, NotesList.class);
