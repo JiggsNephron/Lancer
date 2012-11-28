@@ -511,13 +511,14 @@ public class DatabaseHandler extends SQLiteOpenHelper
     public List<Item> getAllItems()
     {
     	List<Item> itemList = new ArrayList<Item>();
-    	String selectQuery = "SELECT " + KEY_ITEM + " FROM " + TABLE_EXPENSES;
+    	String selectQuery = "SELECT * FROM " + TABLE_ITEMS;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor.moveToFirst())
         {
             do
             {
+            	Log.v("Items: ", "Looping");
             	Item item = new Item(cursor.getString(1), cursor.getFloat(2)); //creates a new item for each one returned by the database
             	item.setId(cursor.getInt(0));
                 itemList.add(item); //adds new item to the list
@@ -660,12 +661,15 @@ public class DatabaseHandler extends SQLiteOpenHelper
     //returns true or false if a task is done or not
     public boolean getTaskDone(int id)
     {
-    	int done;
+    	int done = 0;
     	String selectQuery = "SELECT " + KEY_DONE + " FROM " + TABLE_TASKS + " WHERE " + KEY_ID + "=" + id; //retrieves the done field from the tasks table
     	SQLiteDatabase db = this.getWritableDatabase();
     	Cursor cursor = db.rawQuery(selectQuery, null);
-        if (cursor != null) cursor.moveToFirst();
-        done = cursor.getInt(0); //assigns the value of the field to a variable
+        if (cursor != null)
+        {
+        	cursor.moveToFirst();
+        	done = cursor.getInt(0); //assigns the value of the field to a variable
+        }
         db.close();
         //depending on if the task is set to done (1) or not done (0), we return true or false
         if(done == 0) return false;
