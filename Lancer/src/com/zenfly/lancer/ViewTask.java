@@ -1,16 +1,17 @@
 package com.zenfly.lancer;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
+import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
 
 public class ViewTask extends Activity {
 	
 	private DatabaseHandler db;
-	private static final String TAG = "ViewTasks";
+	int TaskId;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -19,22 +20,56 @@ public class ViewTask extends Activity {
 		setContentView(R.layout.activity_view_task);
 		
 		db = new DatabaseHandler(this);
-		int thisTask = getIntent().getExtras().getInt("task");
-		Log.v(TAG, "thisTask=" + thisTask);
-		Task task  =  db.getTask(thisTask);
-		Log.v(TAG, "thisTask=" + task);
+		TaskId = getIntent().getExtras().getInt("task");
+		//Log.v(TAG, "thisTask=" + thisTask);
+		Task task  =  db.getTask(TaskId);
+		//Log.v(TAG, "thisTask=" + task);
 		
 		String taskName = task.getName();
-		String taskLocation = task.getDeadline();
-		int taskDeadline = task.getLocation();
+		String taskDeadline = task.getDeadline();
+		String taskLocation = "";
+		int taskLocationID = task.getLocation();
+
+
 		
 		TextView displayName = (TextView) findViewById(R.id.thisTaskName);
-		TextView displayLocation = (TextView) findViewById(R.id.thisTaskName);
+		TextView displayDate = (TextView) findViewById(R.id.thisTaskDeadline);
+		TextView displayLocation = (TextView) findViewById(R.id.thisTaskLocation);
+
+		
+		if(taskLocationID == 0)
+		{
+			taskLocation = "No Location Set";
+		}
+		else
+		{
+			Location location = db.getLocation(taskLocationID);
+			taskLocation = location.getAdd1();
+		}
+		
+		if((taskDeadline == "") || (taskDeadline == null))
+		{
+			taskDeadline = "No Deadline Set";
+		}
 		
 		displayName.setText(taskName);
+		displayDate.setText(taskDeadline);
 		displayLocation.setText(taskLocation);
 		
 	}
+	
+	
+	public void deleteTask(View v)
+	{
+		db.deleteTask(TaskId);
+	}
+	
+	public void viewJobNotes(View v)
+	{
+    	Intent ViewNotes = new Intent(ViewTask.this, ViewNotes .class);
+    	startActivity(ViewNotes);
+	}
+	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
