@@ -100,6 +100,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
         db.execSQL(CREATE_ITEMS_TABLE);
         db.execSQL(CREATE_EXPENSES_TABLE);
         db.execSQL(CREATE_LOCATIONS_TABLE);
+        db.close();
     }
  
     @Override
@@ -112,6 +113,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_EXPENSES);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_LOCATIONS);
         onCreate(db);
+        db.close();
     }
 	
     //methods for adding objects to the databases
@@ -152,6 +154,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
         	db.close();
         	return 0;
         }
+        db.close();
         return success;
     }
     
@@ -159,15 +162,6 @@ public class DatabaseHandler extends SQLiteOpenHelper
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        /*int task, job;
-        Cursor cursor = db.query(TABLE_JOBS, new String[] { KEY_ID }, KEY_LOCATION + "=?",
-                new String[] { note.getJob()}, null, null, null, null);
-        if (cursor != null) cursor.moveToFirst();
-        job = Integer.parseInt((cursor.getString(0)));
-        cursor = db.query(TABLE_TASKS, new String[] { KEY_ID }, KEY_LOCATION + "=?",
-                new String[] { note.getTask()}, null, null, null, null);
-        if (cursor != null) cursor.moveToFirst();
-        task = Integer.parseInt((cursor.getString(0)));*/
         values.put(KEY_JOB, note.getJob());
         values.put(KEY_TASK, note.getTask());
         values.put(KEY_SUBJECT, note.getSubject());
@@ -204,19 +198,6 @@ public class DatabaseHandler extends SQLiteOpenHelper
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        /*int task, job, item;
-        Cursor cursor = db.query(TABLE_JOBS, new String[] { KEY_ID }, KEY_LOCATION + "=?",
-                new String[] { Integer.toString(expense.getJob())}, null, null, null, null);
-        if (cursor != null) cursor.moveToFirst();
-        job = Integer.parseInt((cursor.getString(0)));
-        cursor = db.query(TABLE_TASKS, new String[] { KEY_ID }, KEY_LOCATION + "=?",
-                new String[] { Integer.toString(expense.getTask())}, null, null, null, null);
-        if (cursor != null) cursor.moveToFirst();
-        task = Integer.parseInt((cursor.getString(0)));
-        cursor = db.query(TABLE_ITEMS, new String[] { KEY_ID }, KEY_LOCATION + "=?",
-                new String[] { Integer.toString(expense.getItem())}, null, null, null, null);
-        if (cursor != null) cursor.moveToFirst();
-        item = Integer.parseInt((cursor.getString(0)));*/
         values.put(KEY_JOB, expense.getJob());
         values.put(KEY_TASK, expense.getTask());
         values.put(KEY_ITEM, expense.getItem());
@@ -257,10 +238,14 @@ public class DatabaseHandler extends SQLiteOpenHelper
         SQLiteDatabase db = this.getReadableDatabase();
         String selectQuery = "SELECT * FROM " + TABLE_JOBS + " WHERE " + KEY_ID + "=" + id;
         Cursor cursor = db.rawQuery(selectQuery, null);
-        if (cursor != null) cursor.moveToFirst();
-        Job job = new Job(cursor.getString(1));
-        db.close();
-        return job;
+        if (cursor != null)
+        {
+        	cursor.moveToFirst();
+	        Job job = new Job(cursor.getString(1));
+	        db.close();
+	        return job;
+        }
+        return null;
     }
     
     //a method that returns a single location
@@ -269,16 +254,19 @@ public class DatabaseHandler extends SQLiteOpenHelper
         SQLiteDatabase db = this.getReadableDatabase();
         String selectQuery = "SELECT * FROM " + TABLE_LOCATIONS + " WHERE " + KEY_ID + "=" + id;
         Cursor cursor = db.rawQuery(selectQuery, null);
-        if (cursor != null) cursor.moveToFirst();
-        Location location = new Location(cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4));
-        db.close();
-        return location;
+        if (cursor != null)
+        {
+        	cursor.moveToFirst();
+	        Location location = new Location(cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4));
+	        db.close();
+	        return location;
+        }
+        return null;
     }
     
     //a method that returns a single task
     public Task getTask(int id)
     {
-    	Log.v("Getting task ", ""+id);
         SQLiteDatabase db = this.getReadableDatabase();
         String selectQuery = "SELECT * FROM " + TABLE_TASKS + " WHERE " + KEY_ID + "=" + id;
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -296,7 +284,6 @@ public class DatabaseHandler extends SQLiteOpenHelper
     
     public Item getItem(int id)
     {
-    	Log.v("Item ID is ", ""+id);
     	SQLiteDatabase db = this.getReadableDatabase();
         String selectQuery = "SELECT * FROM " + TABLE_ITEMS + " WHERE " + KEY_ID + "=" + id;
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -317,10 +304,15 @@ public class DatabaseHandler extends SQLiteOpenHelper
     	SQLiteDatabase db = this.getReadableDatabase();
         String selectQuery = "SELECT * FROM " + TABLE_TASKS + " ORDER BY " + KEY_DEADLINE + " ASC";
         Cursor cursor = db.rawQuery(selectQuery, null);
-        if (cursor != null) cursor.moveToFirst();
-        Task task = new Task(cursor.getString(1), cursor.getInt(2), cursor.getString(3), cursor.getInt(4), cursor.getFloat(6), cursor.getInt(7), cursor.getInt(5));
+        if (cursor != null)
+        {
+        	cursor.moveToFirst();
+        	Task task = new Task(cursor.getString(1), cursor.getInt(2), cursor.getString(3), cursor.getInt(4), cursor.getFloat(6), cursor.getInt(7), cursor.getInt(5));
+        	db.close();
+        	return task;
+        }
         db.close();
-        return task;
+        return null;
     }
     
     public Task getFarthestDeadlineTask()
@@ -328,10 +320,14 @@ public class DatabaseHandler extends SQLiteOpenHelper
     	SQLiteDatabase db = this.getReadableDatabase();
         String selectQuery = "SELECT * FROM " + TABLE_TASKS + " ORDER BY " + KEY_DEADLINE + " DESC";
         Cursor cursor = db.rawQuery(selectQuery, null);
-        if (cursor != null) cursor.moveToFirst();
-        Task task = new Task(cursor.getString(1), cursor.getInt(2), cursor.getString(3), cursor.getInt(4), cursor.getFloat(6), cursor.getInt(7), cursor.getInt(5));
-        db.close();
-        return task;
+        if (cursor != null) 
+        {
+        	cursor.moveToFirst();
+	        Task task = new Task(cursor.getString(1), cursor.getInt(2), cursor.getString(3), cursor.getInt(4), cursor.getFloat(6), cursor.getInt(7), cursor.getInt(5));
+	        db.close();
+	        return task;
+        }
+        return null;
     }
  
     //a method to return all jobs in the database
@@ -677,7 +673,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
         db.close();
         //depending on if the task is set to done (1) or not done (0), we return true or false
         if(done == 0) return false;
-        else return true;
+        return true;
     }
     
     //sets a task as done (1) or not done (0)
@@ -687,6 +683,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
     	ContentValues values = new ContentValues();
     	values.put(KEY_DONE, Integer.toString(done));
         db.update(TABLE_TASKS, values, KEY_ID + "=?", new String[] { Integer.toString(id)});
+        db.close();
     }
     
     //methods for getting counts of database items
@@ -697,6 +694,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
         Cursor cursor = db.rawQuery(countQuery, null);
         int count = cursor.getCount();
         cursor.close();
+        db.close();
         return count;
     }
     
@@ -707,6 +705,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
         Cursor cursor = db.rawQuery(countQuery, null);
         int count = cursor.getCount();
         cursor.close();
+        db.close();
         return count;
     }
     
@@ -717,6 +716,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
         Cursor cursor = db.rawQuery(countQuery, null);
         int count = cursor.getCount();
         cursor.close();
+        db.close();
         return count;
     }
     
@@ -727,6 +727,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
         Cursor cursor = db.rawQuery(countQuery, null);
         int count = cursor.getCount();
         cursor.close();
+        db.close();
         return count;
     }
     
@@ -737,6 +738,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
         Cursor cursor = db.rawQuery(countQuery, null);
         int count = cursor.getCount();
         cursor.close();
+        db.close();
         return count;
     }
     
@@ -747,6 +749,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
         Cursor cursor = db.rawQuery(countQuery, null);
         int count = cursor.getCount();
         cursor.close();
+        db.close();
         return count;
     }
     
@@ -757,6 +760,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
         Cursor cursor = db.rawQuery(countQuery, null);
         int count = cursor.getCount();
         cursor.close();
+        db.close();
         return count;
     }
     
@@ -767,6 +771,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
         Cursor cursor = db.rawQuery(countQuery, null);
         int count = cursor.getCount();
         cursor.close();
+        db.close();
         return count;
     }
     
@@ -777,6 +782,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
         Cursor cursor = db.rawQuery(countQuery, null);
         int count = cursor.getCount();
         cursor.close();
+        db.close();
         return count;
     }
     
@@ -788,6 +794,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
         Cursor cursor = db.rawQuery(countQuery, null);
         int count = cursor.getCount();
         cursor.close();
+        db.close();
         return count;
     }
     
@@ -804,6 +811,8 @@ public class DatabaseHandler extends SQLiteOpenHelper
     			locList.add(cursor.getString(1));
     		}while(cursor.moveToNext());
     	}
+    	cursor.close();
+    	db.close();
     	return locList;
     }
     
@@ -820,6 +829,8 @@ public class DatabaseHandler extends SQLiteOpenHelper
     			itemList.add(cursor.getString(1));
     		}while(cursor.moveToNext());
     	}
+    	cursor.close();
+    	db.close();
     	return itemList;
     }
 }
