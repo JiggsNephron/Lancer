@@ -8,6 +8,7 @@
 package com.zenfly.lancer;
 
 
+import java.text.NumberFormat;
 import java.util.List;
 
 import android.app.Activity;
@@ -24,6 +25,8 @@ public class ItemsAdapter extends ArrayAdapter<Item>
 	  private final Activity activity;
 	  private final List<Item> itemsObject;
 	  public DatabaseHandler db;
+	  NumberFormat locale_currency_format;
+	  
 	
 	public ItemsAdapter(Activity activity, List<Item> objects) 
 	{
@@ -31,6 +34,7 @@ public class ItemsAdapter extends ArrayAdapter<Item>
         this.activity = activity;
         this.itemsObject = objects;
         db = new DatabaseHandler(this.getContext());
+        locale_currency_format = NumberFormat.getCurrencyInstance();        
 	} 
 
 	@Override
@@ -51,9 +55,9 @@ public class ItemsAdapter extends ArrayAdapter<Item>
 	    }
 	    else itemItemView = (itemsView) rowView.getTag();
 	    {
-	    	Item currentItem = (Item) itemsObject.get(position); //casts as course		    	
+	    	Item currentItem = (Item) itemsObject.get(position); //casts as course	    	
 	    
-	    	itemItemView.name.setText(currentItem.getName()); //sets the data
+	    	itemItemView.name.setText(currentItem.getName() + " at " + locale_currency_format.format(currentItem.getPrice()) + " each."); //sets the data
 	    }
 	    return rowView;
 	}

@@ -1,5 +1,6 @@
 package com.zenfly.lancer;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +23,8 @@ public class AddNewExpense extends Activity {
 	Spinner sp_assign_to_task;
 
 	DatabaseHandler db;
-	
+	NumberFormat locale_currency_format;
+		
 	String stitem_amount;
 	int intitem_amount;
 	
@@ -42,10 +44,12 @@ public class AddNewExpense extends Activity {
         setContentView(R.layout.activity_add_new_expense);
         
         db = new DatabaseHandler(context);
+        locale_currency_format = NumberFormat.getCurrencyInstance();
         
         // get intent content 
         job_id = getIntent().getIntExtra("job_id", 0);					// The ID of the Job this expense is being added under
         spinner_position = getIntent().getIntExtra("task_spinner", 0);  // The spinner position (to restore it to the user's choice after choosing an item)
+        intitem_amount = getIntent().getIntExtra("item_amount", 0);
               
         // Get the view elements
         et_item_choice  = (EditText) findViewById(R.id.button_choose_item);
@@ -68,6 +72,12 @@ public class AddNewExpense extends Activity {
         // set the spinner to the position it was at before choosing an item
         sp_assign_to_task.setSelection(spinner_position, true);
 
+        // set the Quantity EditText to show the intent amount
+        if(getIntent().getIntExtra("item_amount", 0) != 0) {
+        	intitem_amount = getIntent().getIntExtra("item_amount", 0);
+        	et_item_amount.setText(Integer.toString(intitem_amount));
+        } else et_item_amount.setHint("0");
+        
         // get the item id (available if an item as been chosen)
         if(getIntent().getIntExtra("item_id", 0) != 0) {
         	item_id = getIntent().getIntExtra("item_id", 0);
@@ -120,7 +130,7 @@ public class AddNewExpense extends Activity {
     	
     		db.addExpense(new_expense);    	
 
-    		Toast.makeText(getApplicationContext(), "Added Expense: " + intitem_amount + " of " + item.getName() + ". The total of this expense is " + (intitem_amount*item.getPrice()), Toast.LENGTH_LONG).show();
+    		Toast.makeText(getApplicationContext(), "Added Expense: " + item.getName() + " x " + intitem_amount + ". " + "The total of this expense is " + locale_currency_format.format((intitem_amount*item.getPrice()) + ". "), Toast.LENGTH_LONG).show();
     	
     		intent.putExtra("job_id", job_id);
     		startActivity(intent);
