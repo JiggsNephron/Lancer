@@ -45,8 +45,12 @@ public class AddNewExpense extends Activity {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_add_new_expense);
 <<<<<<< HEAD
+<<<<<<< HEAD
         
 =======
+=======
+        
+>>>>>>> branch 'TeamStartsHere' of git@github.com:JiggsNephron/Lancer.git
 
 >>>>>>> branch 'TeamStartsHere' of git@github.com:JiggsNephron/Lancer.git
         db = new DatabaseHandler(context);
