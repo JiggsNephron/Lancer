@@ -187,6 +187,7 @@ public class AddNewTask extends FragmentActivity {
     	show_locations.putExtra("job_id", job_id);
     	
     	// show the locations list
+    	show_locations.putExtra("job_id", job_id);
     	startActivity(show_locations);	
     }
 

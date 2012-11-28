@@ -81,6 +81,7 @@ public class LocationsList extends ListActivity {
 		    		added_a_task_done.putExtra("task_name", getIntent().getStringExtra("task_name"));
 		    	  	added_a_task_done.putExtra("task_date", getIntent().getStringExtra("task_date"));
 		    	  	added_a_task_done.putExtra("hourly_wage", getIntent().getStringExtra("hourly_wage"));
+		    	  	added_a_task_done.putExtra("job_id", getIntent().getIntExtra("job_id", 0));
 		    		db.addLocation(new Location(stlocation_nickname, stlocation_address1, stlocation_address2, stlocation_address3));
 		    		Toast.makeText(getApplicationContext(), "Saved Location: " + stlocation_nickname, Toast.LENGTH_LONG).show();
 		    		startActivity(added_a_task_done);
