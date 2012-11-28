@@ -14,7 +14,7 @@ import android.util.Log;
 public class DatabaseHandler extends SQLiteOpenHelper 
 {
 	//database info
-	private static final int DATABASE_VERSION = 1;
+	private static final int DATABASE_VERSION = 2;
     private static final String DATABASE_NAME = "Lancer";
     //table info
     private static final String TABLE_JOBS = "jobs";
@@ -81,10 +81,9 @@ public class DatabaseHandler extends SQLiteOpenHelper
         String CREATE_EXPENSES_TABLE = 
         		"CREATE TABLE " + TABLE_EXPENSES + 
         		"("
-	                + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_NAME 
-	                + " TEXT," + KEY_JOB + " INTEGER," 
+	                + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_JOB + " INTEGER," 
 	                + KEY_TASK + " INTEGER," + KEY_ITEM + " INTEGER," 
-	        		+ KEY_QUANTITY + "INTEGER" +
+	        		+ KEY_QUANTITY + " INTEGER" +
                 ")";
         String CREATE_LOCATIONS_TABLE = 
         		"CREATE TABLE " + TABLE_LOCATIONS + 
@@ -518,7 +517,6 @@ public class DatabaseHandler extends SQLiteOpenHelper
         {
             do
             {
-            	Log.v("Items: ", "Looping");
             	Item item = new Item(cursor.getString(1), cursor.getFloat(2)); //creates a new item for each one returned by the database
             	item.setId(cursor.getInt(0));
                 itemList.add(item); //adds new item to the list
