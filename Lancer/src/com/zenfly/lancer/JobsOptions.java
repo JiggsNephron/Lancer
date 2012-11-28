@@ -45,6 +45,12 @@ public class JobsOptions extends Activity  {
         getMenuInflater().inflate(R.menu.activity_jobs_options, menu);
         return true;
     }
+    @Override
+    public void onBackPressed() {
+    	Intent intent = new Intent(JobsOptions.this, JobsList.class);
+    	startActivity(intent);
+    	return;
+    }  
       	
 	public void createInvoice(View v)
     {

@@ -2,12 +2,16 @@ package com.zenfly.lancer;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import android.app.AlertDialog;
 import android.app.ListActivity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -18,6 +22,7 @@ public class JobsList extends ListActivity {
 	public DatabaseHandler db;
 	List<Job> jobs = new ArrayList<Job>();
 	SharedPreferences prefs;
+	int backpress;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,11 +53,27 @@ public class JobsList extends ListActivity {
         return true;
     }
     
+    // RC: Makes sure that back always exits, but only on 2nd press in case user didnt mean to exit
+    @Override
+    public void onBackPressed() {
+    	
+    	backpress = (backpress + 1);
+        Toast.makeText(getApplicationContext(), " Press Back again to Exit ", Toast.LENGTH_SHORT).show();
+        
+        if (backpress>1) {
+        	Intent intent = new Intent(Intent.ACTION_MAIN);
+        	intent.addCategory(Intent.CATEGORY_HOME);
+        	intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        	startActivity(intent);
+        }
+    }  
+    
     public void addNewJob(View v) {
     	
 
     	Intent intent = new Intent(JobsList.this, AddNewJob.class); 	
     	startActivity(intent);
+    	this.finish();
     	
    }
     
@@ -63,6 +84,7 @@ public class JobsList extends ListActivity {
 	  	int jobId = jobs.get(position).getId();
 	  	intent.putExtra("job_id", jobId); //sends the job id
 	    startActivity(intent);
+	    this.finish();
 	  }
 	
 	  //below is the code that creates the menu using the right xml file

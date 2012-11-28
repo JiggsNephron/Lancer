@@ -37,6 +37,14 @@ public class ExpensesList extends ListActivity {
     	startActivity(intent);	
    }
     
+    @Override
+    public void onBackPressed() {
+    	Intent intent = new Intent(ExpensesList.this, JobsOptions.class);
+    	intent.putExtra("job_id", getIntent().getIntExtra("job_id", 0));
+    	startActivity(intent);
+    	return;
+    }       
+        
     
 	@Override
 	  public void onListItemClick(ListView parent, View v, int position, long id)

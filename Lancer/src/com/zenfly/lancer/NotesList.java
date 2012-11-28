@@ -21,6 +21,14 @@ public class NotesList extends Activity {
        	intent.putExtra("job_id", getIntent().getIntExtra("job_id", 0));
     	startActivity(intent);	
    }
+    
+    @Override
+    public void onBackPressed() {
+    	Intent intent = new Intent(NotesList.this, JobsOptions.class);
+    	intent.putExtra("job_id", getIntent().getIntExtra("job_id", 0));
+    	startActivity(intent);
+    	return;
+    }    
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
