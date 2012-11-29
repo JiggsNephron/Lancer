@@ -50,31 +50,30 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:onClick="" /> <!-- To Job Options List -->
     
-    <ListView
+       <ListView
         android:layout_below="@+id/nav_list_bg"
         android:id="@android:id/list"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_alignParentLeft="true"
         android:divider="@color/white"
-        android:layout_above="@+id/add_new_task" >
+        android:layout_above="@+id/add_new_note" >
        </ListView>
 
-    
-    
-  	<Button
-        android:id="@+id/add_new_task"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:textColor="@color/white"
-        android:textSize="25dp"
-        android:paddingTop="10dp"
-        android:background="@color/lancer_blue"
-        android:paddingBottom="10dp" 
-        android:onClick="addNewTask"
-        android:text="@string/button_add_new_task" />
-        
+       <Button
+           android:id="@+id/add_new_note"
+           android:layout_width="fill_parent"
+           android:layout_height="wrap_content"
+           android:layout_alignParentBottom="true"
+           android:layout_alignParentLeft="true"
+           android:layout_alignParentRight="true"
+           android:background="@color/lancer_blue"
+           android:onClick="addNewNote"
+           android:paddingBottom="10dp"
+           android:paddingTop="10dp"
+           android:text="@string/button_add_new_note"
+           android:textColor="@color/white"
+           android:textSize="25dp" >
+           </Button>
+
 </RelativeLayout>
