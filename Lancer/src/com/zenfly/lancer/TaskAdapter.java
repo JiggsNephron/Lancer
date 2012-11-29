@@ -3,12 +3,14 @@ package com.zenfly.lancer;
 import java.util.List;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
 
 public class TaskAdapter extends ArrayAdapter<Task> {
@@ -22,13 +24,14 @@ public class TaskAdapter extends ArrayAdapter<Task> {
       super(activity, R.layout.activity_tasks_list , objects);
       this.activity = activity;
       this.taskObject = objects;
+      db = new DatabaseHandler(this.getContext());
 	}
 	
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent)
+	public View getView(final int position, View convertView, ViewGroup parent)
 	{
 	    View rowView = convertView;
-	    taskView taskItemView = null;
+	    final taskView taskItemView;
 	
 	    if(rowView == null)
 	    {
@@ -36,22 +39,42 @@ public class TaskAdapter extends ArrayAdapter<Task> {
 	        LayoutInflater inflater = activity.getLayoutInflater();
 	        rowView = inflater.inflate(R.layout.task_item, null);
 	        taskItemView = new taskView(); //for holding the data
-	        taskItemView.name = (TextView) rowView.findViewById(R.id.taskNameDisplay); 
+	        taskItemView.name = (TextView) rowView.findViewById(R.id.taskNameDisplay);
 	        taskItemView.checkBox = (CheckBox) rowView.findViewById(R.id.taskCheckBox);
 	        rowView.setTag(taskItemView); //for later access
 	    }
 	    else taskItemView = (taskView) rowView.getTag();
 	    Task currentTask = (Task) taskObject.get(position); //casts as course
 	    taskItemView.name.setText(currentTask.getName()); //sets the data
-	    int ID = currentTask.getId();
-	    boolean isTicked = true; //db.getTaskDone(ID);
+	    final int ID = currentTask.getId();
+	    //boolean isTicked = true; //db.getTaskDone(ID);
 	    //jobsItemView.checkBox.setText(currentJob.getLocation());
-	    if(isTicked)
-	    {
+	    //if(isTicked)
+	    //{
 	    	//CheckBox checkBox = (CheckBox)convertView.findViewById(R.id.taskCheckBox);
-	    	taskItemView.checkBox.setChecked(true);
-	    }
-	    
+	    	taskItemView.checkBox.setChecked(db.getTaskDone(ID)); //sets the checkbox ticked if the task is done or unticked if not done
+	    	if(db.getTaskDone(ID)) taskItemView.name.setTextColor(Color.GRAY);
+	    //}
+	    	taskItemView.checkBox.setOnCheckedChangeListener(new OnCheckedChangeListener()
+	    	{
+	    		public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+	    		{
+	    			if (taskItemView.checkBox.isChecked())
+	    			{
+	    				taskItemView.checkBox.setChecked(true);
+	    				taskItemView.name.setTextColor(Color.GRAY);
+	    				db.setTaskDone(ID, 1);
+	    	        }
+	    			else
+	    			{
+	    				taskItemView.checkBox.setChecked(false);
+	    				taskItemView.name.setTextColor(Color.BLUE);
+	    				db.setTaskDone(ID, 0);
+	    			}
+	    			
+	    	    }
+	    	});
+
 	    
 	    
 	    return rowView;
