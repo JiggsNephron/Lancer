@@ -139,14 +139,9 @@ public class AddNewExpense extends Activity {
     		    		total = intitem_amount * item_cost;
     		    		et_item_total.setText(locale_currency_format.format(total));
     		    	}
-    				
-    			}
-            	
+    			}            	
             }); 
-        }
-        
-        
- 
+        }  
     }
     
     // Lets the user choose from their list of saved items (or add a new one)
