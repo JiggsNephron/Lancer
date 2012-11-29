@@ -100,7 +100,6 @@ public class DatabaseHandler extends SQLiteOpenHelper
         db.execSQL(CREATE_ITEMS_TABLE);
         db.execSQL(CREATE_EXPENSES_TABLE);
         db.execSQL(CREATE_LOCATIONS_TABLE);
-        db.close();
     }
  
     @Override
@@ -113,7 +112,6 @@ public class DatabaseHandler extends SQLiteOpenHelper
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_EXPENSES);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_LOCATIONS);
         onCreate(db);
-        db.close();
     }
 	
     //methods for adding objects to the databases
