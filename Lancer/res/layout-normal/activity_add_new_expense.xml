@@ -100,6 +100,7 @@
         android:layout_below="@+id/choose_item_title"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
+        android:focusableInTouchMode="false" 
         android:ems="15"
         android:inputType="text"
         android:onClick="chooseItems" >
@@ -119,6 +120,7 @@
         android:layout_marginTop="15dp"
         android:layout_marginBottom="10dp"
         android:textSize="20dp" />
+   
 
 
     <EditText
@@ -128,7 +130,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/number_of_items_title"
         android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
+        android:layout_marginRight="180dp"
         android:ems="15"
         android:inputType="number" />
     
@@ -168,5 +170,24 @@
         android:paddingBottom="10dp"
         android:textColor="@color/white"
         android:textSize="25dp" />
+
+    <TextView
+        android:id="@+id/total_cost_of_items_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/number_of_items_title"
+        android:layout_alignBottom="@+id/number_of_items_title"
+        android:layout_toRightOf="@+id/choose_item_title"
+        android:text="Total Cost:" />
+
+    <EditText
+        android:id="@+id/edittext_total_cost_of_items"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/assign_expense_to_task"
+        android:layout_alignLeft="@+id/total_cost_of_items_title"
+        android:ems="10"
+        android:inputType="number"
+        android:layout_marginRight="20dp" />
 
 </RelativeLayout>
