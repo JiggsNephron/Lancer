@@ -28,8 +28,6 @@ public class JobsOptions extends Activity  {
         jobName.setText(job.getClient());
         
         // R.id is same for all buttons here? (SK) Button taskButton = (Button)findViewById(R.id.create_invoice);
-        
-        
         // --> This Stuff to be done in xml (SK) //taskButton.setVisibility(View.VISIBLE);
         // --> This Stuff to be done in xml (SK) taskButton.setBackgroundColor(Color.TRANSPARENT);
         
