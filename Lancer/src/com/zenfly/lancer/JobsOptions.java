@@ -27,17 +27,17 @@ public class JobsOptions extends Activity  {
         TextView jobName = (TextView) findViewById(R.id.job_name);
         jobName.setText(job.getClient());
         
-        Button taskButton = (Button)findViewById(R.id.create_invoice);
-        taskButton.setVisibility(View.VISIBLE);
-        taskButton.setBackgroundColor(Color.TRANSPARENT);
+        // R.id is same for all buttons here? (SK) Button taskButton = (Button)findViewById(R.id.create_invoice);
+        // --> This Stuff to be done in xml (SK) //taskButton.setVisibility(View.VISIBLE);
+        // --> This Stuff to be done in xml (SK) taskButton.setBackgroundColor(Color.TRANSPARENT);
         
-        Button expensesButton = (Button)findViewById(R.id.create_invoice);
-        expensesButton.setVisibility(View.VISIBLE);
-        expensesButton.setBackgroundColor(Color.TRANSPARENT);
+        // R.id is same for all buttons here? (SK) Button expensesButton = (Button)findViewById(R.id.create_invoice);
+        // --> This Stuff to be done in xml (SK) expensesButton.setVisibility(View.VISIBLE);
+        // --> This Stuff to be done in xml (SK) expensesButton.setBackgroundColor(Color.TRANSPARENT);
         
-        Button NotesButton = (Button)findViewById(R.id.create_invoice);
-        NotesButton.setVisibility(View.VISIBLE);
-        NotesButton.setBackgroundColor(Color.TRANSPARENT);
+     // R.id is same for all buttons here? Button NotesButton = (Button)findViewById(R.id.create_invoice);
+        // --> This Stuff to be done in xml (SK) NotesButton.setVisibility(View.VISIBLE);
+        // --> This Stuff to be done in xml (SK) NotesButton.setBackgroundColor(Color.TRANSPARENT);
     }
 
     @Override
