@@ -37,7 +37,7 @@ public class JobsOptions extends Activity  {
         // --> This Stuff to be done in xml (SK) expensesButton.setVisibility(View.VISIBLE);
         // --> This Stuff to be done in xml (SK) expensesButton.setBackgroundColor(Color.TRANSPARENT);
         
-        Button NotesButton = (Button)findViewById(R.id.create_invoice);
+     // R.id is same for all buttons here? Button NotesButton = (Button)findViewById(R.id.create_invoice);
         // --> This Stuff to be done in xml (SK) NotesButton.setVisibility(View.VISIBLE);
         // --> This Stuff to be done in xml (SK) NotesButton.setBackgroundColor(Color.TRANSPARENT);
     }
