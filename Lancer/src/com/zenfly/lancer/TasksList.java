@@ -12,24 +12,25 @@ import android.view.Window;
 import android.widget.CompoundButton;
 import android.widget.ListView;
 //import android.view.MenuItem;
+import android.widget.TextView;
 
 public class TasksList extends ListActivity {
 	
 	public DatabaseHandler db;
-	List<Task> task;// = //new ArrayList<Task>();
+	List<Task> task;
+	int thisJob;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE); // RC: this removed the black bar at the top of activities.
         setContentView(R.layout.activity_tasks_list);
-        
+        TextView jobName = (TextView) findViewById(R.id.job_name);
         db = new DatabaseHandler(this.getApplicationContext());
-
-        
-        //SMcD: just adding this to see if it grabs jobs from the DB. And it does. Happy days
-        int thisJob = getIntent().getIntExtra("job_id", 0);
-        task = db.getAllTasksForJob(thisJob); //makes a list of jobs to send to the list View
+        thisJob = getIntent().getIntExtra("job_id", 0);
+        Job job = db.getJob(thisJob);
+        jobName.setText(job.getClient());
+        task = db.getAllTasksForJob(thisJob); //makes a list of tasks to send to the list View
         
         setListAdapter(new TaskAdapter(this, task)); //starts the list View
     }
@@ -43,14 +44,14 @@ public class TasksList extends ListActivity {
     @Override
     public void onBackPressed() {
     	Intent intent = new Intent(TasksList.this, JobsOptions.class);
-    	intent.putExtra("job_id", getIntent().getIntExtra("job_id", 0));
+    	intent.putExtra("job_id", thisJob);
     	startActivity(intent);
     	return;
     }     
     
     public void addNewTask(View v) {
        	Intent intent = new Intent(TasksList.this, AddNewTask.class);
-       	intent.putExtra("job_id", getIntent().getIntExtra("job_id", 0));
+       	intent.putExtra("job_id", thisJob);
     	startActivity(intent);	
    }
     
@@ -61,7 +62,7 @@ public class TasksList extends ListActivity {
 	  	Intent intent = new Intent(TasksList.this, ViewTask.class);
 	  	int taskId = task.get(position).getId();
 	  	Log.v("Id is: ", taskId+"");
-	  	intent.putExtra("task", taskId); //sends the job name
+	  	intent.putExtra("task", taskId); //sends the task id
 	    startActivity(intent);
 	  }
 	

@@ -4,6 +4,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,7 +54,11 @@ public class TaskAdapter extends ArrayAdapter<Task> {
 	    //{
 	    	//CheckBox checkBox = (CheckBox)convertView.findViewById(R.id.taskCheckBox);
 	    	taskItemView.checkBox.setChecked(db.getTaskDone(ID)); //sets the checkbox ticked if the task is done or unticked if not done
-	    	if(db.getTaskDone(ID)) taskItemView.name.setTextColor(Color.GRAY);
+	    	if(db.getTaskDone(ID))
+	    	{
+	    		taskItemView.name.setTextColor(Color.GRAY);
+	    		taskItemView.name.setPaintFlags(taskItemView.name.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+	    	}
 	    //}
 	    	taskItemView.checkBox.setOnCheckedChangeListener(new OnCheckedChangeListener()
 	    	{
@@ -63,12 +68,14 @@ public class TaskAdapter extends ArrayAdapter<Task> {
 	    			{
 	    				taskItemView.checkBox.setChecked(true);
 	    				taskItemView.name.setTextColor(Color.GRAY);
+	    				taskItemView.name.setPaintFlags(taskItemView.name.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 	    				db.setTaskDone(ID, 1);
 	    	        }
 	    			else
 	    			{
 	    				taskItemView.checkBox.setChecked(false);
 	    				taskItemView.name.setTextColor(Color.BLUE);
+	    				taskItemView.name.setPaintFlags(taskItemView.name.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
 	    				db.setTaskDone(ID, 0);
 	    			}
 	    			
