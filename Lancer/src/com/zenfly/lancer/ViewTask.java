@@ -7,11 +7,13 @@ import android.view.Menu;
 import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ViewTask extends Activity {
 	
 	private DatabaseHandler db;
 	int TaskId;
+	Task task;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +24,7 @@ public class ViewTask extends Activity {
 		db = new DatabaseHandler(this);
 		TaskId = getIntent().getExtras().getInt("task");
 		//Log.v(TAG, "thisTask=" + thisTask);
-		Task task  =  db.getTask(TaskId);
+		task  =  db.getTask(TaskId);
 		//Log.v(TAG, "thisTask=" + task);
 		String taskName = task.getName();
 		String taskDeadline = task.getDeadline();
@@ -40,17 +42,21 @@ public class ViewTask extends Activity {
 		else
 		{
 			Location location = db.getLocation(taskLocationID);
-			taskLocation = location.getAdd1();
+			taskLocation = location.getLocation();
+			if(!location.getAdd1().equals("")) taskLocation += ",\n" + location.getAdd1();
+			if(!location.getAdd2().equals("")) taskLocation += ",\n" + location.getAdd2();
+			if(!location.getAdd3().equals("")) taskLocation += ",\n" + location.getAdd3();
+			displayLocation.setText(taskLocation);
 		}
 		
 		if((taskDeadline == "") || (taskDeadline == null))
 		{
 			taskDeadline = "No Deadline Set";
 		}
-		
-		displayName.setText(taskName);
+		else displayDate.setText(taskDeadline);
+		/*displayName.setText(taskName);
 		displayDate.setText(taskDeadline);
-		displayLocation.setText(taskLocation);
+		displayLocation.setText(taskLocation);*/
 		
 	}
 	
@@ -58,6 +64,10 @@ public class ViewTask extends Activity {
 	public void deleteTask(View v)
 	{
 		db.deleteTask(TaskId);
+		Toast.makeText(getApplicationContext(), "Deleted " + task.getName(), Toast.LENGTH_LONG).show();
+		Intent intent = new Intent(ViewTask.this, TasksList.class);
+		intent.putExtra("job_id", task.getJob());
+		startActivity(intent);
 	}
 	
 	public void viewJobNotes(View v)
