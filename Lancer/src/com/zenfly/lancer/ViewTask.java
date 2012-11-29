@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.Window;
@@ -45,30 +46,35 @@ public class ViewTask extends Activity {
 		TextView displayDate = (TextView) findViewById(R.id.thisTaskDeadline);		//prepaires to access textView
 		TextView displayLocation = (TextView) findViewById(R.id.thisTaskLocation);	//prepaires to access textView
 		
-		JobNameTitle.setText(JobName);									// sets the text view
-		TaskNameTitle.setText("View Task");								// sets the text view
-		displayName.setText(taskName);									// sets the text view
+		JobNameTitle.setText(JobName);									// sets the text view this data will always be set
+		TaskNameTitle.setText("View Task");								// sets the text view this data will always be set
+		displayName.setText(taskName);									// sets the text view this data will always be set
 		
 		
-		if(taskLocationID == 0)
+		if(taskLocationID == 0)											// if no location set display "No Location Set"
 		{
 			taskLocation = "No Location Set";
 		}
 		else
 		{
-			Location location = db.getLocation(taskLocationID);
-			taskLocation = location.getLocation();
+			Location location = db.getLocation(taskLocationID);			//extracts a location object from database 
+			taskLocation = location.getLocation();						//gets the first line.
 			if(!location.getAdd1().equals("")) taskLocation += ",\n" + location.getAdd1();
 			if(!location.getAdd2().equals("")) taskLocation += ",\n" + location.getAdd2();
 			if(!location.getAdd3().equals("")) taskLocation += ",\n" + location.getAdd3();
-			displayLocation.setText(taskLocation);
+			displayLocation.setText(taskLocation);						// sets the location in the textVew.
 		}
 		
-		if((taskDeadline == "") || (taskDeadline == null))
+		//Log.v("View Task", "taskDeadline =" + taskDeadline + "~END");
+		//taskDeadline = "overDue";
+		//taskDeadline = taskDeadline.trim();
+		Log.v("View Task", "taskDeadline =" + taskDeadline+ "~END");
+		if((taskDeadline.equals("")) || (taskDeadline == null))				// if no deadline is set display default message
 		{
 			taskDeadline = "No Deadline Set";
+			displayDate.setText(taskDeadline);	
 		}
-		else displayDate.setText(taskDeadline);
+		else displayDate.setText(taskDeadline);							// sets the deadline if applicable
 		/*displayName.setText(taskName);
 		displayDate.setText(taskDeadline);
 		displayLocation.setText(taskLocation);*/
@@ -78,8 +84,6 @@ public class ViewTask extends Activity {
 	
 	public void deleteTask(View v)
 	{
-		
-		
 		// confirms the action with the Alert Dialog
 		final AlertDialog.Builder builder=new AlertDialog.Builder(ViewTask.this);
 		builder.setTitle("DELETE");
