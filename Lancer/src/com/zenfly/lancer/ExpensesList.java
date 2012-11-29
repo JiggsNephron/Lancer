@@ -58,7 +58,7 @@ public class ExpensesList extends ListActivity {
 	  {	 
 	  	Intent intent = new Intent(ExpensesList.this, ViewExpenses.class);
 	  	int expenseId = expense.get(position).getId();
-	  	intent.putExtra("task", expenseId); //sends the job name
+	  	intent.putExtra("expense", expenseId); //sends the job name
 	    startActivity(intent);
 	  }
 

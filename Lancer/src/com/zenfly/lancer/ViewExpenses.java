@@ -1,15 +1,31 @@
 package com.zenfly.lancer;
 
+import java.util.List;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 
 public class ViewExpenses extends Activity {
+	
+	int expenseId;
+	private DatabaseHandler db;
+	Expense expense;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_expenses);
+
+	
+		db = new DatabaseHandler(this);
+		expenseId = getIntent().getExtras().getInt("expense"); 				// gets the task ID from the intent
+		expense  =  db.getExpense(expenseId);									// gets the Task object from the database
+
+		String taskName = task.getName();								//extracts the name from Object
+		String JobName = job.getClient();								//extracts the name from Object
+		String taskDeadline = task.getDeadline();						//extracts the due Date from Object
+	
 	}
 
 	@Override
