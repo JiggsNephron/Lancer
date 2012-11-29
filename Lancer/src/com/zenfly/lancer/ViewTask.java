@@ -40,11 +40,11 @@ public class ViewTask extends Activity {
 		String taskLocation = "";
 		int taskLocationID = task.getLocation();
 		
-		TextView JobNameTitle = (TextView) findViewById(R.id.job_name);				//prepaires to access textView
-		TextView TaskNameTitle = (TextView) findViewById(R.id.job_option);			//prepaires to access textView
-		TextView displayName = (TextView) findViewById(R.id.thisTaskName);			//prepaires to access textView
-		TextView displayDate = (TextView) findViewById(R.id.thisTaskDeadline);		//prepaires to access textView
-		TextView displayLocation = (TextView) findViewById(R.id.thisTaskLocation);	//prepaires to access textView
+		TextView JobNameTitle = (TextView) findViewById(R.id.job_name);				//prepares to access textView
+		TextView TaskNameTitle = (TextView) findViewById(R.id.job_option);			//prepares to access textView
+		TextView displayName = (TextView) findViewById(R.id.thisTaskName);			//prepares to access textView
+		TextView displayDate = (TextView) findViewById(R.id.thisTaskDeadline);		//prepares to access textView
+		TextView displayLocation = (TextView) findViewById(R.id.thisTaskLocation);	//prepares to access textView
 		
 		JobNameTitle.setText(JobName);									// sets the text view this data will always be set
 		TaskNameTitle.setText("View Task");								// sets the text view this data will always be set
@@ -53,7 +53,7 @@ public class ViewTask extends Activity {
 		
 		if(taskLocationID == 0)											// if no location set display "No Location Set"
 		{
-			taskLocation = "No Location Set";
+			taskLocation = "None Set";
 		}
 		else
 		{
@@ -62,32 +62,22 @@ public class ViewTask extends Activity {
 			if(!location.getAdd1().equals("")) taskLocation += ",\n" + location.getAdd1();
 			if(!location.getAdd2().equals("")) taskLocation += ",\n" + location.getAdd2();
 			if(!location.getAdd3().equals("")) taskLocation += ",\n" + location.getAdd3();
-			displayLocation.setText(taskLocation);						// sets the location in the textVew.
 		}
-		
+		displayLocation.setText(taskLocation); // sets the location in the textVew
 		//Log.v("View Task", "taskDeadline =" + taskDeadline + "~END");
 		//taskDeadline = "overDue";
 		//taskDeadline = taskDeadline.trim();
 		Log.v("View Task", "taskDeadline =" + taskDeadline+ "~END");
-		if((taskDeadline.equals("")) || (taskDeadline == null))				// if no deadline is set display default message
-		{
-			taskDeadline = "No Deadline Set";
-			displayDate.setText(taskDeadline);	
-		}
-		else displayDate.setText(taskDeadline);							// sets the deadline if applicable
-		/*displayName.setText(taskName);
-		displayDate.setText(taskDeadline);
-		displayLocation.setText(taskLocation);*/
-		
+		if((taskDeadline.equals("")) || (taskDeadline == null))	taskDeadline = "None Set"; // if no deadline, sets a default message
+		displayDate.setText(taskDeadline); //displays the deadline
 	}
-	
 	
 	public void deleteTask(View v)
 	{
 		// confirms the action with the Alert Dialog
 		final AlertDialog.Builder builder=new AlertDialog.Builder(ViewTask.this);
-		builder.setTitle("DELETE");
-		builder.setMessage("are you sure you want to delete this Task");
+		builder.setTitle("Delete " + task.getName());
+		builder.setMessage("Are you sure you want to delete this Task");
 		
 		builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() 
 		{
