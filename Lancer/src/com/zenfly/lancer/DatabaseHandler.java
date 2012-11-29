@@ -430,11 +430,13 @@ public class DatabaseHandler extends SQLiteOpenHelper
     
     public List<Expense> getAllExpensesForJob(int id)
     {
-    	Log.v("I see you baby", "Grabbing that task");
+    	Log.v("Database Handler", "Grabbing that task");
     	List<Expense> expenseList = new ArrayList<Expense>();
     	String selectQuery = "SELECT  * FROM " + TABLE_EXPENSES + " WHERE " + KEY_JOB + " = " + id;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
+        
+        Log.v("Database Handler", "Grabbing that task");
         
         if (cursor.moveToFirst())
         {
@@ -442,7 +444,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
             {
             	Expense expense = new Expense(cursor.getInt(1), cursor.getInt(2), cursor.getInt(3), cursor.getInt(4)); //creates a new expense for each one returned by the database
             	expense.setId(cursor.getInt(0));
-            	Log.v("Setting id as ", cursor.getString(0));
+            	Log.v(" Database Handler","  Setting id as ="+ cursor.getString(0));
                 expenseList.add(expense); //adds new expense to the list
             } while (cursor.moveToNext()); //loop continues while there are results
         }

@@ -5,6 +5,7 @@ import java.util.List;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.Window;
@@ -20,13 +21,19 @@ public class ExpensesList extends ListActivity {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE); // RC: this removed the black bar at the top of activities.
         setContentView(R.layout.activity_expenses_list);
-        
+        Log.v("Expenses list", "test 1  ~END");
         db = new DatabaseHandler(this.getApplicationContext());
         
         //SMcD: just adding this to see if it grabs jobs from the DB. And it does. Happy days
         int thisJob = getIntent().getIntExtra("job_id", 0);
         expense = db.getAllExpensesForJob(thisJob); //makes a list of jobs to send to the list View
-        
+        Log.v("Expenses list", "expense="+ expense +"  ~END");
+        /**********
+         * 
+         * for some reason the expense object is empty
+         * 
+         * 
+         * */
         setListAdapter(new ExpensesAdapter(this, expense)); //starts the list View
     }
 

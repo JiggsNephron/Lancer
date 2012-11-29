@@ -4,6 +4,7 @@ import java.text.NumberFormat;
 import java.util.List;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,13 +18,19 @@ public class ExpensesAdapter extends ArrayAdapter<Expense> {
 	  private DatabaseHandler db;
 	  private NumberFormat locale_currency_format;
 	
+	  
 	public ExpensesAdapter(Activity activity, List<Expense> objects) 
 	{
+		
       super(activity, R.layout.activity_expenses_list , objects);
       this.activity = activity;
       this.ExpenseObject = objects;
+      Log.v("Expenses list", "test 3  ~END");
       db = new DatabaseHandler(this.getContext());
       locale_currency_format = NumberFormat.getCurrencyInstance();
+      Log.v("Expenses list", "test 4  ~END");
+      
+      
 	}
 	
 	@Override
@@ -31,9 +38,12 @@ public class ExpensesAdapter extends ArrayAdapter<Expense> {
 	{
 	    View rowView = convertView;
 	    ExpenseView ExpenseItemView = null;
+	    Log.v("Expenses list", "test 6  ~END");
+	    Log.v("Expenses list", "rowView"+ rowView +"  ~END");
 	
 	    if(rowView == null)
 	    {
+	    	Log.v("Expenses list", "test 5  ~END");
 	    	//creates new instance of row layout view
 	        LayoutInflater inflater = activity.getLayoutInflater();
 	        rowView = inflater.inflate(R.layout.expense_item, null);
@@ -53,6 +63,8 @@ public class ExpensesAdapter extends ArrayAdapter<Expense> {
 	    
 	    float cost = currentExpense.getQuantity() * itemName.getPrice(); 		// calculates the current cost for that item 
 	    //String itemcost = Float.toString(cost);				  		// converts the float to string
+		Log.v("Expenses list", "cost =" + cost  + "~END");
+
 	    
 	    ExpenseItemView.itemName.setText(itemName.getName());			//sets the data
 	    ExpenseItemView.cost.setText(locale_currency_format.format(cost)); 						//sets the data

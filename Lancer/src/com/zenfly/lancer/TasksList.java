@@ -32,6 +32,7 @@ public class TasksList extends ListActivity {
         Job job = db.getJob(thisJob);
         jobName.setText(job.getClient());
         task = db.getAllTasksForJob(thisJob); //makes a list of tasks to send to the list View
+       // Log.v("Expenses list", "task="+ task +"  ~END");
         
         setListAdapter(new TaskAdapter(this, task)); //starts the list View
     }
