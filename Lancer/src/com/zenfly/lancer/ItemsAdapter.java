@@ -57,7 +57,7 @@ public class ItemsAdapter extends ArrayAdapter<Item>
 	    {
 	    	Item currentItem = (Item) itemsObject.get(position); //casts as course	    	
 	    
-	    	itemItemView.name.setText(currentItem.getName() + " at " + locale_currency_format.format(currentItem.getPrice()) + " each."); //sets the data
+	    	itemItemView.name.setText(currentItem.getName() + ": " + locale_currency_format.format(currentItem.getPrice())); //sets the data
 	    }
 	    return rowView;
 	}
