@@ -42,59 +42,67 @@ public class TaskAdapter extends ArrayAdapter<Task> {
 	        taskItemView = new taskView(); //for holding the data
 	        taskItemView.name = (TextView) rowView.findViewById(R.id.taskNameDisplay);
 	        taskItemView.checkBox = (CheckBox) rowView.findViewById(R.id.taskCheckBox);
+	        taskItemView.deadline = (TextView) rowView.findViewById(R.id.taskDateDisplay);
+	        taskItemView.location = (TextView) rowView.findViewById(R.id.taskLocationDisplay);
 	        rowView.setTag(taskItemView); //for later access
 	    }
 	    else taskItemView = (taskView) rowView.getTag();
+	    String curLocation = "";
 	    Task currentTask = (Task) taskObject.get(position); //casts as course
 	    taskItemView.name.setText(currentTask.getName()); //sets the data
+	    String curDeadline = currentTask.getDeadline();
+	    if(!curDeadline.equals(""))taskItemView.deadline.setText(curDeadline);
+	    else taskItemView.deadline.setText("No Deadline Set");
+	    if(currentTask.getLocation() != 0) curLocation = db.getLocation(currentTask.getLocation()).getLocation();
+	    if(!curLocation.equals(""))taskItemView.location.setText(curLocation);
+	    else taskItemView.location.setText("No Location Set");
 	    final int ID = currentTask.getId();
-	    //boolean isTicked = true; //db.getTaskDone(ID);
-	    //jobsItemView.checkBox.setText(currentJob.getLocation());
-	    //if(isTicked)
-	    //{
-	    	//CheckBox checkBox = (CheckBox)convertView.findViewById(R.id.taskCheckBox);
-	    	taskItemView.checkBox.setChecked(db.getTaskDone(ID)); //sets the checkbox ticked if the task is done or unticked if not done
-	    	if(db.getTaskDone(ID))
+	    taskItemView.checkBox.setChecked(db.getTaskDone(ID)); //sets the checkbox ticked if the task is done or unticked if not done
+	    if(db.getTaskDone(ID))
+	    {
+	    	taskItemView.name.setTextColor(Color.GRAY);
+	    	taskItemView.name.setPaintFlags(taskItemView.name.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+	    	taskItemView.deadline.setTextColor(Color.GRAY);
+			taskItemView.deadline.setPaintFlags(taskItemView.deadline.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+			taskItemView.location.setTextColor(Color.GRAY);
+			taskItemView.location.setPaintFlags(taskItemView.location.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+	    }
+	    taskItemView.checkBox.setOnCheckedChangeListener(new OnCheckedChangeListener()
+	    {
+	    	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
 	    	{
-	    		taskItemView.name.setTextColor(Color.GRAY);
-	    		taskItemView.name.setPaintFlags(taskItemView.name.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-	    	}
-	    //}
-	    	taskItemView.checkBox.setOnCheckedChangeListener(new OnCheckedChangeListener()
-	    	{
-	    		public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+	    		if (taskItemView.checkBox.isChecked())
 	    		{
-	    			if (taskItemView.checkBox.isChecked())
-	    			{
-	    				taskItemView.checkBox.setChecked(true);
-	    				taskItemView.name.setTextColor(Color.GRAY);
-	    				taskItemView.name.setPaintFlags(taskItemView.name.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-	    				db.setTaskDone(ID, 1);
-	    	        }
-	    			else
-	    			{
-	    				taskItemView.checkBox.setChecked(false);
-	    				taskItemView.name.setTextColor(activity.getResources().getColor(R.color.lancer_blue));
-	    				taskItemView.name.setPaintFlags(taskItemView.name.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
-	    				db.setTaskDone(ID, 0);
-	    			}
-	    			
-	    	    }
-	    	});
-
-	    
-	    
+	    			taskItemView.checkBox.setChecked(true);
+	    			taskItemView.name.setTextColor(Color.GRAY);
+	    			taskItemView.name.setPaintFlags(taskItemView.name.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+	    			taskItemView.deadline.setTextColor(Color.GRAY);
+	    			taskItemView.deadline.setPaintFlags(taskItemView.deadline.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+	    			taskItemView.location.setTextColor(Color.GRAY);
+	    			taskItemView.location.setPaintFlags(taskItemView.location.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+	    			db.setTaskDone(ID, 1);
+	            }
+	    		else
+	    		{
+	    			taskItemView.checkBox.setChecked(false);
+	    			taskItemView.name.setTextColor(activity.getResources().getColor(R.color.lancer_blue));
+	    			taskItemView.name.setPaintFlags(taskItemView.name.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
+	    			taskItemView.deadline.setTextColor(activity.getResources().getColor(R.color.lancer_blue));
+	    			taskItemView.deadline.setPaintFlags(taskItemView.deadline.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
+	    			taskItemView.location.setTextColor(activity.getResources().getColor(R.color.lancer_blue));
+	    			taskItemView.location.setPaintFlags(taskItemView.location.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
+	    			db.setTaskDone(ID, 0);
+	    		}
+	        }
+	    });
 	    return rowView;
 	}
 	
-/*	public void onCheckedChanged (CompoundButton taskCheckBox, boolean isChecked, int position)
-	{
-
-	}*/
-
     protected static class taskView
     {
         protected TextView name;
+        protected TextView deadline;
+        protected TextView location;
         protected CheckBox checkBox;
 
     }

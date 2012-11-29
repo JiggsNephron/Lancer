@@ -24,14 +24,10 @@ public class ViewTask extends Activity {
 		//Log.v(TAG, "thisTask=" + thisTask);
 		Task task  =  db.getTask(TaskId);
 		//Log.v(TAG, "thisTask=" + task);
-		
 		String taskName = task.getName();
 		String taskDeadline = task.getDeadline();
 		String taskLocation = "";
 		int taskLocationID = task.getLocation();
-
-
-		
 		TextView displayName = (TextView) findViewById(R.id.thisTaskName);
 		TextView displayDate = (TextView) findViewById(R.id.thisTaskDeadline);
 		TextView displayLocation = (TextView) findViewById(R.id.thisTaskLocation);
