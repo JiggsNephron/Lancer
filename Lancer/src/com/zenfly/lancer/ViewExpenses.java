@@ -1,5 +1,6 @@
 package com.zenfly.lancer;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.os.Bundle;
@@ -11,20 +12,26 @@ public class ViewExpenses extends Activity {
 	int expenseId;
 	private DatabaseHandler db;
 	Expense expense;
+	//List<Expense> expense;
+	Item item;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_expenses);
-
+		//expense =db.getAllExpensesForTask(TaskId);
 	
-		db = new DatabaseHandler(this);
+/*		db = new DatabaseHandler(this);
 		expenseId = getIntent().getExtras().getInt("expense"); 				// gets the task ID from the intent
 		expense  =  db.getExpense(expenseId);									// gets the Task object from the database
 
-		String taskName = task.getName();								//extracts the name from Object
-		String JobName = job.getClient();								//extracts the name from Object
-		String taskDeadline = task.getDeadline();						//extracts the due Date from Object
+		item = expense.getItem();										//extracts the name from Object
+		String ItemName = item.getName();								//extracts the name from Object
+		float ItemPrice = item.getPrice();						//extracts the due Date from Object
+		String linkedTask = expense.getTask();
+		int Quantity = expense.getQuantity();
+		*/
+		
 	
 	}
 
