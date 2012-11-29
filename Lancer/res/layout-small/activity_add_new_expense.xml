@@ -179,7 +179,9 @@
         android:layout_alignBaseline="@+id/number_of_items_title"
         android:layout_alignBottom="@+id/number_of_items_title"
         android:layout_toRightOf="@+id/choose_item_title"
-        android:text="Total Cost:" />
+        android:textColor="@color/lancer_blue"
+        android:text="Total Cost:"
+        android:textSize="20dp" />
 
     <EditText
         android:id="@+id/edittext_total_cost_of_items"
