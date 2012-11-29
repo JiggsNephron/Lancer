@@ -132,6 +132,7 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="180dp"
         android:ems="15"
+        android:maxLength="4"
         android:inputType="number" />
     
     <TextView

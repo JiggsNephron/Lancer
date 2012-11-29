@@ -1,10 +1,13 @@
-
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
 
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="wrap_content" >
 
     <!-- Navigation -->
     
@@ -103,6 +106,7 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:ems="15"
+        android:maxLength="25"
         android:inputType="text" >
 
         <requestFocus />
@@ -185,6 +189,7 @@
         android:layout_below="@+id/task_hourly_wage_title"
         android:ems="15"
         android:inputType="numberDecimal"
+        android:maxLength="8"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="10dp" />
@@ -194,17 +199,15 @@
         android:id="@+id/save_task"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-		android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
+        android:layout_below="@+id/task_hourly_wage"
         android:onClick="saveTask"
         android:text="@string/button_save"
         android:background="@color/lancer_blue"
+        android:layout_marginTop="15dp"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         android:textColor="@color/white"
         android:textSize="25dp" />
-
     
 </RelativeLayout>
-
+</ScrollView>
