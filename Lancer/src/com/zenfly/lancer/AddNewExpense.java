@@ -97,7 +97,7 @@ public class AddNewExpense extends Activity {
         if(getIntent().getIntExtra("item_id", 0) != 0) {
         	item_id = getIntent().getIntExtra("item_id", 0);
         	item = db.getItem(item_id);
-        	et_item_choice.setText(item.getName());
+        	et_item_choice.setText(item.getName() + ": " + locale_currency_format.format(item.getPrice()));
         }
         
         // if an item has already been chosen, run this block
@@ -167,7 +167,7 @@ public class AddNewExpense extends Activity {
     // Saves the all the chosen entries as a new expense
     public void saveExpense (View v) {
     	
-    	Intent intent = new Intent(context, JobsOptions.class);
+    	Intent back_to_expensesList = new Intent(context, ExpensesList.class);
 
     	// get the ID of the task chosen by the user in the spinner by spinner's position
     	// if no task was chosen, 0 is used
@@ -201,8 +201,8 @@ public class AddNewExpense extends Activity {
     						+ ". ", 
     				Toast.LENGTH_LONG).show();
     	
-    		intent.putExtra("job_id", job_id);
-    		startActivity(intent);
+    		back_to_expensesList.putExtra("job_id", job_id);
+    		startActivity(back_to_expensesList);
     		
     	} else Toast.makeText(getApplicationContext(), "Please choose an item and quantity of items", Toast.LENGTH_SHORT).show();
     }
@@ -210,9 +210,9 @@ public class AddNewExpense extends Activity {
     // Override back button to create a more consistent experience
     @Override
     public void onBackPressed() {
-    	Intent intent = new Intent(AddNewExpense.this, ExpensesList.class);
-    	intent.putExtra("job_id", job_id);
-    	startActivity(intent);
+    	Intent back_to_expensesList = new Intent(AddNewExpense.this, ExpensesList.class);
+    	back_to_expensesList.putExtra("job_id", job_id);
+    	startActivity(back_to_expensesList);
     	return;
     }       
 }

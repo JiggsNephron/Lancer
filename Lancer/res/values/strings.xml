@@ -62,7 +62,7 @@
     <!-- Layout: Expenses - Strings -->
 
     <string name="expenses">Expenses</string>
-    <string name="AddNewExpense_choose_item_title">Expense name:</string>
+    <string name="AddNewExpense_choose_item_title">Pick an Item:</string>
     <string name="AddNewExpense_number_of_items_title">Quantity:</string>
     <string name="AddNewExpense_assign_expense_to_task">Assign to a Task: (Optional)</string>
     <string name="item_name_title">Item name:</string>

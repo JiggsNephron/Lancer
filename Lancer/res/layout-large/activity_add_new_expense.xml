@@ -187,6 +187,7 @@
         android:layout_above="@+id/assign_expense_to_task"
         android:layout_alignLeft="@+id/total_cost_of_items_title"
         android:ems="10"
+        android:focusableInTouchMode="false"
         android:inputType="number"
         android:layout_marginRight="20dp" />
 
