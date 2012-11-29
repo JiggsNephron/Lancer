@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:divider="@color/white"
         android:layout_above="@+id/button_add_new_item" >
     </ListView>
 
@@ -21,12 +22,12 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:background="@color/lancer_blue"
-        android:onClick="addItem"
         android:paddingBottom="10dp"
         android:paddingTop="10dp"
         android:text="@string/button_add_new_item"
         android:textColor="@color/white"
-        android:textSize="25dp" />
+        android:textSize="25dp"
+        android:onClick="addItem" />
     
 
 </RelativeLayout>
