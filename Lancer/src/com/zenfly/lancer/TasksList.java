@@ -62,8 +62,9 @@ public class TasksList extends ListActivity {
 	  {	 
 	  	Intent intent = new Intent(TasksList.this, ViewTask.class);
 	  	int taskId = task.get(position).getId();
-	  	Log.v("Id is: ", taskId+"");
+	  //	Log.v("Id is: ", taskId+"");
 	  	intent.putExtra("task", taskId); //sends the task id
+	  	intent.putExtra("job_id", thisJob); //sends the Job id
 	    startActivity(intent);
 	  }
 	

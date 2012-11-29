@@ -13,29 +13,42 @@ import android.widget.Toast;
 
 public class ViewTask extends Activity {
 	
+	// below list sets up variables to hold data that can be used anywhere in the class.
 	private DatabaseHandler db;
-	int TaskId;
+	int TaskId;	
+	int JobId; 
 	Task task;
+	Job job;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE); // RC: this removed the black bar at the top of activities.
 		setContentView(R.layout.activity_view_task);
+	
 		
 		db = new DatabaseHandler(this);
-		TaskId = getIntent().getExtras().getInt("task");
-		//Log.v(TAG, "thisTask=" + thisTask);
-		task  =  db.getTask(TaskId);
-		//Log.v(TAG, "thisTask=" + task);
-		String taskName = task.getName();
-		String taskDeadline = task.getDeadline();
+		TaskId = getIntent().getExtras().getInt("task"); 				// gets the task ID from the intent
+		JobId = getIntent().getExtras().getInt("job_id");				// gets the Job  ID from the intent
+		task  =  db.getTask(TaskId);									// gets the Task object from the database
+		job = db.getJob(JobId);											// gets the Job  object form the database
+		
+		String taskName = task.getName();								//extracts the name from Object
+		String JobName = job.getClient();								//extracts the name from Object
+		String taskDeadline = task.getDeadline();						//extracts the due Date from Object
 		String taskLocation = "";
 		int taskLocationID = task.getLocation();
-		TextView displayName = (TextView) findViewById(R.id.thisTaskName);
-		TextView displayDate = (TextView) findViewById(R.id.thisTaskDeadline);
-		TextView displayLocation = (TextView) findViewById(R.id.thisTaskLocation);
-
+		
+		TextView JobNameTitle = (TextView) findViewById(R.id.job_name);				//prepaires to access textView
+		TextView TaskNameTitle = (TextView) findViewById(R.id.job_option);			//prepaires to access textView
+		TextView displayName = (TextView) findViewById(R.id.thisTaskName);			//prepaires to access textView
+		TextView displayDate = (TextView) findViewById(R.id.thisTaskDeadline);		//prepaires to access textView
+		TextView displayLocation = (TextView) findViewById(R.id.thisTaskLocation);	//prepaires to access textView
+		
+		JobNameTitle.setText(JobName);									// sets the text view
+		TaskNameTitle.setText("View Task");								// sets the text view
+		displayName.setText(taskName);									// sets the text view
+		
 		
 		if(taskLocationID == 0)
 		{
