@@ -25,6 +25,7 @@ public class TasksList extends ListActivity {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE); // RC: this removed the black bar at the top of activities.
         setContentView(R.layout.activity_tasks_list);
+        
         TextView jobName = (TextView) findViewById(R.id.job_name);
         db = new DatabaseHandler(this.getApplicationContext());
         thisJob = getIntent().getIntExtra("job_id", 0);

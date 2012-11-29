@@ -1,6 +1,8 @@
 package com.zenfly.lancer;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -63,11 +65,34 @@ public class ViewTask extends Activity {
 	
 	public void deleteTask(View v)
 	{
-		db.deleteTask(TaskId);
-		Toast.makeText(getApplicationContext(), "Deleted " + task.getName(), Toast.LENGTH_LONG).show();
-		Intent intent = new Intent(ViewTask.this, TasksList.class);
-		intent.putExtra("job_id", task.getJob());
-		startActivity(intent);
+		
+		
+		// confirms the action with the Alert Dialog
+		final AlertDialog.Builder builder=new AlertDialog.Builder(ViewTask.this);
+		builder.setTitle("DELETE");
+		builder.setMessage("are you sure you want to delete this Task");
+		
+		builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() 
+		{
+			public void onClick(DialogInterface dialog, int id)
+			{
+				db.deleteTask(TaskId);
+    			Toast.makeText(getApplicationContext(), "Deleted " + task.getName(), Toast.LENGTH_LONG).show();
+    			Intent intent = new Intent(ViewTask.this, TasksList.class);
+    			intent.putExtra("job_id", task.getJob());
+    			startActivity(intent);
+			}
+		});
+      
+		builder.setNegativeButton("No", new DialogInterface.OnClickListener()
+		{
+			public void onClick(DialogInterface dialog, int id)
+			{
+ 	   	      dialog.cancel();
+			}
+		});
+      
+		builder.create().show();
 	}
 	
 	public void viewJobNotes(View v)
