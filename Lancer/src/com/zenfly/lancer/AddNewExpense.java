@@ -15,6 +15,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.Window;
 import android.widget.ArrayAdapter;
@@ -28,6 +30,7 @@ public class AddNewExpense extends Activity {
 	
 	EditText et_item_choice;
 	EditText et_item_amount;
+	EditText et_item_total;
 	Spinner sp_assign_to_task;
 
 	DatabaseHandler db;
@@ -35,6 +38,8 @@ public class AddNewExpense extends Activity {
 		
 	String stitem_amount;
 	int intitem_amount;
+	float total;
+	float item_cost;
 	
 	int job_id;
 	int item_id;
@@ -62,7 +67,8 @@ public class AddNewExpense extends Activity {
               
         // Get the view elements
         et_item_choice  = (EditText) findViewById(R.id.button_choose_item);
-        et_item_amount  = (EditText)findViewById(R.id.edittext_number_of_items);        
+        et_item_amount  = (EditText)findViewById(R.id.edittext_number_of_items);
+        et_item_total = (EditText)findViewById(R.id.edittext_total_cost_of_items);
         sp_assign_to_task  = (Spinner)findViewById(R.id.expense_to_task);
         
         // get a list of all tasks to be used for populating the spinner
@@ -80,7 +86,7 @@ public class AddNewExpense extends Activity {
         sp_assign_to_task.setAdapter(adapter);
         // set the spinner to the position it was at before choosing an item
         sp_assign_to_task.setSelection(spinner_position, true);
-
+        
         // set the Quantity EditText to show the intent amount
         if(getIntent().getIntExtra("item_amount", 0) != 0) {
         	intitem_amount = getIntent().getIntExtra("item_amount", 0);
@@ -93,6 +99,53 @@ public class AddNewExpense extends Activity {
         	item = db.getItem(item_id);
         	et_item_choice.setText(item.getName());
         }
+        
+        // if an item has already been chosen, run this block
+        if (item != null) {
+        	
+        	// get the user entered quantity choice and convert to integer
+        	stitem_amount = et_item_amount.getText().toString();
+	    	if (stitem_amount.equals("")) intitem_amount = 0;
+	    	else intitem_amount = Integer.parseInt(stitem_amount);
+        	
+	    	// get the cost of one item
+	    	item_cost = item.getPrice();
+	    	
+	    	// if the user has entered a quantity, use it to calculate total expense
+	    	if (intitem_amount != 0){	
+	    		total = intitem_amount * item_cost;
+	    		et_item_total.setText(locale_currency_format.format(total));
+	    	}
+	    	
+	    	// also calculate the total expense in real time if user changes quantity
+            et_item_amount.addTextChangedListener(new TextWatcher() {
+
+    			public void afterTextChanged(Editable s) {
+    				    				
+    			}
+    			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+    				
+    			}
+    			public void onTextChanged(CharSequence s, int start, int before,
+    					int count) {
+    				// get the user entered quantity choice in real time and convert to integer
+    				stitem_amount = et_item_amount.getText().toString();
+    		    	if (stitem_amount.equals("")) intitem_amount = 0;
+    		    	else intitem_amount = Integer.parseInt(stitem_amount);
+    		    	// get the cost of one item
+    		    	item_cost = item.getPrice();
+    		    	// if the user has entered a quantity, use it to calculate total expense
+    		    	if (intitem_amount != 0){	
+    		    		total = intitem_amount * item_cost;
+    		    		et_item_total.setText(locale_currency_format.format(total));
+    		    	}
+    				
+    			}
+            	
+            }); 
+        }
+        
+        
  
     }
     
