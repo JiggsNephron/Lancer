@@ -26,6 +26,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class AddNewTask extends FragmentActivity {
 	
@@ -154,7 +155,7 @@ public class AddNewTask extends FragmentActivity {
     // Saves the all the chosen entries as a new task
     public void saveTask (View v) {
     	
-    	Intent intent = new Intent(context, TasksList.class);
+    	Intent back_to_tasksList = new Intent(context, TasksList.class);
     	
     	// get the EditText fields and convert the wage to an integer
     	sttask_name = task_name.getText().toString();
@@ -163,11 +164,16 @@ public class AddNewTask extends FragmentActivity {
     	else hourlyWage = Float.parseFloat(sthourly_wage);
     	
     	// create a new task using the users preferences and add it to the database
-    	Task new_task = new Task(sttask_name, job_id, sttask_date, task_location_id, hourlyWage, hoursWorked, done);
-    	db.addTask(new_task); 
-    	
-    	intent.putExtra("job_id", job_id);    	
-    	startActivity(intent);
+    	if(!sttask_name.equals(""))
+    	{
+    		Task new_task = new Task(sttask_name, job_id, sttask_date, task_location_id, hourlyWage, hoursWorked, done);
+        	db.addTask(new_task);
+        	back_to_tasksList.putExtra("job_id", job_id);
+	    	startActivity(back_to_tasksList);
+    	}
+    	else {
+    		Toast.makeText(getApplicationContext(), " You must provide a name for your task ", Toast.LENGTH_LONG).show();
+    	}
     }
     
     // Lets the user choose from their list of saved locations (or add a new one)
