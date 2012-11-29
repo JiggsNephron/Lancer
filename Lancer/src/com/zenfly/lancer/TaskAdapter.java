@@ -74,7 +74,7 @@ public class TaskAdapter extends ArrayAdapter<Task> {
 	    			else
 	    			{
 	    				taskItemView.checkBox.setChecked(false);
-	    				taskItemView.name.setTextColor(Color.BLUE);
+	    				taskItemView.name.setTextColor(activity.getResources().getColor(R.color.lancer_blue));
 	    				taskItemView.name.setPaintFlags(taskItemView.name.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
 	    				db.setTaskDone(ID, 0);
 	    			}
