@@ -67,13 +67,13 @@ public class TasksList extends ListActivity {
 	
 	public void onCheckedChanged (CompoundButton taskCheckBox, boolean isChecked)
 	{
-		if(isChecked ==  true)
+		if(taskCheckBox.isChecked() ==  true)
 		{
 			
 		}
-		else if(isChecked ==  false)
+		else if(!taskCheckBox.isChecked())
 		{
-			Log.v("task list  . . . . . ", "thisTask=" + isChecked);
+			Log.v("task list  . . . . . ", "thisTask=no");
 		}
 	}
 	
