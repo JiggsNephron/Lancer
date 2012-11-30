@@ -134,6 +134,7 @@ public class ViewTask extends Activity {
 		else Toast.makeText(getApplicationContext(), "You have not set a contact number for this task", Toast.LENGTH_LONG).show();
 	}
 	
+	// method used to view the Task Address on Google Maps
 	public void viewOnMap (View v) {
 		
 		String uri = String.format("geo:0,0?q=%s", taskLocation);
