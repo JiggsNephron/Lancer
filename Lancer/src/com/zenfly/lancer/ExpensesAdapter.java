@@ -54,7 +54,7 @@ public class ExpensesAdapter extends ArrayAdapter<Expense> {
 	        
 	        ExpenseItemView.itemName = (TextView) rowView.findViewById(R.id.ExpenseItemDisplay);
 	        ExpenseItemView.cost = (TextView) rowView.findViewById(R.id.ExpenseCostDisplay);
-	        ExpenseItemView.Total_cost = (TextView) rowView.findViewById(R.id.TotalCost);
+	        ExpenseItemView.Total_cost = (TextView) rowView.findViewById(R.id.ExpenseCostDisplay);
 	        rowView.setTag(ExpenseItemView); 							//for later access
 	    }
 	    ExpenseItemView = (ExpenseView) rowView.getTag();

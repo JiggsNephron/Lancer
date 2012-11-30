@@ -12,6 +12,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
@@ -37,6 +39,8 @@ public class AddNewTask extends FragmentActivity {
 	EditText task_name;
 	EditText add_deadline;
 	EditText task_hourly_wage;
+	EditText task_email_address;
+	EditText task_phone_number;
 	
 	Button add_new_location;	
 	
@@ -46,6 +50,9 @@ public class AddNewTask extends FragmentActivity {
 	
 	String sttask_date = "";
 	String stformatted_task_date = "";
+	
+	String sttask_email_address = "";
+	String sttask_phone_number = "";
 	
 	int task_location_id;
 	
@@ -74,7 +81,9 @@ public class AddNewTask extends FragmentActivity {
         task_name  = (EditText) findViewById(R.id.task_name);
         task_location_box  = (EditText)findViewById(R.id.button_location_names);
         add_deadline = (EditText)findViewById(R.id.button_add_deadline);
-        task_hourly_wage = (EditText)findViewById(R.id.task_hourly_wage);
+        task_hourly_wage = (EditText)findViewById(R.id.task_hourly_wage);        
+        task_email_address = (EditText)findViewById(R.id.task_email_address);
+        task_phone_number = (EditText)findViewById(R.id.task_phone_number);
         
         // get intent content      
         job_id = getIntent().getIntExtra("job_id", 0);        
@@ -161,11 +170,15 @@ public class AddNewTask extends FragmentActivity {
     	
     	// get the EditText fields and convert the wage to an integer
     	sttask_name = task_name.getText().toString();
-    	sthourly_wage = task_hourly_wage.getText().toString();
+    	sthourly_wage = task_hourly_wage.getText().toString();    	
+    	sttask_email_address = task_email_address.getText().toString();
+    	sttask_phone_number = task_phone_number.getText().toString();    	
+    	
     	if (sthourly_wage.equals("")) hourlyWage = 0;
     	else hourlyWage = Float.parseFloat(sthourly_wage);
     	
     	// create a new task using the users preferences and add it to the database
+<<<<<<< HEAD
     	if(!sttask_name.equals(""))
     	{
     		Task new_task = new Task(sttask_name, job_id, sttask_date, task_location_id, hourlyWage, hoursWorked, done);
@@ -174,10 +187,55 @@ public class AddNewTask extends FragmentActivity {
         	db.addTask(new_task);
         	back_to_tasksList.putExtra("job_id", job_id);
 	    	startActivity(back_to_tasksList);
+=======
+    	if (!sttask_email_address.equals("")) {
+    		if (checkEmailValid(sttask_email_address)) {
+    			if(!sttask_name.equals(""))	{
+    	    		//Task new_task = new Task(sttask_name, job_id, sttask_date, task_location_id, hourlyWage, sttask_phone_number, sttask_email_address, hoursWorked, done);
+    	    		Task new_task = new Task(sttask_name, job_id, sttask_date, task_location_id, hourlyWage, hoursWorked, done);
+    	        	db.addTask(new_task);
+    	        	back_to_tasksList.putExtra("job_id", job_id);
+    		    	startActivity(back_to_tasksList);
+    	    	}
+    	    	else {
+    	    		Toast.makeText(getApplicationContext(), " You must provide a name for your task ", Toast.LENGTH_LONG).show();
+    	    	}
+    			
+    		} else if (!checkEmailValid(sttask_email_address)) {
+    			Toast.makeText(getApplicationContext(), "Please enter a valid email address", Toast.LENGTH_LONG).show();
+    		}    		
+    	} else {    		
+        	if(!sttask_name.equals(""))
+        	{
+        		//Task new_task = new Task(sttask_name, job_id, sttask_date, task_location_id, hourlyWage, sttask_phone_number, sttask_email_address, hoursWorked, done);
+        		Task new_task = new Task(sttask_name, job_id, sttask_date, task_location_id, hourlyWage,hoursWorked, done);
+            	db.addTask(new_task);
+            	back_to_tasksList.putExtra("job_id", job_id);
+    	    	startActivity(back_to_tasksList);
+        	}
+        	else {
+        		Toast.makeText(getApplicationContext(), " You must provide a name for your task ", Toast.LENGTH_LONG).show();
+        	}
+>>>>>>> branch 'TeamStartsHere' of git@github.com:JiggsNephron/Lancer.git
     	}
-    	else {
-    		Toast.makeText(getApplicationContext(), " You must provide a name for your task ", Toast.LENGTH_LONG).show();
-    	}
+    }
+    
+    // method to check if user entered email address is correct format
+    public static boolean checkEmailValid(String email) {
+        
+       	boolean isEmailValid = false;
+
+        String emailcheckstring = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+        CharSequence inputStr = email;
+
+        Pattern pattern = Pattern.compile(emailcheckstring, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(inputStr);
+        
+        if (matcher.matches()) {
+        	isEmailValid = true;
+        }
+        
+        return isEmailValid;
     }
     
     // Lets the user choose from their list of saved locations (or add a new one)
@@ -188,12 +246,16 @@ public class AddNewTask extends FragmentActivity {
     	// Preserve the already entered options
     	sttask_name = task_name.getText().toString();
     	sthourly_wage = task_hourly_wage.getText().toString();
-    	    	
+    	sttask_email_address = task_email_address.getText().toString();
+    	sttask_phone_number = task_phone_number.getText().toString();
+    	
     	// Forward the saved entries to the locations list activity
     	// which then sends it back to re-populate those fields in this activity
     	show_locations.putExtra("task_name", sttask_name);
     	show_locations.putExtra("task_date", stformatted_task_date);
     	show_locations.putExtra("hourly_wage", sthourly_wage);
+    	show_locations.putExtra("email_address", sttask_email_address);
+    	show_locations.putExtra("phone_number", sttask_phone_number);
     	show_locations.putExtra("job_id", job_id);
     	
     	// show the locations list
