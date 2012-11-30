@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -108,7 +109,21 @@ public class ViewTask extends Activity {
     	startActivity(ViewNotes);
 	}
 	
-
+	public void sendEmail(View v)
+	{
+		Intent intent = new Intent(Intent.ACTION_SEND);
+		intent.setType("text/html");
+		intent.putExtra(Intent.EXTRA_EMAIL, task.getEmail());
+		startActivity(Intent.createChooser(intent, "Send Email"));
+	}
+	
+	public void makeCall(View v)
+	{
+		Intent intent = new Intent(Intent.ACTION_CALL);
+		intent.setData(Uri.parse("tel:" + task.getPhone()));
+		startActivity(intent);
+	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.

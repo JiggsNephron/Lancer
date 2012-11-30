@@ -9,7 +9,9 @@ public class Task
 	private String deadline;
 	private int hoursWorked;
 	private float hourlyWage;
-	int done;
+	private String email;
+	private int phone;
+	private int done;
 
 	public Task(String name, int job, String deadline, int location, float wage, int hours, int done)
 	{
@@ -55,6 +57,16 @@ public class Task
 	public int getHoursWorked()
 	{
 		return hoursWorked;
+	}
+	
+	public String getEmail()
+	{
+		return email;
+	}
+	
+	public int getPhone()
+	{
+		return phone;
 	}
 	
 	public int getDone()
