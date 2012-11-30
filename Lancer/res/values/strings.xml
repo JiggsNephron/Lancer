@@ -57,6 +57,8 @@
     <string name="AddNewTask_view_task_map">View on Map</string>
     <string name="AddNewTask_start_task">Start Task</string>
     <string name="AddNewTask_notify">Notify</string>
+    <string name="AddNewTask_view_task_notes">Task Notes</string>
+    <string name="AddNewTask_view_task_expenses">Task Expenses</string>
 
     <!-- Layout: Location - Strings -->
 
