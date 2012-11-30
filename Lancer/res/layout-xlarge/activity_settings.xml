@@ -72,7 +72,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:text="@string/button_save"
-        android:onClick=""
+        android:onClick="saveSettings"
         android:background="@color/lancer_blue"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
