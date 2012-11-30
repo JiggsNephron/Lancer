@@ -65,9 +65,6 @@ public class ViewTask extends Activity {
 			if(!location.getAdd3().equals("")) taskLocation += ",\n" + location.getAdd3();
 		}
 		displayLocation.setText(taskLocation); // sets the location in the textVew
-		//Log.v("View Task", "taskDeadline =" + taskDeadline + "~END");
-		//taskDeadline = "overDue";
-		//taskDeadline = taskDeadline.trim();
 		Log.v("View Task", "taskDeadline =" + taskDeadline+ "~END");
 		if((taskDeadline.equals("")) || (taskDeadline == null))	taskDeadline = "None Set"; // if no deadline, sets a default message
 		displayDate.setText(taskDeadline); //displays the deadline
@@ -111,17 +108,25 @@ public class ViewTask extends Activity {
 	
 	public void sendEmail(View v)
 	{
-		Intent intent = new Intent(Intent.ACTION_SEND);
-		intent.setType("text/html");
-		intent.putExtra(Intent.EXTRA_EMAIL, task.getEmail());
-		startActivity(Intent.createChooser(intent, "Send Email"));
+		if(!task.getEmail().equals(""))
+		{
+			Intent intent = new Intent(Intent.ACTION_SEND);
+			intent.setType("message/rfc822");
+			intent.putExtra(Intent.EXTRA_EMAIL, task.getEmail());
+			startActivity(Intent.createChooser(intent, "Send Email"));
+		}
+		else Toast.makeText(getApplicationContext(), "You have not set a contact email for this task", Toast.LENGTH_LONG).show();
 	}
 	
 	public void makeCall(View v)
 	{
-		Intent intent = new Intent(Intent.ACTION_CALL);
-		intent.setData(Uri.parse("tel:" + task.getPhone()));
-		startActivity(intent);
+		if(task.getPhone() != 0)
+		{
+			Intent intent = new Intent(Intent.ACTION_CALL);
+			intent.setData(Uri.parse("tel:" + task.getPhone()));
+			startActivity(intent);
+		}
+		else Toast.makeText(getApplicationContext(), "You have not set a contact number for this task", Toast.LENGTH_LONG).show();
 	}
 	
 	@Override
