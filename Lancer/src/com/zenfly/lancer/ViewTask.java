@@ -25,6 +25,7 @@ public class ViewTask extends Activity {
 	int JobId; 
 	Task task;
 	Job job;
+	String taskLocation;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +43,7 @@ public class ViewTask extends Activity {
 		String taskName = task.getName();								//extracts the name from Object
 		String JobName = job.getClient();								//extracts the name from Object
 		String taskDeadline = task.getDeadline();						//extracts the due Date from Object
-		String taskLocation = "";
+		taskLocation = "";
 		int taskLocationID = task.getLocation();
 		
 		TextView JobNameTitle = (TextView) findViewById(R.id.job_name);				//prepares to access textView
@@ -131,6 +132,15 @@ public class ViewTask extends Activity {
 			startActivity(intent);
 		}
 		else Toast.makeText(getApplicationContext(), "You have not set a contact number for this task", Toast.LENGTH_LONG).show();
+	}
+	
+	// method used to view the Task Address on Google Maps
+	public void viewOnMap (View v) {
+		
+		String uri = String.format("geo:0,0?q=%s", taskLocation);
+		Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+		startActivity(intent);
+		
 	}
 	
 	public void setNotification(View v)
