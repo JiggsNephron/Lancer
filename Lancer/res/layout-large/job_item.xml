@@ -10,12 +10,26 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginRight="60dp"
         android:layout_marginTop="20dp"
-        android:text="Update Servers"
+        android:text="Update Server"
         android:textColor="@color/lancer_blue"
         android:textSize="35dp"
         android:textAppearance="?android:attr/textAppearanceLarge" />
+    
+    <TextView
+        android:id="@+id/JobCompletionDisplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/JobNameDisplay"
+        android:paddingTop="5dp"
+        android:layout_alignBottom="@+id/JobNameDisplay"
+        android:layout_alignParentRight="true"
+        android:textColor="@color/lancer_blue"
+        android:layout_marginRight="20dp"
+        android:text="65%"
+        android:textSize="20dp"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
         android:id="@+id/JobLocationDisplay"
@@ -51,13 +65,16 @@
  		android:layout_centerVertical ="true"
  		/>
 
-    <!--   <CheckBox
-        android:id="@+id/job_done"
+    <TextView
+        android:id="@+id/JobDoneDisplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-       	android:layout_marginTop="25dp"
-       	android:layout_marginRight="10dp"
-        android:layout_alignParentRight="true"
-       /> -->
+        android:layout_above="@+id/JobLocationDisplay"
+        android:layout_alignRight="@+id/JobCompletionDisplay"
+        android:layout_marginRight="10dp"
+        android:text="DONE"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/lancer_blue"
+        android:textSize="10dp" />
         
 </RelativeLayout>
