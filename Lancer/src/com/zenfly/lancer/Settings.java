@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.view.Menu;
+import android.view.View;
 import android.widget.RadioButton;
 
 public class Settings extends Activity {
@@ -38,7 +39,7 @@ public class Settings extends Activity {
         else if(order.equals("alphaDesc")) alphaDesc.setChecked(true);
     }
     
-    public void saveSettings()
+    public void saveSettings(View v)
     {
     	SharedPreferences.Editor prefEditor = prefs.edit(); //sets up the editor
     	//saves the user's order settings

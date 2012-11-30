@@ -1,5 +1,7 @@
 package com.zenfly.lancer;
 
+import android.util.Log;
+
 public class Task
 {
 	private int id;
@@ -16,6 +18,7 @@ public class Task
 
 	public Task(String name, int job, String deadline, int location, float wage, int hours, int done)
 	{
+		Log.v("Deadline = ", deadline);
 		this.name = name;
 		this.job = job;
 		this.deadline = deadline;
