@@ -50,6 +50,8 @@
     <string name="AddNewTask_task_notes_title">Task Notes: (Optional)</string>
     <string name="AddNewTask_task_location_title">Task Location: (Optional)</string>
     <string name="AddNewTask_task_hourly_wage_title">Task Hourly Wage: (Optional)</string>
+    <string name="AddNewTask_task_phone_number_title">Phone Number: (Optional)</string>
+    <string name="AddNewTask_task_email_address_title">Email: (Optional)</string>
 
     <!-- Layout: Location - Strings -->
 
