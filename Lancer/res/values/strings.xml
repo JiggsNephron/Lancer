@@ -52,6 +52,9 @@
     <string name="AddNewTask_task_hourly_wage_title">Task Hourly Wage: (Optional)</string>
     <string name="AddNewTask_task_phone_number_title">Phone Number: (Optional)</string>
     <string name="AddNewTask_task_email_address_title">Email: (Optional)</string>
+    <string name="AddNewTask_call_phone">Call</string>
+    <string name="AddNewTask_email_person">Mail</string>
+    <string name="AddNewTask_view_task_map">View on Map</string>
 
     <!-- Layout: Location - Strings -->
 
@@ -60,7 +63,6 @@
     <string name="location_address1">Address Line 1:</string>
     <string name="location_address2">Address Line 2:</string>
     <string name="location_address3">Address Line 3:</string>
-    <string name="view_task_map">View on Map</string>
 
     <!-- Layout: Expenses - Strings -->
 
