@@ -181,8 +181,40 @@
         android:paddingTop="5dp"
         android:layout_marginLeft="35dp"
         android:layout_marginRight="35dp"
-        android:text="@string/view_task_map"
+        android:text="@string/AddNewTask_view_task_map"
         android:textColor="@color/white"
         android:textSize="20dp" />
+        
+        <Button
+            android:id="@+id/call_person"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view_on_map"
+            android:layout_marginLeft="35dp"
+            android:layout_marginRight="165dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/lancer_blue"
+            android:onClick="callPerson"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:text="@string/AddNewTask_call_phone"
+            android:textColor="@color/white"
+            android:textSize="20dp" />
+        
+        <Button
+            android:id="@+id/email_person"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view_on_map"
+            android:layout_marginLeft="165dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="35dp"
+            android:background="@color/lancer_blue"
+            android:onClick="emailPerson"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:text="@string/AddNewTask_email_person"
+            android:textColor="@color/white"
+            android:textSize="20dp" />
         
 </RelativeLayout>
