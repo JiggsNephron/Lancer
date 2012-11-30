@@ -25,7 +25,7 @@ public class ViewTask extends Activity {
 	int JobId; 
 	Task task;
 	Job job;
-	String taskLocation;
+	Location location;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +43,7 @@ public class ViewTask extends Activity {
 		String taskName = task.getName();								//extracts the name from Object
 		String JobName = job.getClient();								//extracts the name from Object
 		String taskDeadline = task.getDeadline();						//extracts the due Date from Object
-		taskLocation = "";
+		String taskLocation = "";
 		int taskLocationID = task.getLocation();
 		
 		TextView JobNameTitle = (TextView) findViewById(R.id.job_name);				//prepares to access textView
@@ -63,7 +63,7 @@ public class ViewTask extends Activity {
 		}
 		else
 		{
-			Location location = db.getLocation(taskLocationID);			//extracts a location object from database 
+			location = db.getLocation(taskLocationID);			//extracts a location object from database 
 			taskLocation = location.getLocation();						//gets the first line.
 			if(!location.getAdd1().equals("")) taskLocation += ",\n" + location.getAdd1();
 			if(!location.getAdd2().equals("")) taskLocation += ",\n" + location.getAdd2();
@@ -111,7 +111,7 @@ public class ViewTask extends Activity {
     	startActivity(ViewNotes);
 	}
 	
-	public void sendEmail(View v)
+	public void emailPerson (View v)
 	{
 		if(!task.getEmail().equals(""))
 		{
@@ -123,7 +123,7 @@ public class ViewTask extends Activity {
 		else Toast.makeText(getApplicationContext(), "You have not set a contact email for this task", Toast.LENGTH_LONG).show();
 	}
 	
-	public void makeCall(View v)
+	public void callPerson (View v)
 	{
 		if(task.getPhone() != 0)
 		{
@@ -135,12 +135,25 @@ public class ViewTask extends Activity {
 	}
 	
 	// method used to view the Task Address on Google Maps
-	public void viewOnMap (View v) {
-		
-		String uri = String.format("geo:0,0?q=%s", taskLocation);
-		Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
-		startActivity(intent);
-		
+	public void viewOnMap (View v) {		
+		if (location != null) {
+			String stlocation = location.getLocation();
+			
+			if(!location.getAdd1().equals("")) stlocation += " " + location.getAdd1();
+			if(!location.getAdd2().equals("")) stlocation += " " + location.getAdd2();
+			if(!location.getAdd3().equals("")) stlocation += " " + location.getAdd3();
+
+			try {
+				String uri = String.format("geo:0,0?q=%s", stlocation);
+				Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+				startActivity(intent);
+				
+			} catch (Exception e) {
+				Toast.makeText(getApplicationContext(), " No map app found. ", Toast.LENGTH_LONG).show();
+			}			
+		} else {
+			Toast.makeText(getApplicationContext(), " No Location has been set. ", Toast.LENGTH_LONG).show();
+		}		
 	}
 	
 	public void setNotification(View v)
