@@ -229,7 +229,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
         db.close();
     }
  
-    //a method that returns a single job
+    //methods for returning single objects
     public Job getJob(int id)
     {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -245,7 +245,6 @@ public class DatabaseHandler extends SQLiteOpenHelper
         return null;
     }
     
-    //a method that returns a single location
     public Location getLocation(int id)
     {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -261,7 +260,6 @@ public class DatabaseHandler extends SQLiteOpenHelper
         return null;
     }
     
-    //a method that returns a single task
     public Task getTask(int id)
     {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -278,16 +276,6 @@ public class DatabaseHandler extends SQLiteOpenHelper
         db.close();
         return null;
     }
-    
-    
-    
-/*	"CREATE TABLE " + TABLE_EXPENSES + 
-	"("
-        + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_JOB + " INTEGER," 
-        + KEY_TASK + " INTEGER," + KEY_ITEM + " INTEGER," 
-		+ KEY_QUANTITY + " INTEGER" +
-    ")";
-    */
     
     public Expense getExpense(int id)
     {
@@ -354,7 +342,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
         return null;
     }
  
-    //a method to return all jobs in the database
+    //methods for returning all objects of a certain class
     public List<Job> getAllJobs() 
     {
         List<Job> jobList = new ArrayList<Job>();
