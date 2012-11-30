@@ -6,6 +6,7 @@ import java.util.List;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
+import android.view.Window;
 
 public class ViewExpenses extends Activity {
 	
@@ -19,6 +20,7 @@ public class ViewExpenses extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE); // RC: this removed the black bar at the top of activities. 
 		setContentView(R.layout.activity_view_expenses);
 		//expense =db.getAllExpensesForTask(TaskId);
 	
@@ -27,12 +29,14 @@ public class ViewExpenses extends Activity {
 		expenseId = getIntent().getExtras().getInt("expense"); 				// gets the task ID from the intent
 		expense  =  db.getExpense(expenseId);									// gets the Task object from the database
 		item     =  db.getItem(expense.getItem());
-		task     =  db.getTask(expense.getTask());
+		//task     =  db.getTask(expense.getTask());  //optional 
 		
 		String ItemName = item.getName();								//extracts the name from Object
 		float ItemPrice = item.getPrice();						//extracts the due Date from Object
-		String linkedTask = task.getName();
+	//	String linkedTask = task.getName();
 		int Quantity = expense.getQuantity();
+		
+		
 		//*/
 		
 	

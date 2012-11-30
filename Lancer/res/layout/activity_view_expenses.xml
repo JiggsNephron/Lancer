@@ -2,13 +2,50 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ViewExpenses" >
+    android:background="@color/white" >
+    
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/ExpenseName"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="@string/hello_world" />
-
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:textColor="@color/lancer_blue"
+        android:textSize="30dp"
+        android:gravity="left"
+        android:paddingTop="25dp"
+        android:paddingLeft="25dp"
+        android:background="@color/white"
+        android:paddingBottom="25dp" 
+        android:onClick="viewTasks"
+        android:text="@string/tasks" />
+    
+        <TextView
+        android:id="@+id/ExpenseCost"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:textColor="@color/lancer_blue"
+        android:textSize="30dp"
+        android:gravity="left"
+        android:paddingTop="25dp"
+        android:paddingLeft="25dp"
+        android:background="@color/white"
+        android:paddingBottom="25dp" 
+        android:onClick="viewTasks"
+        android:text="@string/tasks" />
+    
+    <View android:id="@+id/separator1" 
+ 	    android:background="@color/lancer_blue"
+ 		android:layout_width = "fill_parent"
+ 		android:layout_below="@+id/ExpenseName"
+ 		android:layout_height="0.5dp"
+ 		android:layout_marginLeft="20dp"
+ 		android:layout_marginRight="20dp"
+ 		android:layout_centerVertical ="true"
+ 		/>
+    
+    
 </RelativeLayout>
