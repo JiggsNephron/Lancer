@@ -23,7 +23,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -145,7 +144,6 @@ public class AddNewTask extends FragmentActivity {
     	
     	// stores the user chosen deadline date into a string
     	sttask_date = year+"/"+month+"/"+day;
-    	Log.v("Right after setting deadline = ", sttask_date);
     	
     	// creates a SimpleDateFormat object with the same template as the user chosen deadline date string
     	SimpleDateFormat date_formater = new SimpleDateFormat("yyyy/MM/dd");
@@ -178,16 +176,6 @@ public class AddNewTask extends FragmentActivity {
     	else hourlyWage = Float.parseFloat(sthourly_wage);
     	
     	// create a new task using the users preferences and add it to the database
-<<<<<<< HEAD
-    	if(!sttask_name.equals(""))
-    	{
-    		Task new_task = new Task(sttask_name, job_id, sttask_date, task_location_id, hourlyWage, hoursWorked, done);
-    		Log.v("Add Task says the deadline is ", sttask_date);
-    		Log.v("Add Task says the deadline is ", "test");
-        	db.addTask(new_task);
-        	back_to_tasksList.putExtra("job_id", job_id);
-	    	startActivity(back_to_tasksList);
-=======
     	if (!sttask_email_address.equals("")) {
     		if (checkEmailValid(sttask_email_address)) {
     			if(!sttask_name.equals(""))	{
@@ -216,7 +204,6 @@ public class AddNewTask extends FragmentActivity {
         	else {
         		Toast.makeText(getApplicationContext(), " You must provide a name for your task ", Toast.LENGTH_LONG).show();
         	}
->>>>>>> branch 'TeamStartsHere' of git@github.com:JiggsNephron/Lancer.git
     	}
     }
     
