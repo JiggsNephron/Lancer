@@ -297,10 +297,10 @@ public class DatabaseHandler extends SQLiteOpenHelper
         if (cursor != null)
         {
         	cursor.moveToFirst();
-        	//Expense expense = new Expense(cursor.getInt(1), cursor.getInt(2), cursor.getInt(3), cursor.getInt(4), cursor.getInt(6));
-        	//expense.setId(cursor.getInt(0));
+        	Expense expense = new Expense(cursor.getInt(1), cursor.getInt(2), cursor.getInt(3), cursor.getInt(4));
+        	expense.setId(cursor.getInt(0));
         	db.close();
-           // return expense;
+            return expense;
         }
         db.close();
         return null;

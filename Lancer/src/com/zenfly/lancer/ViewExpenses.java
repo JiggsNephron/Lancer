@@ -14,6 +14,7 @@ public class ViewExpenses extends Activity {
 	Expense expense;
 	//List<Expense> expense;
 	Item item;
+	Task task;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -25,11 +26,12 @@ public class ViewExpenses extends Activity {
  		db = new DatabaseHandler(this);
 		expenseId = getIntent().getExtras().getInt("expense"); 				// gets the task ID from the intent
 		expense  =  db.getExpense(expenseId);									// gets the Task object from the database
-
-		item = expense.getItem();										//extracts the name from Object
+		item     =  db.getItem(expense.getItem());
+		task     =  db.getTask(expense.getTask());
+		
 		String ItemName = item.getName();								//extracts the name from Object
 		float ItemPrice = item.getPrice();						//extracts the due Date from Object
-		String linkedTask = expense.getTask();
+		String linkedTask = task.getName();
 		int Quantity = expense.getQuantity();
 		//*/
 		
