@@ -60,6 +60,7 @@
     <string name="location_address1">Address Line 1:</string>
     <string name="location_address2">Address Line 2:</string>
     <string name="location_address3">Address Line 3:</string>
+    <string name="view_task_map">View on Map</string>
 
     <!-- Layout: Expenses - Strings -->
 
@@ -73,7 +74,6 @@
     <!-- Layout: Notes - Strings -->
 
     <string name="notes">Notes</string>
-    <string name="viewadd_task_notes">View/Add Task Notes</string>
     <string name="AddNewNote_note_subject">Note Subject:</string>
     <string name="AddNewNote_note_body">Note Body:</string>
     <string name="AddNewNote_note_to_task">Assign to a Task: (Optional)</string>
