@@ -74,7 +74,7 @@ public class LocationsList extends ListActivity {
 		    	String stlocation_address2 = location_address2.getText().toString();
 		    	String stlocation_address3 = location_address3.getText().toString();
 		    	
-		    	if(!stlocation_nickname.equals(""))
+		    	if(!stlocation_nickname.equals("") && !stlocation_address1.equals(""))
 		    	{
 			    	// add new location based on user entered data
 		    		Intent added_a_task_done = new Intent(LocationsList.this, LocationsList.class);
@@ -87,8 +87,8 @@ public class LocationsList extends ListActivity {
 		    		db.addLocation(new Location(stlocation_nickname, stlocation_address1, stlocation_address2, stlocation_address3));
 		    		Toast.makeText(getApplicationContext(), "Saved Location: " + stlocation_nickname, Toast.LENGTH_LONG).show();
 		    		startActivity(added_a_task_done);
-		    	} else if (stlocation_nickname.equals("")) {
-		    		Toast.makeText(getApplicationContext(), "Location Nickname cannot be empty", Toast.LENGTH_LONG).show();		    		
+		    	} else {
+		    		Toast.makeText(getApplicationContext(), "Location Nickname and Address Line 1 cannot be empty", Toast.LENGTH_LONG).show();		    		
 		    	}		        
 		     }
 		 });	
