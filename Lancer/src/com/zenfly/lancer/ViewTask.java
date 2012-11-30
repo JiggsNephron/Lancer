@@ -65,9 +65,9 @@ public class ViewTask extends Activity {
 		{
 			location = db.getLocation(taskLocationID);			//extracts a location object from database 
 			taskLocation = location.getLocation();						//gets the first line.
-			if(!location.getAdd1().equals("")) taskLocation += ",\n" + location.getAdd1();
-			if(!location.getAdd2().equals("")) taskLocation += ",\n" + location.getAdd2();
-			if(!location.getAdd3().equals("")) taskLocation += ",\n" + location.getAdd3();
+//			if(!location.getAdd1().equals("")) taskLocation += ",\n" + location.getAdd1();
+//			if(!location.getAdd2().equals("")) taskLocation += ",\n" + location.getAdd2();
+//			if(!location.getAdd3().equals("")) taskLocation += ",\n" + location.getAdd3();
 		}
 		displayLocation.setText(taskLocation); // sets the location in the textVew
 		Log.v("View Task", "taskDeadline =" + taskDeadline+ "~END");
