@@ -18,7 +18,7 @@ public class ExpensesAdapter extends ArrayAdapter<Expense> {
 	  private DatabaseHandler db;
 	  private NumberFormat locale_currency_format;
 	  private NumberFormat locale_currency_format_totalCost;
-	  private float TotalCost;
+	  public float TotalCost;
 	
 	  
 	public ExpensesAdapter(Activity activity, List<Expense> objects) 
@@ -54,6 +54,7 @@ public class ExpensesAdapter extends ArrayAdapter<Expense> {
 	        
 	        ExpenseItemView.itemName = (TextView) rowView.findViewById(R.id.ExpenseItemDisplay);
 	        ExpenseItemView.cost = (TextView) rowView.findViewById(R.id.ExpenseCostDisplay);
+	        ExpenseItemView.Total_cost = (TextView) rowView.findViewById(R.id.ExpenseCostDisplay);
 	        rowView.setTag(ExpenseItemView); 							//for later access
 	    }
 	    ExpenseItemView = (ExpenseView) rowView.getTag();
@@ -85,6 +86,5 @@ public class ExpensesAdapter extends ArrayAdapter<Expense> {
         protected TextView cost;
         protected TextView Total_cost;
         protected TextView quantity;
-
     }
 }
