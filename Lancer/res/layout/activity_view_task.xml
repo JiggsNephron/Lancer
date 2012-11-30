@@ -88,7 +88,8 @@
         android:layout_below="@+id/nav_list_bg"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="15dp"
         android:textColor="@color/lancer_blue"
         android:textSize="25dp"
     	android:text="Task Name" />
@@ -99,7 +100,7 @@
  		android:layout_width = "fill_parent"
  		android:layout_below="@+id/thisTaskName"
  		android:layout_height="0.5dp"
- 		android:layout_marginTop="20dp"
+ 		android:layout_marginTop="15dp"
  		android:layout_marginLeft="20dp"
  		android:layout_marginRight="20dp"
  		android:layout_centerVertical ="true"
@@ -112,7 +113,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/separator"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:textColor="@color/lancer_blue"
         android:textSize="20dp"
     	android:text="@string/due_date" />
@@ -136,7 +137,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/thisTaskDeadlineTitle"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:textColor="@color/lancer_blue"
         android:textSize="20dp"
     	android:text="@string/location" />
@@ -155,14 +156,14 @@
     	android:text="@string/location" />
 
         <Button
-        android:id="@+id/delete_task"
+        android:id="@+id/start_task_recording"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:onClick="deleteTask"
-        android:text="@string/button_delete_task"
+        android:onClick="startTask"
+        android:text="@string/AddNewTask_start_task"
         android:background="@color/lancer_blue"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
@@ -179,8 +180,8 @@
         android:onClick="viewOnMap"
         android:paddingBottom="5dp"
         android:paddingTop="5dp"
-        android:layout_marginLeft="35dp"
-        android:layout_marginRight="35dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
         android:text="@string/AddNewTask_view_task_map"
         android:textColor="@color/white"
         android:textSize="20dp" />
@@ -190,7 +191,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/view_on_map"
-            android:layout_marginLeft="35dp"
+            android:layout_marginLeft="30dp"
             android:layout_marginRight="165dp"
             android:layout_marginTop="15dp"
             android:background="@color/lancer_blue"
@@ -208,7 +209,7 @@
             android:layout_below="@+id/view_on_map"
             android:layout_marginLeft="165dp"
             android:layout_marginTop="15dp"
-            android:layout_marginRight="35dp"
+            android:layout_marginRight="30dp"
             android:background="@color/lancer_blue"
             android:onClick="emailPerson"
             android:paddingBottom="5dp"
@@ -216,5 +217,18 @@
             android:text="@string/AddNewTask_email_person"
             android:textColor="@color/white"
             android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/notify_me"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:layout_alignBaseline="@+id/thisTaskDeadline"
+            android:layout_alignRight="@+id/view_on_map"
+            android:background="@color/lancer_blue"
+            android:onClick="notifyMe"
+            android:text="@string/AddNewTask_notify"
+            android:textColor="@color/white" />
         
 </RelativeLayout>
