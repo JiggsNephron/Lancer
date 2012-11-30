@@ -135,24 +135,29 @@ public class ViewTask extends Activity {
 	}
 	
 	// method used to view the Task Address on Google Maps
-	public void viewOnMap (View v) {		
+	public void viewOnMap (View v) {
+		
+		// if there is a location object, 
+		// the button attempts to open the address set by the user on google maps
 		if (location != null) {
-			String stlocation = location.getLocation();
 			
+			// set the location string into a string variable
+			String stlocation = location.getLocation();			
 			if(!location.getAdd1().equals("")) stlocation += " " + location.getAdd1();
 			if(!location.getAdd2().equals("")) stlocation += " " + location.getAdd2();
 			if(!location.getAdd3().equals("")) stlocation += " " + location.getAdd3();
-
+			
+			// try to open the address in google maps
 			try {
 				String uri = String.format("geo:0,0?q=%s", stlocation);
 				Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
 				startActivity(intent);
 				
 			} catch (Exception e) {
-				Toast.makeText(getApplicationContext(), " No map app found. ", Toast.LENGTH_LONG).show();
+				Toast.makeText(getApplicationContext(), " No map app found. ", Toast.LENGTH_SHORT).show();
 			}			
 		} else {
-			Toast.makeText(getApplicationContext(), " No Location has been set. ", Toast.LENGTH_LONG).show();
+			Toast.makeText(getApplicationContext(), " No location has been set. ", Toast.LENGTH_SHORT).show();
 		}		
 	}
 	
