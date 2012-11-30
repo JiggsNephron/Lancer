@@ -279,6 +279,33 @@ public class DatabaseHandler extends SQLiteOpenHelper
         return null;
     }
     
+    
+    
+/*	"CREATE TABLE " + TABLE_EXPENSES + 
+	"("
+        + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_JOB + " INTEGER," 
+        + KEY_TASK + " INTEGER," + KEY_ITEM + " INTEGER," 
+		+ KEY_QUANTITY + " INTEGER" +
+    ")";
+    */
+    
+    public Expense getExpense(int id)
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selectQuery = "SELECT * FROM " + TABLE_EXPENSES + " WHERE " + KEY_ID + "=" + id;
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor != null)
+        {
+        	cursor.moveToFirst();
+        	//Expense expense = new Expense(cursor.getInt(1), cursor.getInt(2), cursor.getInt(3), cursor.getInt(4), cursor.getInt(6));
+        	//expense.setId(cursor.getInt(0));
+        	db.close();
+           // return expense;
+        }
+        db.close();
+        return null;
+    }
+    
     public Item getItem(int id)
     {
     	SQLiteDatabase db = this.getReadableDatabase();

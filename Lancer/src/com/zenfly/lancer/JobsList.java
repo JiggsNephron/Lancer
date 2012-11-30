@@ -9,8 +9,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.ListView;
 import android.widget.Toast;
 //import android.view.MenuItem;
@@ -25,7 +25,7 @@ public class JobsList extends ListActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE); // RC: this removed the black bar at the top of activities. 
+       // this.requestWindowFeature(Window.FEATURE_NO_TITLE); // RC: this removed the black bar at the top of activities. 
         setContentView(R.layout.activity_jobs_list);
         String order;
         prefs = getSharedPreferences("com.zenfly.lancer",0);
@@ -98,19 +98,11 @@ public class JobsList extends ListActivity {
 	  }
 	
 	  //below is the code that creates the menu using the right xml file
-	 /*
+	// /*
 		@Override
 	  	public boolean onOptionsItemSelected(MenuItem item) {
 	      // Handle item selection
 	      switch (item.getItemId()) {
-	          case R.id.addCourse:
-	        	  Intent intent = new Intent(JobsList.this, AddJob.class);
-	              startActivity(intent);
-	              return true;
-	          case R.id.removeCourse:
-	        	  Intent intent2 = new Intent(JobsList.this, DeleteJob.class);
-	              startActivity(intent2);
-	              return true;
 	          case R.id.menu_settings:
 	        	  Intent intent3 = new Intent(JobsList.this, Settings.class);
 	              startActivity(intent3);

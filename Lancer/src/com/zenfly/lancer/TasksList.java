@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 public class TasksList extends ListActivity {
 	
-	public DatabaseHandler db;
+	private DatabaseHandler db;
 	List<Task> task;
 	int thisJob;
 
@@ -103,5 +103,12 @@ public class TasksList extends ListActivity {
 	              return super.onOptionsItemSelected(item);
 	      }
 	  }//*/
+	
+	
+	// add urgent tasks  to home screen
+	
+	
+	
+	
 	
 }

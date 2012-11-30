@@ -21,7 +21,8 @@ public class ViewExpenses extends Activity {
 		setContentView(R.layout.activity_view_expenses);
 		//expense =db.getAllExpensesForTask(TaskId);
 	
-/*		db = new DatabaseHandler(this);
+///*	
+ 		db = new DatabaseHandler(this);
 		expenseId = getIntent().getExtras().getInt("expense"); 				// gets the task ID from the intent
 		expense  =  db.getExpense(expenseId);									// gets the Task object from the database
 
@@ -30,7 +31,7 @@ public class ViewExpenses extends Activity {
 		float ItemPrice = item.getPrice();						//extracts the due Date from Object
 		String linkedTask = expense.getTask();
 		int Quantity = expense.getQuantity();
-		*/
+		//*/
 		
 	
 	}
