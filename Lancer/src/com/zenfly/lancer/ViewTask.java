@@ -111,7 +111,7 @@ public class ViewTask extends Activity {
     	startActivity(ViewNotes);
 	}
 	
-	public void sendEmail(View v)
+	public void emailPerson (View v)
 	{
 		if(!task.getEmail().equals(""))
 		{
@@ -123,7 +123,7 @@ public class ViewTask extends Activity {
 		else Toast.makeText(getApplicationContext(), "You have not set a contact email for this task", Toast.LENGTH_LONG).show();
 	}
 	
-	public void makeCall(View v)
+	public void callPerson (View v)
 	{
 		if(task.getPhone() != 0)
 		{
@@ -136,11 +136,15 @@ public class ViewTask extends Activity {
 	
 	// method used to view the Task Address on Google Maps
 	public void viewOnMap (View v) {
-		
-		String uri = String.format("geo:0,0?q=%s", taskLocation);
-		Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
-		startActivity(intent);
-		
+
+		try {
+			String uri = String.format("geo:0,0?q=%s", taskLocation);
+			Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+			startActivity(intent);
+			
+		} catch (Exception e) {
+			Toast.makeText(getApplicationContext(), " No map app found. ", Toast.LENGTH_LONG).show();
+		    }
 	}
 	
 	public void setNotification(View v)
