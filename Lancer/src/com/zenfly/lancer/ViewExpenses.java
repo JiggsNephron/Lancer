@@ -1,11 +1,16 @@
 package com.zenfly.lancer;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ViewExpenses extends Activity {
 	
@@ -68,6 +73,7 @@ public class ViewExpenses extends Activity {
 		ExpenseCostDisplay.setText(TotalCostString);							// sets the text view this data will always be set
 		IndividualCost.setText(PriceString);									// sets the text view this data will always be set
 		ItemQuantity.setText(QuantityString);									// sets the text view this data will always be set
+		//ItemQuantity.setText(locale_currency_format.format(Quantity));	
 		TaskName.setText(linkedTask);											// sets the text view this data will always be set
 	}
 
@@ -76,6 +82,38 @@ public class ViewExpenses extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.activity_view_expenses, menu);
 		return true;
+	}
+	
+	
+	
+	public void deleteExpense(View v)
+	{
+		// confirms the action with the Alert Dialog
+		final AlertDialog.Builder builder=new AlertDialog.Builder(ViewExpenses.this);
+		builder.setTitle("Delete " + task.getName());
+		builder.setMessage("Are you sure you want to delete this Expense");
+		
+		builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() 
+		{
+			public void onClick(DialogInterface dialog, int id)
+			{
+				db.deleteTask(expenseId);
+    			Toast.makeText(getApplicationContext(), "Deleted " + task.getName(), Toast.LENGTH_LONG).show();
+    			Intent intent = new Intent(ViewExpenses.this, ExpensesList.class);
+    			intent.putExtra("job_id", task.getJob());
+    			startActivity(intent);
+			}
+		});
+      
+		builder.setNegativeButton("No", new DialogInterface.OnClickListener()
+		{
+			public void onClick(DialogInterface dialog, int id)
+			{
+ 	   	      dialog.cancel();
+			}
+		});
+      
+		builder.create().show();
 	}
 
 }
