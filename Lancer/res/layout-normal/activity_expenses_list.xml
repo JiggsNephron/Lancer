@@ -61,7 +61,29 @@
         android:layout_above="@+id/add_new_expense" >
        </ListView>
 
-   
+        <TextView
+        android:id="@+id/TotalExpense"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/add_new_expense"
+        android:layout_alignParentLeft="true"
+        android:textColor="@color/lancer_blue"
+        android:layout_marginRight="20dp"
+        android:text="TotalExpense"
+        android:textSize="20dp"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+       
+       <TextView
+        android:id="@+id/TotalCost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/add_new_expense"
+        android:layout_alignParentRight="true"
+        android:textColor="@color/lancer_blue"
+        android:layout_marginRight="20dp"
+        android:text="€38.50"
+        android:textSize="20dp"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
        <Button
            android:id="@+id/add_new_expense"
