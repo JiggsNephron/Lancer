@@ -41,6 +41,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
 	private static final String KEY_DONE = "done";
 	private static final String KEY_HOURLY_WAGE = "hourlyWage";
 	private static final String KEY_HOURS_WORKED = "hoursWorked";
+	private static final String KEY_ALARM = "alarm";
     
 	public DatabaseHandler(Context context)
 	{
@@ -62,7 +63,8 @@ public class DatabaseHandler extends SQLiteOpenHelper
 	                + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_NAME 
 	                + " TEXT," + KEY_JOB + " INTEGER," 
 	                + KEY_DEADLINE + " TEXT," + KEY_LOCATION + " INTEGER, " +
-	                KEY_DONE + " INTEGER, " + KEY_HOURLY_WAGE + " REAL, " + KEY_HOURS_WORKED + " INTEGER" +
+	                KEY_DONE + " INTEGER, " + KEY_HOURLY_WAGE + " REAL, " + 
+	                KEY_HOURS_WORKED + " INTEGER, " + KEY_ALARM + " INTEGER" +
                 ")";
         String CREATE_NOTES_TABLE = 
         		"CREATE TABLE " + TABLE_NOTES + 
@@ -841,5 +843,14 @@ public class DatabaseHandler extends SQLiteOpenHelper
     	cursor.close();
     	db.close();
     	return itemList;
+    }
+    
+    public void setTaskAlarm(int id, int set)
+    {
+    	SQLiteDatabase db = this.getWritableDatabase();
+    	ContentValues values = new ContentValues();
+    	values.put(KEY_ALARM, Integer.toString(set));
+        db.update(TABLE_TASKS, values, KEY_ID + "=?", new String[] { Integer.toString(id)});
+        db.close();
     }
 }

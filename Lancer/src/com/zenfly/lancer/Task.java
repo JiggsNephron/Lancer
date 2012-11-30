@@ -12,6 +12,7 @@ public class Task
 	private String email;
 	private int phone;
 	private int done;
+	private boolean alarm;
 
 	public Task(String name, int job, String deadline, int location, float wage, int hours, int done)
 	{
@@ -74,8 +75,18 @@ public class Task
 		return done;
 	}
 	
+	public boolean hasAlarm()
+	{
+		return alarm;
+	}
+	
 	public void setId(int id)
 	{
 		this.id = id;
+	}
+	
+	public void setAlarm(boolean alarm)
+	{
+		this.alarm = alarm;
 	}
 }

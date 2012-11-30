@@ -1,7 +1,11 @@
 package com.zenfly.lancer;
 
+import java.util.Calendar;
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -127,6 +131,31 @@ public class ViewTask extends Activity {
 			startActivity(intent);
 		}
 		else Toast.makeText(getApplicationContext(), "You have not set a contact number for this task", Toast.LENGTH_LONG).show();
+	}
+	
+	public void setNotification(View v)
+	{
+		AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+		Calendar cal = Calendar.getInstance();
+		
+		Intent intent = new Intent(ViewTask.this, NotificationTimer.class);
+		intent.putExtra("task", task.getName());
+		//intent.putExtra("time", time);
+		PendingIntent pendingIntent = PendingIntent.getBroadcast(this, task.getId(), intent, PendingIntent.FLAG_ONE_SHOT);
+		if(task.hasAlarm())
+		{
+			am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent);
+			Toast.makeText(getApplicationContext(), "Alarm Set", Toast.LENGTH_LONG).show();
+			db.setTaskAlarm(task.getId(), 1);
+			task.setAlarm(true);
+		}
+		else
+		{
+			am.cancel(pendingIntent);
+			Toast.makeText(getApplicationContext(), "Notification cancelled for " + task.getName(), Toast.LENGTH_LONG).show();
+			db.setTaskAlarm(task.getId(), 0);
+			task.setAlarm(false);
+		}
 	}
 	
 	@Override
