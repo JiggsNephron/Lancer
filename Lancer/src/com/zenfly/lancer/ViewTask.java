@@ -127,6 +127,14 @@ public class ViewTask extends Activity {
 		builder.create().show();
 	}
 	
+	public void editTask(View v) {
+		Intent edittask = new Intent(ViewTask.this, EditTask.class);
+		edittask.putExtra("job_id", JobId);
+		edittask.putExtra("task_id", TaskId); //sends the task id
+    	startActivity(edittask);
+	}
+	
+	
 	public void viewTaskNotes(View v)
 	{
     	Intent ViewNotes = new Intent(ViewTask.this, NotesList.class);
