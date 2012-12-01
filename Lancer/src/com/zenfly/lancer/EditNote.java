@@ -75,7 +75,7 @@ public class EditNote extends Activity {
         }      
         // set the spinner to use the array contents       
         sp_assign_to_task.setAdapter(adapter);
-        // set the spinner to the postion of the already set task
+        // set the spinner to the position of the already set task
         sp_assign_to_task.setSelection(set_spinner_to);
     }
     
