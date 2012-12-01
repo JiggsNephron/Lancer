@@ -18,6 +18,7 @@ public class NotesList extends ListActivity {
 	int jobId;
 	List<Note> note;
 	Task task;
+	int task_id;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -28,6 +29,9 @@ public class NotesList extends ListActivity {
         TextView jobName = (TextView) findViewById(R.id.job_name);
         db = new DatabaseHandler(this.getApplicationContext());
         jobId = getIntent().getIntExtra("job_id", 0);
+        
+        task_id = getIntent().getIntExtra("task_id", 0);
+        
         Job job = db.getJob(jobId);
         note = db.getAllNotesForJob(jobId); //makes a list of jobs to send to the list View
         jobName.setText(job.getClient());

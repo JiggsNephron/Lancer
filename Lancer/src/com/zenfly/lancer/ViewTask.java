@@ -134,15 +134,17 @@ public class ViewTask extends Activity {
 	
 	public void viewTaskNotes(View v)
 	{
-    	Intent ViewNotes = new Intent(ViewTask.this, ViewNotes .class);
-    	//ViewNotes.putExtra("note_id", noteId); //sends the note id
+    	Intent ViewNotes = new Intent(ViewTask.this, NotesList.class);
+    	ViewNotes.putExtra("task_id", TaskId); //sends the task id
     	startActivity(ViewNotes);
 	}
 	
 	
 	public void viewTaskExpense(View v)
 	{
-		
+		Intent ViewExpenses = new Intent(ViewTask.this, ExpensesList.class);
+		ViewExpenses.putExtra("task_id", TaskId); //sends the task id
+    	startActivity(ViewExpenses);
 	}
 	
 	
