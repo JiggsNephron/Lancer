@@ -57,7 +57,8 @@ public class TaskAdapter extends ArrayAdapter<Task> {
 	    Task currentTask = (Task) taskObject.get(position); //casts as course
 	    taskItemView.name.setText(currentTask.getName()); //sets the data
 	    
-	    String curDeadline = currentTask.getDeadline();	  
+	    String curDeadline = currentTask.getDeadline();
+	    // RC: makes the due date show as locale formatted string
 	    if(!curDeadline.equals("")) {	    	
 	    	// creates a SimpleDateFormat object with the same template as the database deadline date string
 	    	SimpleDateFormat date_formater = new SimpleDateFormat("yyyy/MM/dd");	    	
@@ -69,7 +70,7 @@ public class TaskAdapter extends ArrayAdapter<Task> {
 	    	} catch (ParseException e) {
 				stformatted_task_date = "No Deadline Found";
 			}	    				
-	    	taskItemView.deadline.setText(stformatted_task_date);
+	    	taskItemView.deadline.setText(stformatted_task_date); //displays the locale formatted deadline
 	    } else {
 	    	taskItemView.deadline.setText("No Deadline Set");
 	    }

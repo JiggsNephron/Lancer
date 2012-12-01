@@ -1,6 +1,11 @@
 package com.zenfly.lancer;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
@@ -26,6 +31,8 @@ public class ViewTask extends Activity {
 	Task task;
 	Job job;
 	Location location;
+	Date date_locale;
+	String stformatted_task_date = "";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +49,13 @@ public class ViewTask extends Activity {
 		
 		String taskName = task.getName();								//extracts the name from Object
 		String JobName = job.getClient();								//extracts the name from Object
-		String taskDeadline = task.getDeadline();						//extracts the due Date from Object
 		String taskLocation = "";
+		String taskDeadline = task.getDeadline();						//extracts the due Date from Object		
+		if((taskDeadline.equals("")) || (taskDeadline == null))	
+			taskDeadline = ""; 											// if no deadline, sets as empty string
+		
+		
+		
 		int taskLocationID = task.getLocation();
 		
 		TextView JobNameTitle = (TextView) findViewById(R.id.job_name);				//prepares to access textView
@@ -70,9 +82,25 @@ public class ViewTask extends Activity {
 //			if(!location.getAdd3().equals("")) taskLocation += ",\n" + location.getAdd3();
 		}
 		displayLocation.setText(taskLocation); // sets the location in the textVew
-		Log.v("View Task", "taskDeadline =" + taskDeadline+ "~END");
-		if((taskDeadline.equals("")) || (taskDeadline == null))	taskDeadline = "None Set"; // if no deadline, sets a default message
-		displayDate.setText(taskDeadline); //displays the deadline
+		Log.v("View Task", "taskDeadline =" + taskDeadline+ "~END");		
+		
+		// RC: makes the due date show as locale formatted string
+		if((!taskDeadline.equals(""))) {
+	    	// creates a SimpleDateFormat object with the same template as the database deadline date string			
+			SimpleDateFormat date_formater = new SimpleDateFormat("yyyy/MM/dd");			
+			try {
+	    		// creates a date object based on the SimpleDateFormat object
+	    		date_locale = date_formater.parse(taskDeadline);
+		    	// formats the date to a locale friendly string and saves it
+				stformatted_task_date = DateFormat.getDateInstance().format(date_locale);	    		
+	    	} catch (ParseException e) {
+				stformatted_task_date = "None Set";
+			}	    				
+			displayDate.setText(stformatted_task_date); //displays the locale formatted deadline
+		} else {
+			taskDeadline = "None Set"; // if no deadline, sets a default message
+			displayDate.setText(taskDeadline);
+		}		
 	}
 	
 	public void deleteTask(View v)
