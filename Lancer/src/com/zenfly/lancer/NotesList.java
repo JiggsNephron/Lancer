@@ -2,15 +2,15 @@ package com.zenfly.lancer;
 
 import java.util.List;
 
-import android.os.Bundle;
-import android.app.Activity;
+import android.app.ListActivity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
 
-public class NotesList extends Activity {
+public class NotesList extends ListActivity {
 	
 	private DatabaseHandler db;
 	int jobId;
@@ -26,8 +26,11 @@ public class NotesList extends Activity {
         db = new DatabaseHandler(this.getApplicationContext());
         jobId = getIntent().getIntExtra("job_id", 0);
         Job job = db.getJob(jobId);
+        note = db.getAllNotesForJob(jobId); //makes a list of jobs to send to the list View
         jobName.setText(job.getClient());
        // Log.v("Expenses list", "task="+ task +"  ~END");
+        setListAdapter(new NoteAdapter(this, note)); //starts the list View
+
         
     }
     

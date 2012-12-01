@@ -1,5 +1,9 @@
 package com.zenfly.lancer;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import android.app.Activity;
@@ -19,13 +23,15 @@ public class TaskAdapter extends ArrayAdapter<Task> {
 	  private final Activity activity;
 	  private final List<Task> taskObject;
 	  public DatabaseHandler db;
+	  Date date_locale;
+	  String stformatted_task_date = "";
 	
 	public TaskAdapter(Activity activity, List<Task> objects) 
 	{
       super(activity, R.layout.activity_tasks_list , objects);
       this.activity = activity;
       this.taskObject = objects;
-      db = new DatabaseHandler(this.getContext());
+      db = new DatabaseHandler(this.getContext());      
 	}
 	
 	@Override
@@ -50,9 +56,24 @@ public class TaskAdapter extends ArrayAdapter<Task> {
 	    String curLocation = "";
 	    Task currentTask = (Task) taskObject.get(position); //casts as course
 	    taskItemView.name.setText(currentTask.getName()); //sets the data
-	    String curDeadline = currentTask.getDeadline();
-	    if(!curDeadline.equals(""))taskItemView.deadline.setText(curDeadline);
-	    else taskItemView.deadline.setText("No Deadline Set");
+	    
+	    String curDeadline = currentTask.getDeadline();	  
+	    if(!curDeadline.equals("")) {	    	
+	    	// creates a SimpleDateFormat object with the same template as the database deadline date string
+	    	SimpleDateFormat date_formater = new SimpleDateFormat("yyyy/MM/dd");	    	
+	    	try {
+	    		// creates a date object based on the SimpleDateFormat object
+	    		date_locale = date_formater.parse(curDeadline);
+		    	// formats the date to a locale friendly string and saves it
+				stformatted_task_date = DateFormat.getDateInstance().format(date_locale);	    		
+	    	} catch (ParseException e) {
+				stformatted_task_date = "No Deadline Found";
+			}	    				
+	    	taskItemView.deadline.setText(stformatted_task_date);
+	    } else {
+	    	taskItemView.deadline.setText("No Deadline Set");
+	    }
+	    
 	    if(currentTask.getLocation() != 0) curLocation = db.getLocation(currentTask.getLocation()).getLocation();
 	    if(!curLocation.equals(""))taskItemView.location.setText(curLocation);
 	    else taskItemView.location.setText("No Location Set");
