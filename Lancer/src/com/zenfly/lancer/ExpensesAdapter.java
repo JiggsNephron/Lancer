@@ -54,7 +54,6 @@ public class ExpensesAdapter extends ArrayAdapter<Expense> {
 	        
 	        ExpenseItemView.itemName = (TextView) rowView.findViewById(R.id.ExpenseItemDisplay);
 	        ExpenseItemView.cost = (TextView) rowView.findViewById(R.id.ExpenseCostDisplay);
-	        ExpenseItemView.Total_cost = (TextView) rowView.findViewById(R.id.ExpenseCostDisplay);
 	        rowView.setTag(ExpenseItemView); 							//for later access
 	    }
 	    ExpenseItemView = (ExpenseView) rowView.getTag();
@@ -73,13 +72,17 @@ public class ExpensesAdapter extends ArrayAdapter<Expense> {
 	    
 	    ExpenseItemView.itemName.setText(itemName.getName());			//sets the data
 	    ExpenseItemView.cost.setText(locale_currency_format.format(cost)); 						//sets the data
-	    ExpenseItemView.Total_cost.setText(locale_currency_format_totalCost.format(TotalCost));
+        TextView Total_cost = (TextView) rowView.findViewById(R.id.TotalCost);
+	  //  Total_cost = setText(locale_currency_format_totalCost.format(TotalCost));
+	    
+	 //   TextView tv = ((TextView)rowView).setTypeface(font);
+	//    tv.setText(<String> getItem());
 	    Log.v("Expenses list", "TotalCost =" + TotalCost  + "~END"); 
 	  
 	    return rowView;
 	}
 
-    protected static class ExpenseView
+	protected static class ExpenseView
     {
         protected TextView itemName;
         protected int item;
