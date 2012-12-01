@@ -90,7 +90,7 @@ public class AddNewNote extends Activity {
     	
     	// if the body and subject are populated, a new note is added
     	// if not, a toast is shown to inform the user
-    	if (!stnote_body.equals("") || !stnote_subject.equals("")) {
+    	if (!stnote_body.equals("") && !stnote_subject.equals("")) {
     		
     		Note new_note = new Note(job_id, task_id, stnote_subject, stnote_body);        	
     		db.addNote(new_note);
