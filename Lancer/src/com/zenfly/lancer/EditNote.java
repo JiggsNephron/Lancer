@@ -109,6 +109,7 @@ public class EditNote extends Activity {
     		current_note.setSubject(stnote_subject);
     		current_note.setTask(task_id);
     		
+    		
     		db.updateNote(current_note);
     		
     		Toast.makeText(getApplicationContext(), "Note " + stnote_subject + " edited.", Toast.LENGTH_SHORT).show();
