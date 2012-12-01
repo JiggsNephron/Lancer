@@ -45,4 +45,24 @@ public class Note
 	{
 		this.id = id;
 	}
+	
+	public void setJob(int job)
+	{
+		this.job = job;
+	}
+	
+	public void setTask(int task)
+	{
+		this.task = task;
+	}
+	
+	public void setSubject(String subject)
+	{
+		this.subject = subject;
+	}
+	
+	public void setBody(String body)
+	{
+		this.body = body;
+	}
 }
