@@ -521,7 +521,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
     public List<Note> getAllNotesForJob(int id)
     {
     	List<Note> noteList = new ArrayList<Note>();
-    	String selectQuery = "SELECT  * FROM " + TABLE_NOTES + " WHERE " + KEY_ID + " = " + id;
+    	String selectQuery = "SELECT  * FROM " + TABLE_NOTES + " WHERE " + KEY_JOB + " = " + id;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor.moveToFirst())
