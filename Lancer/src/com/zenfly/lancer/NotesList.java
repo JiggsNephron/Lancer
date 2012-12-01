@@ -47,6 +47,7 @@ public class NotesList extends ListActivity {
     
     public void addNewNote (View v) {
        	Intent intent = new Intent(NotesList.this, AddNewNote.class);
+       	intent.putExtra("task_id", getIntent().getIntExtra("task_id", 0));
        	intent.putExtra("job_id", getIntent().getIntExtra("job_id", 0));
     	startActivity(intent);	
    }

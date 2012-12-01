@@ -67,6 +67,7 @@ public class ViewNotes extends Activity {
     @Override
     public void onBackPressed() {
     	Intent intent = new Intent(ViewNotes.this, NotesList.class);
+    	intent.putExtra("task_id", getIntent().getIntExtra("task", 0));
     	intent.putExtra("job_id", getIntent().getIntExtra("job_id", 0));
     	startActivity(intent);
     	return;
