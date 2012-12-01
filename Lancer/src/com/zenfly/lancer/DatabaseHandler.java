@@ -536,6 +536,25 @@ public class DatabaseHandler extends SQLiteOpenHelper
     	return noteList;
     }
     
+    public List<Note> getAllNotesForTask(int id)
+    {
+    	List<Note> noteList = new ArrayList<Note>();
+    	String selectQuery = "SELECT  * FROM " + TABLE_NOTES + " WHERE " + KEY_TASK + " = " + id;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst())
+        {
+            do
+            {
+            	Note note = new Note(cursor.getInt(1), cursor.getInt(2), cursor.getString(3), cursor.getString(4)); //creates a new expense for each one returned by the database
+            	note.setId(cursor.getInt(0));
+                noteList.add(note); //adds new note to the list
+            } while (cursor.moveToNext()); //loop continues while there are results
+        }
+        db.close();
+    	return noteList;
+    }
+    
     public List<Item> getAllItemsForJob(int id)
     {
     	List<Item> itemList = new ArrayList<Item>();

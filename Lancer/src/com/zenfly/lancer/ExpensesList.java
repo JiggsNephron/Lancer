@@ -24,7 +24,9 @@ public class ExpensesList extends ListActivity {
         setContentView(R.layout.activity_expenses_list);
         db = new DatabaseHandler(this.getApplicationContext());
         int jobId = getIntent().getIntExtra("job_id", 0);
-        expense = db.getAllExpensesForJob(jobId); //makes a list of jobs to send to the list View
+        int taskId = getIntent().getIntExtra("task_id", 0);
+        if(taskId != 0) expense = db.getAllExpensesForTask(taskId);
+        else expense = db.getAllExpensesForJob(jobId); //makes a list of jobs to send to the list View
         job = db.getJob(jobId);	
         String JobName = job.getClient();
         TextView JobNameTitle = (TextView) findViewById(R.id.job_name);				//prepares to access textView
