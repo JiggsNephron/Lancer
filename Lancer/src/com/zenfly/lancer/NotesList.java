@@ -63,7 +63,7 @@ public class NotesList extends ListActivity {
 	  	
 	  	Log.v("Id is: ", noteId+" = Note");
 	  	intent.putExtra("note_id", noteId); //sends the note id
-	  	intent.putExtra("task", taskId); //sends the task id
+	  	intent.putExtra("task", getIntent().getIntExtra("task_id", 0)); //sends the task id
 	  	intent.putExtra("job_id", JobId); //sends the Job id
 	    startActivity(intent);
 	  }
