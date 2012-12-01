@@ -102,7 +102,17 @@ public class AddNewTask extends FragmentActivity {
         
         // check if there is a task_date in the received intent and put it into the EditText
         if(getIntent().getStringExtra("task_date") != null) {
-        	stformatted_task_date = getIntent().getStringExtra("task_date");
+        	sttask_date = getIntent().getStringExtra("task_date");
+        	// creates a SimpleDateFormat object with the same template as the user chosen deadline date string
+        	SimpleDateFormat date_formater = new SimpleDateFormat("yyyy/MM/dd");
+        	try {
+        		// creates a date object based on the SimpleDateFormat object
+    			date_locale = date_formater.parse(sttask_date);
+    			// formats the date to a locale friendly string and saves it
+    			stformatted_task_date = DateFormat.getDateInstance().format(date_locale);
+    		} catch (ParseException e) {
+    			stformatted_task_date = "";
+    		}
         	add_deadline.setText(stformatted_task_date);        
         }
         else {
@@ -239,7 +249,7 @@ public class AddNewTask extends FragmentActivity {
     	// Forward the saved entries to the locations list activity
     	// which then sends it back to re-populate those fields in this activity
     	show_locations.putExtra("task_name", sttask_name);
-    	show_locations.putExtra("task_date", stformatted_task_date);
+    	show_locations.putExtra("task_date", sttask_date);
     	show_locations.putExtra("hourly_wage", sthourly_wage);
     	show_locations.putExtra("email_address", sttask_email_address);
     	show_locations.putExtra("phone_number", sttask_phone_number);
