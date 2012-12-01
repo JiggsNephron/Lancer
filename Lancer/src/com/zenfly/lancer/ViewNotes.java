@@ -1,10 +1,11 @@
 package com.zenfly.lancer;
 
-import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
 
@@ -44,7 +45,7 @@ public class ViewNotes extends Activity {
 		return true;
 	}
 	
-	public void editNote()
+	public void editNote(View v)
 	{
 		Intent intent = new Intent(ViewNotes.this, EditNote.class);
     	intent.putExtra("note_id", NoteId);
