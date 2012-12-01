@@ -1,6 +1,14 @@
+/**
+ * Allows the user to edit a note
+ * 
+ * Authors: Richard Cody, 
+ * 
+ */
+
 package com.zenfly.lancer;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import android.app.Activity;
@@ -32,6 +40,7 @@ public class EditNote extends Activity {
 	
 	int counter = 0;
 	int set_spinner_to = 0;
+	HashMap<Integer, Integer> spinnerandtaskMap;
 	
 	Note current_note;
 	Task chosen_task;
@@ -64,6 +73,7 @@ public class EditNote extends Activity {
         et_note_subject.setText(stnote_subject);
         et_note_body.setText(stnote_body);
         
+        spinnerandtaskMap = new HashMap<Integer, Integer>();
         
         // get a list of all tasks to be used for populating the spinner
         all_tasks = db.getAllTasksForJob(job_id);
@@ -72,9 +82,11 @@ public class EditNote extends Activity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // add one default task choice (no task chosen)
         adapter.add("Not assigned to a task");
+        spinnerandtaskMap.put(counter, 0);
         // go through the list of tasks, and for each one, get its name and add it to the adapter array
         for (Task task: all_tasks) {
         	counter++;
+        	spinnerandtaskMap.put(counter, task.getId());
         	adapter.add(task.getName());
         	if (task.getId() == task_id) {
         		set_spinner_to = counter;
@@ -96,10 +108,9 @@ public class EditNote extends Activity {
     	
     	// get the ID of the task chosen by the user in the spinner by spinner's position
     	// if no task was chosen, 0 is used
-    	if ((sp_assign_to_task.getSelectedItemPosition()-1) >= 1) {
-    		chosen_task = all_tasks.get(sp_assign_to_task.getSelectedItemPosition()-1);
-    		task_id = chosen_task.getId();
-    	} else task_id = 0;
+    	
+    	task_id = spinnerandtaskMap.get(sp_assign_to_task.getSelectedItemPosition());
+
     	
     	// if the body and subject are populated, the note is saved with the changes
     	// if not, a toast is shown to inform the user
