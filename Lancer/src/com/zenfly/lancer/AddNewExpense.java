@@ -220,7 +220,7 @@ public class AddNewExpense extends Activity {
     public void onBackPressed() {
     	Intent back_to_expensesList = new Intent(AddNewExpense.this, ExpensesList.class);
     	back_to_expensesList.putExtra("job_id", job_id);
-    	back_to_expensesList.putExtra("task_id", task_id);
+    	back_to_expensesList.putExtra("task_id", getIntent().getIntExtra("task_id", 0));
     	startActivity(back_to_expensesList);
     	return;
     }       
