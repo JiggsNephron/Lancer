@@ -5,7 +5,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
@@ -221,7 +220,7 @@ public class ViewTask extends Activity {
 			am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent);
 			Toast.makeText(getApplicationContext(), "Alarm Set for " + cal.get(Calendar.DAY_OF_MONTH)+dates[2] + "/" + cal.get(Calendar.MONTH)+dates[1] + "/" + cal.get(Calendar.YEAR)+dates[0], Toast.LENGTH_LONG).show();
 			//db.setTaskAlarm(task.getId(), 1);
-			task.setAlarm(true);
+			task.setAlarm(1);
 		//}
 		//else
 		//{
