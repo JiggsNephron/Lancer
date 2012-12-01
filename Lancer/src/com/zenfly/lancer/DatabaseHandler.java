@@ -327,6 +327,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
         {
         	cursor.moveToFirst();
         	Note note = new Note(cursor.getInt(1), cursor.getInt(2), cursor.getString(3), cursor.getString(4));
+        	note.setId(cursor.getInt(0));
         	db.close();
         	return note;
         }
@@ -626,6 +627,27 @@ public class DatabaseHandler extends SQLiteOpenHelper
         try
         {
         	db.update(TABLE_JOBS, values, KEY_ID + "=?", new String[] { Integer.toString(note.getId())});
+        }
+        catch(Exception e)
+        {
+        	success = false; //in case the job conflicts with an already present job
+        }
+        db.close();
+        return success;
+    }
+    
+    public boolean updateTask(Task task) 
+    {
+    	boolean success = true;
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(KEY_JOB, task.getJob());
+        values.put(KEY_TASK, task.getName());
+        values.put(KEY_DEADLINE, task.getDeadline());
+       // values.put(KEY_LOCATION, note.getBody());   
+        try
+        {
+       // 	db.update(TABLE_JOBS, values, KEY_ID + "=?", new String[] { Integer.toString(note.getId())});
         }
         catch(Exception e)
         {
