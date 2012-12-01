@@ -15,6 +15,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.SparseIntArray;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -40,7 +41,7 @@ public class EditNote extends Activity {
 	
 	int counter = 0;
 	int set_spinner_to = 0;
-	HashMap<Integer, Integer> spinnerandtaskMap;
+	SparseIntArray spinnerandtaskMap;
 	
 	Note current_note;
 	Task chosen_task;
@@ -73,7 +74,7 @@ public class EditNote extends Activity {
         et_note_subject.setText(stnote_subject);
         et_note_body.setText(stnote_body);
         
-        spinnerandtaskMap = new HashMap<Integer, Integer>();
+        spinnerandtaskMap = new SparseIntArray();
         
         // get a list of all tasks to be used for populating the spinner
         all_tasks = db.getAllTasksForJob(job_id);
@@ -107,8 +108,6 @@ public class EditNote extends Activity {
     	stnote_subject = et_note_subject.getText().toString();
     	
     	// get the ID of the task chosen by the user in the spinner by spinner's position
-    	// if no task was chosen, 0 is used
-    	
     	task_id = spinnerandtaskMap.get(sp_assign_to_task.getSelectedItemPosition());
 
     	
