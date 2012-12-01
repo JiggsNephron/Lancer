@@ -1,11 +1,9 @@
 package com.zenfly.lancer;
 
 
-import java.text.NumberFormat;
 import java.util.List;
 
 import android.app.Activity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,16 +15,17 @@ public class NoteAdapter extends ArrayAdapter<Note> {
 	  private final Activity activity;
 	  private final List<Note> NoteObject;
 	  private DatabaseHandler db;
+	  Task task;
+	  Job job;
 	  public float TotalCost;
 	
 	  
 	public NoteAdapter(Activity activity, List<Note> objects) 
 	{
-		
-      super(activity, R.layout.activity_expenses_list , objects);
-      this.activity = activity;
-      this.NoteObject = objects;
-      db = new DatabaseHandler(this.getContext());
+		super(activity, R.layout.activity_expenses_list , objects);
+	    this.activity = activity;
+	    this.NoteObject = objects;
+	    db = new DatabaseHandler(this.getContext());
  	}
 	
 	@Override
@@ -44,33 +43,27 @@ public class NoteAdapter extends ArrayAdapter<Note> {
 	        rowView = inflater.inflate(R.layout.expense_item, null);
 	        NoteItemView = new NoteView(); 						//for holding the data
 	        
-	        NoteItemView.noteName = (TextView) rowView.findViewById(R.id.ExpenseItemDisplay);
+	        NoteItemView.noteSubject = (TextView) rowView.findViewById(R.id.NoteItemDisplay);
+	        NoteItemView.noteJobTask = (TextView) rowView.findViewById(R.id.JobTaskDisplay);	
 
 	        rowView.setTag(NoteItemView); 							//for later access
 	    }
 	    NoteItemView = (NoteView) rowView.getTag();
-	    Note currentNote = (Note) NoteObject.get(position); //casts as expense
-	  
-	    //ExpenseItemView.quantity.setText(currentExpense.getQuantity()); //sets the data
-	    //int quantityOfItem = currentExpense.getQuantity(); 				//gets the quantity of the Item
-	    NoteItemView.item = (currentNote.getItem()); 				//gets the item ID
-	    Item itemName = db.getItem(NoteItemView.item); 				// gets data on this Item
+	    Note currentNote = (Note) NoteObject.get(position); //casts as note
 
+	    Job jobObject = db.getJob(currentNote.getJob()); 				// gets data on this Item
 
-	    
-	    NoteItemView.itemName.setText(itemName.getName());			//sets the data
-	    //Log.v("Expenses list", "TotalCost =" + TotalCost  + "~END"); 
-	  
+	    NoteItemView.noteSubject.setText(currentNote.getSubject());			//sets the data
+	    NoteItemView.noteJobTask.setText(jobObject.getClient());			//sets the data
+  
 	    return rowView;
 	}
 
     protected static class NoteView
     {
-        protected TextView itemName;
-        protected int item;
-        protected TextView cost;
-        protected TextView Total_cost;
-        protected TextView quantity;
+        protected TextView noteSubject;
+        protected TextView noteJobTask;
+
     }
 }
 
