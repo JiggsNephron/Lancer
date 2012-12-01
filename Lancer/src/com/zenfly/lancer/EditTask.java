@@ -1,17 +1,21 @@
 package com.zenfly.lancer;
 
 import java.text.DateFormat;
-import java.text.ParseException;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
-import android.view.Menu;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class EditTask extends Activity {
 	
@@ -47,6 +51,10 @@ public class EditTask extends Activity {
 	
 	int done = 0;
 	
+	Task current_task;
+	
+	NumberFormat locale_currency_format;
+	
 	Calendar calendar;
 	Date date_locale; 
 	int year, month, day;
@@ -58,6 +66,8 @@ public class EditTask extends Activity {
         
         calendar = Calendar.getInstance(); 
         db = new DatabaseHandler(context);
+        locale_currency_format = NumberFormat.getCurrencyInstance();
+        
         
         // define the layout elements
         task_name  = (EditText) findViewById(R.id.task_name);
@@ -71,50 +81,89 @@ public class EditTask extends Activity {
         job_id = getIntent().getIntExtra("job_id", 0);
         task_id = getIntent().getIntExtra("task_id", 0);
         
-        // check if there is a task_name in the received intent and put it into the EditText
-        if(getIntent().getStringExtra("task_name") != null) {
-        	sttask_name = getIntent().getStringExtra("task_name");
-        	task_name.setText(sttask_name);
-        }
-        
-        // check if there is a location in the received intent and put it into the EditText       
-        if(getIntent().getIntExtra("location", 0) != 0) {
-        	task_location_id = getIntent().getIntExtra("location", 0);
-        	Location location = db.getLocation(task_location_id);
-        	task_location_box.setText(location.getLocation());
-        }  
-        
-        // check if there is a task_date in the received intent and put it into the EditText
-        if(getIntent().getStringExtra("task_date") != null) {
-        	sttask_date = getIntent().getStringExtra("task_date");
-        	// creates a SimpleDateFormat object with the same template as the user chosen deadline date string
-        	SimpleDateFormat date_formater = new SimpleDateFormat("yyyy/MM/dd");
-        	try {
-        		// creates a date object based on the SimpleDateFormat object
-    			date_locale = date_formater.parse(sttask_date);
-    			// formats the date to a locale friendly string and saves it
-    			stformatted_task_date = DateFormat.getDateInstance().format(date_locale);
-    		} catch (ParseException e) {
-    			stformatted_task_date = "";
-    		}
-        	add_deadline.setText(stformatted_task_date);        
-        }
-        else {
-        	add_deadline.setText(""); // FIXME RC: FOR SK > change here to show something else on the deadline EditText view when first shown
-        }
-        
-        // check if there is a hourly wage in the received intent and put it into the EditText
-        if(getIntent().getStringExtra("hourly_wage") != null) {
-        	sthourly_wage = getIntent().getStringExtra("hourly_wage");
-        	task_hourly_wage.setText(sthourly_wage);        
-        }  
-        
-        
-    }
+        current_task = db.getTask(task_id);
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_edit_task, menu);
-        return true;
+        task_name.setText(current_task.getName());
+        task_location_box.setText((db.getLocation(current_task.getLocation())).getLocation());
+        
+        sttask_date = getIntent().getStringExtra(current_task.getDeadline());
+        
+        SimpleDateFormat date_formater = new SimpleDateFormat("yyyy/MM/dd");
+        date_locale = date_formater.parse(sttask_date);
+        stformatted_task_date = DateFormat.getDateInstance().format(date_locale);
+        
+        add_deadline.setText(stformatted_task_date);
+        
+        task_hourly_wage.setText(locale_currency_format.format(current_task.getWage()));
+        
+        task_email_address.setText(current_task.getEmail());
+        task_phone_number.setText(current_task.getPhone());
+        
     }
+    
+    // Saves the all the chosen entries as a new task
+    public void editTask (View v) {
+    	
+    	Intent back_to_tasksList = new Intent(context, TasksList.class);
+    	
+    	// get the EditText fields and convert the wage to an integer
+    	sttask_name = task_name.getText().toString();
+    	sthourly_wage = task_hourly_wage.getText().toString();    	
+    	sttask_email_address = task_email_address.getText().toString();
+    	sttask_phone_number = task_phone_number.getText().toString();    	
+    	
+    	if (sthourly_wage.equals("")) hourlyWage = 0;
+    	else hourlyWage = Float.parseFloat(sthourly_wage);
+    	
+    	// create a new task using the users preferences and add it to the database
+    	if (!sttask_email_address.equals("")) {
+    		if (checkEmailValid(sttask_email_address)) {
+    			if(!sttask_name.equals(""))	{
+    	    		
+    				
+    	    		
+    	        	db.updateTask(current_task);
+    	        	back_to_tasksList.putExtra("job_id", job_id);
+    		    	startActivity(back_to_tasksList);
+    	    	}
+    	    	else {
+    	    		Toast.makeText(getApplicationContext(), " You must provide a name for your task ", Toast.LENGTH_LONG).show();
+    	    	}
+    			
+    		} else if (!checkEmailValid(sttask_email_address)) {
+    			Toast.makeText(getApplicationContext(), "Please enter a valid email address", Toast.LENGTH_LONG).show();
+    		}    		
+    	} else {    		
+        	if(!sttask_name.equals(""))
+        	{
+        		
+        		
+        		
+        		db.updateTask(current_task);
+            	back_to_tasksList.putExtra("job_id", job_id);
+    	    	startActivity(back_to_tasksList);
+        	}
+        	else {
+        		Toast.makeText(getApplicationContext(), " You must provide a name for your task ", Toast.LENGTH_LONG).show();
+        	}
+    	}
+    }   
+    
+    // method to check if user entered email address is correct format
+    public static boolean checkEmailValid(String email) {
+        
+       	boolean isEmailValid = false;
+
+        String emailcheckstring = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+        CharSequence inputStr = email;
+
+        Pattern pattern = Pattern.compile(emailcheckstring, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(inputStr);
+        
+        if (matcher.matches()) {
+        	isEmailValid = true;
+        }
+        
+        return isEmailValid;
+    }    
 }
