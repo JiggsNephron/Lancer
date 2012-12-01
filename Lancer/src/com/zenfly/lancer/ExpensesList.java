@@ -52,11 +52,8 @@ public class ExpensesList extends ListActivity {
     		intent = new Intent(ExpensesList.this, ViewTask.class);
     		intent.putExtra("task_id", taskId);
     	}
-    	else
-    	{
-    		intent = new Intent(ExpensesList.this, JobsOptions.class);
-    		intent.putExtra("job_id", getIntent().getIntExtra("job_id", 0));
-    	}
+    	else intent = new Intent(ExpensesList.this, JobsOptions.class);
+    	intent.putExtra("job_id", getIntent().getIntExtra("job_id", 0));
 		startActivity(intent);
     }       
         
