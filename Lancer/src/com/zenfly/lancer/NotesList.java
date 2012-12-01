@@ -49,8 +49,13 @@ public class NotesList extends ListActivity {
 	  	Intent intent = new Intent(NotesList.this, ViewNotes.class);
 	  	Log.v("Id is: ", position+" = Note");
 	  	int noteId = note.get(position).getId();
+	  	int taskId = note.get(position).getTask();
+	  	int JobId = note.get(position).getJob();
+	  	
 	  	Log.v("Id is: ", noteId+" = Note");
-	  	intent.putExtra("note", noteId); //sends the note id
+	  	intent.putExtra("note_id", noteId); //sends the note id
+	  	intent.putExtra("task", taskId); //sends the task id
+	  	intent.putExtra("job_id", JobId); //sends the Job id
 	    startActivity(intent);
 	  }
     
