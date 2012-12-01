@@ -5,6 +5,7 @@ import java.util.List;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.Window;
@@ -25,6 +26,7 @@ public class ExpensesList extends ListActivity {
         db = new DatabaseHandler(this.getApplicationContext());
         int jobId = getIntent().getIntExtra("job_id", 0);
         int taskId = getIntent().getIntExtra("task_id", 0);
+        Log.v("Task is ", ""+taskId);
         if(taskId != 0) expense = db.getAllExpensesForTask(taskId);
         else expense = db.getAllExpensesForJob(jobId); //makes a list of jobs to send to the list View
         job = db.getJob(jobId);	
