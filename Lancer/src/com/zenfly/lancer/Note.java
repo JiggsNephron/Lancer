@@ -35,4 +35,9 @@ public class Note
 	{
 		return body;
 	}
+	
+	public void setId(int id)
+	{
+		this.id = id;
+	}
 }
