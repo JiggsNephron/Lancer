@@ -116,5 +116,6 @@
     <string name="hello_world">Hello.... this is Hal. I know what you are up to.</string>
     <string name="title_activity_notes_list">NotesList</string>
     <string name="title_activity_edit_note">EditNote</string>
+    <string name="title_activity_edit_task">Edit Task</string>
 
 </resources>

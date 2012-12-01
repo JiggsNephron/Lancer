@@ -105,7 +105,13 @@
             android:name=".EditNote"
             android:label="@string/title_activity_edit_note"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Dialog" > 
+            android:theme="@android:style/Theme.Dialog" >
+        </activity>
+        <activity
+            android:name=".EditTask"
+            android:label="@string/title_activity_edit_task"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Dialog" >
         </activity>
     </application>
 
