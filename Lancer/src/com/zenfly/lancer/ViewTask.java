@@ -141,7 +141,7 @@ public class ViewTask extends Activity {
 	}
 	
 	
-	public void viewTaskExpense(View v)
+	public void viewTaskExpenses(View v)
 	{
 		Intent ViewExpenses = new Intent(ViewTask.this, ExpensesList.class);
 		ViewExpenses.putExtra("job_id", JobId);
