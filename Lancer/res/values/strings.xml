@@ -88,6 +88,7 @@
     <string name="AddNewNote_note_subject">Note Subject:</string>
     <string name="AddNewNote_note_body">Note Body:</string>
     <string name="AddNewNote_note_to_task">Assign to a Task: (Optional)</string>
+    <string name="ViewNote_button_edit_note">Edit Note</string>
 
     <!-- Layout: Invoices - Strings -->
 
