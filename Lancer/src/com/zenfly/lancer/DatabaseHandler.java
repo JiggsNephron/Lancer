@@ -369,9 +369,10 @@ public class DatabaseHandler extends SQLiteOpenHelper
     public List<Job> getAllJobsByDeadline()
     {
     	List<Job> jobList = new ArrayList<Job>();
+    	boolean found;
     	String selectQuery = "SELECT " + TABLE_JOBS + "." + KEY_ID + ", " + TABLE_JOBS + "." + KEY_CLIENT + ", " + "MIN(" + TABLE_TASKS + "." + KEY_DEADLINE + 
-    			") FROM " + TABLE_JOBS + " JOIN " + TABLE_TASKS + " ON " + TABLE_JOBS + "." + KEY_ID + " = " + TABLE_TASKS + "." + KEY_JOB + " GROUP BY " + TABLE_JOBS + 
-    			"." + KEY_ID + " ORDER BY " + TABLE_TASKS + "." + KEY_DEADLINE + " ASC";
+    			") FROM " + TABLE_JOBS + " JOIN " + TABLE_TASKS + " ON " + TABLE_JOBS + "." + KEY_ID + " = " + TABLE_TASKS + "." + KEY_JOB + " WHERE " + TABLE_TASKS + "." + KEY_DONE + "=" + 0 + " AND " + TABLE_TASKS + "." + KEY_DEADLINE + "<> ''" +
+    			"GROUP BY " + TABLE_JOBS + "." + KEY_ID + " ORDER BY " + TABLE_TASKS + "." + KEY_DEADLINE + " ASC";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor.moveToFirst())
@@ -381,6 +382,19 @@ public class DatabaseHandler extends SQLiteOpenHelper
             	Job job = new Job(cursor.getString(1)); //creates a new job for each one returned by the database
             	job.setId(cursor.getInt(0));
                 jobList.add(job); //adds new job to the list
+            } while (cursor.moveToNext()); //loop continues while there are results
+        }
+        selectQuery = "SELECT " + TABLE_JOBS + "." + KEY_ID + ", " + TABLE_JOBS + "." + KEY_CLIENT + " FROM " + TABLE_JOBS + " JOIN " + TABLE_TASKS + " ON " + TABLE_JOBS + "." + KEY_ID + " = " + TABLE_TASKS + "." + KEY_JOB + " WHERE " + TABLE_TASKS + "." + KEY_DONE + "=" + 1;
+        cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst())
+        {
+            do
+            {
+            	found = false;
+            	Job job = new Job(cursor.getString(1)); //creates a new job for each one returned by the database
+            	job.setId(cursor.getInt(0));
+            	for(Job listJob:jobList) if(listJob.getId() == job.getId()) found = true;
+            	if(!found)jobList.add(job); //adds new job to the list
             } while (cursor.moveToNext()); //loop continues while there are results
         }
         db.close();
