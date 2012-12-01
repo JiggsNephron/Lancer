@@ -27,7 +27,7 @@
     <string name="button_add_new_location">+ Location</string>
     <string name="button_add_new_item">+ Item</string>
     <string name="button_add_new_expense">+ Expense</string>
-    <string name="button_add_new_note">+ Note</string>    
+    <string name="button_add_new_note">+ Note</string>
     <string name="button_save">Save</string>
     <string name="button_add_task_deadline">+ Deadline</string>
     <string name="button_delete_task">Delete Task</string>
@@ -112,5 +112,6 @@
     <string name="welcome_text2">You can call it whatever you like, it is a simple aid to help you remember which job is which.</string>
     <string name="hello_world">Hello.... this is Hal. I know what you are up to.</string>
     <string name="title_activity_notes_list">NotesList</string>
+    <string name="title_activity_edit_note">EditNote</string>
 
 </resources>

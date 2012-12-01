@@ -7,6 +7,7 @@
     <uses-sdk
         android:minSdkVersion="7"
         android:targetSdkVersion="15" />
+
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
@@ -14,6 +15,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <receiver android:name=".NotificationTimer" />
+
         <activity
             android:name="com.zenfly.lancer.JobsList"
             android:label="@string/title_activity_jobs_list"
@@ -68,7 +70,6 @@
             android:name="com.zenfly.lancer.ViewTask"
             android:label="@string/title_activity_view_task"
             android:screenOrientation="portrait" >
-            
         </activity>
         <activity
             android:name="com.zenfly.lancer.ViewExpenses"
@@ -99,6 +100,15 @@
             android:name=".NotesList"
             android:label="@string/title_activity_notes_list"
             android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".EditNote"
+            android:label="@string/title_activity_edit_note" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 
