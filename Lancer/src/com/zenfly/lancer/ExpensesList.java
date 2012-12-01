@@ -46,18 +46,18 @@ public class ExpensesList extends ListActivity {
     
     @Override
     public void onBackPressed() {
+    	Intent intent;
     	if(taskId != 0)
     	{
-    		Intent intent = new Intent(ExpensesList.this, ViewTask.class);
+    		intent = new Intent(ExpensesList.this, ViewTask.class);
     		intent.putExtra("task_id", taskId);
-    		startActivity(intent);
     	}
     	else
     	{
-    		Intent intent = new Intent(ExpensesList.this, JobsOptions.class);
+    		intent = new Intent(ExpensesList.this, JobsOptions.class);
     		intent.putExtra("job_id", getIntent().getIntExtra("job_id", 0));
-    		startActivity(intent);
     	}
+		startActivity(intent);
     }       
         
     
