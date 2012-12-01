@@ -48,6 +48,7 @@ public class JobsOptions extends Activity  {
     @Override
     public void onBackPressed() {
     	Intent intent = new Intent(JobsOptions.this, JobsList.class);
+    	intent.putExtra("splash_screen", 1);
     	startActivity(intent);
     	return;
     }  

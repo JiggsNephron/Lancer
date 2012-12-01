@@ -13,6 +13,7 @@ import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.ListView;
 import android.widget.Toast;
 //import android.view.MenuItem;
@@ -29,24 +30,25 @@ public class JobsList extends ListActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
        
-        // this.requestWindowFeature(Window.FEATURE_NO_TITLE); // RC: this removed the black bar at the top of activities. 
-        
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE); // RC: this removed the black bar at the top of activities. 
+   
         //Splash Code Start
         MyStateSaver data = (MyStateSaver) getLastNonConfigurationInstance(); // Method checks if app is still loading
 	    if (data != null) {
 	    	if (data.showSplashScreen) {
-	            showSplashScreen();
+	    		if (getIntent().getIntExtra("splash_screen", 0) != 1) showSplashScreen();
 	        }
 	    	setContentView(R.layout.activity_jobs_list);
-	    	} else {
-	        showSplashScreen();
-	        setContentView(R.layout.activity_jobs_list);
-	        //Splash Code end
+	    } else {
+	    	if (getIntent().getIntExtra("splash_screen", 0) != 1) showSplashScreen();
+	    //Splash Code end
 	        
-	        String order;
-	        prefs = getSharedPreferences("com.zenfly.lancer",0);
-	        db = new DatabaseHandler(this.getApplicationContext());;
-	        if(db.getJobCount() == 0)
+	    setContentView(R.layout.activity_jobs_list);	    
+	        
+	    String order;
+	    prefs = getSharedPreferences("com.zenfly.lancer",0);
+	    db = new DatabaseHandler(this.getApplicationContext());;
+	    if(db.getJobCount() == 0)
 	        {
 	        	Intent intent = new Intent(JobsList.this, AddNewJob.class);
 	        	Toast.makeText(getApplicationContext(), "You have no current jobs. Please add one", Toast.LENGTH_LONG).show();
@@ -59,9 +61,8 @@ public class JobsList extends ListActivity {
 	        else if(order.equals("alphaDesc"))jobs = db.getAllJobsByAlphaDesc();
 	        
 	        setListAdapter(new JobsAdapter(this, jobs)); //starts the list View
-	        
-	    	}
-		}
+	    }
+    }
 	 
 
     @Override
@@ -70,7 +71,7 @@ public class JobsList extends ListActivity {
         return true;
     }
     
-    // Done by RC: Makes sure that back always exits, but only on 2nd press in case user didnt mean to exit
+    // RC: Makes sure that back always exits, but only on 2nd press in case user didnt mean to exit
     @Override
     public void onBackPressed() {
     	
