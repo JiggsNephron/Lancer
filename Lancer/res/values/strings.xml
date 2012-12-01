@@ -44,7 +44,7 @@
     <!-- Layout: Tasks - Strings -->
 
     <string name="tasks">Tasks</string>
-    <string name="due_date">Due Date:</string>
+    <string name="due_date">Due:</string>
     <string name="AddNewTask_task_name_title">Task Name:</string>
     <string name="AddNewTask_task_deadline_title">Task Deadline: (Optional)</string>
     <string name="AddNewTask_task_notes_title">Task Notes: (Optional)</string>
