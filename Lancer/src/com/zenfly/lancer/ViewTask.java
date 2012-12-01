@@ -38,22 +38,18 @@ public class ViewTask extends Activity {
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE); // RC: this removed the black bar at the top of activities.
 		setContentView(R.layout.activity_view_task);
-	
 		
 		db = new DatabaseHandler(this);
 		TaskId = getIntent().getExtras().getInt("task"); 				// gets the task ID from the intent
 		JobId = getIntent().getExtras().getInt("job_id");				// gets the Job  ID from the intent
-		task  =  db.getTask(TaskId);									// gets the Task object from the database
+		task =  db.getTask(TaskId);									// gets the Task object from the database
 		job = db.getJob(JobId);											// gets the Job  object form the database
 		
 		String taskName = task.getName();								//extracts the name from Object
 		String JobName = job.getClient();								//extracts the name from Object
 		String taskLocation = "";
 		String taskDeadline = task.getDeadline();						//extracts the due Date from Object		
-		if((taskDeadline.equals("")) || (taskDeadline == null))	
-			taskDeadline = ""; 											// if no deadline, sets as empty string
-		
-		
+		if((taskDeadline.equals("")) || (taskDeadline == null))	taskDeadline = ""; 											// if no deadline, sets as empty string	
 		
 		int taskLocationID = task.getLocation();
 		
@@ -66,7 +62,6 @@ public class ViewTask extends Activity {
 		JobNameTitle.setText(JobName);									// sets the text view this data will always be set
 		TaskNameTitle.setText("View Task");								// sets the text view this data will always be set
 		displayName.setText(taskName);									// sets the text view this data will always be set
-		
 		
 		if(taskLocationID == 0)											// if no location set display "No Location Set"
 		{

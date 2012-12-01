@@ -90,6 +90,8 @@
     <string name="AddNewNote_note_body">Note Body:</string>
     <string name="AddNewNote_note_to_task">Assign to a Task: (Optional)</string>
     <string name="ViewNote_button_edit_note">Edit Note</string>
+    <string name="EditNote_button_save_update">Update</string>
+    <string name="EditNote_button_delete_note">Delete</string>
 
     <!-- Layout: Invoices - Strings -->
 
