@@ -103,12 +103,11 @@ public class EditNote extends Activity {
     	
     	// if the body and subject are populated, the note is saved with the changes
     	// if not, a toast is shown to inform the user
-    	if (!stnote_body.equals("") || !stnote_subject.equals("")) {
+    	if (!stnote_body.equals("") && !stnote_subject.equals("")) {
     		
     		current_note.setBody(stnote_body);
     		current_note.setSubject(stnote_subject);
     		current_note.setTask(task_id);
-    		
     		
     		db.updateNote(current_note);
     		
