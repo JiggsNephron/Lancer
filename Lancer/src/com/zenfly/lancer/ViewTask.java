@@ -153,7 +153,7 @@ public class ViewTask extends Activity {
 	
 	public void callPerson (View v)
 	{
-		if(task.getPhone() != 0)
+		if(!task.getPhone().equals(""))
 		{
 			Intent intent = new Intent(Intent.ACTION_CALL);
 			intent.setData(Uri.parse("tel:" + task.getPhone()));

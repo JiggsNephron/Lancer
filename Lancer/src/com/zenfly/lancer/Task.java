@@ -12,11 +12,11 @@ public class Task
 	private int hoursWorked;
 	private float hourlyWage;
 	private String email;
-	private int phone;
+	private String phone;
 	private int done;
 	private boolean alarm;
 
-	public Task(String name, int job, String deadline, int location, float wage, int hours, int done)
+	public Task(String name, int job, String deadline, int location, float wage, String phone, String email, int hours, int done)
 	{
 		Log.v("Deadline = ", deadline);
 		this.name = name;
@@ -24,6 +24,8 @@ public class Task
 		this.deadline = deadline;
 		this.location = location;
 		this.hourlyWage = wage;
+		this.phone = phone;
+		this.email = email;
 		this.hoursWorked = hours;
 		this.done = done;
 	}
@@ -68,7 +70,7 @@ public class Task
 		return email;
 	}
 	
-	public int getPhone()
+	public String getPhone()
 	{
 		return phone;
 	}
