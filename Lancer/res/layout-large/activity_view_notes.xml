@@ -2,13 +2,140 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ViewNotes" >
+    android:background="@color/white" >
+
+    <!-- Navigation -->
+
+    <View
+        android:id="@+id/nav_list_bg"
+        android:layout_width="fill_parent"
+        android:layout_height="55dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
+        android:background="@color/lancer_blue" />
 
     <TextView
+        android:id="@+id/jobs_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="15dp"
+        android:onClick=""
+        android:text="@string/jobs"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/white"
+        android:textSize="20dp" /> <!-- To Jobs List -->
+
+    <TextView
+        android:id="@+id/arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="12dp"
+        android:layout_toRightOf="@+id/jobs_list"
+        android:text="@string/arrow"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/white"
+        android:textSize="25dp" />
+
+    <TextView
+        android:id="@+id/job_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_toRightOf="@+id/arrow"
+        android:onClick=""
+        android:text="@string/job"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/white"
+        android:textSize="20dp" /> <!-- To Job Options List -->
+
+    <TextView
+        android:id="@+id/arrow2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="12dp"
+        android:layout_toRightOf="@+id/job_name"
+        android:text="@string/arrow"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/white"
+        android:textSize="25dp" /> <!-- To Expenses List -->
+
+    <TextView
+        android:id="@+id/job_option"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_toRightOf="@+id/arrow2"
+        android:onClick=""
+        android:text="@string/notes"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/white"
+        android:textSize="20dp" /> <!-- To Tasks List -->
+
+
+    <!-- View Expense Content -->
+
+
+    <TextView
+        android:id="@+id/NoteItemDisplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/nav_list_bg"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="20dp"
+        android:text="Assembly Instructions"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/lancer_blue"
+        android:textSize="25dp" />
+
+    <View
+        android:id="@+id/separator"
+        android:layout_width="fill_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@+id/NoteItemDisplay"
         android:layout_centerVertical="true"
-        android:text="@string/hello_world" />
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/lancer_blue" />
+
+    <TextView
+        android:id="@+id/NoteText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/separator"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="25dp"
+        android:textStyle="italic"
+        android:text="blah blah blah blah blah blah blah"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/lancer_blue"
+        android:textSize="20dp" />
+
+  
+    <Button
+        android:id="@+id/button_edit_note"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:onClick="editExpense"
+        android:text="@string/ViewNote_button_edit_note"
+        android:background="@color/lancer_blue"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:textColor="@color/white"
+        android:textSize="25dp" />
 
 </RelativeLayout>

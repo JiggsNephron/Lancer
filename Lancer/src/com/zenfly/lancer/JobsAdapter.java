@@ -38,7 +38,7 @@ public class JobsAdapter extends ArrayAdapter<Job>
 	    	//creates new instance of row layout view
 	        LayoutInflater inflater = activity.getLayoutInflater();
 	        rowView = inflater.inflate(R.layout.job_item, null);
-	        jobsItemView = new jobsView(); //for holding the data
+	        jobsItemView = new jobsView(); //for holding the job
 	        jobsItemView.name = (TextView) rowView.findViewById(R.id.JobNameDisplay); 
 	        jobsItemView.location = (TextView) rowView.findViewById(R.id.JobLocationDisplay);
 	        jobsItemView.date = (TextView) rowView.findViewById(R.id.JobDateDisplay);
@@ -55,26 +55,27 @@ public class JobsAdapter extends ArrayAdapter<Job>
 		    	int percent = db.getPercentDone(currentJob.getId());
 		    	jobsItemView.percentage.setText(percent+"%");
 		    	int tempLocation = tempTask.getLocation();								// finds the location in the data base we are looking for
-		    	if(tempLocation != 0){
+		    	if(tempLocation != 0) //if there is a location
+		    	{
 			    	Location a  = db.getLocation(tempLocation); 						// extracts the location from the database
-			    	//String b = "temp";//a.getLocation(); 								// puts the location into a string
 			    	String b = a.getLocation(); 										// puts the location into a string	
-			    	jobsItemView.location.setText(b);								   //sets the data
+			    	jobsItemView.location.setText(b);								   //sets the location
 		    	}
-		    	String tempDate = tempTask.getDeadline();// just returns the raw date string
+		    	String tempDate = tempTask.getDeadline(); //just returns the deadline
 		    	tempDate = tempDate.trim();
 		    	
-		    	if((tempDate != null) && (tempDate != ""))
+		    	if((tempDate != null) && (tempDate != "")) //if there is a deadline and it isn't blank
 		    	{
 			    	jobsItemView.date.setText(tempDate);								//sets the data
 		    	}
-		    	else
+		    	else //if there is no deadline
 		    	{
 		    		jobsItemView.name.setText("No task has a Deadline");
 		    		
 		    	}
-		    	if(percent == 100)
+		    	if(percent == 100) //if all tasks are complete
 		    	{
+		    		//grey out all text and cross out all except for percentage and done
 		    		jobsItemView.name.setTextColor(Color.GRAY);
 			    	jobsItemView.name.setPaintFlags(jobsItemView.name.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 			    	jobsItemView.date.setTextColor(Color.GRAY);
@@ -85,7 +86,7 @@ public class JobsAdapter extends ArrayAdapter<Job>
 					jobsItemView.done.setTextColor(Color.GRAY);
 		    	}
 	    	}
-	    	else																		// if there is no job run the code here
+	    	else //if the job has no tasks
 	    	{
 	    		jobsItemView.location.setText("");										// sets the location
 	    		jobsItemView.date.setText("");											// sets the date
