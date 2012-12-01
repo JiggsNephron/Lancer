@@ -613,6 +613,27 @@ public class DatabaseHandler extends SQLiteOpenHelper
         db.close();
         return success;
     }
+    
+    public boolean updateNote(Note note) 
+    {
+    	boolean success = true;
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(KEY_JOB, note.getJob());
+        values.put(KEY_TASK, note.getTask());
+        values.put(KEY_SUBJECT, note.getSubject());
+        values.put(KEY_BODY, note.getBody());   
+        try
+        {
+        	db.update(TABLE_JOBS, values, KEY_ID + "=?", new String[] { Integer.toString(note.getId())});
+        }
+        catch(Exception e)
+        {
+        	success = false; //in case the job conflicts with an already present job
+        }
+        db.close();
+        return success;
+    }
 
     //methods to delete specified database items (such as a job, a task, a location, etc)
     public void deleteJob(int id)
