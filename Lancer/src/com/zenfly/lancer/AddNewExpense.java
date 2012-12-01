@@ -17,6 +17,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.SparseIntArray;
 import android.view.View;
 import android.view.Window;
 import android.widget.ArrayAdapter;
@@ -44,7 +45,10 @@ public class AddNewExpense extends Activity {
 	int job_id;
 	int item_id;
 	int task_id;
-	int spinner_position;
+	
+	int counter = 0;
+	int set_spinner_to = 0;
+	SparseIntArray spinnerandtaskMap;
 	
 	Task chosen_task;
 	Item item;
@@ -62,14 +66,16 @@ public class AddNewExpense extends Activity {
         
         // get intent content 
         job_id = getIntent().getIntExtra("job_id", 0);					// The ID of the Job this expense is being added under
-        spinner_position = getIntent().getIntExtra("task_spinner", 0);  // The spinner position (to restore it to the user's choice after choosing an item)
         intitem_amount = getIntent().getIntExtra("item_amount", 0);
+        task_id = getIntent().getIntExtra("task_id", 0);
               
         // Get the view elements
         et_item_choice  = (EditText) findViewById(R.id.button_choose_item);
         et_item_amount  = (EditText)findViewById(R.id.edittext_number_of_items);
         et_item_total = (EditText)findViewById(R.id.edittext_total_cost_of_items);
         sp_assign_to_task  = (Spinner)findViewById(R.id.expense_to_task);
+        
+        spinnerandtaskMap = new SparseIntArray();
         
         // get a list of all tasks to be used for populating the spinner
         all_tasks = db.getAllTasksForJob(job_id);
@@ -78,14 +84,20 @@ public class AddNewExpense extends Activity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // add one default task choice (no task chosen)
         adapter.add("Not assigned to a task");
+        spinnerandtaskMap.put(counter, 0);
         // go through the list of tasks, and for each one, get its name and add it to the adapter array
         for (Task task: all_tasks) {
+        	counter++;
+        	spinnerandtaskMap.put(counter, task.getId());
         	adapter.add(task.getName());
+        	if (task.getId() == task_id) {
+        		set_spinner_to = counter;
+        	}
         }      
         // set the spinner to use the array contents       
         sp_assign_to_task.setAdapter(adapter);
-        // set the spinner to the position it was at before choosing an item
-        sp_assign_to_task.setSelection(spinner_position, true);
+        // set the spinner to the position of the already set task
+        sp_assign_to_task.setSelection(set_spinner_to);
         
         // set the Quantity EditText to show the intent amount
         if(getIntent().getIntExtra("item_amount", 0) != 0) {
@@ -170,11 +182,7 @@ public class AddNewExpense extends Activity {
     	Intent back_to_expensesList = new Intent(context, ExpensesList.class);
 
     	// get the ID of the task chosen by the user in the spinner by spinner's position
-    	// if no task was chosen, 0 is used
-    	if ((sp_assign_to_task.getSelectedItemPosition()-1) >= 1) {
-    		chosen_task = all_tasks.get(sp_assign_to_task.getSelectedItemPosition()-1);
-    		task_id = chosen_task.getId();
-    	} else task_id = 0;
+    	task_id = spinnerandtaskMap.get(sp_assign_to_task.getSelectedItemPosition());
     	
     	// get the quantity of items as a string and convert it to an integer
     	stitem_amount = et_item_amount.getText().toString();
@@ -212,6 +220,7 @@ public class AddNewExpense extends Activity {
     public void onBackPressed() {
     	Intent back_to_expensesList = new Intent(AddNewExpense.this, ExpensesList.class);
     	back_to_expensesList.putExtra("job_id", job_id);
+    	back_to_expensesList.putExtra("task_id", task_id);
     	startActivity(back_to_expensesList);
     	return;
     }       

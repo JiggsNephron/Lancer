@@ -56,6 +56,7 @@ public class AddNewNote extends Activity {
         
         // get job id from the passed intent
         job_id = getIntent().getIntExtra("job_id", 0);
+        task_id = getIntent().getIntExtra("task_id", 0);
         
         // assign each widget in the view to a variable
         et_note_subject  = (EditText) findViewById(R.id.note_subject);
@@ -117,6 +118,7 @@ public class AddNewNote extends Activity {
     public void onBackPressed() {
     	Intent intent = new Intent(AddNewNote.this, NotesList.class);
     	intent.putExtra("job_id", job_id);
+    	intent.putExtra("task_id", getIntent().getIntExtra("task_id", 0));
     	startActivity(intent);
     	return;
     }       
