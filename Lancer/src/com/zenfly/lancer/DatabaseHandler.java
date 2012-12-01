@@ -624,7 +624,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
         values.put(KEY_BODY, note.getBody());   
         try
         {
-        	db.update(TABLE_JOBS, values, KEY_ID + "=?", new String[] { Integer.toString(note.getId())});
+        	db.update(TABLE_NOTES, values, KEY_ID + "=?", new String[] { Integer.toString(note.getId())});
         }
         catch(Exception e)
         {
