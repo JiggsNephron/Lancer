@@ -12,7 +12,9 @@ import java.util.HashMap;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.SparseIntArray;
@@ -131,11 +133,31 @@ public class EditNote extends Activity {
     
     public void deleteNote (View v) {
     	
-    	Intent back_to_note = new Intent(context, NotesList.class);
-    	db.deleteNote(note_id);
-    	back_to_note.putExtra("job_id", job_id);
-    	startActivity(back_to_note);
-    	
+    	// confirms the action with the Alert Dialog
+    	final AlertDialog.Builder builder=new AlertDialog.Builder(EditNote.this);
+    	builder.setTitle("Delete " + current_note.getSubject());
+    	builder.setMessage("Are you sure you want to delete this Note?");
+    			
+    	builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+    		
+    		public void onClick(DialogInterface dialog, int id)
+    			{
+    					db.deleteNote(note_id);
+    	    			Toast.makeText(getApplicationContext(), "Deleted " + current_note.getSubject(), Toast.LENGTH_LONG).show();
+    	    			Intent back_to_note = new Intent(context, NotesList.class);
+    	    			back_to_note.putExtra("job_id", job_id);
+    	    	    	startActivity(back_to_note);
+    			}
+    	});
+    	      
+    	builder.setNegativeButton("No", new DialogInterface.OnClickListener()
+    		{
+    			public void onClick(DialogInterface dialog, int id)
+    			{
+    	 	   	     dialog.cancel();
+    			}
+    	});    	      
+    	builder.create().show();
     }
 
 }
