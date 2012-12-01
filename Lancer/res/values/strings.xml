@@ -77,7 +77,7 @@
     <string name="item_name_title">Item name:</string>
     <string name="item_cost_title">Item cost: (per item)</string>
     <string name="ViewExpense_cost_title">Cost:</string>
-    <string name="ViewExpense_quantity_title">Cost:</string>
+    <string name="ViewExpense_quantity_title">Quantity:</string>
     <string name="ViewExpense_task_title">Assigned to Task:</string>
     <string name="ViewExpense_button_edit_expense">Edit Expense</string>
     <string name="ExpensesList_total_expenses">Expenses Total:</string>
