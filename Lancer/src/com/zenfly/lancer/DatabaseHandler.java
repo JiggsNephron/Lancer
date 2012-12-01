@@ -66,8 +66,8 @@ public class DatabaseHandler extends SQLiteOpenHelper
 	                + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_NAME 
 	                + " TEXT," + KEY_JOB + " INTEGER," 
 	                + KEY_DEADLINE + " TEXT," + KEY_LOCATION + " INTEGER, " +
-	                KEY_DONE + " INTEGER, " + KEY_HOURLY_WAGE + " REAL, " + 
-	                KEY_HOURS_WORKED + " INTEGER, " + KEY_ALARM + " INTEGER" +
+	                KEY_DONE + " INTEGER, " + KEY_HOURLY_WAGE + " REAL, " + KEY_PHONE + " TEXT, "
+	                + KEY_EMAIL + " TEXT, " + KEY_HOURS_WORKED + " INTEGER, " + KEY_ALARM + " INTEGER" +
                 ")";
         String CREATE_NOTES_TABLE = 
         		"CREATE TABLE " + TABLE_NOTES + 
