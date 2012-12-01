@@ -41,10 +41,13 @@ public class EditNote extends Activity {
         
         db = new DatabaseHandler(context);
         
-        // get job id from the passed intent
-        job_id = getIntent().getIntExtra("job_id", 0);
-        task_id = getIntent().getIntExtra("task_id", 0); 
+        // get note id from the passed intent
         note_id = getIntent().getIntExtra("note_id", 0);
+        
+        current_note = db.getNote(note_id);
+        
+        job_id = current_note.getJob();
+        task_id = current_note.getTask();
         
         // assign each widget in the view to a variable
         et_note_subject  = (EditText) findViewById(R.id.note_subject);
@@ -68,7 +71,7 @@ public class EditNote extends Activity {
     
     public void saveNoteEdits (View v) {
     	Intent back_to_note = new Intent(context, ViewNotes.class);
-    	
+    	back_to_note.putExtra("job_id", job_id);
     	startActivity(back_to_note);
     }
     public void deleteNote (View v) {
