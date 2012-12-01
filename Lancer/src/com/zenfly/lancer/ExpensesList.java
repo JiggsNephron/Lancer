@@ -16,6 +16,7 @@ public class ExpensesList extends ListActivity {
 	
 	public DatabaseHandler db;
 	Job job;
+	int taskId;
 	List<Expense> expense = new ArrayList<Expense>();
 
     @Override
@@ -25,7 +26,7 @@ public class ExpensesList extends ListActivity {
         setContentView(R.layout.activity_expenses_list);
         db = new DatabaseHandler(this.getApplicationContext());
         int jobId = getIntent().getIntExtra("job_id", 0);
-        int taskId = getIntent().getIntExtra("task_id", 0);
+        taskId = getIntent().getIntExtra("task_id", 0);
         Log.v("Task is ", ""+taskId);
         if(taskId != 0) expense = db.getAllExpensesForTask(taskId);
         else expense = db.getAllExpensesForJob(jobId); //makes a list of jobs to send to the list View
@@ -45,10 +46,18 @@ public class ExpensesList extends ListActivity {
     
     @Override
     public void onBackPressed() {
-    	Intent intent = new Intent(ExpensesList.this, JobsOptions.class);
-    	intent.putExtra("job_id", getIntent().getIntExtra("job_id", 0));
-    	startActivity(intent);
-    	return;
+    	if(taskId != 0)
+    	{
+    		Intent intent = new Intent(ExpensesList.this, ViewTask.class);
+    		intent.putExtra("task_id", taskId);
+    		startActivity(intent);
+    	}
+    	else
+    	{
+    		Intent intent = new Intent(ExpensesList.this, JobsOptions.class);
+    		intent.putExtra("job_id", getIntent().getIntExtra("job_id", 0));
+    		startActivity(intent);
+    	}
     }       
         
     
