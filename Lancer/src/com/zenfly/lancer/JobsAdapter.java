@@ -91,6 +91,7 @@ public class JobsAdapter extends ArrayAdapter<Job>
 	    		jobsItemView.location.setText("");										// sets the location
 	    		jobsItemView.date.setText("");											// sets the date
 	    		jobsItemView.percentage.setText("");
+	    		jobsItemView.done.setText("");
 	    	}
 	    	jobsItemView.name.setText(currentJob.getClient()); 							//sets the Name 
 	    }
