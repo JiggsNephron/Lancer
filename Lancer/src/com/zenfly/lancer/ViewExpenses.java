@@ -54,8 +54,6 @@ public class ViewExpenses extends Activity {
 		String QuantityString = Integer.toString(Quantity);
 		String PriceString = String.valueOf(ItemPrice);
 		String TotalCostString = String.valueOf(TotalCost);
-		
-		
 
 		TextView JobNameTitle = (TextView) findViewById(R.id.job_name);			//prepares to access textView
 		TextView TaskNameTitle = (TextView) findViewById(R.id.job_option);		//prepares to access textView	
@@ -83,16 +81,13 @@ public class ViewExpenses extends Activity {
 		getMenuInflater().inflate(R.menu.activity_view_expenses, menu);
 		return true;
 	}
-	
-	
-	
+
 	public void deleteExpense(View v)
 	{
 		// confirms the action with the Alert Dialog
 		final AlertDialog.Builder builder=new AlertDialog.Builder(ViewExpenses.this);
 		builder.setTitle("Delete " + task.getName());
 		builder.setMessage("Are you sure you want to delete this Expense");
-		
 		builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() 
 		{
 			public void onClick(DialogInterface dialog, int id)
@@ -104,7 +99,6 @@ public class ViewExpenses extends Activity {
     			startActivity(intent);
 			}
 		});
-      
 		builder.setNegativeButton("No", new DialogInterface.OnClickListener()
 		{
 			public void onClick(DialogInterface dialog, int id)
@@ -112,8 +106,6 @@ public class ViewExpenses extends Activity {
  	   	      dialog.cancel();
 			}
 		});
-      
 		builder.create().show();
 	}
-
 }
