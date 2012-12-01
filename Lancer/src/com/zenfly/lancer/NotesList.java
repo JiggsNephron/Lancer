@@ -69,10 +69,19 @@ public class NotesList extends ListActivity {
     
     @Override
     public void onBackPressed() {
-    	Intent intent = new Intent(NotesList.this, JobsOptions.class);
-    	intent.putExtra("job_id", getIntent().getIntExtra("job_id", 0));
-    	startActivity(intent);
+    	
+    	if (task_id != 0) {
+    		Intent intent = new Intent(NotesList.this, ViewTask.class);
+    		intent.putExtra("job_id", getIntent().getIntExtra("job_id", 0));
+    		intent.putExtra("task", task_id);
+    		startActivity(intent);
+    	} else {
+    		Intent intent = new Intent(NotesList.this, JobsOptions.class);
+        	intent.putExtra("job_id", getIntent().getIntExtra("job_id", 0));
+        	startActivity(intent);
+    	}    	
     	return;
+    	
     }    
 
     @Override

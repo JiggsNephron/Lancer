@@ -235,6 +235,16 @@ public class ViewTask extends Activity {
 		//}
 	}
 	
+    @Override
+    public void onBackPressed() {
+    	
+    	Intent intent = new Intent(ViewTask.this, TasksList.class);
+    	intent.putExtra("job_id", getIntent().getIntExtra("job_id", 0));
+    	startActivity(intent);    	
+    	return;
+    	
+    }    
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
