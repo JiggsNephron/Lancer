@@ -130,7 +130,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:onClick="editExpense"
+        android:onClick="editNote"
         android:text="@string/ViewNote_button_edit_note"
         android:background="@color/lancer_blue"
         android:paddingTop="10dp"
