@@ -14,9 +14,9 @@ public class Task
 	private String email;
 	private String phone;
 	private int done;
-	private boolean alarm;
+	private int alarm;
 
-	public Task(String name, int job, String deadline, int location, float wage, String phone, String email, int hours, int done)
+	public Task(String name, int job, String deadline, int location, float wage, String phone, String email, int hours, int done, int alarm)
 	{
 		Log.v("Deadline = ", deadline);
 		this.name = name;
@@ -28,6 +28,7 @@ public class Task
 		this.email = email;
 		this.hoursWorked = hours;
 		this.done = done;
+		this.alarm = alarm;
 	}
 	
 	public int getId()
@@ -80,7 +81,7 @@ public class Task
 		return done;
 	}
 	
-	public boolean hasAlarm()
+	public int hasAlarm()
 	{
 		return alarm;
 	}
@@ -90,14 +91,13 @@ public class Task
 		this.id = id;
 	}
 	
-	public void setAlarm(boolean alarm)
+	public void setAlarm(int alarm)
 	{
 		this.alarm = alarm;
 	}
 	
 	public int getAlarm()
 	{
-		if(hasAlarm()) return 1;
-		return 0;
+		return alarm;
 	}
 }
