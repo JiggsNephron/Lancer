@@ -16,6 +16,7 @@ public class ViewExpenses extends Activity {
 	
 	int expenseId;
 	int jobId;
+	int taskId;
 	private DatabaseHandler db;
 	Expense expense;
 	Item item;
@@ -34,7 +35,7 @@ public class ViewExpenses extends Activity {
 		expense   =  db.getExpense(expenseId);								// gets the Task object from the database
 		item      =  db.getItem(expense.getItem());
 		
-		int TaskId    =  expense.getTask();
+		taskId    =  expense.getTask();
 		job = db.getJob(jobId);	
         String JobName = job.getClient();
 		String linkedTask = "";
@@ -43,9 +44,9 @@ public class ViewExpenses extends Activity {
 		int Quantity = expense.getQuantity();
 		
 		Log.v("View Expenses", "expense.getTask() =" + expense.getTask() + "~END");
-		if(TaskId != 0)
+		if(taskId != 0)
 		{
-			task     =  db.getTask(TaskId);  //optional 
+			task     =  db.getTask(taskId);  //optional 
 			linkedTask = task.getName();
 		}
 		
@@ -108,4 +109,12 @@ public class ViewExpenses extends Activity {
 		});
 		builder.create().show();
 	}
+	
+	@Override
+    public void onBackPressed() {
+    	Intent intent = new Intent(ViewExpenses.this, ExpensesList.class);
+    	intent.putExtra("task_id", taskId);
+    	intent.putExtra("job_id", getIntent().getIntExtra("job_id", 0));
+		startActivity(intent);
+    } 
 }

@@ -36,8 +36,7 @@ public class ExpensesList extends ListActivity {
 		JobNameTitle.setText(JobName);									// sets the text view this data will always be set
         setListAdapter(new ExpensesAdapter(this, expense)); //starts the list View
     }
-
-    
+  
     public void addNewExpense(View v) {
        	Intent intent = new Intent(ExpensesList.this, AddNewExpense.class);
        	intent.putExtra("job_id", getIntent().getIntExtra("job_id", 0));
@@ -47,17 +46,16 @@ public class ExpensesList extends ListActivity {
     @Override
     public void onBackPressed() {
     	Intent intent;
-    	if(taskId != 0)
+    	if(getIntent().getIntExtra("task_id", 0) != 0)
     	{
     		intent = new Intent(ExpensesList.this, ViewTask.class);
-    		intent.putExtra("task_id", taskId);
+    		intent.putExtra("task", getIntent().getIntExtra("task_id", 0));
     	}
     	else intent = new Intent(ExpensesList.this, JobsOptions.class);
     	intent.putExtra("job_id", getIntent().getIntExtra("job_id", 0));
 		startActivity(intent);
     }       
         
-    
 	@Override
 	  public void onListItemClick(ListView parent, View v, int position, long id)
 	  {	 
