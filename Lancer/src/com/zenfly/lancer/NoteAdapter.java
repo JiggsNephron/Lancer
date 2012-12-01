@@ -4,6 +4,7 @@ package com.zenfly.lancer;
 import java.util.List;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +23,7 @@ public class NoteAdapter extends ArrayAdapter<Note> {
 	  
 	public NoteAdapter(Activity activity, List<Note> objects) 
 	{
-		super(activity, R.layout.activity_expenses_list , objects);
+		super(activity, R.layout.activity_notes_list , objects);
 	    this.activity = activity;
 	    this.NoteObject = objects;
 	    db = new DatabaseHandler(this.getContext());
@@ -40,21 +41,25 @@ public class NoteAdapter extends ArrayAdapter<Note> {
 	    	//Log.v("Expenses list", "test 5  ~END");
 	    	//creates new instance of row layout view
 	        LayoutInflater inflater = activity.getLayoutInflater();
-	        rowView = inflater.inflate(R.layout.expense_item, null);
-	        NoteItemView = new NoteView(); 						//for holding the data
+	        rowView = inflater.inflate(R.layout.note_item, null);
+	        NoteItemView = new NoteView(); 									//for holding the data
 	        
 	        NoteItemView.noteSubject = (TextView) rowView.findViewById(R.id.NoteItemDisplay);
 	        NoteItemView.noteJobTask = (TextView) rowView.findViewById(R.id.JobTaskDisplay);	
 
-	        rowView.setTag(NoteItemView); 							//for later access
+	        rowView.setTag(NoteItemView);									//for later access
 	    }
 	    NoteItemView = (NoteView) rowView.getTag();
-	    Note currentNote = (Note) NoteObject.get(position); //casts as note
+	    Note currentNote = (Note) NoteObject.get(position);					//casts as note
 
+	    if(currentNote.getTask() != 0)
+	    {
 	    Task taskObject = db.getTask(currentNote.getTask()); 				// gets data on this Item
-
+	    NoteItemView.noteJobTask.setText(taskObject.getName());				//sets the data
+	    }
+	    Log.v("Expenses list", "currentNote.getSubject()" + currentNote.getSubject());
 	    NoteItemView.noteSubject.setText(currentNote.getSubject());			//sets the data
-	    NoteItemView.noteJobTask.setText(taskObject.getName());			//sets the data
+	    
   
 	    return rowView;
 	}
