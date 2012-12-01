@@ -644,10 +644,15 @@ public class DatabaseHandler extends SQLiteOpenHelper
         values.put(KEY_JOB, task.getJob());
         values.put(KEY_TASK, task.getName());
         values.put(KEY_DEADLINE, task.getDeadline());
-       // values.put(KEY_LOCATION, note.getBody());   
+        values.put(KEY_LOCATION, task.getLocation());
+        values.put(KEY_EMAIL, task.getEmail());
+        values.put(KEY_PHONE, task.getPhone());
+        values.put(KEY_HOURLY_WAGE, task.getWage());
+        values.put(KEY_HOURS_WORKED, task.getHoursWorked());
+        values.put(KEY_ALARM, task.getAlarm());
         try
         {
-       // 	db.update(TABLE_JOBS, values, KEY_ID + "=?", new String[] { Integer.toString(note.getId())});
+        	db.update(TABLE_JOBS, values, KEY_ID + "=?", new String[] { Integer.toString(task.getId())});
         }
         catch(Exception e)
         {

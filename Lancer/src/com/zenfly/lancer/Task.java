@@ -94,4 +94,10 @@ public class Task
 	{
 		this.alarm = alarm;
 	}
+	
+	public int getAlarm()
+	{
+		if(hasAlarm()) return 1;
+		return 0;
+	}
 }
