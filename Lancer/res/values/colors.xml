@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="lancer_blue">#0066FF</color>
+    <color name="lancer_green">#4CC417</color>
+    <color name="lancer_red">#FF1A00</color>
     <color name="white">#fff</color>
     
 </resources>
