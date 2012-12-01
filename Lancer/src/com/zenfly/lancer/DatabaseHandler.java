@@ -66,8 +66,8 @@ public class DatabaseHandler extends SQLiteOpenHelper
 	                + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_NAME 
 	                + " TEXT," + KEY_JOB + " INTEGER," 
 	                + KEY_DEADLINE + " TEXT," + KEY_LOCATION + " INTEGER, " +
-	                KEY_DONE + " INTEGER, " + KEY_HOURLY_WAGE + " REAL, " + 
-	                KEY_HOURS_WORKED + " INTEGER, " + KEY_ALARM + " INTEGER" +
+	                KEY_DONE + " INTEGER, " + KEY_HOURLY_WAGE + " REAL, " + KEY_PHONE + " TEXT, "
+	                + KEY_EMAIL + " TEXT, " + KEY_HOURS_WORKED + " INTEGER, " + KEY_ALARM + " INTEGER" +
                 ")";
         String CREATE_NOTES_TABLE = 
         		"CREATE TABLE " + TABLE_NOTES + 
@@ -318,6 +318,22 @@ public class DatabaseHandler extends SQLiteOpenHelper
         return null;
     }
     
+    public Note getNote(int id)
+    {
+        String selectQuery = "SELECT  * FROM " + TABLE_NOTES + " WHERE " + KEY_ID + "=" + id;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor != null)
+        {
+        	cursor.moveToFirst();
+        	Note note = new Note(cursor.getInt(1), cursor.getInt(2), cursor.getString(3), cursor.getString(4));
+        	db.close();
+        	return note;
+        }
+        db.close();
+        return null;
+    }
+    
     //methods for getting the task with either the nearest of farthest deadline
     public Task getNearestDeadlineTask()
     {
@@ -501,11 +517,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
         db.close();
     	return expenseList;
     }
-    
-    
-
-
-    
+      
     public List<Note> getAllNotesForJob(int id)
     {
     	List<Note> noteList = new ArrayList<Note>();
@@ -517,7 +529,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
             do
             {
             	Note note = new Note(cursor.getInt(1), cursor.getInt(2), cursor.getString(3), cursor.getString(4)); //creates a new expense for each one returned by the database
-            	//note.setId(cursor.getInt(0));
+            	note.setId(cursor.getInt(0));
                 noteList.add(note); //adds new note to the list
             } while (cursor.moveToNext()); //loop continues while there are results
         }
