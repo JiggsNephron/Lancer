@@ -33,7 +33,11 @@ public class NotesList extends ListActivity {
         task_id = getIntent().getIntExtra("task_id", 0);
         
         Job job = db.getJob(jobId);
-        note = db.getAllNotesForJob(jobId); //makes a list of jobs to send to the list View
+        
+        if (task_id != 0) {        	
+        	note = db.getAllNotesForTask(task_id); //makes a list of jobs to send to the list View
+        } else note = db.getAllNotesForJob(jobId); //makes a list of jobs to send to the list View
+        
         jobName.setText(job.getClient());
         Log.v("Expenses list", "note="+ note +"  ~note");
         setListAdapter(new NoteAdapter(this, note)); //starts the list View
