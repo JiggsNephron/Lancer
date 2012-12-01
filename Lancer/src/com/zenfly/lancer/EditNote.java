@@ -58,6 +58,13 @@ public class EditNote extends Activity {
         et_note_body  = (EditText) findViewById(R.id.note_body);
         sp_assign_to_task  = (Spinner)findViewById(R.id.note_to_task);
         
+        stnote_body = current_note.getBody();
+        stnote_subject = current_note.getSubject();
+        
+        et_note_subject.setText(stnote_subject);
+        et_note_body.setText(stnote_body);
+        
+        
         // get a list of all tasks to be used for populating the spinner
         all_tasks = db.getAllTasksForJob(job_id);
         // create an ArrayAdapter to fill with task names
@@ -102,6 +109,7 @@ public class EditNote extends Activity {
     		db.addNote(new_note);
     		Toast.makeText(getApplicationContext(), "Note " + stnote_subject + " added.", Toast.LENGTH_SHORT).show();
     		back_to_note.putExtra("job_id", job_id);
+    		back_to_note.putExtra("note_id", note_id);
         	startActivity(back_to_note);
     		
     	} else Toast.makeText(getApplicationContext(), "Please enter a note subject and body", Toast.LENGTH_SHORT).show();
