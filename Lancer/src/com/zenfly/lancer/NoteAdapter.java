@@ -51,10 +51,10 @@ public class NoteAdapter extends ArrayAdapter<Note> {
 	    NoteItemView = (NoteView) rowView.getTag();
 	    Note currentNote = (Note) NoteObject.get(position); //casts as note
 
-	    Job jobObject = db.getJob(currentNote.getJob()); 				// gets data on this Item
+	    Task taskObject = db.getTask(currentNote.getTask()); 				// gets data on this Item
 
 	    NoteItemView.noteSubject.setText(currentNote.getSubject());			//sets the data
-	    NoteItemView.noteJobTask.setText(jobObject.getClient());			//sets the data
+	    NoteItemView.noteJobTask.setText(taskObject.getName());			//sets the data
   
 	    return rowView;
 	}
