@@ -41,6 +41,7 @@ public class JobsAdapter extends ArrayAdapter<Job>
 	        jobsItemView.name = (TextView) rowView.findViewById(R.id.JobNameDisplay); 
 	        jobsItemView.location = (TextView) rowView.findViewById(R.id.JobLocationDisplay);
 	        jobsItemView.date = (TextView) rowView.findViewById(R.id.JobDateDisplay);
+	        jobsItemView.percentage = (TextView) rowView.findViewById(R.id.JobCompletionDisplay);
 	       
 	        rowView.setTag(jobsItemView); //for later access
 	    }
@@ -54,7 +55,9 @@ public class JobsAdapter extends ArrayAdapter<Job>
 		    	Task tempTask = db.getNearestDeadlineTask();
 		    	//private static final String TAG = "MainActivity";
 
-		    	Log.v("JobsAdapter", "tempTask  . . . . . =" + tempTask);				//testing staement
+		    	Log.v("JobsAdapter", "tempTask  . . . . . =" + tempTask);				//testing statement
+		    	Log.v("Setting percentage...", "");
+		    	jobsItemView.percentage.setText(db.getPercentDone(currentJob.getId())+"%");
 		    	
 
 		    	int tempLocation = tempTask.getLocation();								// finds the location in the data base we are looking for
@@ -66,6 +69,7 @@ public class JobsAdapter extends ArrayAdapter<Job>
 			    	String b = a.getLocation(); 										// puts the location into a string
 			    	
 			    	jobsItemView.location.setText(b);								   //sets the data
+			    	
 		    	}
 		    	
 		    	//String tempDate = "temp";//tempTask.getDeadline();// just returns the raw date string
@@ -81,14 +85,16 @@ public class JobsAdapter extends ArrayAdapter<Job>
 		    	else
 		    	{
 		    		jobsItemView.name.setText("No task has a Deadline");
+		    		
 		    	}
 		    	jobsItemView.name.setText(currentJob.getClient());//currentJob.getClient()); //sets the data
 		    	return rowView;
 	    	}
 	    	else																		// if there is no job run the code here
 	    	{
-	    		jobsItemView.location.setText("");										// sets the locaition
+	    		jobsItemView.location.setText("");										// sets the location
 	    		jobsItemView.date.setText("");											// sets the date
+	    		jobsItemView.percentage.setText("");
 	    	}
 	    	jobsItemView.name.setText(currentJob.getClient()); 							//sets the Name 
 	    }
@@ -100,6 +106,7 @@ public class JobsAdapter extends ArrayAdapter<Job>
         protected TextView name;
         protected TextView location;
         protected TextView date;
+        protected TextView percentage;
 
     }
 }

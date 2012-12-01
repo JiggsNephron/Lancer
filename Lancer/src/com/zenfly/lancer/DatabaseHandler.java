@@ -855,4 +855,19 @@ public class DatabaseHandler extends SQLiteOpenHelper
         db.update(TABLE_TASKS, values, KEY_ID + "=?", new String[] { Integer.toString(id)});
         db.close();
     }
+    
+    public int getPercentDone(int id)
+    {
+    	String countTotal = "SELECT  * FROM " + TABLE_TASKS + " WHERE " + KEY_JOB + "=" + id;
+    	String countDone = "SELECT  * FROM " + TABLE_TASKS + " WHERE " + KEY_JOB + "=" + id + " AND " + KEY_DONE + "=" + 1;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countTotal, null);
+        float total = cursor.getCount();
+        cursor = db.rawQuery(countDone, null);
+        float done = cursor.getCount();
+        float result = (done*100)/total;
+        cursor.close();
+        db.close();
+        return (int)result;
+    }
 }
