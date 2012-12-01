@@ -95,9 +95,12 @@ public class Task
 	{
 		this.alarm = alarm;
 	}
+<<<<<<< HEAD
 	
 	public int getAlarm()
 	{
 		return alarm;
 	}
+=======
+>>>>>>> branch 'TeamStartsHere' of git@github.com:JiggsNephron/Lancer.git
 }

@@ -133,11 +133,19 @@ public class ViewTask extends Activity {
 		builder.create().show();
 	}
 	
-	public void viewJobNotes(View v)
+	public void viewTaskNotes(View v)
 	{
     	Intent ViewNotes = new Intent(ViewTask.this, ViewNotes .class);
+    	//ViewNotes.putExtra("note_id", noteId); //sends the note id
     	startActivity(ViewNotes);
 	}
+	
+	
+	public void viewTaskExpense(View v)
+	{
+		
+	}
+	
 	
 	public void emailPerson (View v)
 	{

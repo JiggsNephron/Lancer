@@ -30,24 +30,24 @@ public class ViewNotes extends Activity {
 		
 		db = new DatabaseHandler(this);
 		NoteId = getIntent().getExtras().getInt("note_id"); 				// gets the task ID from the intent
+		TaskId = getIntent().getExtras().getInt("task"); 				// gets the task ID from the intent
 		JobId = getIntent().getExtras().getInt("job_id");				// gets the Job  ID from the intent
 		
 		
 		
 		Log.v("Id is: ", NoteId+" = Note");
 		note = db.getNote(NoteId);
-		job = db.getJob(JobId);
-		
 		
 		TextView JobNameTitle = (TextView) findViewById(R.id.job_name);				//prepares to access textView
-		TextView NoteNameTitle = (TextView) findViewById(R.id.job_option);			//prepares to access textView
+		TextView TaskNameTitle = (TextView) findViewById(R.id.job_option);			//prepares to access textView
+		TextView displayName = (TextView) findViewById(R.id.thisTaskName);			//prepares to access textView
 		TextView noteSubject = (TextView) findViewById(R.id.NoteItemDisplay);				//prepares to access textView
 		TextView noteBody = (TextView) findViewById(R.id.NoteText);			//prepares to access textView
 	
 		noteSubject.setText(note.getSubject());									// sets the text view this data will always be set
 		noteBody.setText(note.getBody());								// sets the text view this data will always be set
-		JobNameTitle.setText(job.getClient());								// sets the text view this data will always be set
-		NoteNameTitle.setText("View Note");	
+		TaskNameTitle.setText("View Task");								// sets the text view this data will always be set
+
 	}
 
 	@Override

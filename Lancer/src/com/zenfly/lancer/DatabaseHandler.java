@@ -9,7 +9,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 public class DatabaseHandler extends SQLiteOpenHelper 
 {
@@ -143,7 +142,6 @@ public class DatabaseHandler extends SQLiteOpenHelper
         values.put(KEY_NAME, task.getName());
         values.put(KEY_JOB, task.getJob());
         values.put(KEY_DEADLINE, task.getDeadline());
-        Log.v("DB says the deadline is ", task.getDeadline());
         values.put(KEY_LOCATION, task.getLocation());
         values.put(KEY_HOURLY_WAGE, task.getWage());
         values.put(KEY_PHONE, task.getPhone());
@@ -644,15 +642,10 @@ public class DatabaseHandler extends SQLiteOpenHelper
         values.put(KEY_JOB, task.getJob());
         values.put(KEY_TASK, task.getName());
         values.put(KEY_DEADLINE, task.getDeadline());
-        values.put(KEY_LOCATION, task.getLocation());
-        values.put(KEY_EMAIL, task.getEmail());
-        values.put(KEY_PHONE, task.getPhone());
-        values.put(KEY_HOURLY_WAGE, task.getWage());
-        values.put(KEY_HOURS_WORKED, task.getHoursWorked());
-        values.put(KEY_ALARM, task.getAlarm());
+       // values.put(KEY_LOCATION, note.getBody());   
         try
         {
-        	db.update(TABLE_JOBS, values, KEY_ID + "=?", new String[] { Integer.toString(task.getId())});
+       // 	db.update(TABLE_JOBS, values, KEY_ID + "=?", new String[] { Integer.toString(note.getId())});
         }
         catch(Exception e)
         {
