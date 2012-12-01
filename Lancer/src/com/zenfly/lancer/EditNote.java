@@ -111,7 +111,7 @@ public class EditNote extends Activity {
     		
     		Toast.makeText(getApplicationContext(), "Note " + stnote_subject + " edited.", Toast.LENGTH_SHORT).show();
     		back_to_note.putExtra("job_id", job_id);
-    		back_to_note.putExtra("note", note_id);
+    		back_to_note.putExtra("note_id", note_id);
         	startActivity(back_to_note);
     		
     	} else Toast.makeText(getApplicationContext(), "Please enter a note subject and body", Toast.LENGTH_SHORT).show();
@@ -122,7 +122,7 @@ public class EditNote extends Activity {
     	Intent back_to_note = new Intent(context, ViewNotes.class);
     	db.deleteNote(note_id);
     	back_to_note.putExtra("job_id", job_id);
-		back_to_note.putExtra("note", note_id);
+		back_to_note.putExtra("note_id", note_id);
     	startActivity(back_to_note);
     	
     }
