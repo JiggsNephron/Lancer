@@ -393,7 +393,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
             	found = false;
             	Job job = new Job(cursor.getString(1)); //creates a new job for each one returned by the database
             	job.setId(cursor.getInt(0));
-            	for(Job listJob:jobList) if(listJob.getId() == job.getId()) found = true;
+            	if(jobList.contains(job)) found = true;
             	if(!found)jobList.add(job); //adds new job to the list
             } while (cursor.moveToNext()); //loop continues while there are results
         }

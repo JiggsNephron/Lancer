@@ -31,4 +31,10 @@ public class Job
 		this.client = client;
 	}
 	
+	public boolean equals(Object obj)
+	{
+		Job job = (Job) obj;
+		if(this.id == job.id) return true;
+		return false;
+	}
 }
