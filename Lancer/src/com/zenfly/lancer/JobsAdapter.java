@@ -4,6 +4,8 @@ package com.zenfly.lancer;
 import java.util.List;
 
 import android.app.Activity;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,66 +33,60 @@ public class JobsAdapter extends ArrayAdapter<Job>
 	{
 	    View rowView = convertView;
 	    jobsView jobsItemView = null;
-	
 	    if(rowView == null)
 	    {
 	    	//creates new instance of row layout view
 	        LayoutInflater inflater = activity.getLayoutInflater();
 	        rowView = inflater.inflate(R.layout.job_item, null);
-	        jobsItemView = new jobsView(); //for holding the data
+	        jobsItemView = new jobsView(); //for holding the job
 	        jobsItemView.name = (TextView) rowView.findViewById(R.id.JobNameDisplay); 
 	        jobsItemView.location = (TextView) rowView.findViewById(R.id.JobLocationDisplay);
 	        jobsItemView.date = (TextView) rowView.findViewById(R.id.JobDateDisplay);
 	        jobsItemView.percentage = (TextView) rowView.findViewById(R.id.JobCompletionDisplay);
-	       
+	        jobsItemView.done = (TextView) rowView.findViewById(R.id.JobDoneDisplay);
 	        rowView.setTag(jobsItemView); //for later access
 	    }
 	    else jobsItemView = (jobsView) rowView.getTag();
 	    {
-	    	Job currentJob = (Job) jobsObject.get(position); //casts as course
-	    	
-	    	
+	    	Job currentJob = (Job) jobsObject.get(position); //casts as job
 	    	if(db.getJobTaskCount(currentJob.getId()) != 0)
 	    	{
 		    	Task tempTask = db.getNearestDeadlineTask();
-		    	//private static final String TAG = "MainActivity";
-
-		    	Log.v("JobsAdapter", "tempTask  . . . . . =" + tempTask);				//testing statement
-		    	Log.v("Setting percentage...", "");
-		    	jobsItemView.percentage.setText(db.getPercentDone(currentJob.getId())+"%");
-		    	
-
+		    	int percent = db.getPercentDone(currentJob.getId());
+		    	jobsItemView.percentage.setText(percent+"%");
 		    	int tempLocation = tempTask.getLocation();								// finds the location in the data base we are looking for
-		    	if(tempLocation != 0){
-		    	
-			    	Log.v("JobsAdapter", "tempLocation  . . . . . =" + tempLocation);
+		    	if(tempLocation != 0) //if there is a location
+		    	{
 			    	Location a  = db.getLocation(tempLocation); 						// extracts the location from the database
-			    	//String b = "temp";//a.getLocation(); 								// puts the location into a string
-			    	String b = a.getLocation(); 										// puts the location into a string
-			    	
-			    	jobsItemView.location.setText(b);								   //sets the data
-			    	
+			    	String b = a.getLocation(); 										// puts the location into a string	
+			    	jobsItemView.location.setText(b);								   //sets the location
 		    	}
-		    	
-		    	//String tempDate = "temp";//tempTask.getDeadline();// just returns the raw date string
-		    	String tempDate = tempTask.getDeadline();// just returns the raw date string
+		    	String tempDate = tempTask.getDeadline(); //just returns the deadline
 		    	tempDate = tempDate.trim();
 		    	
-		    	if((tempDate != null) && (tempDate != ""))
+		    	if((tempDate != null) && (tempDate != "")) //if there is a deadline and it isn't blank
 		    	{
-		    		Log.v("JobsAdapter", "tempDate  . . . . . =" + tempDate);
-			    	
 			    	jobsItemView.date.setText(tempDate);								//sets the data
 		    	}
-		    	else
+		    	else //if there is no deadline
 		    	{
 		    		jobsItemView.name.setText("No task has a Deadline");
 		    		
 		    	}
-		    	jobsItemView.name.setText(currentJob.getClient());//currentJob.getClient()); //sets the data
-		    	return rowView;
+		    	if(percent == 100) //if all tasks are complete
+		    	{
+		    		//grey out all text and cross out all except for percentage and done
+		    		jobsItemView.name.setTextColor(Color.GRAY);
+			    	jobsItemView.name.setPaintFlags(jobsItemView.name.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+			    	jobsItemView.date.setTextColor(Color.GRAY);
+					jobsItemView.date.setPaintFlags(jobsItemView.date.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+					jobsItemView.location.setTextColor(Color.GRAY);
+					jobsItemView.location.setPaintFlags(jobsItemView.location.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+					jobsItemView.percentage.setTextColor(Color.GRAY);
+					jobsItemView.done.setTextColor(Color.GRAY);
+		    	}
 	    	}
-	    	else																		// if there is no job run the code here
+	    	else //if the job has no tasks
 	    	{
 	    		jobsItemView.location.setText("");										// sets the location
 	    		jobsItemView.date.setText("");											// sets the date
@@ -107,6 +103,7 @@ public class JobsAdapter extends ArrayAdapter<Job>
         protected TextView location;
         protected TextView date;
         protected TextView percentage;
+        protected TextView done;
 
     }
 }
