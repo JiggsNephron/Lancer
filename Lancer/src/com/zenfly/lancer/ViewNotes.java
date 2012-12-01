@@ -46,8 +46,8 @@ public class ViewNotes extends Activity {
 	
 	public void editNote()
 	{
-		Intent intent = new Intent(ViewNotes.this, JobsOptions.class);
-    	intent.putExtra("NoteId", NoteId);
+		Intent intent = new Intent(ViewNotes.this, EditNote.class);
+    	intent.putExtra("note_id", NoteId);
     	startActivity(intent);
 	}
 
