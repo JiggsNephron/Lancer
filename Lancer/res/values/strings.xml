@@ -59,6 +59,7 @@
     <string name="AddNewTask_notify">Notify</string>
     <string name="AddNewTask_view_task_notes">Task Notes</string>
     <string name="AddNewTask_view_task_expenses">Task Expenses</string>
+    <string name="AddNewTask_edit_task">Edit Task</string>
 
     <!-- Layout: Location - Strings -->
 
