@@ -195,15 +195,15 @@ public class ViewTask extends Activity {
 		String delim = "[/]";
 		String[] dates = task.getDeadline().split(delim);
 		Calendar cal = Calendar.getInstance();
-		/*cal.set(Calendar.YEAR, Integer.parseInt(dates[0]));
+		cal.set(Calendar.YEAR, Integer.parseInt(dates[0]));
 		cal.set(Calendar.MONTH, Integer.parseInt(dates[1])-1);
 		cal.set(Calendar.DAY_OF_MONTH, Integer.parseInt(dates[2]));
-		cal.set(Calendar.HOUR, 0);
-		cal.set(Calendar.SECOND, 0);
-		cal.set(Calendar.MILLISECOND, 0);*/
-		cal.setTimeInMillis(System.currentTimeMillis());
-        cal.clear();
-        cal.set(Integer.parseInt(dates[0]),Integer.parseInt(dates[1])-1,Integer.parseInt(dates[2]),0,0);
+		cal.set(Calendar.HOUR, 9);
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.MILLISECOND, 0);
+		//cal.setTimeInMillis(System.currentTimeMillis());
+        //cal.clear();
+        //cal.set(Integer.parseInt(dates[0]),Integer.parseInt(dates[1])-1,Integer.parseInt(dates[2]),0,0);
 		Intent intent = new Intent(ViewTask.this, NotificationTimer.class);
 		intent.putExtra("task", task.getName());
 		//intent.putExtra("time", time);

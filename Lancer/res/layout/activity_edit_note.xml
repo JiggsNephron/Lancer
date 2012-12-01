@@ -142,7 +142,7 @@
         android:id="@+id/note_to_task"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/save_note"
+        android:layout_above="@+id/edit_note"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignRight="@+id/note_body"
@@ -164,17 +164,17 @@
          />    
 
     <Button
-        android:id="@+id/save_note"
+        android:id="@+id/edit_note"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:onClick="saveNoteEdits"
-        android:text="@string/button_save"
+        android:layout_alignRight="@+id/job_option"
         android:background="@color/lancer_blue"
-        android:paddingTop="10dp"
+        android:onClick="saveNoteEdits"
         android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:text="Edit Note"
         android:textColor="@color/white"
         android:textSize="25dp" />
 
@@ -183,13 +183,13 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:onClick="deleteNote"
-        android:text="@string/button_save"
+        android:layout_toRightOf="@+id/edit_note"
         android:background="@color/lancer_blue"
-        android:paddingTop="10dp"
+        android:onClick="deleteNote"
         android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:text="Delete"
         android:textColor="@color/white"
         android:textSize="25dp" />
 
