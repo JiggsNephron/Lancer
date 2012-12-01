@@ -105,17 +105,26 @@ public class EditNote extends Activity {
     	// if not, a toast is shown to inform the user
     	if (!stnote_body.equals("") || !stnote_subject.equals("")) {
     		
-    		Note new_note = new Note(job_id, task_id, stnote_subject, stnote_body);        	
-    		db.addNote(new_note);
-    		Toast.makeText(getApplicationContext(), "Note " + stnote_subject + " added.", Toast.LENGTH_SHORT).show();
+    		Note new_note = new Note(job_id, task_id, stnote_subject, stnote_body);
+    		new_note.setId(note_id);
+    		db.updateNote(new_note);
+    		
+    		Toast.makeText(getApplicationContext(), "Note " + stnote_subject + " edited.", Toast.LENGTH_SHORT).show();
     		back_to_note.putExtra("job_id", job_id);
-    		back_to_note.putExtra("note_id", note_id);
+    		back_to_note.putExtra("note", note_id);
         	startActivity(back_to_note);
     		
     	} else Toast.makeText(getApplicationContext(), "Please enter a note subject and body", Toast.LENGTH_SHORT).show();
     }
     
     public void deleteNote (View v) {
+    	
+    	Intent back_to_note = new Intent(context, ViewNotes.class);
+    	db.deleteNote(note_id);
+    	back_to_note.putExtra("job_id", job_id);
+		back_to_note.putExtra("note", note_id);
+    	startActivity(back_to_note);
+    	
     }
 
 }
