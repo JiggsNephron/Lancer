@@ -44,6 +44,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
 	private static final String KEY_ALARM = "alarm";
 	private static final String KEY_PHONE = "phone";
 	private static final String KEY_EMAIL = "email";
+	private static final String KEY_TASK_STARTED = "taskStarted";
     
 	public DatabaseHandler(Context context)
 	{
@@ -66,7 +67,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
 	                + " TEXT," + KEY_JOB + " INTEGER," 
 	                + KEY_DEADLINE + " TEXT," + KEY_LOCATION + " INTEGER, " +
 	                KEY_DONE + " INTEGER, " + KEY_HOURLY_WAGE + " REAL, " + KEY_PHONE + " TEXT, "
-	                + KEY_EMAIL + " TEXT, " + KEY_HOURS_WORKED + " INTEGER, " + KEY_ALARM + " INTEGER" +
+	                + KEY_EMAIL + " TEXT, " + KEY_HOURS_WORKED + " INTEGER, " + KEY_ALARM + " INTEGER, " + KEY_TASK_STARTED + " INTEGER" +
                 ")";
         String CREATE_NOTES_TABLE = 
         		"CREATE TABLE " + TABLE_NOTES + 
@@ -1020,5 +1021,25 @@ public class DatabaseHandler extends SQLiteOpenHelper
         cursor.close();
         db.close();
         return (int)result;
+    }
+    
+    public int getTaskStarted(int id)
+    {
+    	String query = "SELECT " + KEY_TASK_STARTED + " FROM " + TABLE_TASKS + " WHERE " + KEY_ID + "=" + id;
+    	SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        int started = cursor.getInt(0);
+        cursor.close();
+        db.close();
+        return started;
+    }
+    
+    public void setTaskStarted(int id, int started)
+    {
+    	SQLiteDatabase db = this.getWritableDatabase();
+    	ContentValues values = new ContentValues();
+    	values.put(KEY_TASK_STARTED, Integer.toString(started));
+        db.update(TABLE_TASKS, values, KEY_ID + "=?", new String[] { Integer.toString(id)});
+        db.close();
     }
 }
