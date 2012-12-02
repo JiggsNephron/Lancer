@@ -28,8 +28,7 @@ public class JobsOptions extends Activity  {
         db = new DatabaseHandler(this.getApplicationContext());
         id = getIntent().getIntExtra("job_id", 0);
         Job job = db.getJob(id);
-        TextView jobName = (TextView) findViewById(R.id.job_name);
-        jobName.setText(job.getClient());
+
         
         // R.id is same for all buttons here? (SK) Button taskButton = (Button)findViewById(R.id.create_invoice);
         // --> This Stuff to be done in xml (SK) //taskButton.setVisibility(View.VISIBLE);
