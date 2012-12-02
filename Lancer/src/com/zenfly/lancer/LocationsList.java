@@ -99,8 +99,15 @@ public class LocationsList extends ListActivity {
     }  
     
 	@Override
-	public void onListItemClick(ListView parent, View v, int position, long id)
-	{	 
+	public void onListItemClick(ListView parent, View v, int position, long id) {
+		
+		if (getIntent().getIntExtra("task_id", 0) != 0) {
+			Intent intent = new Intent(LocationsList.this, EditTask.class);
+			int locationId = locations.get(position).getId();
+			intent.putExtra("task_id", getIntent().getIntExtra("task_id", 0));
+			intent.putExtra("location", locationId);
+			startActivity(intent);
+		} else {	
 	  	Intent intent = new Intent(LocationsList.this, AddNewTask.class);
 	  	int locationId = locations.get(position).getId();
 	  	intent.putExtra("location", locationId);
@@ -112,6 +119,7 @@ public class LocationsList extends ListActivity {
 	  	intent.putExtra("job_id", getIntent().getIntExtra("job_id", 0));
 	  	intent.putExtra("task_id", getIntent().getIntExtra("task_id", 0));
 	    startActivity(intent);
+		}
 	}
 
     @Override

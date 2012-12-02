@@ -90,9 +90,16 @@ public class EditTask extends FragmentActivity {
         current_task = db.getTask(task_id);
 
         task_name.setText(current_task.getName());
-        task_location_box.setText((db.getLocation(current_task.getLocation())).getLocation());
         
-        sttask_date = getIntent().getStringExtra(current_task.getDeadline());
+        
+        // check if there is a location in the received intent and put it into the EditText       
+        if(getIntent().getIntExtra("location", 0) != 0) {
+        	task_location_id = getIntent().getIntExtra("location", 0);
+        	Location location = db.getLocation(task_location_id);
+        	task_location_box.setText(location.getLocation());
+        } else task_location_box.setText((db.getLocation(current_task.getLocation())).getLocation());
+        
+        sttask_date = current_task.getDeadline();
         
         SimpleDateFormat date_formater = new SimpleDateFormat("yyyy/MM/dd");
         try {
@@ -104,7 +111,7 @@ public class EditTask extends FragmentActivity {
         
         add_deadline.setText(stformatted_task_date);
         
-        task_hourly_wage.setText(locale_currency_format.format(current_task.getWage()));
+        task_hourly_wage.setText(Float.toString(current_task.getWage()));
         
         task_email_address.setText(current_task.getEmail());
         task_phone_number.setText(current_task.getPhone());
@@ -114,6 +121,7 @@ public class EditTask extends FragmentActivity {
     public void editTask (View v) {
     	
     	Intent back_to_tasksList = new Intent(context, TasksList.class);
+    	back_to_tasksList.putExtra("job_id", getIntent().getIntExtra("job_id", 0));
     	
     	// get the EditText fields and convert the wage to an integer
     	sttask_name = task_name.getText().toString();
@@ -129,10 +137,9 @@ public class EditTask extends FragmentActivity {
     		if (checkEmailValid(sttask_email_address)) {
     			if(!sttask_name.equals(""))	{
     	    		
-    				
-    	    		
+    				    	    		
     	        	db.updateTask(current_task);
-    	        	back_to_tasksList.putExtra("job_id", job_id);
+    	        	
     		    	startActivity(back_to_tasksList);
     	    	}
     	    	else {
@@ -149,7 +156,6 @@ public class EditTask extends FragmentActivity {
         		
         		
         		db.updateTask(current_task);
-            	back_to_tasksList.putExtra("job_id", job_id);
     	    	startActivity(back_to_tasksList);
         	}
         	else {
@@ -241,9 +247,7 @@ public class EditTask extends FragmentActivity {
     	show_locations.putExtra("phone_number", sttask_phone_number);
     	show_locations.putExtra("job_id", job_id);
     	show_locations.putExtra("task_id", task_id);
-    	
-    	// show the locations list
-    	show_locations.putExtra("job_id", job_id);
+
     	startActivity(show_locations);	
     }    
 }

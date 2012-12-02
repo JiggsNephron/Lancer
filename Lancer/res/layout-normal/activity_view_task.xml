@@ -162,7 +162,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:onClick="startTask"
+        android:onClick="editTask"
         android:text="@string/AddNewTask_start_task"
         android:background="@color/lancer_blue"
         android:paddingTop="10dp"
