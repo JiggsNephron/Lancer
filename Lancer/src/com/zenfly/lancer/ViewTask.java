@@ -17,10 +17,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -233,10 +233,10 @@ public class ViewTask extends Activity {
 		        
 		        builder.setContentIntent(pendingIntent)
 	            .setSmallIcon(R.drawable.app_icon)
-	            .setTicker(task.getName() + "started")
-	            .setContentTitle(task.getName() + "running")
-	            .setContentText(task.getName() + " at " + locale_currency_format.format(task.getWage()))
-	            .setContentInfo("Lancer")
+	            .setTicker(task.getName() + " started")
+	            .setContentTitle(task.getName())
+	            .setContentText("started at " + DateUtils.formatDateTime(this, calendar.getTimeInMillis(), DateUtils.FORMAT_SHOW_TIME))
+	            .setContentInfo(locale_currency_format.format(task.getWage()))
 	            .setOngoing(true);
 		        
 		        Notification notification = builder.build();
