@@ -15,7 +15,7 @@
         android:layout_marginTop="20dp"
         android:text="Update Servers"
         android:textColor="@color/lancer_blue"
-        android:textSize="25dp"
+        android:textSize="45dp"
         android:textAppearance="?android:attr/textAppearanceLarge" />
     
     <View android:id="@+id/separator" 

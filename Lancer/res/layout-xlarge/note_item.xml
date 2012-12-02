@@ -14,7 +14,7 @@
         android:layout_marginTop="20dp"
         android:text="Item Instructions"
         android:textColor="@color/lancer_blue"
-        android:textSize="35dp"
+        android:textSize="45dp"
         android:textAppearance="?android:attr/textAppearanceLarge" />
     
     <TextView
