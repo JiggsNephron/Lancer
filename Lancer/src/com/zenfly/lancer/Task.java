@@ -1,7 +1,5 @@
 package com.zenfly.lancer;
 
-import android.util.Log;
-
 public class Task
 {
 	private int id;
@@ -9,7 +7,7 @@ public class Task
 	private int job;
 	private int location;
 	private String deadline;
-	private int hoursWorked;
+	private long minutesWorked;
 	private float hourlyWage;
 	private String email;
 	private String phone;
@@ -17,9 +15,8 @@ public class Task
 	private int alarm;
 	private int started;
 
-	public Task(String name, int job, String deadline, int location, float wage, String phone, String email, int hours, int done, int alarm, int started)
+	public Task(String name, int job, String deadline, int location, float wage, String phone, String email, long mins, int done, int alarm, int started)
 	{
-		Log.v("Deadline = ", deadline);
 		this.name = name;
 		this.job = job;
 		this.deadline = deadline;
@@ -27,7 +24,7 @@ public class Task
 		this.hourlyWage = wage;
 		this.phone = phone;
 		this.email = email;
-		this.hoursWorked = hours;
+		this.minutesWorked = mins;
 		this.done = done;
 		this.alarm = alarm;
 		this.started = started;
@@ -63,9 +60,9 @@ public class Task
 		return hourlyWage;
 	}
 	
-	public int getHoursWorked()
+	public long getMinutesWorked()
 	{
-		return hoursWorked;
+		return minutesWorked;
 	}
 	
 	public String getEmail()
@@ -128,9 +125,9 @@ public class Task
 		this.hourlyWage = wage;
 	}
 	
-	public void setHours(int hours)
+	public void setMinutes(long minutes)
 	{
-		this.hoursWorked = hours;
+		this.minutesWorked = minutes;
 	}
 	
 	public void setEmail(String email)
