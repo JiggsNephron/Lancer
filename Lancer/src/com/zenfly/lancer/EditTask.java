@@ -253,8 +253,7 @@ public class EditTask extends FragmentActivity {
     	startActivity(show_locations);	
     }
     
-public void deleteTask (View v) {
-    	
+    public void deleteTask (View v) {    	
     	// confirms the action with the Alert Dialog
     	final AlertDialog.Builder builder=new AlertDialog.Builder(EditTask.this);
     	builder.setTitle("Delete " + current_task.getName());
