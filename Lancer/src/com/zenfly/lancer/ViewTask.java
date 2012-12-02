@@ -6,13 +6,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -20,29 +21,35 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
+import android.text.Editable;
+import android.text.InputType;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 public class ViewTask extends Activity {
 	
 	// below list sets up variables to hold data that can be used anywhere in the class.
 	private DatabaseHandler db;
-	int TaskId;	
-	int JobId;
-	
+	private int TaskId;	
+	private int JobId;
+	private int day = 0;
+	private int chosenHour = 0;
+	private int chosenMinute = 0;
 	long total_minutes;
 	long total_millis;
 	int start_day;
 	int start_hour;
 	int start_minute;
 	long started_time;
-	
+	static final int TIME_DIALOG_ID = 0;
 	int stop_day;
 	int stop_hour;
 	int stop_minute;
@@ -309,30 +316,15 @@ public class ViewTask extends Activity {
 	public void notifyMe(View v)
 	{
 		if(!task.getDeadline().equals(""))
-		{
-			AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-			String delim = "[/]";
-			String[] dates = task.getDeadline().split(delim);
-			Calendar cal = Calendar.getInstance();
-			cal.set(Calendar.YEAR, Integer.parseInt(dates[0]));
-			cal.set(Calendar.MONTH, Integer.parseInt(dates[1])-1);
-			cal.set(Calendar.DAY_OF_MONTH, Integer.parseInt(dates[2]));
-			cal.set(Calendar.HOUR, 9);
-			cal.set(Calendar.MINUTE, 0);
-			cal.set(Calendar.MILLISECOND, 0);
-			Intent intent = new Intent(ViewTask.this, NotificationTimer.class);
-			intent.putExtra("task", task.getName());
-			//intent.putExtra("time", time);
-			PendingIntent pendingIntent = PendingIntent.getBroadcast(this, task.getId(), intent, PendingIntent.FLAG_ONE_SHOT);
-			if(task.hasAlarm() == 0)
-			{
-				am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent);
-				Toast.makeText(getApplicationContext(), "Alarm Set for " + cal.get(Calendar.DAY_OF_MONTH) + "/" + cal.get(Calendar.MONTH) + "/" + cal.get(Calendar.YEAR) + " at " + cal.get(Calendar.HOUR) + ":" + cal.get(Calendar.MINUTE)+1, Toast.LENGTH_LONG).show();
-				db.setTaskAlarm(task.getId(), 1);
-				task.setAlarm(1);
-			}
+		{	 
+			if(task.getAlarm() == 0) showDialog(TIME_DIALOG_ID);
 			else
 			{
+				AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+				Intent intent = new Intent(ViewTask.this, NotificationTimer.class);
+				intent.putExtra("task", task.getName());
+				intent.putExtra("day", day);
+				PendingIntent pendingIntent = PendingIntent.getBroadcast(this, task.getId(), intent, PendingIntent.FLAG_ONE_SHOT);
 				am.cancel(pendingIntent);
 				Toast.makeText(getApplicationContext(), "Notification cancelled for " + task.getName(), Toast.LENGTH_LONG).show();
 				db.setTaskAlarm(task.getId(), 0);
@@ -340,16 +332,38 @@ public class ViewTask extends Activity {
 			}
 		}
 		else Toast.makeText(getApplicationContext(), "You have not set a deadline for this task", Toast.LENGTH_LONG).show();
+
 	}
 	
+	public void setNotification()
+	{
+		AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+		String delim = "[/]";
+		String[] dates = task.getDeadline().split(delim);
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.YEAR, Integer.parseInt(dates[0]));
+		cal.set(Calendar.MONTH, Integer.parseInt(dates[1])-1);
+		cal.set(Calendar.DAY_OF_MONTH, Integer.parseInt(dates[2]) - day);
+		cal.set(Calendar.HOUR, chosenHour);
+		cal.set(Calendar.MINUTE, chosenMinute);
+		cal.set(Calendar.MILLISECOND, 0);
+		Intent intent = new Intent(ViewTask.this, NotificationTimer.class);
+		intent.putExtra("task", task.getName());
+		intent.putExtra("day", day);
+		PendingIntent pendingIntent = PendingIntent.getBroadcast(this, task.getId(), intent, PendingIntent.FLAG_ONE_SHOT);
+		am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent);
+		Toast.makeText(getApplicationContext(), "Alarm Set for " + cal.get(Calendar.DAY_OF_MONTH) + "/" + cal.get(Calendar.MONTH) + "/" + cal.get(Calendar.YEAR) + " at " + cal.get(Calendar.HOUR) + ":" + cal.get(Calendar.MINUTE), Toast.LENGTH_LONG).show();
+		db.setTaskAlarm(task.getId(), 1);
+		task.setAlarm(1);
+	}
+		
     @Override
     public void onBackPressed() {
     	
     	Intent intent = new Intent(ViewTask.this, TasksList.class);
     	intent.putExtra("job_id", getIntent().getIntExtra("job_id", 0));
     	startActivity(intent);    	
-    	return;
-    	
+    	return;  	
     }    
 	
 	@Override
@@ -358,5 +372,39 @@ public class ViewTask extends Activity {
 		getMenuInflater().inflate(R.menu.activity_view_task, menu);
 		return true;
 	}
+	
+	TimePickerDialog.OnTimeSetListener mTimeSetListener = new TimePickerDialog.OnTimeSetListener()
+	 {
+		public void onTimeSet(TimePicker view, int hourOfDay, int minute)
+		{
+			chosenHour = hourOfDay;
+		    chosenMinute = minute;
+		    final EditText input = new EditText(getApplicationContext());
+		    input.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
+		    input.setText("0");
+		    new AlertDialog.Builder(ViewTask.this)
+		    .setTitle("Update Status")
+		    .setMessage("How many days in advance would you like to be reminded of this deadline?")
+		    .setView(input)
+		    .setPositiveButton("Ok", new DialogInterface.OnClickListener()
+		    {
+		        public void onClick(DialogInterface dialog, int whichButton)
+		        {
+		        	day = Integer.parseInt(input.getText().toString());
+		        	setNotification();
+		        }
+		    }).show();
+		}
+	 };
 
+	@Override
+    protected Dialog onCreateDialog(int id)
+	{
+        switch (id)
+        {
+        	case TIME_DIALOG_ID:
+        		return new TimePickerDialog(this, mTimeSetListener, chosenHour, chosenMinute, false);
+        }
+        return null;
+    }
 }
