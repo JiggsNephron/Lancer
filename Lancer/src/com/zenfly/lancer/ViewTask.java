@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import android.app.Activity;
 import android.app.AlarmManager;
@@ -13,6 +14,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,13 +30,29 @@ public class ViewTask extends Activity {
 	// below list sets up variables to hold data that can be used anywhere in the class.
 	private DatabaseHandler db;
 	int TaskId;	
-	int JobId; 
+	int JobId;
+	
+	long total_minutes;
+	long total_millis;
+	int start_day;
+	int start_hour;
+	int start_minute;
+	long started_time;
+	
+	int stop_day;
+	int stop_hour;
+	int stop_minute;
+	
+	
 	Task task;
 	Job job;
 	Location location;
 	Date date_locale;
 	String stformatted_task_date = "";
 	Button start_task;
+	SharedPreferences prefs;
+	
+	Calendar calendar;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +61,7 @@ public class ViewTask extends Activity {
 		setContentView(R.layout.activity_view_task);
 		
 		db = new DatabaseHandler(this);
+		prefs = this.getSharedPreferences("com.zenfly.lancer",0);
 		TaskId = getIntent().getExtras().getInt("task"); 				// gets the task ID from the intent
 		JobId = getIntent().getExtras().getInt("job_id");				// gets the Job  ID from the intent
 		task =  db.getTask(TaskId);									// gets the Task object from the database
@@ -101,8 +120,10 @@ public class ViewTask extends Activity {
 		}	
 		
 		if (db.getTaskStarted(task.getId()) == 0) {
-			start_task.setBackgroundResource(R.color.lancer_green);	
-			start_task.setText("Start Task");
+			start_task.setBackgroundResource(R.color.lancer_green);
+			if (task.getMinutesWorked() > 0 && task.getWage() > 0) {
+				start_task.setText("Start Task" + "Earned: " + ((task.getMinutesWorked())/60)*(task.getWage()));
+			} else start_task.setText("Start Task");			
 		} else if (db.getTaskStarted(task.getId()) == 1) {
 			start_task.setBackgroundResource(R.color.lancer_red);
 			start_task.setText("Stop Task");
@@ -177,17 +198,39 @@ public class ViewTask extends Activity {
 		else Toast.makeText(getApplicationContext(), "You have not set a contact email for this task", Toast.LENGTH_LONG).show();
 	}
 	
+	// RC: starts the timer for task wages
 	public void startTask (View v)
-	{
-		if (db.getTaskStarted(task.getId()) == 0) {
-			db.setTaskStarted(task.getId(), 1);			
-		} else if (db.getTaskStarted(task.getId()) == 1) {
-			db.setTaskStarted(task.getId(), 0);
-		}
-		Intent startTaskIntent = new Intent(ViewTask.this, startTask.class);
-		startTaskIntent.putExtra("job_id", JobId);
-		startTaskIntent.putExtra("task_id", TaskId);
-		startActivity(startTaskIntent);
+	{		
+		if (task.getWage() > 0) {
+			
+			SharedPreferences.Editor prefEditor = prefs.edit();
+			calendar = Calendar.getInstance(); 
+					
+			if (db.getTaskStarted(task.getId()) == 0) {
+				db.setTaskStarted(task.getId(), 1);
+				
+				prefEditor.putLong("started_time", calendar.getTimeInMillis());
+				prefEditor.commit();
+				
+			} else if (db.getTaskStarted(task.getId()) == 1) {
+				db.setTaskStarted(task.getId(), 0);
+				
+				started_time = prefs.getLong("started_time", 0);
+				
+				total_millis = started_time - calendar.getTimeInMillis();
+				
+				total_minutes = TimeUnit.MILLISECONDS.toMinutes(total_millis);
+				
+				db.setTaskMinutes(task.getId(), total_minutes);
+			}
+			
+			Intent startTaskIntent = new Intent(ViewTask.this, startTask.class);
+			startTaskIntent.putExtra("job_id", JobId);
+			startTaskIntent.putExtra("task_id", TaskId);
+			startActivity(startTaskIntent);
+			
+		} else Toast.makeText(getApplicationContext(), "You have not set an hourly wage for this task", Toast.LENGTH_LONG).show();
+		
 	}	
 	
 	public void callPerson (View v)
