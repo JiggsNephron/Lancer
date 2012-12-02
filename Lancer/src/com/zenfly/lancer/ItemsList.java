@@ -10,14 +10,21 @@ package com.zenfly.lancer;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ListActivity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -29,6 +36,10 @@ public class ItemsList extends ListActivity {
 
 	final Context context = this;
 	
+	DatabaseHandler db;
+	
+	AdapterContextMenuInfo info;
+	
 		
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,11 +47,13 @@ public class ItemsList extends ListActivity {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_items_list);
         
-		DatabaseHandler db = new DatabaseHandler(this);
+		db = new DatabaseHandler(this);
 		items = db.getAllItems();
 		
    
 		setListAdapter(new ItemsAdapter(this, items));
+		
+		registerForContextMenu(getListView());
         
     }
     
@@ -122,5 +135,52 @@ public class ItemsList extends ListActivity {
 		  	intent.putExtra("expense_id", getIntent().getIntExtra("expense_id", 0)); 	  	
 		    startActivity(intent);
 		}	
+	}
+	
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v,
+	        ContextMenuInfo menuInfo) {
+	    super.onCreateContextMenu(menu, v, menuInfo);
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.item_long_press, menu);
+	}
+	
+	@Override
+	public boolean onContextItemSelected(MenuItem item) {
+		
+	    info = (AdapterContextMenuInfo) item.getMenuInfo();
+	 
+	    switch (item.getItemId()) {
+	    
+	    case R.id.remove_item:	    	
+	    	// confirms the action with the Alert Dialog
+	    	final AlertDialog.Builder builder=new AlertDialog.Builder(ItemsList.this);
+	    	builder.setTitle("Delete " + items.get(info.position).getName());
+	    	builder.setMessage("Are you sure you want to delete this item?\nThis will also delete any expenses that use this item.");
+	    			
+	    	builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+	    		
+	    		public void onClick(DialogInterface dialog, int id) {
+	    			db.deleteItem(items.get(info.position).getId());
+	    			Toast.makeText(getApplicationContext(), "Deleted " + items.get(info.position).getName(), Toast.LENGTH_LONG).show();
+	    			Intent back_to_itemsList = new Intent(context, ItemsList.class);
+	    	    			
+	    			back_to_itemsList.putExtra("item_amount", getIntent().getIntExtra("item_amount", 0));
+	    			back_to_itemsList.putExtra("job_id", getIntent().getIntExtra("job_id", 0));
+	    			back_to_itemsList.putExtra("task_id", getIntent().getIntExtra("task_id", 0));
+	    			back_to_itemsList.putExtra("task_spinner", getIntent().getIntExtra("task_spinner", 0));	    	    			
+	    	    			
+	    			startActivity(back_to_itemsList);
+	    		}
+	    	});
+	    	builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+	    		public void onClick(DialogInterface dialog, int id) {
+	    			dialog.cancel();
+	    		}
+	    	});    	      
+	    	builder.create().show();
+	    	return true;
+	    }
+	    return false;
 	}
 }
