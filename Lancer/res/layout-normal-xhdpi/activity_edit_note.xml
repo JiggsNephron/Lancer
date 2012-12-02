@@ -1,0 +1,196 @@
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white" >
+
+    <!-- Navigation -->
+    
+	<View android:id="@+id/nav_list_bg" 
+ 	    android:background="@color/lancer_blue"
+ 		android:layout_width="fill_parent"
+ 		android:layout_alignParentTop="true"
+ 		android:layout_height="55dp"
+ 		android:layout_centerVertical ="true"
+ 		/>
+	
+	<TextView
+        android:id="@+id/jobs_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="10dp"
+        android:text="@string/jobs"
+        android:textSize="20dp"
+        android:textColor="@color/white"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:onClick="" /> <!-- To Jobs List -->
+
+    <TextView
+        android:id="@+id/arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/jobs_list"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="25dp"
+        android:textColor="@color/white"
+        android:text="@string/arrow"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+    
+    <TextView
+        android:id="@+id/job_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/arrow"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="10dp"
+        android:text="@string/job"
+        android:textSize="20dp"
+        android:textColor="@color/white"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:onClick="" /> <!-- To Job Options List -->
+    
+    <TextView
+        android:id="@+id/arrow2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/job_name"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="25dp"
+        android:textColor="@color/white"
+        android:text="@string/arrow"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+    
+    <TextView
+        android:id="@+id/job_option"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/arrow2"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="10dp"
+        android:text="@string/notes"
+        android:textSize="20dp"
+        android:textColor="@color/white"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:onClick="" /> <!-- To Tasks List -->
+        
+
+	<!-- Add New Note content  -->
+    
+    
+    <TextView
+        android:id="@+id/AddNewNote_note_subject_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/nav_list_bg"
+        android:text="@string/AddNewNote_note_subject"
+        android:textColor="@color/lancer_blue"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="10dp"
+        android:textSize="20dp" />
+
+    <EditText
+        android:id="@+id/note_subject"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/AddNewNote_note_subject_title"
+        android:ems="10"
+        android:maxLength="30"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp" >
+
+        <requestFocus />
+    </EditText>
+
+    <TextView
+        android:id="@+id/AddNewNote_note_body_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/note_subject"
+        android:text="@string/AddNewNote_note_body"
+        android:textColor="@color/lancer_blue"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="10dp"
+        android:textSize="20dp" />
+
+    <EditText
+        android:id="@+id/note_body"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/AddNewNote_note_to_task_title"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/AddNewNote_note_body_title"
+        android:ems="10"
+        android:inputType="textMultiLine"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp" />
+    
+
+    <Spinner
+        android:id="@+id/note_to_task"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/edit_note"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignRight="@+id/note_body"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"  />
+
+    <TextView
+        android:id="@+id/AddNewNote_note_to_task_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/note_to_task"
+        android:layout_alignParentLeft="true"
+        android:text="@string/AddNewNote_note_to_task"
+        android:textColor="@color/lancer_blue"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="10dp"
+        android:textSize="20dp"
+         />    
+
+    <Button
+        android:id="@+id/edit_note"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+     	android:layout_marginRight="165dp" 
+        android:background="@color/lancer_blue"
+        android:onClick="saveNoteEdits"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:text="@string/EditNote_button_save_update"
+        android:textColor="@color/white"
+        android:textSize="25dp" />
+
+    <Button
+        android:id="@+id/delete_note"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+   		android:layout_marginLeft="170dp" 
+        android:background="@color/lancer_red"
+        android:onClick="deleteNote"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:text="@string/EditNote_button_delete_note"
+        android:textColor="@color/white"
+        android:textSize="25dp" />
+
+</RelativeLayout>
