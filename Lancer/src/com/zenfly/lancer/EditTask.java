@@ -127,7 +127,7 @@ public class EditTask extends FragmentActivity {
     }
     
     // Saves the all the chosen entries as a new task
-    public void editTask (View v) {
+    public void saveTaskEdits (View v) {
     	
     	Intent back_to_tasksorlist;
     	
@@ -284,7 +284,7 @@ public class EditTask extends FragmentActivity {
     	// confirms the action with the Alert Dialog
     	final AlertDialog.Builder builder=new AlertDialog.Builder(EditTask.this);
     	builder.setTitle("Delete " + current_task.getName());
-    	builder.setMessage(" Are you sure you want to delete this Task? \n This will also delete any notes and expenses tied to this task. ");
+    	builder.setMessage("Are you sure you want to delete this Task?\nThis will also delete any notes and expenses tied to this task.");
     			
     	builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
     		
