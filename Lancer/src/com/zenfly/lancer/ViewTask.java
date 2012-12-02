@@ -209,33 +209,30 @@ public class ViewTask extends Activity {
 		String delim = "[/]";
 		String[] dates = task.getDeadline().split(delim);
 		Calendar cal = Calendar.getInstance();
-		//cal.set(Calendar.YEAR, 2012);//Integer.parseInt(dates[0]));
-		//cal.set(Calendar.MONTH, 11);//Integer.parseInt(dates[1])-1);
-		//cal.set(Calendar.DAY_OF_MONTH, 2);//Integer.parseInt(dates[2]));
-		//cal.set(Calendar.HOUR, 9);
-		cal.set(Calendar.MINUTE, cal.get(Calendar.MINUTE+1));
-		//cal.set(Calendar.MILLISECOND, 0);
-		//cal.setTimeInMillis(System.currentTimeMillis());
-        //cal.clear();
-        //cal.set(Integer.parseInt(dates[0]),Integer.parseInt(dates[1])-1,Integer.parseInt(dates[2]),0,0);
+		cal.set(Calendar.YEAR, Integer.parseInt(dates[0]));
+		cal.set(Calendar.MONTH, Integer.parseInt(dates[1])-1);
+		cal.set(Calendar.DAY_OF_MONTH, Integer.parseInt(dates[2]));
+		cal.set(Calendar.HOUR, 9);
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.MILLISECOND, 0);
 		Intent intent = new Intent(ViewTask.this, NotificationTimer.class);
 		intent.putExtra("task", task.getName());
 		//intent.putExtra("time", time);
 		PendingIntent pendingIntent = PendingIntent.getBroadcast(this, task.getId(), intent, PendingIntent.FLAG_ONE_SHOT);
-		//if(!task.hasAlarm())
-		//{
+		if(task.hasAlarm() == 0)
+		{
 			am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent);
 			Toast.makeText(getApplicationContext(), "Alarm Set for " + cal.get(Calendar.DAY_OF_MONTH) + "/" + cal.get(Calendar.MONTH) + "/" + cal.get(Calendar.YEAR) + " at " + cal.get(Calendar.HOUR) + ":" + cal.get(Calendar.MINUTE)+1, Toast.LENGTH_LONG).show();
-			//db.setTaskAlarm(task.getId(), 1);
+			db.setTaskAlarm(task.getId(), 1);
 			task.setAlarm(1);
-		//}
-		//else
-		//{
-		//	am.cancel(pendingIntent);
-			//Toast.makeText(getApplicationContext(), "Notification cancelled for " + task.getName(), Toast.LENGTH_LONG).show();
-			//db.setTaskAlarm(task.getId(), 0);
-			//task.setAlarm(false);
-		//}
+		}
+		else
+		{
+			am.cancel(pendingIntent);
+			Toast.makeText(getApplicationContext(), "Notification cancelled for " + task.getName(), Toast.LENGTH_LONG).show();
+			db.setTaskAlarm(task.getId(), 0);
+			task.setAlarm(0);
+		}
 	}
 	
     @Override
