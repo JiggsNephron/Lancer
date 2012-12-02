@@ -1,6 +1,7 @@
 package com.zenfly.lancer;
 
 import java.text.DateFormat;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -54,6 +55,8 @@ public class ViewTask extends Activity {
 	Button start_task;
 	SharedPreferences prefs;
 	
+	NumberFormat locale_currency_format;
+	
 	Calendar calendar;
 
 	@Override
@@ -63,6 +66,7 @@ public class ViewTask extends Activity {
 		setContentView(R.layout.activity_view_task);
 		
 		db = new DatabaseHandler(this);
+		locale_currency_format = NumberFormat.getCurrencyInstance();
 		prefs = this.getSharedPreferences("com.zenfly.lancer",0);
 		TaskId = getIntent().getExtras().getInt("task"); 				// gets the task ID from the intent
 		JobId = getIntent().getExtras().getInt("job_id");				// gets the Job  ID from the intent
@@ -124,7 +128,7 @@ public class ViewTask extends Activity {
 		if (db.getTaskStarted(task.getId()) == 0) {
 			start_task.setBackgroundResource(R.color.lancer_green);
 			if (task.getMinutesWorked() > 0 && task.getWage() > 0) {
-				start_task.setText("Start Task" + "Earned: " + ((task.getMinutesWorked())/60)*(task.getWage()));
+				start_task.setText("Start Task" + " Earned: " + locale_currency_format.format(((task.getMinutesWorked())/60.0)*(task.getWage())));
 			} else start_task.setText("Start Task");			
 		} else if (db.getTaskStarted(task.getId()) == 1) {
 			start_task.setBackgroundResource(R.color.lancer_red);
@@ -225,9 +229,10 @@ public class ViewTask extends Activity {
 				
 				total_minutes = ((total_millis / 1000) / 60);
 				
+				db.setTaskMinutes(task.getId(), total_minutes);
+				
 				Toast.makeText(getApplicationContext(), "You worked " + total_minutes + " minutes.", Toast.LENGTH_LONG).show();
 				
-				db.setTaskMinutes(task.getId(), total_minutes);
 			}
 			
 			Intent startTaskIntent = new Intent(ViewTask.this, startTask.class);
