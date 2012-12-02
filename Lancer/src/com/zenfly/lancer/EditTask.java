@@ -76,7 +76,6 @@ public class EditTask extends FragmentActivity {
         db = new DatabaseHandler(context);
         locale_currency_format = NumberFormat.getCurrencyInstance();
         
-        
         // define the layout elements
         task_name  = (EditText) findViewById(R.id.task_name);
         task_location_box  = (EditText)findViewById(R.id.button_location_names);
@@ -92,7 +91,6 @@ public class EditTask extends FragmentActivity {
         current_task = db.getTask(task_id);
 
         task_name.setText(current_task.getName());
-        
         
         // check if there is a location in the received intent and put it into the EditText       
         if(getIntent().getIntExtra("location", 0) != 0) {
@@ -132,7 +130,7 @@ public class EditTask extends FragmentActivity {
     public void editTask (View v) {
     	
     	Intent back_to_tasksList = new Intent(context, TasksList.class);
-    	back_to_tasksList.putExtra("job_id", getIntent().getIntExtra("job_id", 0));
+    	
     	
     	// get the EditText fields and convert the wage to an integer
     	sttask_name = task_name.getText().toString();
@@ -171,9 +169,17 @@ public class EditTask extends FragmentActivity {
         	if(!sttask_name.equals(""))
         	{
         		
-        		
+        		current_task.setDeadline(sttask_date);
+				current_task.setEmail(sttask_email_address);
+				current_task.setLocation(task_location_id);
+				current_task.setName(sttask_name);
+				current_task.setPhone(sttask_phone_number);
+				current_task.setWage(hourlyWage);    				
+				    	    		
+	        	db.updateTask(current_task); 		
         		
         		db.updateTask(current_task);
+        		back_to_tasksList.putExtra("job_id", job_id);
     	    	startActivity(back_to_tasksList);
         	}
         	else {
