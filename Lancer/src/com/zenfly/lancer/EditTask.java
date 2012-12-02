@@ -76,7 +76,6 @@ public class EditTask extends FragmentActivity {
         db = new DatabaseHandler(context);
         locale_currency_format = NumberFormat.getCurrencyInstance();
         
-        
         // define the layout elements
         task_name  = (EditText) findViewById(R.id.task_name);
         task_location_box  = (EditText)findViewById(R.id.button_location_names);
@@ -93,15 +92,23 @@ public class EditTask extends FragmentActivity {
 
         task_name.setText(current_task.getName());
         
-        
         // check if there is a location in the received intent and put it into the EditText       
         if(getIntent().getIntExtra("location", 0) != 0) {
         	task_location_id = getIntent().getIntExtra("location", 0);
         	Location location = db.getLocation(task_location_id);
         	task_location_box.setText(location.getLocation());
-        } else task_location_box.setText((db.getLocation(current_task.getLocation())).getLocation());
+        } else {
+        	task_location_id = current_task.getLocation();
+        	task_location_box.setText((db.getLocation(current_task.getLocation())).getLocation());
+        }
         
         sttask_date = current_task.getDeadline();
+        String delim = "[/]";
+		String[] dates = sttask_date.split(delim);
+		
+		year = Integer.parseInt(dates[0]);
+		month = Integer.parseInt(dates[1]);
+		day = Integer.parseInt(dates[2]);		
         
         SimpleDateFormat date_formater = new SimpleDateFormat("yyyy/MM/dd");
         try {
@@ -123,7 +130,7 @@ public class EditTask extends FragmentActivity {
     public void editTask (View v) {
     	
     	Intent back_to_tasksList = new Intent(context, TasksList.class);
-    	back_to_tasksList.putExtra("job_id", getIntent().getIntExtra("job_id", 0));
+    	
     	
     	// get the EditText fields and convert the wage to an integer
     	sttask_name = task_name.getText().toString();
@@ -139,9 +146,16 @@ public class EditTask extends FragmentActivity {
     		if (checkEmailValid(sttask_email_address)) {
     			if(!sttask_name.equals(""))	{
     	    		
+    				current_task.setDeadline(sttask_date);
+    				current_task.setEmail(sttask_email_address);
+    				current_task.setLocation(task_location_id);
+    				current_task.setName(sttask_name);
+    				current_task.setPhone(sttask_phone_number);
+    				current_task.setWage(hourlyWage);    				
     				    	    		
     	        	db.updateTask(current_task);
     	        	
+    	        	back_to_tasksList.putExtra("job_id", job_id);
     		    	startActivity(back_to_tasksList);
     	    	}
     	    	else {
@@ -155,9 +169,17 @@ public class EditTask extends FragmentActivity {
         	if(!sttask_name.equals(""))
         	{
         		
-        		
+        		current_task.setDeadline(sttask_date);
+				current_task.setEmail(sttask_email_address);
+				current_task.setLocation(task_location_id);
+				current_task.setName(sttask_name);
+				current_task.setPhone(sttask_phone_number);
+				current_task.setWage(hourlyWage);    				
+				    	    		
+	        	db.updateTask(current_task); 		
         		
         		db.updateTask(current_task);
+        		back_to_tasksList.putExtra("job_id", job_id);
     	    	startActivity(back_to_tasksList);
         	}
         	else {
@@ -196,10 +218,8 @@ public class EditTask extends FragmentActivity {
     	// show the dialog with the current date
     	@Override
     	public Dialog onCreateDialog(Bundle savedInstanceState) {
-    		year = calendar.get(Calendar.YEAR);
-    		month = calendar.get(Calendar.MONTH);
-    		day = calendar.get(Calendar.DAY_OF_MONTH);
-    		return new DatePickerDialog(getActivity(), this, year, month, day);
+
+    		return new DatePickerDialog(getActivity(), this, year, month-1, day);
     	}
     	// once the user chooses a date and clicks set, populateSetDate() is called
     	public void onDateSet(DatePicker view, int yy, int mm, int dd) {
@@ -257,7 +277,7 @@ public class EditTask extends FragmentActivity {
     	// confirms the action with the Alert Dialog
     	final AlertDialog.Builder builder=new AlertDialog.Builder(EditTask.this);
     	builder.setTitle("Delete " + current_task.getName());
-    	builder.setMessage("Are you sure you want to delete this Task?");
+    	builder.setMessage(" Are you sure you want to delete this Task? \n This will also delete any notes and expenses tied to this task. ");
     			
     	builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
     		
@@ -265,9 +285,9 @@ public class EditTask extends FragmentActivity {
     			{
     					db.deleteTask(task_id);
     	    			Toast.makeText(getApplicationContext(), "Deleted " + current_task.getName(), Toast.LENGTH_LONG).show();
-    	    			Intent back_to_note = new Intent(context, TasksList.class);
-    	    			back_to_note.putExtra("job_id", job_id);
-    	    	    	startActivity(back_to_note);
+    	    			Intent back_to_tasksList = new Intent(context, TasksList.class);
+    	    			back_to_tasksList.putExtra("job_id", job_id);
+    	    	    	startActivity(back_to_tasksList);
     			}
     	});
     	      

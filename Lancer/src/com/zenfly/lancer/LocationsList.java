@@ -105,6 +105,7 @@ public class LocationsList extends ListActivity {
 			Intent intent = new Intent(LocationsList.this, EditTask.class);
 			int locationId = locations.get(position).getId();
 			intent.putExtra("task_id", getIntent().getIntExtra("task_id", 0));
+			intent.putExtra("job_id", getIntent().getIntExtra("job_id", 0));
 			intent.putExtra("location", locationId);
 			startActivity(intent);
 		} else {	
