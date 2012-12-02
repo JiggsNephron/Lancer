@@ -42,6 +42,7 @@ public class ExpensesList extends ListActivity {
         setListAdapter(new ExpensesAdapter(this, expense)); 						//starts the list View
        
         float totalCostValue = db.getTotalCostForJob(job.getId());					//gets the total of all expenses for the job
+        Log.v("Expenses list", "totalCostValue =" + totalCostValue  + "~END");
         TextView totalCost = (TextView) findViewById(R.id.TotalCost);				//prepares to access textView
         totalCost.setText(String.valueOf(totalCostValue));							// sets the text view this data
 
