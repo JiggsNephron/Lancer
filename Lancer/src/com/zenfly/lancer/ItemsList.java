@@ -53,8 +53,9 @@ public class ItemsList extends ListActivity {
    
 		setListAdapter(new ItemsAdapter(this, items));
 		
-		registerForContextMenu(getListView());
-        
+		if (getIntent().getIntExtra("expense_id", 0) == 0) {
+			registerForContextMenu(getListView());
+		}
     }
     
     public void addItem(View v) {   	
