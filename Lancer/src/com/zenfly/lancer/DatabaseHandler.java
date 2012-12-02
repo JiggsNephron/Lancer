@@ -727,6 +727,9 @@ public class DatabaseHandler extends SQLiteOpenHelper
     {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_LOCATIONS, KEY_ID + " = ?", new String[] { Integer.toString(id) });
+        ContentValues values = new ContentValues();
+        values.put(KEY_LOCATION, id);
+        db.update(TABLE_TASKS, values, KEY_LOCATION + "=?", new String[] { Integer.toString(id)});
         db.close();
     }
     
