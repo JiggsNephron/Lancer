@@ -53,6 +53,7 @@ public class AddNewTask extends FragmentActivity {
 	String sttask_email_address = "";
 	String sttask_phone_number = "";
 	int alarm = 0;
+	int started = 0;
 	int task_location_id;
 	
 	int job_id;
@@ -189,7 +190,7 @@ public class AddNewTask extends FragmentActivity {
     	if (!sttask_email_address.equals("")) {
     		if (checkEmailValid(sttask_email_address)) {
     			if(!sttask_name.equals(""))	{
-    	    		Task new_task = new Task(sttask_name, job_id, sttask_date, task_location_id, hourlyWage, sttask_phone_number, sttask_email_address, hoursWorked, done, alarm);
+    	    		Task new_task = new Task(sttask_name, job_id, sttask_date, task_location_id, hourlyWage, sttask_phone_number, sttask_email_address, hoursWorked, done, alarm, started);
     	    		//Task new_task = new Task(sttask_name, job_id, sttask_date, task_location_id, hourlyWage, hoursWorked, done);
     	        	db.addTask(new_task);
     	        	back_to_tasksList.putExtra("job_id", job_id);
@@ -205,7 +206,7 @@ public class AddNewTask extends FragmentActivity {
     	} else {    		
         	if(!sttask_name.equals(""))
         	{
-        		Task new_task = new Task(sttask_name, job_id, sttask_date, task_location_id, hourlyWage, sttask_phone_number, sttask_email_address, hoursWorked, done, alarm);
+        		Task new_task = new Task(sttask_name, job_id, sttask_date, task_location_id, hourlyWage, sttask_phone_number, sttask_email_address, hoursWorked, done, alarm, started);
         		//Task new_task = new Task(sttask_name, job_id, sttask_date, task_location_id, hourlyWage,hoursWorked, done);
             	db.addTask(new_task);
             	back_to_tasksList.putExtra("job_id", job_id);

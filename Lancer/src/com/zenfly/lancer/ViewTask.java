@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
@@ -18,6 +19,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +34,7 @@ public class ViewTask extends Activity {
 	Location location;
 	Date date_locale;
 	String stformatted_task_date = "";
+	Button start_task;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +61,7 @@ public class ViewTask extends Activity {
 		TextView displayName = (TextView) findViewById(R.id.thisTaskName);			//prepares to access textView
 		TextView displayDate = (TextView) findViewById(R.id.thisTaskDeadline);		//prepares to access textView
 		TextView displayLocation = (TextView) findViewById(R.id.view_on_map);	//prepares to access textView
+		Button start_task = (Button) findViewById(R.id.start_task);
 		
 		JobNameTitle.setText(JobName);									// sets the text view this data will always be set
 		TaskNameTitle.setText("View Task");								// sets the text view this data will always be set
@@ -94,7 +98,15 @@ public class ViewTask extends Activity {
 		} else {
 			taskDeadline = "None Set"; // if no deadline, sets a default message
 			displayDate.setText(taskDeadline);
-		}		
+		}	
+		
+		if (db.getTaskStarted(task.getId()) == 0) {
+			start_task.setBackgroundResource(R.color.lancer_green);	
+			start_task.setText("Start Task");
+		} else if (db.getTaskStarted(task.getId()) == 1) {
+			start_task.setBackgroundResource(R.color.lancer_red);
+			start_task.setText("Stop Task");
+		}
 	}
 	
 	public void deleteTask(View v)
@@ -167,6 +179,11 @@ public class ViewTask extends Activity {
 	
 	public void startTask (View v)
 	{
+		if (db.getTaskStarted(task.getId()) == 0) {
+			db.setTaskStarted(task.getId(), 1);			
+		} else if (db.getTaskStarted(task.getId()) == 1) {
+			db.setTaskStarted(task.getId(), 0);
+		}
 		Intent startTaskIntent = new Intent(ViewTask.this, startTask.class);
 		startTaskIntent.putExtra("job_id", JobId);
 		startTaskIntent.putExtra("task_id", TaskId);

@@ -15,8 +15,9 @@ public class Task
 	private String phone;
 	private int done;
 	private int alarm;
+	private int started;
 
-	public Task(String name, int job, String deadline, int location, float wage, String phone, String email, int hours, int done, int alarm)
+	public Task(String name, int job, String deadline, int location, float wage, String phone, String email, int hours, int done, int alarm, int started)
 	{
 		Log.v("Deadline = ", deadline);
 		this.name = name;
@@ -29,6 +30,7 @@ public class Task
 		this.hoursWorked = hours;
 		this.done = done;
 		this.alarm = alarm;
+		this.started = started;
 	}
 	
 	public int getId()
