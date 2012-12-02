@@ -768,7 +768,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
     }
     
     //updates the hours the user has worked on a particular task
-    public void setTaskMinutes(int id, int minutes)
+    public void setTaskMinutes(int id, long minutes)
     {
     	String selectQuery = "SELECT " + KEY_MINUTES_WORKED + " FROM " + TABLE_TASKS + " WHERE " + KEY_ID + "=" + id; //gets the current hours worked
     	SQLiteDatabase db = this.getWritableDatabase();
