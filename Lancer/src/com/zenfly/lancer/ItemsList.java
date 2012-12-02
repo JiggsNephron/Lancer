@@ -83,6 +83,7 @@ public class ItemsList extends ListActivity {
 		    		added_an_item_done.putExtra("task_spinner", getIntent().getIntExtra("task_spinner", 0));
 		    		added_an_item_done.putExtra("job_id", getIntent().getIntExtra("job_id", 0));
 		    		added_an_item_done.putExtra("task_id", getIntent().getIntExtra("task_id", 0));
+		    		added_an_item_done.putExtra("expense_id", getIntent().getIntExtra("expense_id", 0)); 
 
 		    		db.addItem(new Item(stitem_name, intitem_cost));
 		    		Toast.makeText(getApplicationContext(), "Saved Item: " + stitem_name, Toast.LENGTH_LONG).show();
@@ -99,17 +100,27 @@ public class ItemsList extends ListActivity {
     }  
     
 	@Override
-	public void onListItemClick(ListView parent, View v, int position, long id)
-	{	 
-	  	Intent intent = new Intent(ItemsList.this, AddNewExpense.class);
-	  	int itemId = items.get(position).getId();
-	  	intent.putExtra("item_amount", getIntent().getIntExtra("item_amount", 0));
-	  	intent.putExtra("task_spinner", getIntent().getIntExtra("task_spinner", 0));
-	  	intent.putExtra("job_id", getIntent().getIntExtra("job_id", 0));
-	  	intent.putExtra("task_id", getIntent().getIntExtra("task_id", 0));
-	  	intent.putExtra("item_id", itemId);
-	  	
-	    startActivity(intent);
+	public void onListItemClick(ListView parent, View v, int position, long id) {	 
+		
+		int itemId = items.get(position).getId();
+		
+		if (getIntent().getIntExtra("expense_id", 0) != 0) {
+			Intent intent = new Intent(ItemsList.this, EditExpense.class);
+			intent.putExtra("job_id", getIntent().getIntExtra("job_id", 0));
+		  	intent.putExtra("task_id", getIntent().getIntExtra("task_id", 0));
+		  	intent.putExtra("item_id", itemId);
+			intent.putExtra("expense_id", getIntent().getIntExtra("expense_id", 0));
+			startActivity(intent);
+			
+		} else {
+			Intent intent = new Intent(ItemsList.this, AddNewExpense.class);
+		  	intent.putExtra("item_amount", getIntent().getIntExtra("item_amount", 0));
+		  	intent.putExtra("task_spinner", getIntent().getIntExtra("task_spinner", 0));
+		  	intent.putExtra("job_id", getIntent().getIntExtra("job_id", 0));
+		  	intent.putExtra("task_id", getIntent().getIntExtra("task_id", 0));
+		  	intent.putExtra("item_id", itemId);
+		  	intent.putExtra("expense_id", getIntent().getIntExtra("expense_id", 0)); 	  	
+		    startActivity(intent);
+		}	
 	}
-
 }
