@@ -82,6 +82,7 @@
     <string name="ViewExpense_task_title">Assigned to Task:</string>
     <string name="ViewExpense_button_edit_expense">Edit Expense</string>
     <string name="ExpensesList_total_expenses">Expenses Total:</string>
+    <string name="total_cost">Total Cost:</string>
 
     <!-- Layout: Notes - Strings -->
 
