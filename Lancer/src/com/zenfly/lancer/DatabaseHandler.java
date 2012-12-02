@@ -1042,4 +1042,23 @@ public class DatabaseHandler extends SQLiteOpenHelper
         db.update(TABLE_TASKS, values, KEY_ID + "=?", new String[] { Integer.toString(id)});
         db.close();
     }
+    
+    public float getTotalCostForJob(int id)
+    {
+    	float total = 0.0f;
+    	String selectQuery = "SELECT " + KEY_ITEM + ", " + KEY_QUANTITY + " FROM " + TABLE_EXPENSES + " WHERE " + KEY_JOB + " = " + id;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst())
+        {
+            do
+            {
+            	String itemQuery = "SELECT " + KEY_PRICE + " FROM " + TABLE_ITEMS + " WHERE " + KEY_ID + " = " + cursor.getInt(0);
+            	Cursor curs = db.rawQuery(itemQuery, null);
+            	total += cursor.getInt(1) * curs.getFloat(0);
+            } while (cursor.moveToNext()); //loop continues while there are results
+        }
+        db.close();
+    	return total;
+    }
 }
