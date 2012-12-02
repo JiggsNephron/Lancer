@@ -167,20 +167,10 @@
         android:layout_alignBaseline="@+id/number_of_items_title"
         android:layout_alignBottom="@+id/number_of_items_title"
         android:layout_toRightOf="@+id/choose_item_title"
-        android:textColor="@color/lancer_blue"
+        android:textColor="@color/lancer_grey"
+        android:layout_marginLeft="20dp"
         android:text="Total Cost:"
         android:textSize="20dp" />
-
-    <EditText
-        android:id="@+id/edittext_total_cost_of_items"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/assign_expense_to_task"
-        android:layout_alignLeft="@+id/total_cost_of_items_title"
-        android:ems="10"
-        android:focusableInTouchMode="false"
-        android:inputType="number"
-        android:layout_marginRight="20dp" />
    
     
     <Button
@@ -189,7 +179,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_marginRight="145dp"
+        android:layout_marginRight="165dp"
         android:background="@color/lancer_blue"
         android:onClick="editExpense"
         android:paddingBottom="10dp"
@@ -205,7 +195,7 @@
 	    android:layout_alignLeft="@+id/expense_option"
 	    android:layout_alignParentBottom="true"
 	    android:layout_alignParentLeft="true"
-	    android:layout_marginLeft="145dp"
+	    android:layout_marginLeft="165dp"
 	    android:background="@color/lancer_red"
 	    android:onClick="deleteExpense"
 	    android:paddingBottom="10dp"
@@ -213,5 +203,16 @@
 	    android:text="@string/EditNote_button_delete_note"
 	    android:textColor="@color/white"
 	    android:textSize="25dp" />
+
+	<EditText
+	    android:id="@+id/edittext_total_cost_of_items"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_above="@+id/assign_expense_to_task"
+	    android:layout_alignLeft="@+id/expense_option"
+	    android:ems="10"
+	    android:focusableInTouchMode="false"
+	    android:inputType="number"
+	    android:layout_marginRight="20dp" />
 
 </RelativeLayout>
