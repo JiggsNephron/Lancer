@@ -46,4 +46,24 @@ public class Expense
 	{
 		this.id = id;
 	}
+	
+	public void setJob(int job)
+	{
+		this.job = job;
+	}
+	
+	public void setTask(int task)
+	{
+		this.task = task;
+	}
+	
+	public void setItem(int item)
+	{
+		this.item = item;
+	}
+	
+	public void setQuantity(int quant)
+	{
+		this.quantity = quant;
+	}
 }
