@@ -149,6 +149,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
         values.put(KEY_EMAIL, task.getEmail());
         values.put(KEY_MINUTES_WORKED, task.getMinutesWorked());
         values.put(KEY_DONE, task.getDone());
+        values.put(KEY_TASK_STARTED, task.getStarted());
         try
         {
         	success = db.insertOrThrow(TABLE_TASKS, null, values);

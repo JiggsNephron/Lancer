@@ -144,4 +144,9 @@ public class Task
 	{
 		this.done = done;
 	}
+	
+	public int getStarted()
+	{
+		return this.started;
+	}
 }
