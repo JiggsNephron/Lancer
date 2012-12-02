@@ -169,7 +169,7 @@
         android:layout_toRightOf="@+id/choose_item_title"
         android:textColor="@color/lancer_grey"
         android:layout_marginLeft="20dp"
-        android:text="Total Cost:"
+        android:text="@string/total_cost"
         android:textSize="20dp" />
    
     
