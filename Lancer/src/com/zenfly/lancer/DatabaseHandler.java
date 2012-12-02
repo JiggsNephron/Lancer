@@ -659,7 +659,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_JOB, task.getJob());
-        values.put(KEY_TASK, task.getName());
+        values.put(KEY_NAME, task.getName());
         values.put(KEY_DEADLINE, task.getDeadline());
         values.put(KEY_LOCATION, task.getLocation());
         values.put(KEY_EMAIL, task.getEmail());
