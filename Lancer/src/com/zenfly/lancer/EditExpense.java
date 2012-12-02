@@ -199,7 +199,7 @@ public class EditExpense extends Activity {
     
     public void editExpense (View v) {
     	
-    	Intent back_to_expensesList = new Intent(context, ViewExpenses.class);
+    	Intent back_to_expense = new Intent(context, ViewExpenses.class);
 
     	// get the ID of the task chosen by the user in the spinner by spinner's position
     	task_id = spinnerandtaskMap.get(sp_assign_to_task.getSelectedItemPosition());
@@ -221,7 +221,7 @@ public class EditExpense extends Activity {
     		float total_cost = intitem_amount*item.getPrice();
     		
     		Toast.makeText(getApplicationContext(), 
-    				"Added Expense: " 
+    				"Edited Expense: " 
     						+ item.getName() 
     						+ " x " 
     						+ intitem_amount 
@@ -231,12 +231,11 @@ public class EditExpense extends Activity {
     						+ ". ", 
     				Toast.LENGTH_LONG).show();
     	
-    		back_to_expensesList.putExtra("job_id", job_id);
-    		back_to_expensesList.putExtra("expense", expense_id);
-    		startActivity(back_to_expensesList);
+    		back_to_expense.putExtra("job_id", job_id);
+    		back_to_expense.putExtra("expense", expense_id);
+    		startActivity(back_to_expense);
     		
     	} else Toast.makeText(getApplicationContext(), "Please choose an item and quantity of items", Toast.LENGTH_SHORT).show();
-    	
     }
     
     public void deleteExpense (View v) {
