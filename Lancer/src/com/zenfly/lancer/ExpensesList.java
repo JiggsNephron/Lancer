@@ -34,12 +34,12 @@ public class ExpensesList extends ListActivity {
         taskId = getIntent().getIntExtra("task_id", 0);
         Log.v("Task is ", ""+taskId);
         if(taskId != 0) expense = db.getAllExpensesForTask(taskId);
-        else expense = db.getAllExpensesForJob(jobId); //makes a list of jobs to send to the list View
+        else expense = db.getAllExpensesForJob(jobId);								//makes a list of jobs to send to the list View
         job = db.getJob(jobId);	
         String JobName = job.getClient();
         TextView JobNameTitle = (TextView) findViewById(R.id.job_name);				//prepares to access textView
-		JobNameTitle.setText(JobName);									// sets the text view this data will always be set
-        setListAdapter(new ExpensesAdapter(this, expense)); //starts the list View
+		JobNameTitle.setText(JobName);												// sets the text view this data will always be set
+        setListAdapter(new ExpensesAdapter(this, expense)); 						//starts the list View
     }
   
     public void addNewExpense(View v) {
@@ -68,8 +68,8 @@ public class ExpensesList extends ListActivity {
 	  {	 
 	  	Intent intent = new Intent(ExpensesList.this, ViewExpenses.class);
 	  	int expenseId = expense.get(position).getId();
-	  	intent.putExtra("expense", expenseId); //sends the expense name
-	  	intent.putExtra("job_id", getIntent().getIntExtra("job_id", 0)); //sends the job name
+	  	intent.putExtra("expense", expenseId); 											//sends the expense name
+	  	intent.putExtra("job_id", getIntent().getIntExtra("job_id", 0)); 				//sends the job name
 	  	intent.putExtra("task_id", getIntent().getIntExtra("task_id", 0));
 	    startActivity(intent);
 	  }
