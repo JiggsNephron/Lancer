@@ -680,6 +680,28 @@ public class DatabaseHandler extends SQLiteOpenHelper
         db.close();
         return success;
     }
+    
+    public boolean updateExpense(Expense expense) 
+    {
+    	boolean success = true;
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(KEY_JOB, expense.getJob());
+        values.put(KEY_TASK, expense.getTask());
+        values.put(KEY_ITEM, expense.getItem());
+        values.put(KEY_QUANTITY, expense.getQuantity());
+        
+        try
+        {
+        	db.update(TABLE_EXPENSES, values, KEY_ID + "=?", new String[] { Integer.toString(expense.getId())});
+        }
+        catch(Exception e)
+        {
+        	success = false; //in case the job conflicts with an already present expense
+        }
+        db.close();
+        return success;
+    }
 
     //methods to delete specified database items (such as a job, a task, a location, etc)
     public void deleteJob(int id)
