@@ -221,7 +221,9 @@ public class ViewTask extends Activity {
 				
 				total_minutes = TimeUnit.MILLISECONDS.toMinutes(total_millis);
 				
-				db.setTaskMinutes(task.getId(), total_minutes);
+				Toast.makeText(getApplicationContext(), "You worked " + total_minutes + " minutes.", Toast.LENGTH_LONG).show();
+				
+				//db.setTaskMinutes(task.getId(), total_minutes);
 			}
 			
 			Intent startTaskIntent = new Intent(ViewTask.this, startTask.class);
