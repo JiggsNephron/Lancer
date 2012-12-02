@@ -129,7 +129,7 @@ public class EditTask extends FragmentActivity {
     // Saves the all the chosen entries as a new task
     public void editTask (View v) {
     	
-    	Intent back_to_tasksList = new Intent(context, TasksList.class);
+    	Intent back_to_tasksorlist;
     	
     	
     	// get the EditText fields and convert the wage to an integer
@@ -146,6 +146,8 @@ public class EditTask extends FragmentActivity {
     		if (checkEmailValid(sttask_email_address)) {
     			if(!sttask_name.equals(""))	{
     	    		
+    				back_to_tasksorlist = new Intent(context, ViewTask.class);
+    				
     				current_task.setDeadline(sttask_date);
     				current_task.setEmail(sttask_email_address);
     				current_task.setLocation(task_location_id);
@@ -155,8 +157,11 @@ public class EditTask extends FragmentActivity {
     				    	    		
     	        	db.updateTask(current_task);
     	        	
-    	        	back_to_tasksList.putExtra("job_id", job_id);
-    		    	startActivity(back_to_tasksList);
+    	        	
+    	        	
+    	        	back_to_tasksorlist.putExtra("job_id", job_id);
+    	        	back_to_tasksorlist.putExtra("task", task_id);
+    		    	startActivity(back_to_tasksorlist);
     	    	}
     	    	else {
     	    		Toast.makeText(getApplicationContext(), " You must provide a name for your task ", Toast.LENGTH_LONG).show();
@@ -168,7 +173,7 @@ public class EditTask extends FragmentActivity {
     	} else {    		
         	if(!sttask_name.equals(""))
         	{
-        		
+        		back_to_tasksorlist = new Intent(context, ViewTask.class);
         		current_task.setDeadline(sttask_date);
 				current_task.setEmail(sttask_email_address);
 				current_task.setLocation(task_location_id);
@@ -179,8 +184,10 @@ public class EditTask extends FragmentActivity {
 	        	db.updateTask(current_task); 		
         		
         		db.updateTask(current_task);
-        		back_to_tasksList.putExtra("job_id", job_id);
-    	    	startActivity(back_to_tasksList);
+        		
+        		back_to_tasksorlist.putExtra("job_id", job_id);
+	        	back_to_tasksorlist.putExtra("task", task_id);
+    	    	startActivity(back_to_tasksorlist);
         	}
         	else {
         		Toast.makeText(getApplicationContext(), " You must provide a name for your task ", Toast.LENGTH_LONG).show();

@@ -113,6 +113,12 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Dialog" >
         </activity>
+        <activity
+            android:name=".EditExpense"
+            android:label="@string/title_activity_edit_expense"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Dialog" >
+        </activity>
     </application>
 
 </manifest>

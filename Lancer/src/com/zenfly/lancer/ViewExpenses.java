@@ -110,6 +110,14 @@ public class ViewExpenses extends Activity {
 		builder.create().show();
 	}
 	
+	public void editExpense(View v)
+	{
+		Intent intent = new Intent(ViewExpenses.this, EditExpense.class);
+    	intent.putExtra("expense_id", expenseId);
+    	intent.putExtra("job_id", getIntent().getIntExtra("job_id", 0));
+    	startActivity(intent);
+	}
+	
 	@Override
     public void onBackPressed() {
     	Intent intent = new Intent(ViewExpenses.this, ExpensesList.class);
