@@ -6,20 +6,21 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
-import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -207,10 +208,11 @@ public class ViewTask extends Activity {
 	// RC: starts the timer for task wages
 	public void startTask (View v)
 	{		
+		
+		NotificationManager nm = (NotificationManager) ViewTask.this.getSystemService(Context.NOTIFICATION_SERVICE);
+		
 		if (task.getWage() > 0) {
-			
-			AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-			
+						
 			SharedPreferences.Editor prefEditor = prefs.edit();
 			calendar = Calendar.getInstance(); 
 					
@@ -219,6 +221,27 @@ public class ViewTask extends Activity {
 								
 				prefEditor.putLong("started_time", calendar.getTimeInMillis());
 				prefEditor.commit();
+				
+				Intent intent = new Intent(ViewTask.this, ViewTask.class);
+				
+				intent.putExtra("job_id", getIntent().getIntExtra("job_id", 0));
+				intent.putExtra("task", getIntent().getIntExtra("task", 0));
+				
+		        PendingIntent pendingIntent = PendingIntent.getActivity(ViewTask.this, 01, intent, 0);
+		        
+		        NotificationCompat.Builder builder = new NotificationCompat.Builder(ViewTask.this);
+		        
+		        builder.setContentIntent(pendingIntent)
+	            .setSmallIcon(R.drawable.app_icon)
+	            .setTicker(task.getName() + "started")
+	            .setContentTitle(task.getName() + "running")
+	            .setContentText(task.getName() + " at " + locale_currency_format.format(task.getWage()))
+	            .setContentInfo("Lancer")
+	            .setOngoing(true);
+		        
+		        Notification notification = builder.build();
+		        Toast.makeText(getApplicationContext(), "Starting notification", Toast.LENGTH_SHORT).show();  
+		        nm.notify(01, notification);
 				
 			} else if (db.getTaskStarted(task.getId()) == 1) {
 				db.setTaskStarted(task.getId(), 0);
@@ -231,13 +254,10 @@ public class ViewTask extends Activity {
 				
 				db.setTaskMinutes(task.getId(), total_minutes);
 				
-				Toast.makeText(getApplicationContext(), "You worked " + total_minutes + " minutes.", Toast.LENGTH_LONG).show();
+				nm.cancel(01);
 				
+				Toast.makeText(getApplicationContext(), "You worked " + total_minutes + " minutes.", Toast.LENGTH_SHORT).show();
 			}
-			
-			Intent startTaskIntent = new Intent(ViewTask.this, startTask.class);
-			PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, startTaskIntent, PendingIntent.FLAG_ONE_SHOT);
-			am.set(AlarmManager.RTC_WAKEUP, 0, pendingIntent);
 			
 			Intent refreshTaskView = new Intent(ViewTask.this, ViewTask.class);
 			refreshTaskView.putExtra("job_id", getIntent().getIntExtra("job_id", 0));
