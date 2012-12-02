@@ -191,8 +191,7 @@ public class AddNewTask extends FragmentActivity {
     		if (checkEmailValid(sttask_email_address)) {
     			if(!sttask_name.equals(""))	{
     	    		Task new_task = new Task(sttask_name, job_id, sttask_date, task_location_id, hourlyWage, sttask_phone_number, sttask_email_address, hoursWorked, done, alarm, started);
-    	    		//Task new_task = new Task(sttask_name, job_id, sttask_date, task_location_id, hourlyWage, hoursWorked, done);
-    	        	db.addTask(new_task);
+       	        	db.addTask(new_task);
     	        	back_to_tasksList.putExtra("job_id", job_id);
     		    	startActivity(back_to_tasksList);
     	    	}
@@ -207,7 +206,6 @@ public class AddNewTask extends FragmentActivity {
         	if(!sttask_name.equals(""))
         	{
         		Task new_task = new Task(sttask_name, job_id, sttask_date, task_location_id, hourlyWage, sttask_phone_number, sttask_email_address, hoursWorked, done, alarm, started);
-        		//Task new_task = new Task(sttask_name, job_id, sttask_date, task_location_id, hourlyWage,hoursWorked, done);
             	db.addTask(new_task);
             	back_to_tasksList.putExtra("job_id", job_id);
     	    	startActivity(back_to_tasksList);
