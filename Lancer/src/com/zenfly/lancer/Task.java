@@ -100,4 +100,49 @@ public class Task
 	{
 		return alarm;
 	}
+	
+	public void setName(String name)
+	{
+		this.name = name;
+	}
+	
+	public void setJob(int job)
+	{
+		this.job = job;
+	}
+	
+	public void setLocation(int location)
+	{
+		this.location = location;
+	}
+	
+	public void setDeadline(String deadline)
+	{
+		this.deadline = deadline;
+	}
+	
+	public void setWage(float wage)
+	{
+		this.hourlyWage = wage;
+	}
+	
+	public void setHours(int hours)
+	{
+		this.hoursWorked = hours;
+	}
+	
+	public void setEmail(String email)
+	{
+		this.email = email;
+	}
+	
+	public void setPhone(String phone)
+	{
+		this.phone = phone;
+	}
+	
+	public void setDone(int done)
+	{
+		this.done = done;
+	}
 }
