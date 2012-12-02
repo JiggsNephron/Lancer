@@ -257,7 +257,7 @@ public class EditTask extends FragmentActivity {
     	// confirms the action with the Alert Dialog
     	final AlertDialog.Builder builder=new AlertDialog.Builder(EditTask.this);
     	builder.setTitle("Delete " + current_task.getName());
-    	builder.setMessage("Are you sure you want to delete this Task?");
+    	builder.setMessage(" Are you sure you want to delete this Task? \n This will also delete any notes and expenses tied to this task. ");
     			
     	builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
     		
