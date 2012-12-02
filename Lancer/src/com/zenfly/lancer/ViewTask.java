@@ -128,7 +128,7 @@ public class ViewTask extends Activity {
 		if (db.getTaskStarted(task.getId()) == 0) {
 			start_task.setBackgroundResource(R.color.lancer_green);
 			if (task.getMinutesWorked() > 0 && task.getWage() > 0) {
-				start_task.setText("Start Task" + " Earned: " + locale_currency_format.format(((task.getMinutesWorked())/60.0)*(task.getWage())));
+				start_task.setText("Start Task" + "\nEarned " + locale_currency_format.format(((task.getMinutesWorked())/60.00)*(task.getWage())) + " so far");
 			} else start_task.setText("Start Task");			
 		} else if (db.getTaskStarted(task.getId()) == 1) {
 			start_task.setBackgroundResource(R.color.lancer_red);
