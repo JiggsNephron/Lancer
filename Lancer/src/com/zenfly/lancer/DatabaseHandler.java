@@ -692,6 +692,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
     {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_TASKS, KEY_ID + " = ?", new String[] { Integer.toString(id) });
+        deleteTaskAssociates(id);
         db.close();
     }
     
@@ -730,6 +731,14 @@ public class DatabaseHandler extends SQLiteOpenHelper
         db.delete(TABLE_TASKS, KEY_JOB + " = ?", new String[] { Integer.toString(job) }); //deletes all tasks associated with the job
         db.delete(TABLE_NOTES, KEY_JOB + " = ?", new String[] { Integer.toString(job) }); //deletes all notes associated with the job
         db.delete(TABLE_EXPENSES , KEY_JOB + " = ?", new String[] { Integer.toString(job) }); //deletes all expenses associated with the job
+        db.close();
+    }
+    
+    public void deleteTaskAssociates(int task)
+    {
+    	SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_NOTES, KEY_TASK + " = ?", new String[] { Integer.toString(task) }); //deletes all notes associated with the job
+        db.delete(TABLE_EXPENSES , KEY_TASK + " = ?", new String[] { Integer.toString(task) }); //deletes all expenses associated with the job
         db.close();
     }
     
