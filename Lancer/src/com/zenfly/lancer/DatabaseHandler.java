@@ -1027,8 +1027,9 @@ public class DatabaseHandler extends SQLiteOpenHelper
     {
     	String query = "SELECT " + KEY_TASK_STARTED + " FROM " + TABLE_TASKS + " WHERE " + KEY_ID + "=" + id;
     	SQLiteDatabase db = this.getReadableDatabase();
+    	int started = 0;
         Cursor cursor = db.rawQuery(query, null);
-        int started = cursor.getInt(0);
+        if(cursor.moveToFirst()) started = cursor.getInt(0);
         cursor.close();
         db.close();
         return started;
