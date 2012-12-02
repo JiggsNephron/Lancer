@@ -165,6 +165,14 @@ public class ViewTask extends Activity {
 		else Toast.makeText(getApplicationContext(), "You have not set a contact email for this task", Toast.LENGTH_LONG).show();
 	}
 	
+	public void startTask (View v)
+	{
+		Intent startTaskIntent = new Intent(ViewTask.this, startTask.class);
+		startTaskIntent.putExtra("job_id", JobId);
+		startTaskIntent.putExtra("task_id", TaskId);
+		startActivity(startTaskIntent);
+	}	
+	
 	public void callPerson (View v)
 	{
 		if(!task.getPhone().equals(""))

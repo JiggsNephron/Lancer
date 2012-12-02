@@ -65,7 +65,7 @@ public class ExpensesAdapter extends ArrayAdapter<Expense> {
 	    ExpenseItemView.item = (currentExpense.getItem()); 						//gets the item ID
 	    ExpenseItemView.taskId = (currentExpense.getTask()); 					//gets the item TaskId
 	    Item itemName = db.getItem(ExpenseItemView.item); 						// gets data on this Item
-	    Item taskObject = db.getTask(ExpenseItemView.taskId); 					// gets task Object
+	    Task taskObject = db.getTask(ExpenseItemView.taskId); 					// gets task Object
 	    
 	    float cost = currentExpense.getQuantity() * itemName.getPrice(); 		// calculates the current cost for that item 
 	    //String itemcost = Float.toString(cost);				  				// converts the float to string
@@ -74,7 +74,7 @@ public class ExpensesAdapter extends ArrayAdapter<Expense> {
 
 	    
 	    ExpenseItemView.itemName.setText(itemName.getName());					//sets the data
-	    ExpenseItemView.linkedToTask.setText(itemName.getName());				//sets the data
+	    ExpenseItemView.linkedToTask.setText(taskObject.getName());				//sets the data
 	    ExpenseItemView.cost.setText(locale_currency_format.format(cost)); 		//sets the data
         TextView Total_cost = (TextView) rowView.findViewById(R.id.TotalCost);
 	  //  Total_cost = setText(locale_currency_format_totalCost.format(TotalCost));

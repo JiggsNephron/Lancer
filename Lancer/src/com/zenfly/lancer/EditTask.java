@@ -97,28 +97,43 @@ public class EditTask extends FragmentActivity {
         	task_location_id = getIntent().getIntExtra("location", 0);
         	Location location = db.getLocation(task_location_id);
         	task_location_box.setText(location.getLocation());
-        } else {
+        } else if (current_task.getLocation() != 0) {
         	task_location_id = current_task.getLocation();
         	task_location_box.setText((db.getLocation(current_task.getLocation())).getLocation());
+        } 
+        
+        if (getIntent().getStringExtra("task_date") != null) {        	
+        	sttask_date = getIntent().getStringExtra("task_date");         
+        } else if (!current_task.getDeadline().equals("")) { 
+        	sttask_date = current_task.getDeadline();         	            
+        } else {
+        	sttask_date = "";
+        	stformatted_task_date = "";
+        	add_deadline.setText(stformatted_task_date);
         }
-        
-        sttask_date = current_task.getDeadline();
-        String delim = "[/]";
-		String[] dates = sttask_date.split(delim);
-		
-		year = Integer.parseInt(dates[0]);
-		month = Integer.parseInt(dates[1]);
-		day = Integer.parseInt(dates[2]);		
-        
-        SimpleDateFormat date_formater = new SimpleDateFormat("yyyy/MM/dd");
-        try {
-			date_locale = date_formater.parse(sttask_date);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-        stformatted_task_date = DateFormat.getDateInstance().format(date_locale);
-        
-        add_deadline.setText(stformatted_task_date);
+        if (!sttask_date.equals("")) {
+        	
+        	String delim = "[/]";
+    		String[] dates = sttask_date.split(delim);
+    		
+    		year = Integer.parseInt(dates[0]);
+    		month = Integer.parseInt(dates[1]);
+    		day = Integer.parseInt(dates[2]);		
+            
+            SimpleDateFormat date_formater = new SimpleDateFormat("yyyy/MM/dd");
+            try {
+    			date_locale = date_formater.parse(sttask_date);
+    		} catch (ParseException e) {
+    			e.printStackTrace();
+    		}
+            stformatted_task_date = DateFormat.getDateInstance().format(date_locale);
+            
+            add_deadline.setText(stformatted_task_date);
+        } else {
+        	year = calendar.get(Calendar.YEAR)-1;
+    		month = calendar.get(Calendar.MONTH)+2;
+    		day = calendar.get(Calendar.DAY_OF_YEAR);
+        }
         
         task_hourly_wage.setText(Float.toString(current_task.getWage()));
         
