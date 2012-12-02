@@ -68,11 +68,11 @@
         android:layout_above="@+id/add_new_expense"
         android:layout_alignParentLeft="true"
         android:textColor="@color/lancer_blue"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
         android:layout_marginLeft="20dp"
         android:text="@string/ExpensesList_total_expenses"
-        android:textSize="20dp"
+        android:textSize="35dp"
         android:textAppearance="?android:attr/textAppearanceMedium" />
        
        <TextView
@@ -83,10 +83,10 @@
         android:layout_alignParentRight="true"
         android:textColor="@color/lancer_blue"
         android:layout_marginRight="20dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
         android:text="€0"
-        android:textSize="20dp"
+        android:textSize="35dp"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
        <Button
