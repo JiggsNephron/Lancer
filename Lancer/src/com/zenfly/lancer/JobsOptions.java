@@ -3,6 +3,7 @@ package com.zenfly.lancer;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -18,8 +19,11 @@ public class JobsOptions extends Activity  {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE); // RC: this removed the black bar at the top of activities. 
-        setContentView(R.layout.activity_jobs_options);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+	    }
+        else{ 
+        	this.requestWindowFeature(Window.FEATURE_NO_TITLE); // RC: this removed the black bar at the top of activities. 
+        }        setContentView(R.layout.activity_jobs_options);
         
         db = new DatabaseHandler(this.getApplicationContext());
         id = getIntent().getIntExtra("job_id", 0);

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import android.app.ListActivity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -23,8 +24,11 @@ public class ExpensesList extends ListActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE); // RC: this removed the black bar at the top of activities.
-        setContentView(R.layout.activity_expenses_list);
-        db = new DatabaseHandler(this.getApplicationContext());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+	    }
+        else{ 
+        	this.requestWindowFeature(Window.FEATURE_NO_TITLE); // RC: this removed the black bar at the top of activities. 
+        }        db = new DatabaseHandler(this.getApplicationContext());
         int jobId = getIntent().getIntExtra("job_id", 0);
         taskId = getIntent().getIntExtra("task_id", 0);
         Log.v("Task is ", ""+taskId);
