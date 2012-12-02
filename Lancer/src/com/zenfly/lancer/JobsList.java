@@ -37,7 +37,6 @@ public class JobsList extends ListActivity {
 	    }
         else{ 
         	this.requestWindowFeature(Window.FEATURE_NO_TITLE); // RC: this removed the black bar at the top of activities. 
-
         }
    
         //Splash Code Start

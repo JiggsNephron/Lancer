@@ -57,7 +57,7 @@ public class ViewTask extends Activity {
 		TextView TaskNameTitle = (TextView) findViewById(R.id.job_option);			//prepares to access textView
 		TextView displayName = (TextView) findViewById(R.id.thisTaskName);			//prepares to access textView
 		TextView displayDate = (TextView) findViewById(R.id.thisTaskDeadline);		//prepares to access textView
-		TextView displayLocation = (TextView) findViewById(R.id.thisTaskLocation);	//prepares to access textView
+		TextView displayLocation = (TextView) findViewById(R.id.view_on_map);	//prepares to access textView
 		
 		JobNameTitle.setText(JobName);									// sets the text view this data will always be set
 		TaskNameTitle.setText("View Task");								// sets the text view this data will always be set
