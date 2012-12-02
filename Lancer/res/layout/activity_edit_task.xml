@@ -260,34 +260,38 @@
         android:id="@+id/LinButtons"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:layout_alignParentBottom="true"
         android:textSize = "16dp"
         android:gravity="center_vertical" >
 
+    
     <Button
         android:id="@+id/edit_task"
-        android:layout_width="171dp"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+     	android:layout_marginRight="145dp" 
         android:background="@color/lancer_blue"
-        android:onClick="editTask"
+        android:onClick="saveTaskEdits"
         android:paddingBottom="10dp"
         android:paddingTop="10dp"
-        android:text="Edit Task"
+        android:text="@string/EditNote_button_save_update"
         android:textColor="@color/white"
         android:textSize="25dp" />
 
     <Button
         android:id="@+id/delete_task"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@color/lancer_blue"
+
+   		android:layout_marginLeft="145dp" 
+        android:background="@color/lancer_red"
         android:onClick="deleteTask"
         android:paddingBottom="10dp"
         android:paddingTop="10dp"
-        android:text="Delete"
+        android:text="@string/EditNote_button_delete_note"
         android:textColor="@color/white"
         android:textSize="25dp" />
-
     </LinearLayout> 
     
 </RelativeLayout>
