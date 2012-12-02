@@ -38,15 +38,11 @@ public class ViewNotes extends Activity {
 		Log.v("Id is: ", NoteId+" = Note");
 		note = db.getNote(NoteId);
 		
-		TextView JobNameTitle = (TextView) findViewById(R.id.job_name);				//prepares to access textView
-		TextView TaskNameTitle = (TextView) findViewById(R.id.job_option);			//prepares to access textView
-		TextView displayName = (TextView) findViewById(R.id.thisTaskName);			//prepares to access textView
 		TextView noteSubject = (TextView) findViewById(R.id.NoteItemDisplay);				//prepares to access textView
 		TextView noteBody = (TextView) findViewById(R.id.NoteText);			//prepares to access textView
 	
 		noteSubject.setText(note.getSubject());									// sets the text view this data will always be set
 		noteBody.setText(note.getBody());								// sets the text view this data will always be set
-		TaskNameTitle.setText("View Task");								// sets the text view this data will always be set
 
 	}
 

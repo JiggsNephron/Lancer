@@ -43,7 +43,6 @@ public class ViewExpenses extends Activity {
 		float ItemPrice = item.getPrice();									//extracts the due Date from Object
 		int Quantity = expense.getQuantity();
 		
-		Log.v("View Expenses", "expense.getTask() =" + expense.getTask() + "~END");
 		if(taskId != 0)
 		{
 			task     =  db.getTask(taskId);  //optional 
@@ -55,11 +54,6 @@ public class ViewExpenses extends Activity {
 		String QuantityString = Integer.toString(Quantity);
 		String PriceString = String.valueOf(ItemPrice);
 		String TotalCostString = String.valueOf(TotalCost);
-
-		TextView JobNameTitle = (TextView) findViewById(R.id.job_name);			//prepares to access textView
-		TextView TaskNameTitle = (TextView) findViewById(R.id.job_option);		//prepares to access textView	
-		JobNameTitle.setText(JobName);										// sets the text view this data will always be set
-		TaskNameTitle.setText("View Expense");										// sets the text view this data will always be set
 			
 		TextView ExpenseItemDisplay = (TextView) findViewById(R.id.ExpenseItemDisplay);		//prepares to access textView
 		TextView ExpenseCostDisplay = (TextView) findViewById(R.id.ExpenseCostDisplay);		//prepares to access textView
