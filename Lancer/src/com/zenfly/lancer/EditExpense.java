@@ -73,7 +73,13 @@ public class EditExpense extends Activity {
         
         task_id = current_expense.getTask();
         job_id = current_expense.getJob();
+        item_id = current_expense.getItem();
         
+        // Get the view elements
+        et_item_choice  = (EditText) findViewById(R.id.button_choose_item);
+        et_item_amount  = (EditText)findViewById(R.id.edittext_number_of_items);
+        et_item_total = (EditText)findViewById(R.id.edittext_total_cost_of_items);
+        sp_assign_to_task  = (Spinner)findViewById(R.id.expense_to_task);
         
         // get the item id (available if an item as been chosen)
         if(getIntent().getIntExtra("item_id", 0) != 0) {
@@ -81,15 +87,8 @@ public class EditExpense extends Activity {
         	item = db.getItem(item_id);
         	et_item_choice.setText(item.getName() + ": " + locale_currency_format.format(item.getPrice()));
         } else {
-        	item = db.getItem(current_expense.getItem());
-        	item_id = item.getId();
+        	item = db.getItem(current_expense.getItem());        	
         }
-        
-        // Get the view elements
-        et_item_choice  = (EditText) findViewById(R.id.button_choose_item);
-        et_item_amount  = (EditText)findViewById(R.id.edittext_number_of_items);
-        et_item_total = (EditText)findViewById(R.id.edittext_total_cost_of_items);
-        sp_assign_to_task  = (Spinner)findViewById(R.id.expense_to_task);
         
         et_item_choice.setText(item.getName() + ": " + locale_currency_format.format(item.getPrice()));
         
