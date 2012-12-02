@@ -15,4 +15,9 @@ public class startTask extends BroadcastReceiver
 		int taskId = intent.getIntExtra("task_id", 0);
 		
 	}
+	
+	public void test2()
+	{
+		
+	}
 }
