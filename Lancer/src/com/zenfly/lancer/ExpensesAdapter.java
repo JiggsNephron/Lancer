@@ -50,28 +50,32 @@ public class ExpensesAdapter extends ArrayAdapter<Expense> {
 	    	//creates new instance of row layout view
 	        LayoutInflater inflater = activity.getLayoutInflater();
 	        rowView = inflater.inflate(R.layout.expense_item, null);
-	        ExpenseItemView = new ExpenseView(); 						//for holding the data
+	        ExpenseItemView = new ExpenseView(); 								//for holding the data
 	        
 	        ExpenseItemView.itemName = (TextView) rowView.findViewById(R.id.ExpenseItemDisplay);
+	        ExpenseItemView.linkedToTask = (TextView) rowView.findViewById(R.id.JobTaskDisplay);
 	        ExpenseItemView.cost = (TextView) rowView.findViewById(R.id.ExpenseCostDisplay);
-	        rowView.setTag(ExpenseItemView); 							//for later access
+	        rowView.setTag(ExpenseItemView); 									//for later access
 	    }
 	    ExpenseItemView = (ExpenseView) rowView.getTag();
-	    Expense currentExpense = (Expense) ExpenseObject.get(position); //casts as expense
+	    Expense currentExpense = (Expense) ExpenseObject.get(position); 		//casts as expense
 	  
-	    //ExpenseItemView.quantity.setText(currentExpense.getQuantity()); //sets the data
-	    //int quantityOfItem = currentExpense.getQuantity(); 				//gets the quantity of the Item
-	    ExpenseItemView.item = (currentExpense.getItem()); 				//gets the item ID
-	    Item itemName = db.getItem(ExpenseItemView.item); 				// gets data on this Item
+	    //ExpenseItemView.quantity.setText(currentExpense.getQuantity()); 		//sets the data
+	    //int quantityOfItem = currentExpense.getQuantity(); 					//gets the quantity of the Item
+	    ExpenseItemView.item = (currentExpense.getItem()); 						//gets the item ID
+	    ExpenseItemView.taskId = (currentExpense.getTask()); 					//gets the item TaskId
+	    Item itemName = db.getItem(ExpenseItemView.item); 						// gets data on this Item
+	    Task taskObject = db.getTask(ExpenseItemView.taskId); 					// gets task Object
 	    
 	    float cost = currentExpense.getQuantity() * itemName.getPrice(); 		// calculates the current cost for that item 
-	    //String itemcost = Float.toString(cost);				  		// converts the float to string
+	    //String itemcost = Float.toString(cost);				  				// converts the float to string
 	    TotalCost = TotalCost + cost;
 	//	Log.v("Expenses list", "cost =" + cost  + "~END");
 
 	    
-	    ExpenseItemView.itemName.setText(itemName.getName());			//sets the data
-	    ExpenseItemView.cost.setText(locale_currency_format.format(cost)); 						//sets the data
+	    ExpenseItemView.itemName.setText(itemName.getName());					//sets the data
+	    ExpenseItemView.linkedToTask.setText(taskObject.getName());				//sets the data
+	    ExpenseItemView.cost.setText(locale_currency_format.format(cost)); 		//sets the data
         TextView Total_cost = (TextView) rowView.findViewById(R.id.TotalCost);
 	  //  Total_cost = setText(locale_currency_format_totalCost.format(TotalCost));
 	    
@@ -86,6 +90,8 @@ public class ExpensesAdapter extends ArrayAdapter<Expense> {
     {
         protected TextView itemName;
         protected int item;
+        protected int taskId;
+        protected TextView linkedToTask;
         protected TextView cost;
         protected TextView Total_cost;
         protected TextView quantity;
