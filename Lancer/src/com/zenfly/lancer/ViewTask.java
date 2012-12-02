@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
@@ -204,33 +205,39 @@ public class ViewTask extends Activity {
 	{		
 		if (task.getWage() > 0) {
 			
+			AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+			
 			SharedPreferences.Editor prefEditor = prefs.edit();
 			calendar = Calendar.getInstance(); 
 					
 			if (db.getTaskStarted(task.getId()) == 0) {
 				db.setTaskStarted(task.getId(), 1);
-				
+								
 				prefEditor.putLong("started_time", calendar.getTimeInMillis());
 				prefEditor.commit();
 				
 			} else if (db.getTaskStarted(task.getId()) == 1) {
 				db.setTaskStarted(task.getId(), 0);
-				
+								
 				started_time = prefs.getLong("started_time", 0);
 				
-				total_millis = started_time - calendar.getTimeInMillis();
+				total_millis = calendar.getTimeInMillis() - started_time;
 				
-				total_minutes = TimeUnit.MILLISECONDS.toMinutes(total_millis);
+				total_minutes = ((total_millis / 1000) / 60);
 				
 				Toast.makeText(getApplicationContext(), "You worked " + total_minutes + " minutes.", Toast.LENGTH_LONG).show();
 				
-				//db.setTaskMinutes(task.getId(), total_minutes);
+				db.setTaskMinutes(task.getId(), total_minutes);
 			}
 			
 			Intent startTaskIntent = new Intent(ViewTask.this, startTask.class);
-			startTaskIntent.putExtra("job_id", JobId);
-			startTaskIntent.putExtra("task_id", TaskId);
-			startActivity(startTaskIntent);
+			PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, startTaskIntent, PendingIntent.FLAG_ONE_SHOT);
+			am.set(AlarmManager.RTC_WAKEUP, 0, pendingIntent);
+			
+			Intent refreshTaskView = new Intent(ViewTask.this, ViewTask.class);
+			refreshTaskView.putExtra("job_id", getIntent().getIntExtra("job_id", 0));
+			refreshTaskView.putExtra("task", getIntent().getIntExtra("task", 0));
+			startActivity(refreshTaskView);
 			
 		} else Toast.makeText(getApplicationContext(), "You have not set an hourly wage for this task", Toast.LENGTH_LONG).show();
 		
