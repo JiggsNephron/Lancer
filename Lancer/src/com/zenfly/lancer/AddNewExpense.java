@@ -170,6 +170,7 @@ public class AddNewExpense extends Activity {
     	// which then sends it back to re-populate those fields in this activity
     	show_items.putExtra("item_amount", intitem_amount);
     	show_items.putExtra("job_id", job_id);
+    	show_items.putExtra("task_id", getIntent().getIntExtra("task_id", 0));
     	show_items.putExtra("task_spinner", sp_assign_to_task.getSelectedItemPosition());
     	
     	// show the locations list

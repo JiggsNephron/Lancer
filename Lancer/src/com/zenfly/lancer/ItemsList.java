@@ -82,6 +82,7 @@ public class ItemsList extends ListActivity {
 		    		added_an_item_done.putExtra("item_amount", getIntent().getIntExtra("item_amount", 0));
 		    		added_an_item_done.putExtra("task_spinner", getIntent().getIntExtra("task_spinner", 0));
 		    		added_an_item_done.putExtra("job_id", getIntent().getIntExtra("job_id", 0));
+		    		added_an_item_done.putExtra("task_id", getIntent().getIntExtra("task_id", 0));
 
 		    		db.addItem(new Item(stitem_name, intitem_cost));
 		    		Toast.makeText(getApplicationContext(), "Saved Item: " + stitem_name, Toast.LENGTH_LONG).show();
@@ -105,6 +106,7 @@ public class ItemsList extends ListActivity {
 	  	intent.putExtra("item_amount", getIntent().getIntExtra("item_amount", 0));
 	  	intent.putExtra("task_spinner", getIntent().getIntExtra("task_spinner", 0));
 	  	intent.putExtra("job_id", getIntent().getIntExtra("job_id", 0));
+	  	intent.putExtra("task_id", getIntent().getIntExtra("task_id", 0));
 	  	intent.putExtra("item_id", itemId);
 	  	
 	    startActivity(intent);

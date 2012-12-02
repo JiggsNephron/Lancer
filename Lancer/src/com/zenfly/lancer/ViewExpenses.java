@@ -113,7 +113,7 @@ public class ViewExpenses extends Activity {
 	@Override
     public void onBackPressed() {
     	Intent intent = new Intent(ViewExpenses.this, ExpensesList.class);
-    	intent.putExtra("task_id", taskId);
+    	intent.putExtra("task_id", getIntent().getIntExtra("task_id", 0));
     	intent.putExtra("job_id", getIntent().getIntExtra("job_id", 0));
 		startActivity(intent);
     } 

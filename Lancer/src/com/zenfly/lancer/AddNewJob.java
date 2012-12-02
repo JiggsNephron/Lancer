@@ -45,6 +45,7 @@ public class AddNewJob extends Activity {
 	    	db.addJob(new Job(stjobName));
 	    	Toast.makeText(getApplicationContext(), "Job: " + stjobName + " added.", Toast.LENGTH_SHORT).show();
 	    	Log.v("Name:", stjobName);
+	    	backToJobsList.putExtra("splash_screen", 1);
 	    	startActivity(backToJobsList);
     	}
     	else {
@@ -57,6 +58,7 @@ public class AddNewJob extends Activity {
     @Override
     public void onBackPressed() {
     	Intent intent = new Intent(AddNewJob.this, JobsList.class);
+    	intent.putExtra("splash_screen", 1);
     	startActivity(intent);
     	return;
     }      

@@ -40,6 +40,7 @@ public class ExpensesList extends ListActivity {
     public void addNewExpense(View v) {
        	Intent intent = new Intent(ExpensesList.this, AddNewExpense.class);
        	intent.putExtra("job_id", getIntent().getIntExtra("job_id", 0));
+       	intent.putExtra("task_id", getIntent().getIntExtra("task_id", 0));
     	startActivity(intent);	
    }
     
@@ -50,6 +51,7 @@ public class ExpensesList extends ListActivity {
     	{
     		intent = new Intent(ExpensesList.this, ViewTask.class);
     		intent.putExtra("task", getIntent().getIntExtra("task_id", 0));
+    		intent.putExtra("job_id", getIntent().getIntExtra("job_id", 0));
     	}
     	else intent = new Intent(ExpensesList.this, JobsOptions.class);
     	intent.putExtra("job_id", getIntent().getIntExtra("job_id", 0));
@@ -63,6 +65,7 @@ public class ExpensesList extends ListActivity {
 	  	int expenseId = expense.get(position).getId();
 	  	intent.putExtra("expense", expenseId); //sends the expense name
 	  	intent.putExtra("job_id", getIntent().getIntExtra("job_id", 0)); //sends the job name
+	  	intent.putExtra("task_id", getIntent().getIntExtra("task_id", 0));
 	    startActivity(intent);
 	  }
 
