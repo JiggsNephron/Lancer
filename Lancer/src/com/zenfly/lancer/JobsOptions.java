@@ -19,17 +19,12 @@ public class JobsOptions extends Activity  {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-	    }
-        else{ 
-        	this.requestWindowFeature(Window.FEATURE_NO_TITLE); // RC: this removed the black bar at the top of activities. 
-        }        setContentView(R.layout.activity_jobs_options);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE); // RC: this removed the black bar at the top of activities. 
+        setContentView(R.layout.activity_jobs_options);
         
         db = new DatabaseHandler(this.getApplicationContext());
         id = getIntent().getIntExtra("job_id", 0);
-        Job job = db.getJob(id);
-
-        
+                
         // R.id is same for all buttons here? (SK) Button taskButton = (Button)findViewById(R.id.create_invoice);
         // --> This Stuff to be done in xml (SK) //taskButton.setVisibility(View.VISIBLE);
         // --> This Stuff to be done in xml (SK) taskButton.setBackgroundColor(Color.TRANSPARENT);
@@ -38,16 +33,11 @@ public class JobsOptions extends Activity  {
         // --> This Stuff to be done in xml (SK) expensesButton.setVisibility(View.VISIBLE);
         // --> This Stuff to be done in xml (SK) expensesButton.setBackgroundColor(Color.TRANSPARENT);
         
-     // R.id is same for all buttons here? Button NotesButton = (Button)findViewById(R.id.create_invoice);
+        // R.id is same for all buttons here? Button NotesButton = (Button)findViewById(R.id.create_invoice);
         // --> This Stuff to be done in xml (SK) NotesButton.setVisibility(View.VISIBLE);
         // --> This Stuff to be done in xml (SK) NotesButton.setBackgroundColor(Color.TRANSPARENT);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_jobs_options, menu);
-        return true;
-    }
     @Override
     public void onBackPressed() {
     	Intent intent = new Intent(JobsOptions.this, JobsList.class);

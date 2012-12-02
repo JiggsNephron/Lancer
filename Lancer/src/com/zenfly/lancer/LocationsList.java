@@ -52,8 +52,9 @@ public class LocationsList extends ListActivity {
    
 		setListAdapter(new LocationsAdapter(this, locations));
 		
-		registerForContextMenu(getListView());
-        
+		if (getIntent().getIntExtra("task_id", 0) == 0) {
+			registerForContextMenu(getListView());
+		}
     }
     
     public void addLocation(View v) {   	
