@@ -30,7 +30,6 @@ public class NotesList extends ListActivity {
         	this.requestWindowFeature(Window.FEATURE_NO_TITLE); // RC: this removed the black bar at the top of activities. 
         }        setContentView(R.layout.activity_notes_list);
         
-        TextView jobName = (TextView) findViewById(R.id.job_name);
         db = new DatabaseHandler(this.getApplicationContext());
         jobId = getIntent().getIntExtra("job_id", 0);
         
@@ -41,9 +40,7 @@ public class NotesList extends ListActivity {
         if (task_id != 0) {        	
         	note = db.getAllNotesForTask(task_id); //makes a list of jobs to send to the list View
         } else note = db.getAllNotesForJob(jobId); //makes a list of jobs to send to the list View
-        
-        jobName.setText(job.getClient());
-        Log.v("Expenses list", "note="+ note +"  ~note");
+
         setListAdapter(new NoteAdapter(this, note)); //starts the list View
 
         

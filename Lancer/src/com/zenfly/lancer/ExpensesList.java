@@ -49,8 +49,6 @@ public class ExpensesList extends ListActivity {
         }
         job = db.getJob(jobId);	
         String JobName = job.getClient();
-        TextView JobNameTitle = (TextView) findViewById(R.id.job_name);				//prepares to access textView
-		JobNameTitle.setText(JobName);												// sets the text view this data will always be set
         setListAdapter(new ExpensesAdapter(this, expense)); 						//starts the list View
         
       
