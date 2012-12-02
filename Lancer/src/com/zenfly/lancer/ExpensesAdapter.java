@@ -18,7 +18,6 @@ public class ExpensesAdapter extends ArrayAdapter<Expense> {
 	  private final List<Expense> ExpenseObject;
 	  private DatabaseHandler db;
 	  private NumberFormat locale_currency_format;
-	  private NumberFormat locale_currency_format_totalCost;
 	  public float TotalCost;
 	
 	  
@@ -29,7 +28,6 @@ public class ExpensesAdapter extends ArrayAdapter<Expense> {
       this.ExpenseObject = objects;
       db = new DatabaseHandler(this.getContext());
       locale_currency_format = NumberFormat.getCurrencyInstance();
-      locale_currency_format_totalCost= NumberFormat.getCurrencyInstance();
 	}
 	
 	@Override

@@ -1,7 +1,9 @@
 package com.zenfly.lancer;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Build;
@@ -19,6 +21,8 @@ public class ExpensesList extends ListActivity {
 	Job job;
 	int taskId;
 	List<Expense> expense = new ArrayList<Expense>();
+	private NumberFormat locale_currency_format_totalCost;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -29,22 +33,32 @@ public class ExpensesList extends ListActivity {
         	this.requestWindowFeature(Window.FEATURE_NO_TITLE); // RC: this removed the black bar at the top of activities. 
         }       
         setContentView(R.layout.activity_expenses_list);
+        locale_currency_format_totalCost= NumberFormat.getCurrencyInstance();
         db = new DatabaseHandler(this.getApplicationContext());
+        float totalCostValue;
         int jobId = getIntent().getIntExtra("job_id", 0);
         taskId = getIntent().getIntExtra("task_id", 0);
         Log.v("Task is ", ""+taskId);
-        if(taskId != 0) expense = db.getAllExpensesForTask(taskId);
-        else expense = db.getAllExpensesForJob(jobId);								//makes a list of jobs to send to the list View
+        if(taskId != 0){
+        	expense = db.getAllExpensesForTask(taskId);
+        	totalCostValue = db.getTotalCostForTask(jobId);
+        }
+        else {
+        	totalCostValue = db.getTotalCostForJob(jobId);					//gets the total of all expenses for the job
+        	expense = db.getAllExpensesForJob(jobId);								//makes a list of jobs to send to the list View
+        }
         job = db.getJob(jobId);	
         String JobName = job.getClient();
         TextView JobNameTitle = (TextView) findViewById(R.id.job_name);				//prepares to access textView
 		JobNameTitle.setText(JobName);												// sets the text view this data will always be set
         setListAdapter(new ExpensesAdapter(this, expense)); 						//starts the list View
-       
-        float totalCostValue = db.getTotalCostForJob(jobId);					//gets the total of all expenses for the job
+        
+      
+        
+        
         Log.v("Expenses list", "totalCostValue =" + totalCostValue  + "~END");
         TextView totalCost = (TextView) findViewById(R.id.TotalCost);				//prepares to access textView
-        totalCost.setText(String.valueOf(totalCostValue));							// sets the text view this data
+        totalCost.setText(locale_currency_format_totalCost.format(totalCostValue));							// sets the text view this data
 
     }
   
