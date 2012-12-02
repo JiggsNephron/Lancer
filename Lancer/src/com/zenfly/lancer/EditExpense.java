@@ -74,7 +74,16 @@ public class EditExpense extends Activity {
         task_id = current_expense.getTask();
         job_id = current_expense.getJob();
         
-        item = db.getItem(current_expense.getItem());
+        
+        // get the item id (available if an item as been chosen)
+        if(getIntent().getIntExtra("item_id", 0) != 0) {
+        	item_id = getIntent().getIntExtra("item_id", 0);
+        	item = db.getItem(item_id);
+        	et_item_choice.setText(item.getName() + ": " + locale_currency_format.format(item.getPrice()));
+        } else {
+        	item = db.getItem(current_expense.getItem());
+        	item_id = item.getId();
+        }
         
         // Get the view elements
         et_item_choice  = (EditText) findViewById(R.id.button_choose_item);
@@ -203,9 +212,11 @@ public class EditExpense extends Activity {
     	// if the user has chosen an item and given a quantity, the expense is added to the database
     	if (item_id != 0 && intitem_amount != 0) {
     		
-    		Expense new_expense = new Expense(job_id, task_id, item_id, intitem_amount);   	   	
+    		current_expense.setItem(item_id);
+    		current_expense.setQuantity(intitem_amount);
+    		current_expense.setTask(task_id);
     	
-    		db.addExpense(new_expense);    	
+    		db.updateExpense(current_expense);    	
     		
     		float total_cost = intitem_amount*item.getPrice();
     		
