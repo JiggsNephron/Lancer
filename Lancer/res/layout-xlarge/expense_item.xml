@@ -14,7 +14,7 @@
         android:layout_marginTop="20dp"
         android:text="Red Wiring"
         android:textColor="@color/lancer_blue"
-        android:textSize="35dp"
+        android:textSize="45dp"
         android:textAppearance="?android:attr/textAppearanceLarge" />
     
     <TextView
@@ -40,7 +40,7 @@
         android:textColor="@color/lancer_blue"
         android:layout_marginRight="20dp"
         android:text="€38.50"
-        android:textSize="20dp"
+        android:textSize="25dp"
         android:textAppearance="?android:attr/textAppearanceMedium" />
     
     <View android:id="@+id/separator" 
