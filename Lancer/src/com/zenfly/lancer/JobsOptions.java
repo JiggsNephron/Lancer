@@ -39,11 +39,6 @@ public class JobsOptions extends Activity  {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_jobs_options, menu);
-        return true;
-    }
-    @Override
     public void onBackPressed() {
     	Intent intent = new Intent(JobsOptions.this, JobsList.class);
     	intent.putExtra("splash_screen", 1);
