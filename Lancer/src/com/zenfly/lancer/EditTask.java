@@ -10,9 +10,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -249,5 +251,34 @@ public class EditTask extends FragmentActivity {
     	show_locations.putExtra("task_id", task_id);
 
     	startActivity(show_locations);	
+    }
+    
+public void deleteTask (View v) {
+    	
+    	// confirms the action with the Alert Dialog
+    	final AlertDialog.Builder builder=new AlertDialog.Builder(EditTask.this);
+    	builder.setTitle("Delete " + current_task.getName());
+    	builder.setMessage("Are you sure you want to delete this Task?");
+    			
+    	builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+    		
+    		public void onClick(DialogInterface dialog, int id)
+    			{
+    					db.deleteTask(task_id);
+    	    			Toast.makeText(getApplicationContext(), "Deleted " + current_task.getName(), Toast.LENGTH_LONG).show();
+    	    			Intent back_to_note = new Intent(context, TasksList.class);
+    	    			back_to_note.putExtra("job_id", job_id);
+    	    	    	startActivity(back_to_note);
+    			}
+    	});
+    	      
+    	builder.setNegativeButton("No", new DialogInterface.OnClickListener()
+    		{
+    			public void onClick(DialogInterface dialog, int id)
+    			{
+    	 	   	     dialog.cancel();
+    			}
+    	});    	      
+    	builder.create().show();
     }    
 }
