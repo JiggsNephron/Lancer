@@ -1025,10 +1025,10 @@ public class DatabaseHandler extends SQLiteOpenHelper
     
     public int getTaskStarted(int id)
     {
-    	String query = "SELECT " + KEY_TASK_STARTED + " FROM " + TABLE_TASKS + " WHERE " + KEY_ID + "=" + id;
+    	String startedQuery = "SELECT " + KEY_TASK_STARTED + " FROM " + TABLE_TASKS + " WHERE " + KEY_ID + "=" + id;
     	SQLiteDatabase db = this.getReadableDatabase();
     	int started = 0;
-        Cursor cursor = db.rawQuery(query, null);
+        Cursor cursor = db.rawQuery(startedQuery, null);
         if(cursor.moveToFirst()) started = cursor.getInt(0);
         cursor.close();
         db.close();
