@@ -288,34 +288,38 @@ public class ViewTask extends Activity {
 	
 	public void notifyMe(View v)
 	{
-		AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-		String delim = "[/]";
-		String[] dates = task.getDeadline().split(delim);
-		Calendar cal = Calendar.getInstance();
-		cal.set(Calendar.YEAR, Integer.parseInt(dates[0]));
-		cal.set(Calendar.MONTH, Integer.parseInt(dates[1])-1);
-		cal.set(Calendar.DAY_OF_MONTH, Integer.parseInt(dates[2]));
-		cal.set(Calendar.HOUR, 9);
-		cal.set(Calendar.MINUTE, 0);
-		cal.set(Calendar.MILLISECOND, 0);
-		Intent intent = new Intent(ViewTask.this, NotificationTimer.class);
-		intent.putExtra("task", task.getName());
-		//intent.putExtra("time", time);
-		PendingIntent pendingIntent = PendingIntent.getBroadcast(this, task.getId(), intent, PendingIntent.FLAG_ONE_SHOT);
-		if(task.hasAlarm() == 0)
+		if(!task.getDeadline().equals(""))
 		{
-			am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent);
-			Toast.makeText(getApplicationContext(), "Alarm Set for " + cal.get(Calendar.DAY_OF_MONTH) + "/" + cal.get(Calendar.MONTH) + "/" + cal.get(Calendar.YEAR) + " at " + cal.get(Calendar.HOUR) + ":" + cal.get(Calendar.MINUTE)+1, Toast.LENGTH_LONG).show();
-			db.setTaskAlarm(task.getId(), 1);
-			task.setAlarm(1);
+			AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+			String delim = "[/]";
+			String[] dates = task.getDeadline().split(delim);
+			Calendar cal = Calendar.getInstance();
+			cal.set(Calendar.YEAR, Integer.parseInt(dates[0]));
+			cal.set(Calendar.MONTH, Integer.parseInt(dates[1])-1);
+			cal.set(Calendar.DAY_OF_MONTH, Integer.parseInt(dates[2]));
+			cal.set(Calendar.HOUR, 9);
+			cal.set(Calendar.MINUTE, 0);
+			cal.set(Calendar.MILLISECOND, 0);
+			Intent intent = new Intent(ViewTask.this, NotificationTimer.class);
+			intent.putExtra("task", task.getName());
+			//intent.putExtra("time", time);
+			PendingIntent pendingIntent = PendingIntent.getBroadcast(this, task.getId(), intent, PendingIntent.FLAG_ONE_SHOT);
+			if(task.hasAlarm() == 0)
+			{
+				am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent);
+				Toast.makeText(getApplicationContext(), "Alarm Set for " + cal.get(Calendar.DAY_OF_MONTH) + "/" + cal.get(Calendar.MONTH) + "/" + cal.get(Calendar.YEAR) + " at " + cal.get(Calendar.HOUR) + ":" + cal.get(Calendar.MINUTE)+1, Toast.LENGTH_LONG).show();
+				db.setTaskAlarm(task.getId(), 1);
+				task.setAlarm(1);
+			}
+			else
+			{
+				am.cancel(pendingIntent);
+				Toast.makeText(getApplicationContext(), "Notification cancelled for " + task.getName(), Toast.LENGTH_LONG).show();
+				db.setTaskAlarm(task.getId(), 0);
+				task.setAlarm(0);
+			}
 		}
-		else
-		{
-			am.cancel(pendingIntent);
-			Toast.makeText(getApplicationContext(), "Notification cancelled for " + task.getName(), Toast.LENGTH_LONG).show();
-			db.setTaskAlarm(task.getId(), 0);
-			task.setAlarm(0);
-		}
+		else Toast.makeText(getApplicationContext(), "You have not set a deadline for this task", Toast.LENGTH_LONG).show();
 	}
 	
     @Override
