@@ -666,6 +666,8 @@ public class DatabaseHandler extends SQLiteOpenHelper
         values.put(KEY_PHONE, task.getPhone());
         values.put(KEY_ALARM, task.getAlarm());
         values.put(KEY_DONE, task.getDone());
+        values.put(KEY_HOURLY_WAGE, task.getWage());
+        values.put(KEY_HOURS_WORKED, task.getHoursWorked());
         
         try
         {
