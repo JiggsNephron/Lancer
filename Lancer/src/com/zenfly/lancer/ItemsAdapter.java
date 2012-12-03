@@ -19,17 +19,14 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 
-public class ItemsAdapter extends ArrayAdapter<Item>
-{
-	//public static final String PREFS_COUNT = "MyPrefsFile";
+public class ItemsAdapter extends ArrayAdapter<Item> {
+
 	  private final Activity activity;
 	  private final List<Item> itemsObject;
-	  public DatabaseHandler db;
-	  NumberFormat locale_currency_format;
-	  
+	  DatabaseHandler db;
+	  NumberFormat locale_currency_format;	  
 	
-	public ItemsAdapter(Activity activity, List<Item> objects) 
-	{
+	public ItemsAdapter(Activity activity, List<Item> objects) {
         super(activity, R.layout.activity_items_list , objects);
         this.activity = activity;
         this.itemsObject = objects;
@@ -38,8 +35,7 @@ public class ItemsAdapter extends ArrayAdapter<Item>
 	} 
 
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent)
-	{
+	public View getView(int position, View convertView, ViewGroup parent) {
 	    View rowView = convertView;
 	    itemsView itemItemView = null;
 	
@@ -55,17 +51,15 @@ public class ItemsAdapter extends ArrayAdapter<Item>
 	    }
 	    else itemItemView = (itemsView) rowView.getTag();
 	    {
-	    	Item currentItem = (Item) itemsObject.get(position); //casts as course	    	
+	    	Item currentItem = (Item) itemsObject.get(position);	    	
 	    
-	    	itemItemView.name.setText(currentItem.getName() + ": " + locale_currency_format.format(currentItem.getPrice())); //sets the data
+	    	itemItemView.name.setText(currentItem.getName() + ": " + locale_currency_format.format(currentItem.getPrice()));
 	    }
 	    return rowView;
 	}
 
-    protected static class itemsView
-    {
+    protected static class itemsView {
         protected TextView name;
-
     }
 }
 
