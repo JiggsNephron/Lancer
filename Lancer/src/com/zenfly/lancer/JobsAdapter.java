@@ -75,11 +75,12 @@ public class JobsAdapter extends ArrayAdapter<Job>
 		    		SimpleDateFormat date_formater = new SimpleDateFormat("yyyy/MM/dd");
 			    	try {
 						date_locale = date_formater.parse(tempDate);
+						tempDate = DateFormat.getDateInstance().format(date_locale);
 					} catch (ParseException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-			    	tempDate = DateFormat.getDateInstance().format(date_locale);
+			    	
 			    	jobsItemView.date.setText(tempDate);								//sets the data
 		    	}
 		    	else //if there is no deadline
