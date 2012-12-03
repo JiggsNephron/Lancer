@@ -119,6 +119,11 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Dialog" >
         </activity>
+        <activity
+            android:name=".ViewJobInvoice"
+            android:label="@string/title_activity_view_job_invoice"
+            android:screenOrientation="portrait" >
+        </activity>
     </application>
 
 </manifest>

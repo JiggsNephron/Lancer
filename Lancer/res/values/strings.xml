@@ -119,5 +119,6 @@
     <string name="title_activity_edit_note">EditNote</string>
     <string name="title_activity_edit_task">Edit Task</string>
     <string name="title_activity_edit_expense">Edit Expense</string>
+    <string name="title_activity_view_job_invoice">View Job Invoice</string>
 
 </resources>
