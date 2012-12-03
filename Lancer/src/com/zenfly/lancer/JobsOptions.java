@@ -21,9 +21,11 @@ public class JobsOptions extends Activity  {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE); // RC: this removed the black bar at the top of activities. 
         setContentView(R.layout.activity_jobs_options);
-        
         db = new DatabaseHandler(this.getApplicationContext());
         id = getIntent().getIntExtra("job_id", 0);
+        Job job = db.getJob(id);
+        TextView jobName = (TextView) findViewById(R.id.job_name);
+        jobName.setText(job.getClient());
                 
         // R.id is same for all buttons here? (SK) Button taskButton = (Button)findViewById(R.id.create_invoice);
         // --> This Stuff to be done in xml (SK) //taskButton.setVisibility(View.VISIBLE);
