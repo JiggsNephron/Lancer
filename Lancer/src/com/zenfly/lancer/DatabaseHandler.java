@@ -1105,9 +1105,9 @@ public class DatabaseHandler extends SQLiteOpenHelper
     	return total;
     }
     
-    public List<String> getAllEmailsForJob(int job)
+    public ArrayList<String> getAllEmailsForJob(int job)
     {
-    	List<String> emailList = new ArrayList<String>();
+    	ArrayList<String> emailList = new ArrayList<String>();
     	String selectQuery = "SELECT " + KEY_EMAIL + " FROM " + TABLE_TASKS;
     	SQLiteDatabase db = this.getWritableDatabase();
     	Cursor cursor = db.rawQuery(selectQuery, null);
