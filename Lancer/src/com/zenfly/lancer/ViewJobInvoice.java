@@ -1,16 +1,30 @@
+/**
+ * Allows the user to view job total expenses and earned and create email
+ * 
+ * Authors: Richard Cody, 
+ * 
+ */
+
 package com.zenfly.lancer;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ViewJobInvoice extends Activity {
 	
@@ -51,7 +65,9 @@ public class ViewJobInvoice extends Activity {
         locale_currency_format = NumberFormat.getCurrencyInstance();
         
         job_id = getIntent().getIntExtra("job_id", 0);
+        current_job = db.getJob(job_id);
         
+          
         // get and set the total task earned button's text
         button_total_earned_tasks = (Button) findViewById(R.id.button_total_earned_tasks);        
         all_job_tasks = db.getAllTasksForJob(job_id);        
@@ -73,7 +89,8 @@ public class ViewJobInvoice extends Activity {
         total_earned = total_income - total_expenses;          
         total_earned_text = (TextView) findViewById(R.id.total_earned_text);        
         total_earned_text.setText(locale_currency_format.format(total_earned));
-        
+
+        // get and set the total to be paid text   
         total_tobe_paid = total_income + total_expenses;
         total_due_text = (TextView) findViewById(R.id.total_due_text);
         total_due_text.setText(locale_currency_format.format(total_tobe_paid));
@@ -83,7 +100,6 @@ public class ViewJobInvoice extends Activity {
     public void toExpenses (View v) {
        	Intent intent = new Intent(this, ExpensesList.class);
        	intent.putExtra("job_id", getIntent().getIntExtra("job_id", 0));
-       	intent.putExtra("task_id", getIntent().getIntExtra("task_id", 0));
        	intent.putExtra("from_invoice", 1);
     	startActivity(intent);	
    } 
@@ -91,9 +107,84 @@ public class ViewJobInvoice extends Activity {
     public void toTasks (View v) {
        	Intent intent = new Intent(this, TasksList.class);
        	intent.putExtra("job_id", getIntent().getIntExtra("job_id", 0));
-       	intent.putExtra("task_id", getIntent().getIntExtra("task_id", 0));
        	intent.putExtra("from_invoice", 1);
     	startActivity(intent);	
-   }      
+   }
     
+    public void emailInvoice (View v) {
+    	
+    	LayoutInflater factory = LayoutInflater.from(this);            
+        final View recipientEntryView = factory.inflate(R.layout.invoice_email, null);        
+    	
+    	AlertDialog.Builder emaildialog = new AlertDialog.Builder(this);
+        
+    	emaildialog.setView(recipientEntryView);
+    	
+    	final EditText name = (EditText) recipientEntryView.findViewById(R.id.recipient_name); 
+    	final EditText email = (EditText) recipientEntryView.findViewById(R.id.recipient_email);
+    	final EditText own_name = (EditText) recipientEntryView.findViewById(R.id.own_name);
+    	
+        emaildialog.setPositiveButton("Send Email", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {            	
+            	
+                String recipient_name = name.getText().toString();
+                String recipient_email = email.getText().toString();
+                String stown_name = own_name.getText().toString();
+                
+                if (!recipient_email.equals("") && !recipient_name.equals("")) {
+                	if (checkEmailValid(recipient_email)) {
+                		Intent create_email = new Intent(Intent.ACTION_SEND);
+                    	
+                    	create_email.setType("message/rfc822");
+                    	create_email.putExtra(Intent.EXTRA_EMAIL  , new String[]{recipient_email});
+                    	create_email.putExtra(Intent.EXTRA_SUBJECT, current_job.getClient() + " invoice");
+                    	create_email.putExtra(Intent.EXTRA_TEXT   , "Dear "
+                    	+ recipient_name 
+                    	+ ",\n\n" 
+                    	+ "Total Wages: " 
+                    	+ locale_currency_format.format(total_income) 
+                    	+ "\n\n" 
+                    	+ "Total Expenses: " 
+                    	+ locale_currency_format.format(total_expenses)
+                    	+ "\n\n"
+                    	+ "Total to be Paid: "
+                    	+ locale_currency_format.format(total_tobe_paid)
+                    	+ "\n\n"
+                    	+ "Regards, \n"
+                    	+ stown_name);
+                    	
+                    	try {
+                    	    startActivity(Intent.createChooser(create_email, "Send mail..."));
+                    	} catch (android.content.ActivityNotFoundException ex) {
+                    	    Toast.makeText(context, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+                    	}
+            		}else Toast.makeText(context, "Invalid email address", Toast.LENGTH_SHORT).show();
+                } else Toast.makeText(context, "You need to enter a recipient name and email address.", Toast.LENGTH_SHORT).show();
+            }
+        });
+        emaildialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                dialog.cancel();
+            }
+        });
+        emaildialog.show();
+    }
+    
+    // method to check if user entered email address is correct format
+    public static boolean checkEmailValid(String email) {
+        
+       	boolean isEmailValid = false;
+
+        String emailcheckstring = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+        CharSequence inputStr = email;
+
+        Pattern pattern = Pattern.compile(emailcheckstring, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(inputStr);
+        
+        if (matcher.matches()) {
+        	isEmailValid = true;
+        }
+        
+        return isEmailValid;
+    }    
 }
