@@ -1,5 +1,7 @@
 package com.zenfly.lancer;
 
+import java.text.NumberFormat;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -18,6 +20,7 @@ public class ViewExpenses extends Activity {
 	int jobId;
 	int taskId;
 	private DatabaseHandler db;
+	private NumberFormat locale_currency_format_Cost;
 	Expense expense;
 	Item item;
 	Task task;
@@ -29,6 +32,7 @@ public class ViewExpenses extends Activity {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE); // RC: this removed the black bar at the top of activities. 
 		setContentView(R.layout.activity_view_expenses);
 
+		locale_currency_format_Cost= NumberFormat.getCurrencyInstance();
  		db = new DatabaseHandler(this);
 		expenseId = getIntent().getExtras().getInt("expense"); 				// gets the task ID from the intent
 		jobId = getIntent().getExtras().getInt("job_id"); 					// gets the task ID from the intent
@@ -52,8 +56,8 @@ public class ViewExpenses extends Activity {
 		float TotalCost = Quantity * ItemPrice;
 		
 		String QuantityString = Integer.toString(Quantity);
-		String PriceString = String.valueOf(ItemPrice);
-		String TotalCostString = String.valueOf(TotalCost);
+		String PriceString = locale_currency_format_Cost.format(ItemPrice);
+		String TotalCostString = locale_currency_format_Cost.format(TotalCost);
 			
 		TextView ExpenseItemDisplay = (TextView) findViewById(R.id.ExpenseItemDisplay);		//prepares to access textView
 		TextView ExpenseCostDisplay = (TextView) findViewById(R.id.ExpenseCostDisplay);		//prepares to access textView

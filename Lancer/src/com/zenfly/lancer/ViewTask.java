@@ -89,15 +89,15 @@ public class ViewTask extends Activity {
 		
 		int taskLocationID = task.getLocation();
 		
-		TextView JobNameTitle = (TextView) findViewById(R.id.job_name);				//prepares to access textView
+	//	TextView JobNameTitle = (TextView) findViewById(R.id.job_name);				//prepares to access textView
 		TextView TaskNameTitle = (TextView) findViewById(R.id.job_option);			//prepares to access textView
 		TextView displayName = (TextView) findViewById(R.id.thisTaskName);			//prepares to access textView
 		TextView displayDate = (TextView) findViewById(R.id.thisTaskDeadline);		//prepares to access textView
 		TextView displayLocation = (TextView) findViewById(R.id.view_on_map);	//prepares to access textView
 		Button start_task = (Button) findViewById(R.id.start_task);
 		
-		JobNameTitle.setText(JobName);									// sets the text view this data will always be set
-		TaskNameTitle.setText("View Task");								// sets the text view this data will always be set
+		//JobNameTitle.setText(JobName);									// sets the text view this data will always be set
+		TaskNameTitle.setText("Tasks");								// sets the text view this data will always be set
 		displayName.setText(taskName);									// sets the text view this data will always be set
 		
 		if(taskLocationID == 0)											// if no location set display "No Location Set"
