@@ -9,11 +9,9 @@ import java.util.Date;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -21,8 +19,6 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
-import android.text.Editable;
-import android.text.InputType;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -32,7 +28,6 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 public class ViewTask extends Activity {
@@ -42,8 +37,6 @@ public class ViewTask extends Activity {
 	private int TaskId;	
 	private int JobId;
 	private int day = 0;
-	private int chosenHour = 0;
-	private int chosenMinute = 0;
 	long total_minutes;
 	long total_millis;
 	int start_day;
@@ -83,21 +76,16 @@ public class ViewTask extends Activity {
 		job = db.getJob(JobId);											// gets the Job  object form the database
 		
 		String taskName = task.getName();								//extracts the name from Object
-		String JobName = job.getClient();								//extracts the name from Object
 		String taskLocation = "";
 		String taskDeadline = task.getDeadline();						//extracts the due Date from Object		
 		if((taskDeadline.equals("")) || (taskDeadline == null))	taskDeadline = ""; 											// if no deadline, sets as empty string	
 		
 		int taskLocationID = task.getLocation();
-		
-	//	TextView JobNameTitle = (TextView) findViewById(R.id.job_name);				//prepares to access textView
 		TextView TaskNameTitle = (TextView) findViewById(R.id.job_option);			//prepares to access textView
 		TextView displayName = (TextView) findViewById(R.id.thisTaskName);			//prepares to access textView
 		TextView displayDate = (TextView) findViewById(R.id.thisTaskDeadline);		//prepares to access textView
 		TextView displayLocation = (TextView) findViewById(R.id.view_on_map);	//prepares to access textView
 		Button start_task = (Button) findViewById(R.id.start_task);
-		
-		//JobNameTitle.setText(JobName);									// sets the text view this data will always be set
 		TaskNameTitle.setText("Tasks");								// sets the text view this data will always be set
 		displayName.setText(taskName);									// sets the text view this data will always be set
 		
@@ -109,9 +97,6 @@ public class ViewTask extends Activity {
 		{
 			location = db.getLocation(taskLocationID);			//extracts a location object from database 
 			taskLocation = "View " + location.getLocation() + " on map";						//gets the first line.
-//			if(!location.getAdd1().equals("")) taskLocation += ",\n" + location.getAdd1();
-//			if(!location.getAdd2().equals("")) taskLocation += ",\n" + location.getAdd2();
-//			if(!location.getAdd3().equals("")) taskLocation += ",\n" + location.getAdd3();
 		}
 		displayLocation.setText(taskLocation); // sets the location in the textVew
 		Log.v("View Task", "taskDeadline =" + taskDeadline+ "~END");		
@@ -324,24 +309,21 @@ public class ViewTask extends Activity {
 	
 	public void notifyMe(View v)
 	{
-		if(!task.getDeadline().equals(""))
+		if(!task.getDeadline().equals("")) //makes sure there is a deadline
 		{	 
-			if(task.getAlarm() == 0)
+			if(task.getAlarm() == 0) //checks if a notification is already set
 			{
 				LayoutInflater factory = LayoutInflater.from(this);            
 		        final View notifyDateSet = factory.inflate(R.layout.notify_options, null); //sets the dialog layout
 		        AlertDialog.Builder notifyDialog = new AlertDialog.Builder(this);
 		    	notifyDialog.setView(notifyDateSet);
-		    	final TimePicker time = (TimePicker) notifyDateSet.findViewById(R.id.notify_time); //the way the user picks a time
 		    	final EditText userDay = (EditText) notifyDateSet.findViewById(R.id.notify_day); //the way the user picks the day
-		    	notifyDialog.setPositiveButton("Set Time", new DialogInterface.OnClickListener() //if the user chooses Set Time
+		    	notifyDialog.setPositiveButton("Set Day", new DialogInterface.OnClickListener() //if the user chooses Set Time
 		    	{
 		            public void onClick(DialogInterface dialog, int whichButton)
 		            {            	
 		                if(!userDay.getText().toString().equals(""))day = Integer.parseInt(userDay.getText().toString()); //makes sure the user has entered a value for day
 		                else day = 0;
-		                chosenHour = time.getCurrentHour();
-		                chosenMinute = time.getCurrentMinute();
 		                setNotification();
 		            }
 		        });
@@ -359,8 +341,8 @@ public class ViewTask extends Activity {
 				PendingIntent pendingIntent = PendingIntent.getBroadcast(this, task.getId(), intent, PendingIntent.FLAG_ONE_SHOT);
 				am.cancel(pendingIntent); //cancels the notification
 				Toast.makeText(getApplicationContext(), "Notification cancelled for " + task.getName(), Toast.LENGTH_LONG).show();
-				db.setTaskAlarm(task.getId(), 0); //tells the database that a notification is not set for this task
 				task.setAlarm(0);
+				db.setTaskAlarm(task.getId(), 0); //tells the database that a notification is not set for this task
 			}
 		}
 		else Toast.makeText(getApplicationContext(), "You have not set a deadline for this task", Toast.LENGTH_LONG).show();
@@ -371,7 +353,7 @@ public class ViewTask extends Activity {
 		AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 		String delim = "[/]"; //sets the value for splitting Strings
 		String[] dates = task.getDeadline().split(delim); //splits the deadline into three parts, year month day
-		//sets the calendar to the user specified day/month/year/hour/minute
+		//sets the calendar to the user specified day/month/year
 		Calendar cal = Calendar.getInstance();
 		cal.set(Calendar.YEAR, Integer.parseInt(dates[0]));
 		cal.set(Calendar.MONTH, Integer.parseInt(dates[1])-1);
@@ -405,39 +387,4 @@ public class ViewTask extends Activity {
 		getMenuInflater().inflate(R.menu.activity_view_task, menu);
 		return true;
 	}
-	
-	/*TimePickerDialog.OnTimeSetListener mTimeSetListener = new TimePickerDialog.OnTimeSetListener()
-	 {
-		public void onTimeSet(TimePicker view, int hourOfDay, int minute)
-		{
-			chosenHour = hourOfDay;
-		    chosenMinute = minute;
-		    final EditText input = new EditText(getApplicationContext());
-		    input.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
-		    input.setText("0");
-		    new AlertDialog.Builder(ViewTask.this)
-		    .setTitle("Update Status")
-		    .setMessage("How many days in advance would you like to be reminded of this deadline?")
-		    .setView(input)
-		    .setPositiveButton("Ok", new DialogInterface.OnClickListener()
-		    {
-		        public void onClick(DialogInterface dialog, int whichButton)
-		        {
-		        	day = Integer.parseInt(input.getText().toString());
-		        	setNotification();
-		        }
-		    }).show();
-		}
-	 };
-
-	@Override
-    protected Dialog onCreateDialog(int id)
-	{
-        switch (id)
-        {
-        	case TIME_DIALOG_ID:
-        		return new TimePickerDialog(this, mTimeSetListener, chosenHour, chosenMinute, false);
-        }
-        return null;
-    }*/
 }

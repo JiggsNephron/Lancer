@@ -3,10 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-     <TimePicker
-        android:id="@+id/notify_time"
+    <TextView
+        android:id="@+id/notify_info"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="How many days in advance would you like to be notified of this task?" />
      <EditText
         android:id="@+id/notify_day"
         android:layout_width="match_parent"
