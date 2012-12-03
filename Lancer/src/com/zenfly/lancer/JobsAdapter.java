@@ -10,7 +10,6 @@ import java.util.List;
 import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,35 +42,32 @@ public class JobsAdapter extends ArrayAdapter<Job>
 	    	//creates new instance of row layout view
 	        LayoutInflater inflater = activity.getLayoutInflater();
 	        rowView = inflater.inflate(R.layout.job_item, null);
-	        jobsItemView = new jobsView(); //for holding the job
-	        jobsItemView.name = (TextView) rowView.findViewById(R.id.JobNameDisplay); 
-	        jobsItemView.task = (TextView) rowView.findViewById(R.id.JobLocationDisplay);
-	        jobsItemView.date = (TextView) rowView.findViewById(R.id.JobDateDisplay);
-	        jobsItemView.percentage = (TextView) rowView.findViewById(R.id.JobCompletionDisplay);
-	        jobsItemView.done = (TextView) rowView.findViewById(R.id.JobDoneDisplay);
-	        rowView.setTag(jobsItemView); //for later access
+	        jobsItemView = new jobsView(); 															//for holding the job
+	        jobsItemView.name = (TextView) rowView.findViewById(R.id.JobNameDisplay); 				//prepares to access the variable
+	        jobsItemView.task = (TextView) rowView.findViewById(R.id.JobLocationDisplay);			//prepares to access the variable
+	        jobsItemView.date = (TextView) rowView.findViewById(R.id.JobDateDisplay);				//prepares to access the variable
+	        jobsItemView.percentage = (TextView) rowView.findViewById(R.id.JobCompletionDisplay);	//prepares to access the variable
+	        jobsItemView.done = (TextView) rowView.findViewById(R.id.JobDoneDisplay);				//prepares to access the variable
+	        rowView.setTag(jobsItemView); 															//for later access
 	    }
 	    else jobsItemView = (jobsView) rowView.getTag();
 	    {
 	    	Job currentJob = (Job) jobsObject.get(position); //casts as job
 	    	Task tempTask = null;
 	    	if(db.getJobTaskCount(currentJob.getId()) != 0) tempTask = db.getNearestDeadlineTaskForJob(currentJob.getId());
+	    	
+	    	int percent = db.getPercentDone(currentJob.getId());
+	    	jobsItemView.percentage.setText(percent+"%");
+	    	
 	    	if(tempTask != null)
 	    	{
-			    	int percent = db.getPercentDone(currentJob.getId());
-			    	jobsItemView.percentage.setText(percent+"%");
-			    	String taskName = tempTask.getName();								// finds the location in the data base we are looking for
-			    	//if(tempLocation != 0) //if there is a location
-			    	//{
-				    	//Location a  = db.getLocation(tempLocation); 						// extracts the location from the database
-				    	//String b = a.getLocation(); 										// puts the location into a string	
-				    	jobsItemView.task.setText(taskName);								   //sets the location
-			    	//}
-			    	String tempDate = tempTask.getDeadline(); //just returns the deadline
+
+			    	String taskName = tempTask.getName();									// finds the location in the data base we are looking for			   
+				    jobsItemView.task.setText(taskName);									//sets the location			    	
+			    	String tempDate = tempTask.getDeadline(); 								//just returns the deadline
 			    	
 			    	// formats the date to a locale friendly string and saves it
-			    	
-			    	if((tempDate != null) && (tempDate != "")) //if there is a deadline and it isn't blank
+			    	if((tempDate != null) && (tempDate != "")) 								//if there is a deadline and it isn't blank
 			    	{
 			    		SimpleDateFormat date_formater = new SimpleDateFormat("yyyy/MM/dd");
 				    	try {
@@ -80,15 +76,12 @@ public class JobsAdapter extends ArrayAdapter<Job>
 						} catch (ParseException e) {
 							e.printStackTrace();
 						}
-				    	
 				    	jobsItemView.date.setText(tempDate);								//sets the data
 			    	}
-			    	else //if there is no deadline
-			    	{
-			    		jobsItemView.name.setText("No task has a Deadline");
-			    		
+			    	else{																	//if there is no deadline
+			    		jobsItemView.name.setText("No task has a Deadline");	
 			    	}
-			    	if(percent == 100) //if all tasks are complete
+			    	if(percent == 100) 														//if all tasks are complete
 			    	{
 			    		//grey out all text and cross out all except for percentage and done
 			    		jobsItemView.name.setTextColor(Color.GRAY);
@@ -101,15 +94,13 @@ public class JobsAdapter extends ArrayAdapter<Job>
 						jobsItemView.done.setTextColor(Color.GRAY);
 			    	}
 	    	}
-	    	else //if the job has no tasks
-	    	{
-	    		jobsItemView.task.setText("");										// sets the location
-	    		jobsItemView.date.setText("");											// sets the date
-	    		jobsItemView.percentage.setText("");
+	    	else{ 																			//if the job has no tasks
+	    		jobsItemView.task.setText("");												// sets the location
+	    		jobsItemView.date.setText("");												// sets the date
 	    		jobsItemView.done.setText("");
 	    	}
-	    	jobsItemView.name.setText(currentJob.getClient()); 							//sets the Name 
-	    }
+	    jobsItemView.name.setText(currentJob.getClient()); 									//sets the Name 
+	    }	
 	    return rowView;
 	}
 
@@ -123,5 +114,3 @@ public class JobsAdapter extends ArrayAdapter<Job>
 
     }
 }
-
-
