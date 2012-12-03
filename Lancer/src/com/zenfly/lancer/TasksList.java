@@ -47,6 +47,7 @@ public class TasksList extends ListActivity {
     	if (getIntent().getIntExtra("from_invoice", 0) == 1) {
     		Intent intent = new Intent(TasksList.this, ViewJobInvoice.class);
     		intent.putExtra("job_id", thisJob);
+    		intent.putExtra("from_invoice", getIntent().getIntExtra("from_invoice", 0));
         	startActivity(intent);
         	return;
     	} else {
@@ -72,6 +73,7 @@ public class TasksList extends ListActivity {
 	  //	Log.v("Id is: ", taskId+"");
 	  	intent.putExtra("task", taskId); //sends the task id
 	  	intent.putExtra("job_id", thisJob); //sends the Job id
+	  	intent.putExtra("from_invoice", getIntent().getIntExtra("from_invoice", 0));
 	    startActivity(intent);
 	  }
 	

@@ -362,6 +362,7 @@ public class ViewTask extends Activity {
     	
     	Intent intent = new Intent(ViewTask.this, TasksList.class);
     	intent.putExtra("job_id", getIntent().getIntExtra("job_id", 0));
+    	intent.putExtra("from_invoice", getIntent().getIntExtra("from_invoice", 0));
     	startActivity(intent);    	
     	return;  	
     }    

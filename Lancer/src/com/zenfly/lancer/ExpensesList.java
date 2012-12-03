@@ -27,11 +27,8 @@ public class ExpensesList extends ListActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-	    }
-        else{ 
-        	this.requestWindowFeature(Window.FEATURE_NO_TITLE); // RC: this removed the black bar at the top of activities. 
-        }       
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE); // RC: this removed the black bar at the top of activities. 
+        
         setContentView(R.layout.activity_expenses_list);
         locale_currency_format_totalCost= NumberFormat.getCurrencyInstance();
         db = new DatabaseHandler(this.getApplicationContext());
