@@ -329,16 +329,16 @@ public class ViewTask extends Activity {
 			if(task.getAlarm() == 0)
 			{
 				LayoutInflater factory = LayoutInflater.from(this);            
-		        final View notifyDateSet = factory.inflate(R.layout.notify_options, null);
+		        final View notifyDateSet = factory.inflate(R.layout.notify_options, null); //sets the dialog layout
 		        AlertDialog.Builder notifyDialog = new AlertDialog.Builder(this);
 		    	notifyDialog.setView(notifyDateSet);
-		    	final TimePicker time = (TimePicker) notifyDateSet.findViewById(R.id.notify_time);
-		    	final EditText userDay = (EditText) notifyDateSet.findViewById(R.id.notify_day);
-		    	notifyDialog.setPositiveButton("Set Time", new DialogInterface.OnClickListener()
+		    	final TimePicker time = (TimePicker) notifyDateSet.findViewById(R.id.notify_time); //the way the user picks a time
+		    	final EditText userDay = (EditText) notifyDateSet.findViewById(R.id.notify_day); //the way the user picks the day
+		    	notifyDialog.setPositiveButton("Set Time", new DialogInterface.OnClickListener() //if the user chooses Set Time
 		    	{
 		            public void onClick(DialogInterface dialog, int whichButton)
 		            {            	
-		                if(!userDay.getText().toString().equals(""))day = Integer.parseInt(userDay.getText().toString());
+		                if(!userDay.getText().toString().equals(""))day = Integer.parseInt(userDay.getText().toString()); //makes sure the user has entered a value for day
 		                else day = 0;
 		                chosenHour = time.getCurrentHour();
 		                chosenMinute = time.getCurrentMinute();
@@ -352,16 +352,14 @@ public class ViewTask extends Activity {
 		        });
 		        notifyDialog.show();
 			}
-			else
+			else //if an alarm is already set
 			{
 				AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 				Intent intent = new Intent(ViewTask.this, NotificationTimer.class);
-				intent.putExtra("task", task.getName());
-				intent.putExtra("day", day);
 				PendingIntent pendingIntent = PendingIntent.getBroadcast(this, task.getId(), intent, PendingIntent.FLAG_ONE_SHOT);
-				am.cancel(pendingIntent);
+				am.cancel(pendingIntent); //cancels the notification
 				Toast.makeText(getApplicationContext(), "Notification cancelled for " + task.getName(), Toast.LENGTH_LONG).show();
-				db.setTaskAlarm(task.getId(), 0);
+				db.setTaskAlarm(task.getId(), 0); //tells the database that a notification is not set for this task
 				task.setAlarm(0);
 			}
 		}
@@ -378,8 +376,8 @@ public class ViewTask extends Activity {
 		cal.set(Calendar.YEAR, Integer.parseInt(dates[0]));
 		cal.set(Calendar.MONTH, Integer.parseInt(dates[1])-1);
 		cal.set(Calendar.DAY_OF_MONTH, Integer.parseInt(dates[2]) - (day+1));
-		cal.set(Calendar.HOUR, chosenHour);
-		cal.set(Calendar.MINUTE, chosenMinute);
+		cal.set(Calendar.HOUR, 23);//chosenHour);
+		cal.set(Calendar.MINUTE, 0);//chosenMinute);
 		cal.set(Calendar.MILLISECOND, 0);
 		Intent intent = new Intent(ViewTask.this, NotificationTimer.class); //an intent which will launch on the correct day
 		intent.putExtra("task", task.getName()); //sends the task name to the notification
