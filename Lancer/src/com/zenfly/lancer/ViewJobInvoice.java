@@ -18,10 +18,15 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.provider.ContactsContract.CommonDataKinds.Email;
+import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -122,10 +127,18 @@ public class ViewJobInvoice extends Activity {
         
     	emaildialog.setView(recipientEntryView);
     	
+    	
+        Cursor emailCursor = getContentResolver().query(ContactsContract.CommonDataKinds.Email.CONTENT_URI, null, null, null, null);
+        startManagingCursor(emailCursor);
+        
+    	
     	final EditText name = (EditText) recipientEntryView.findViewById(R.id.recipient_name); 
-    	final EditText email = (EditText) recipientEntryView.findViewById(R.id.recipient_email);
+    	final AutoCompleteTextView email = (AutoCompleteTextView) recipientEntryView.findViewById(R.id.recipient_email);
     	final EditText own_name = (EditText) recipientEntryView.findViewById(R.id.own_name);
     	final EditText message = (EditText) recipientEntryView.findViewById(R.id.email_message);
+    	
+    	email.setAdapter(new SimpleCursorAdapter(this, android.R.layout.simple_dropdown_item_1line, emailCursor, new String[] {Email.DATA1}, new int[] {android.R.id.text1}));
+    	email.setThreshold(0);
     	
     	message.setText("Thank you for your custom, please see the payables below. Looking forward to doing business with you in the future.");
     	
