@@ -215,29 +215,36 @@ public class ViewTask extends Activity {
 	// RC: starts the timer for task wages
 	public void startTask (View v)
 	{		
-		
+		// new notification manager to set the notifications
 		NotificationManager nm = (NotificationManager) ViewTask.this.getSystemService(Context.NOTIFICATION_SERVICE);
 		
+		// if this task has a wage run this block
 		if (task.getWage() > 0) {
-						
+			
+			// creates a shared preference editor for adding the started time later
 			SharedPreferences.Editor prefEditor = prefs.edit();
 			calendar = Calendar.getInstance(); 
-					
+			
+			// if the task timer has not already been started, run this block
+			// else stop the task timer
 			if (db.getTaskStarted(task.getId()) == 0) {
 				db.setTaskStarted(task.getId(), 1);
-								
+				
+				// put the time that the start button was clicked into shared preferences
 				prefEditor.putLong("started_time", calendar.getTimeInMillis());
 				prefEditor.commit();
 				
+				// create an intent for coming back to this task from the notifitcation
+				// and put the needed intent extras
 				Intent intent = new Intent(ViewTask.this, ViewTask.class);
-				
 				intent.putExtra("job_id", getIntent().getIntExtra("job_id", 0));
 				intent.putExtra("task", getIntent().getIntExtra("task", 0));
 				
-		        PendingIntent pendingIntent = PendingIntent.getActivity(ViewTask.this, 01, intent, 0);
-		        
+				// create a new pending intent with the above intent and an ID matching the task_id
+		        PendingIntent pendingIntent = PendingIntent.getActivity(ViewTask.this, task.getId(), intent, 0);
+		        // create a notification builder
 		        NotificationCompat.Builder builder = new NotificationCompat.Builder(ViewTask.this);
-		        
+		        // add the required fields to the notification via builder
 		        builder.setContentIntent(pendingIntent)
 	            .setSmallIcon(R.drawable.app_icon)
 	            .setTicker(task.getName() + " started")
@@ -245,34 +252,35 @@ public class ViewTask extends Activity {
 	            .setContentText("started at " + DateUtils.formatDateTime(this, calendar.getTimeInMillis(), DateUtils.FORMAT_SHOW_TIME))
 	            .setContentInfo(locale_currency_format.format(task.getWage()))
 	            .setOngoing(true);
-		        
-		        Notification notification = builder.build();
-		        Toast.makeText(getApplicationContext(), "Starting notification", Toast.LENGTH_SHORT).show();  
-		        nm.notify(01, notification);
+		        // build the notification and show it
+		        Notification notification = builder.build(); 
+		        nm.notify(task.getId(), notification);
 				
 			} else if (db.getTaskStarted(task.getId()) == 1) {
 				db.setTaskStarted(task.getId(), 0);
-								
+				
+				// get the started time from the shared preferences
 				started_time = prefs.getLong("started_time", 0);
-				
+				// calculate the total milliseconds that have been worked 
+				// by subtracting the started time from the end task timer time
 				total_millis = calendar.getTimeInMillis() - started_time;
-				
+				// convert the total milliseconds worked to minutes
 				total_minutes = ((total_millis / 1000) / 60);
-				
+				// set the worked minutes into the database for the task
 				db.setTaskMinutes(task.getId(), total_minutes);
-				
-				nm.cancel(01);
-				
+				// cancel the notification
+				nm.cancel(task.getId());
+				// inform the user via a toast how long they worked
 				Toast.makeText(getApplicationContext(), "You worked " + total_minutes + " minutes.", Toast.LENGTH_SHORT).show();
 			}
 			
+			// refresh the ViewTask activity to show the changes
 			Intent refreshTaskView = new Intent(ViewTask.this, ViewTask.class);
 			refreshTaskView.putExtra("job_id", getIntent().getIntExtra("job_id", 0));
 			refreshTaskView.putExtra("task", getIntent().getIntExtra("task", 0));
 			startActivity(refreshTaskView);
 			
 		} else Toast.makeText(getApplicationContext(), "You have not set an hourly wage for this task", Toast.LENGTH_LONG).show();
-		
 	}	
 	
 	public void callPerson (View v)
