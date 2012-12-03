@@ -52,11 +52,13 @@ public class LocationsList extends ListActivity {
    
 		setListAdapter(new LocationsAdapter(this, locations));
 		
+		// if coming from edit task, do not enable long press delete functionality
 		if (getIntent().getIntExtra("task_id", 0) == 0) {
 			registerForContextMenu(getListView());
 		}
     }
     
+    // run if + Location is pressed
     public void addLocation(View v) {   	
     	
     	// create new dialog object
@@ -66,10 +68,8 @@ public class LocationsList extends ListActivity {
     	dialog.setContentView(R.layout.activity_add_new_location);
     	dialog.setTitle("Add a new location");    	
 
-    	// find the save button
+    	// assign the save button
 		Button button = (Button) dialog.findViewById(R.id.saveLocation);
-		
-		
 		
 		// what to do when the button is clicked
 		button.setOnClickListener(new OnClickListener() {
@@ -78,16 +78,19 @@ public class LocationsList extends ListActivity {
 				
 				DatabaseHandler db = new DatabaseHandler(LocationsList.this); 
 				
+				// assign each editText
 		    	EditText location_nickname  = (EditText)dialog.findViewById(R.id.location_name);
 		    	EditText location_address1  = (EditText)dialog.findViewById(R.id.address_line1);
 		    	EditText location_address2  = (EditText)dialog.findViewById(R.id.address_line2);
 		    	EditText location_address3  = (EditText)dialog.findViewById(R.id.address_line3);
-		    	
+		    	// get the user entered strings from the EditTexts
 		    	String stlocation_nickname = location_nickname.getText().toString();
 		    	String stlocation_address1 = location_address1.getText().toString();
 		    	String stlocation_address2 = location_address2.getText().toString();
 		    	String stlocation_address3 = location_address3.getText().toString();
 		    	
+		    	// if the location name and 1st line are filled in, run this block
+		    	// else inform user via toast that these fields are mandatory 
 		    	if(!stlocation_nickname.equals("") && !stlocation_address1.equals(""))
 		    	{
 			    	// add new location based on user entered data
@@ -107,14 +110,14 @@ public class LocationsList extends ListActivity {
 		    	}		        
 		     }
 		 });	
-		
-		// show the dialog
 		dialog.show();		
     }  
     
 	@Override
 	public void onListItemClick(ListView parent, View v, int position, long id) {
 		
+		// if there is a task_id, go back to EditTask
+		// else, go back to addNewTask
 		if (getIntent().getIntExtra("task_id", 0) != 0) {
 			Intent intent = new Intent(LocationsList.this, EditTask.class);
 			int locationId = locations.get(position).getId();
@@ -151,6 +154,7 @@ public class LocationsList extends ListActivity {
 	    inflater.inflate(R.menu.item_long_press, menu);
 	}
 	
+    // deletes a location via long press
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
 		
@@ -171,14 +175,12 @@ public class LocationsList extends ListActivity {
 	    			Toast.makeText(getApplicationContext(), "Deleted " + locations.get(info.position).getLocation(), Toast.LENGTH_LONG).show();
 	    			Intent back_to_locationsList = new Intent(context, LocationsList.class);
 	    			
-	    			
 	    			back_to_locationsList.putExtra("task_name", getIntent().getStringExtra("task_name"));
 	    			back_to_locationsList.putExtra("task_date", getIntent().getStringExtra("task_date"));
 	    	    	back_to_locationsList.putExtra("hourly_wage", getIntent().getStringExtra("hourly_wage"));
 	    	    	back_to_locationsList.putExtra("email_address", getIntent().getStringExtra("email_address"));
 	    	    	back_to_locationsList.putExtra("phone_number", getIntent().getStringExtra("phone_number"));
 	    	    	back_to_locationsList.putExtra("job_id", getIntent().getIntExtra("job_id", 0));
-	    	    			    	    			
 	    	    			
 	    			startActivity(back_to_locationsList);
 	    		}
