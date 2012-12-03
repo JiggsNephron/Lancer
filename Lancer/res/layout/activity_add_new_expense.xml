@@ -26,7 +26,7 @@
         android:textSize="20dp"
         android:textColor="@color/white"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:onClick="" /> <!-- To Jobs List -->
+        android:onClick="jobsList" /> <!-- To Jobs List -->
 
     <TextView
         android:id="@+id/arrow"
@@ -51,7 +51,7 @@
         android:textSize="20dp"
         android:textColor="@color/white"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:onClick="" /> <!-- To Job Options List -->
+        android:onClick="jobOptions" /> <!-- To Job Options List -->
     
     <TextView
         android:id="@+id/arrow2"
@@ -77,7 +77,7 @@
         android:textSize="20dp"
         android:textColor="@color/white"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:onClick="" /> <!-- To Tasks List -->
+        android:onClick="expensesList" /> <!-- To Tasks List -->
         
 
 	<!--  Add New Expense -->
