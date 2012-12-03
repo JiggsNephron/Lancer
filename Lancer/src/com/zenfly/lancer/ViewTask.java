@@ -326,7 +326,7 @@ public class ViewTask extends Activity {
 	{
 		if(!task.getDeadline().equals(""))
 		{	 
-			if(task.getAlarm() == 0) //showDialog(TIME_DIALOG_ID);
+			if(task.getAlarm() == 0)
 			{
 				LayoutInflater factory = LayoutInflater.from(this);            
 		        final View notifyDateSet = factory.inflate(R.layout.notify_options, null);
@@ -366,14 +366,14 @@ public class ViewTask extends Activity {
 			}
 		}
 		else Toast.makeText(getApplicationContext(), "You have not set a deadline for this task", Toast.LENGTH_LONG).show();
-
 	}
 	
 	public void setNotification()
 	{
 		AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-		String delim = "[/]";
-		String[] dates = task.getDeadline().split(delim);
+		String delim = "[/]"; //sets the value for splitting Strings
+		String[] dates = task.getDeadline().split(delim); //splits the deadline into three parts, year month day
+		//sets the calendar to the user specified day/month/year/hour/minute
 		Calendar cal = Calendar.getInstance();
 		cal.set(Calendar.YEAR, Integer.parseInt(dates[0]));
 		cal.set(Calendar.MONTH, Integer.parseInt(dates[1])-1);
@@ -381,13 +381,13 @@ public class ViewTask extends Activity {
 		cal.set(Calendar.HOUR, chosenHour);
 		cal.set(Calendar.MINUTE, chosenMinute);
 		cal.set(Calendar.MILLISECOND, 0);
-		Intent intent = new Intent(ViewTask.this, NotificationTimer.class);
-		intent.putExtra("task", task.getName());
-		intent.putExtra("day", day);
+		Intent intent = new Intent(ViewTask.this, NotificationTimer.class); //an intent which will launch on the correct day
+		intent.putExtra("task", task.getName()); //sends the task name to the notification
+		intent.putExtra("day", day+1); //sends the day to the notification
 		PendingIntent pendingIntent = PendingIntent.getBroadcast(this, task.getId(), intent, PendingIntent.FLAG_ONE_SHOT);
-		am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent);
+		am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent); //sets the alarm
 		Toast.makeText(getApplicationContext(), "Alarm Set for " + cal.get(Calendar.DAY_OF_MONTH) + "/" + (cal.get(Calendar.MONTH)+1) + "/" + cal.get(Calendar.YEAR) + " at " + cal.get(Calendar.HOUR) + ":" + cal.get(Calendar.MINUTE), Toast.LENGTH_LONG).show();
-		db.setTaskAlarm(task.getId(), 1);
+		db.setTaskAlarm(task.getId(), 1); //changes the database to show this task has an alarm set
 		task.setAlarm(1);
 	}
 		
