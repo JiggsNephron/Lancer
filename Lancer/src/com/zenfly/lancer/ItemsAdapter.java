@@ -50,11 +50,11 @@ public class ItemsAdapter extends ArrayAdapter<Item> {
 	        rowView.setTag(itemItemView); //for later access
 	    }
 	    else itemItemView = (itemsView) rowView.getTag();
-	    {
-	    	Item currentItem = (Item) itemsObject.get(position);	    	
 	    
-	    	itemItemView.name.setText(currentItem.getName() + ": " + locale_currency_format.format(currentItem.getPrice()));
-	    }
+	    Item currentItem = (Item) itemsObject.get(position);	    	
+	    
+	    itemItemView.name.setText(currentItem.getName() + ": " + locale_currency_format.format(currentItem.getPrice()));
+	    
 	    return rowView;
 	}
 
