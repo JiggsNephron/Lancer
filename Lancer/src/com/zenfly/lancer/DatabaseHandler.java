@@ -4,6 +4,7 @@ package com.zenfly.lancer;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -1041,8 +1042,12 @@ public class DatabaseHandler extends SQLiteOpenHelper
         cursor = db.rawQuery(countDone, null);
         float done = cursor.getCount();
         float result = (done*100)/total;
+        if(countTotal.equals(countDone)){
+        	result = 100;
+        }
         cursor.close();
         db.close();
+        Log.v("blah", "widget ROWS tdcvgj=" + result);
         return (int)result;
     }
     
