@@ -1,6 +1,10 @@
 package com.zenfly.lancer;
 
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import android.app.Activity;
@@ -19,6 +23,7 @@ public class JobsAdapter extends ArrayAdapter<Job>
 	  private final Activity activity;
 	  private final List<Job> jobsObject;
 	  public DatabaseHandler db;
+	  Date date_locale;
 	
 	public JobsAdapter(Activity activity, List<Job> objects) 
 	{
@@ -40,7 +45,7 @@ public class JobsAdapter extends ArrayAdapter<Job>
 	        rowView = inflater.inflate(R.layout.job_item, null);
 	        jobsItemView = new jobsView(); //for holding the job
 	        jobsItemView.name = (TextView) rowView.findViewById(R.id.JobNameDisplay); 
-	        jobsItemView.location = (TextView) rowView.findViewById(R.id.JobLocationDisplay);
+	        jobsItemView.task = (TextView) rowView.findViewById(R.id.JobLocationDisplay);
 	        jobsItemView.date = (TextView) rowView.findViewById(R.id.JobDateDisplay);
 	        jobsItemView.percentage = (TextView) rowView.findViewById(R.id.JobCompletionDisplay);
 	        jobsItemView.done = (TextView) rowView.findViewById(R.id.JobDoneDisplay);
@@ -54,18 +59,27 @@ public class JobsAdapter extends ArrayAdapter<Job>
 		    	Task tempTask = db.getNearestDeadlineTaskForJob(currentJob.getId());
 		    	int percent = db.getPercentDone(currentJob.getId());
 		    	jobsItemView.percentage.setText(percent+"%");
-		    	int tempLocation = tempTask.getLocation();								// finds the location in the data base we are looking for
-		    	if(tempLocation != 0) //if there is a location
-		    	{
-			    	Location a  = db.getLocation(tempLocation); 						// extracts the location from the database
-			    	String b = a.getLocation(); 										// puts the location into a string	
-			    	jobsItemView.location.setText(b);								   //sets the location
-		    	}
+		    	String taskName = tempTask.getName();								// finds the location in the data base we are looking for
+		    	//if(tempLocation != 0) //if there is a location
+		    	//{
+			    	//Location a  = db.getLocation(tempLocation); 						// extracts the location from the database
+			    	//String b = a.getLocation(); 										// puts the location into a string	
+			    	jobsItemView.task.setText(taskName);								   //sets the location
+		    	//}
 		    	String tempDate = tempTask.getDeadline(); //just returns the deadline
-		    	tempDate = tempDate.trim();
+		    	
+		    	// formats the date to a locale friendly string and saves it
 		    	
 		    	if((tempDate != null) && (tempDate != "")) //if there is a deadline and it isn't blank
 		    	{
+		    		SimpleDateFormat date_formater = new SimpleDateFormat("yyyy/MM/dd");
+			    	try {
+						date_locale = date_formater.parse(tempDate);
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+			    	tempDate = DateFormat.getDateInstance().format(date_locale);
 			    	jobsItemView.date.setText(tempDate);								//sets the data
 		    	}
 		    	else //if there is no deadline
@@ -80,15 +94,15 @@ public class JobsAdapter extends ArrayAdapter<Job>
 			    	jobsItemView.name.setPaintFlags(jobsItemView.name.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 			    	jobsItemView.date.setTextColor(Color.GRAY);
 					jobsItemView.date.setPaintFlags(jobsItemView.date.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-					jobsItemView.location.setTextColor(Color.GRAY);
-					jobsItemView.location.setPaintFlags(jobsItemView.location.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+					jobsItemView.task.setTextColor(Color.GRAY);
+					jobsItemView.task.setPaintFlags(jobsItemView.task.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 					jobsItemView.percentage.setTextColor(Color.GRAY);
 					jobsItemView.done.setTextColor(Color.GRAY);
 		    	}
 	    	}
 	    	else //if the job has no tasks
 	    	{
-	    		jobsItemView.location.setText("");										// sets the location
+	    		jobsItemView.task.setText("");										// sets the location
 	    		jobsItemView.date.setText("");											// sets the date
 	    		jobsItemView.percentage.setText("");
 	    		jobsItemView.done.setText("");
@@ -101,7 +115,7 @@ public class JobsAdapter extends ArrayAdapter<Job>
     protected static class jobsView
     {
         protected TextView name;
-        protected TextView location;
+        protected TextView task;
         protected TextView date;
         protected TextView percentage;
         protected TextView done;
