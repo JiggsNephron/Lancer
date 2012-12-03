@@ -51,7 +51,7 @@ public class JobsAdapter extends ArrayAdapter<Job>
 	    	Job currentJob = (Job) jobsObject.get(position); //casts as job
 	    	if(db.getJobTaskCount(currentJob.getId()) != 0)
 	    	{
-		    	Task tempTask = db.getNearestDeadlineTask();
+		    	Task tempTask = db.getNearestDeadlineTaskForJob(currentJob.getId());
 		    	int percent = db.getPercentDone(currentJob.getId());
 		    	jobsItemView.percentage.setText(percent+"%");
 		    	int tempLocation = tempTask.getLocation();								// finds the location in the data base we are looking for
