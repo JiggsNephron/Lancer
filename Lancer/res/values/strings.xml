@@ -97,6 +97,11 @@
     <!-- Layout: Invoices - Strings -->
 
     <string name="create_invoice">Create Job Invoice</string>
+    <string name="Invoice_total_earned_tasks">Total Earned from Tasks:</string>
+    <string name="Invoice_total_expenses">Total Expenses:</string>
+    <string name="email_invoice">Email Invoice</string>
+    <string name="total_earned">Total Earned: (Not sent in invoice)</string>
+    <string name="total_due">Total to be Paid:</string>
 
     <!-- Layout: Settings - Strings -->
 
@@ -110,6 +115,7 @@
 
     <string name="lancer_splash_screen">Lancer Splash Screen</string>
     <string name="app_name">Lancer</string>
+    <string name="invoice">Invoice</string>
     <string name="menu_settings">Settings</string>
     <string name="arrow">></string>
     <string name="welcome_text">Hi there! To get started simply add a Job name.</string>
