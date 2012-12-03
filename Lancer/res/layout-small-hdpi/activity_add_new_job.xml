@@ -1,0 +1,76 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white" >
+
+    <TextView
+        android:id="@+id/job_name_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/AddNewJob_job_name_title"
+        android:textColor="@color/lancer_blue"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="25dp"
+        android:textSize="25dp" />
+
+    <EditText
+        android:id="@+id/job_name"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/job_name_title"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:ems="20"
+        android:inputType="text" >
+
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/save_job"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:textColor="@color/white"
+        android:textSize="25dp"
+        android:paddingTop="10dp"
+        android:background="@color/lancer_blue"
+        android:paddingBottom="10dp" 
+        android:onClick="saveJob"
+        android:text="@string/button_save" />
+
+    <TextView
+        android:id="@+id/welcome_text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/job_name"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/lancer_blue"
+        android:layout_marginTop="25dp"
+        android:gravity="center"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:text="@string/welcome_text"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+    <TextView
+        android:id="@+id/welcome_text2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/welcome_text1"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/lancer_blue"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:text="@string/welcome_text2"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+</RelativeLayout>
