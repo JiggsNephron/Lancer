@@ -129,8 +129,8 @@ public class ViewJobInvoice extends Activity {
     	// adds each phone contact email to the list
     	while (emailCur.moveToNext())
     	{
-    	    String email = emailCur.getString(emailCur.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA));
-    	    emailAddressCollection.add(email);
+    	    String stemail = emailCur.getString(emailCur.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA));
+    	    emailAddressCollection.add(stemail);
     	}    	
     	emailCur.close();    	
     	// a string array used for the AutoCompleteTextView adapter

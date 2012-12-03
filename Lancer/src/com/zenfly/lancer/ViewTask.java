@@ -25,6 +25,7 @@ import android.text.Editable;
 import android.text.InputType;
 import android.text.format.DateUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.Window;
@@ -215,29 +216,36 @@ public class ViewTask extends Activity {
 	// RC: starts the timer for task wages
 	public void startTask (View v)
 	{		
-		
+		// new notification manager to set the notifications
 		NotificationManager nm = (NotificationManager) ViewTask.this.getSystemService(Context.NOTIFICATION_SERVICE);
 		
+		// if this task has a wage run this block
 		if (task.getWage() > 0) {
-						
+			
+			// creates a shared preference editor for adding the started time later
 			SharedPreferences.Editor prefEditor = prefs.edit();
 			calendar = Calendar.getInstance(); 
-					
+			
+			// if the task timer has not already been started, run this block
+			// else stop the task timer
 			if (db.getTaskStarted(task.getId()) == 0) {
 				db.setTaskStarted(task.getId(), 1);
-								
+				
+				// put the time that the start button was clicked into shared preferences
 				prefEditor.putLong("started_time", calendar.getTimeInMillis());
 				prefEditor.commit();
 				
+				// create an intent for coming back to this task from the notifitcation
+				// and put the needed intent extras
 				Intent intent = new Intent(ViewTask.this, ViewTask.class);
-				
 				intent.putExtra("job_id", getIntent().getIntExtra("job_id", 0));
 				intent.putExtra("task", getIntent().getIntExtra("task", 0));
 				
-		        PendingIntent pendingIntent = PendingIntent.getActivity(ViewTask.this, 01, intent, 0);
-		        
+				// create a new pending intent with the above intent and an ID matching the task_id
+		        PendingIntent pendingIntent = PendingIntent.getActivity(ViewTask.this, task.getId(), intent, 0);
+		        // create a notification builder
 		        NotificationCompat.Builder builder = new NotificationCompat.Builder(ViewTask.this);
-		        
+		        // add the required fields to the notification via builder
 		        builder.setContentIntent(pendingIntent)
 	            .setSmallIcon(R.drawable.app_icon)
 	            .setTicker(task.getName() + " started")
@@ -245,34 +253,35 @@ public class ViewTask extends Activity {
 	            .setContentText("started at " + DateUtils.formatDateTime(this, calendar.getTimeInMillis(), DateUtils.FORMAT_SHOW_TIME))
 	            .setContentInfo(locale_currency_format.format(task.getWage()))
 	            .setOngoing(true);
-		        
-		        Notification notification = builder.build();
-		        Toast.makeText(getApplicationContext(), "Starting notification", Toast.LENGTH_SHORT).show();  
-		        nm.notify(01, notification);
+		        // build the notification and show it
+		        Notification notification = builder.build(); 
+		        nm.notify(task.getId(), notification);
 				
 			} else if (db.getTaskStarted(task.getId()) == 1) {
 				db.setTaskStarted(task.getId(), 0);
-								
+				
+				// get the started time from the shared preferences
 				started_time = prefs.getLong("started_time", 0);
-				
+				// calculate the total milliseconds that have been worked 
+				// by subtracting the started time from the end task timer time
 				total_millis = calendar.getTimeInMillis() - started_time;
-				
+				// convert the total milliseconds worked to minutes
 				total_minutes = ((total_millis / 1000) / 60);
-				
+				// set the worked minutes into the database for the task
 				db.setTaskMinutes(task.getId(), total_minutes);
-				
-				nm.cancel(01);
-				
+				// cancel the notification
+				nm.cancel(task.getId());
+				// inform the user via a toast how long they worked
 				Toast.makeText(getApplicationContext(), "You worked " + total_minutes + " minutes.", Toast.LENGTH_SHORT).show();
 			}
 			
+			// refresh the ViewTask activity to show the changes
 			Intent refreshTaskView = new Intent(ViewTask.this, ViewTask.class);
 			refreshTaskView.putExtra("job_id", getIntent().getIntExtra("job_id", 0));
 			refreshTaskView.putExtra("task", getIntent().getIntExtra("task", 0));
 			startActivity(refreshTaskView);
 			
 		} else Toast.makeText(getApplicationContext(), "You have not set an hourly wage for this task", Toast.LENGTH_LONG).show();
-		
 	}	
 	
 	public void callPerson (View v)
@@ -317,7 +326,32 @@ public class ViewTask extends Activity {
 	{
 		if(!task.getDeadline().equals(""))
 		{	 
-			if(task.getAlarm() == 0) showDialog(TIME_DIALOG_ID);
+			if(task.getAlarm() == 0)
+			{
+				LayoutInflater factory = LayoutInflater.from(this);            
+		        final View notifyDateSet = factory.inflate(R.layout.notify_options, null);
+		        AlertDialog.Builder notifyDialog = new AlertDialog.Builder(this);
+		    	notifyDialog.setView(notifyDateSet);
+		    	final TimePicker time = (TimePicker) notifyDateSet.findViewById(R.id.notify_time);
+		    	final EditText userDay = (EditText) notifyDateSet.findViewById(R.id.notify_day);
+		    	notifyDialog.setPositiveButton("Set Time", new DialogInterface.OnClickListener()
+		    	{
+		            public void onClick(DialogInterface dialog, int whichButton)
+		            {            	
+		                if(!userDay.getText().toString().equals(""))day = Integer.parseInt(userDay.getText().toString());
+		                else day = 0;
+		                chosenHour = time.getCurrentHour();
+		                chosenMinute = time.getCurrentMinute();
+		                setNotification();
+		            }
+		        });
+		        notifyDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+		            public void onClick(DialogInterface dialog, int whichButton) {
+		                dialog.cancel();
+		            }
+		        });
+		        notifyDialog.show();
+			}
 			else
 			{
 				AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
@@ -332,28 +366,28 @@ public class ViewTask extends Activity {
 			}
 		}
 		else Toast.makeText(getApplicationContext(), "You have not set a deadline for this task", Toast.LENGTH_LONG).show();
-
 	}
 	
 	public void setNotification()
 	{
 		AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-		String delim = "[/]";
-		String[] dates = task.getDeadline().split(delim);
+		String delim = "[/]"; //sets the value for splitting Strings
+		String[] dates = task.getDeadline().split(delim); //splits the deadline into three parts, year month day
+		//sets the calendar to the user specified day/month/year/hour/minute
 		Calendar cal = Calendar.getInstance();
 		cal.set(Calendar.YEAR, Integer.parseInt(dates[0]));
 		cal.set(Calendar.MONTH, Integer.parseInt(dates[1])-1);
-		cal.set(Calendar.DAY_OF_MONTH, Integer.parseInt(dates[2]) - day);
+		cal.set(Calendar.DAY_OF_MONTH, Integer.parseInt(dates[2]) - (day+1));
 		cal.set(Calendar.HOUR, chosenHour);
 		cal.set(Calendar.MINUTE, chosenMinute);
 		cal.set(Calendar.MILLISECOND, 0);
-		Intent intent = new Intent(ViewTask.this, NotificationTimer.class);
-		intent.putExtra("task", task.getName());
-		intent.putExtra("day", day);
+		Intent intent = new Intent(ViewTask.this, NotificationTimer.class); //an intent which will launch on the correct day
+		intent.putExtra("task", task.getName()); //sends the task name to the notification
+		intent.putExtra("day", day+1); //sends the day to the notification
 		PendingIntent pendingIntent = PendingIntent.getBroadcast(this, task.getId(), intent, PendingIntent.FLAG_ONE_SHOT);
-		am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent);
-		Toast.makeText(getApplicationContext(), "Alarm Set for " + cal.get(Calendar.DAY_OF_MONTH) + "/" + cal.get(Calendar.MONTH) + "/" + cal.get(Calendar.YEAR) + " at " + cal.get(Calendar.HOUR) + ":" + cal.get(Calendar.MINUTE), Toast.LENGTH_LONG).show();
-		db.setTaskAlarm(task.getId(), 1);
+		am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent); //sets the alarm
+		Toast.makeText(getApplicationContext(), "Alarm Set for " + cal.get(Calendar.DAY_OF_MONTH) + "/" + (cal.get(Calendar.MONTH)+1) + "/" + cal.get(Calendar.YEAR) + " at " + cal.get(Calendar.HOUR) + ":" + cal.get(Calendar.MINUTE), Toast.LENGTH_LONG).show();
+		db.setTaskAlarm(task.getId(), 1); //changes the database to show this task has an alarm set
 		task.setAlarm(1);
 	}
 		
@@ -374,7 +408,7 @@ public class ViewTask extends Activity {
 		return true;
 	}
 	
-	TimePickerDialog.OnTimeSetListener mTimeSetListener = new TimePickerDialog.OnTimeSetListener()
+	/*TimePickerDialog.OnTimeSetListener mTimeSetListener = new TimePickerDialog.OnTimeSetListener()
 	 {
 		public void onTimeSet(TimePicker view, int hourOfDay, int minute)
 		{
@@ -407,5 +441,5 @@ public class ViewTask extends Activity {
         		return new TimePickerDialog(this, mTimeSetListener, chosenHour, chosenMinute, false);
         }
         return null;
-    }
+    }*/
 }

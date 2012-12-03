@@ -114,7 +114,7 @@
         android:textSize="20dp"
         android:textColor="@color/white"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:onClick="" />
+        android:onClick="jobOptions" />
 
     <TextView
         android:id="@+id/arrow"
