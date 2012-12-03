@@ -44,18 +44,14 @@ public class ViewJobInvoice extends Activity {
 	TextView total_earned_text;
 	TextView total_due_text;
 	
-	int job_id;
-	
-	float total_expenses;
-	
+	int job_id;	
+	float total_expenses;	
 	long minutes_worked = 0;
 	float wages = 0;
 	float earned_on_task;
-	float total_income;
-	
+	float total_income;	
 	float total_earned;
-	float total_tobe_paid;
-	
+	float total_tobe_paid;	
 	
 	DatabaseHandler db;
 	NumberFormat locale_currency_format;
@@ -73,10 +69,10 @@ public class ViewJobInvoice extends Activity {
         db = new DatabaseHandler(this);
         locale_currency_format = NumberFormat.getCurrencyInstance();
         
+        // get the job id from the intent and make a current_job object
         job_id = getIntent().getIntExtra("job_id", 0);
         current_job = db.getJob(job_id);
         
-          
         // get and set the total task earned button's text
         button_total_earned_tasks = (Button) findViewById(R.id.button_total_earned_tasks);        
         all_job_tasks = db.getAllTasksForJob(job_id);        
@@ -103,71 +99,65 @@ public class ViewJobInvoice extends Activity {
         total_tobe_paid = total_income + total_expenses;
         total_due_text = (TextView) findViewById(R.id.total_due_text);
         total_due_text.setText(locale_currency_format.format(total_tobe_paid));
-        
     }
     
-    public void toExpenses (View v) {
-       	Intent intent = new Intent(this, ExpensesList.class);
-       	intent.putExtra("job_id", getIntent().getIntExtra("job_id", 0));
-       	intent.putExtra("from_invoice", 1);
-    	startActivity(intent);	
-   } 
-    
-    public void toTasks (View v) {
-       	Intent intent = new Intent(this, TasksList.class);
-       	intent.putExtra("job_id", getIntent().getIntExtra("job_id", 0));
-       	intent.putExtra("from_invoice", 1);
-    	startActivity(intent);	
-   }
-    
+    // run when user click email invoice
     public void emailInvoice (View v) {
     	
+    	// Inflater to launch email dialog for entering recipient info and a message
     	LayoutInflater factory = LayoutInflater.from(this);            
         final View recipientEntryView = factory.inflate(R.layout.invoice_email, null);        
     	
+        // alerdialog used as the dialog
     	AlertDialog.Builder emaildialog = new AlertDialog.Builder(this);
-        
-    	emaildialog.setView(recipientEntryView);    	
+        // sets the dialog's view to the correct layout
+    	emaildialog.setView(recipientEntryView);
     	
-    	ArrayList<String> emailAddressCollection = new ArrayList<String>();
-
-    	ContentResolver cr = getContentResolver();
-
-    	Cursor emailCur = cr.query(ContactsContract.CommonDataKinds.Email.CONTENT_URI, null, null, null, null);
-    	
-    	emailAddressCollection = db.getAllEmailsForJob(job_id);
-    	while (emailCur.moveToNext())
-    	{
-    	    String email = emailCur.getString(emailCur.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA));
-    	    emailAddressCollection.add(email);
-    	}
-    	
-    	emailCur.close();
-
-    	String[] emailAddresses = new String[emailAddressCollection.size()];
-    	
-    	emailAddressCollection.toArray(emailAddresses);
-
-    	ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, emailAddresses);
-    	
+    	// get each view element
     	final EditText name = (EditText) recipientEntryView.findViewById(R.id.recipient_name); 
     	final AutoCompleteTextView email = (AutoCompleteTextView) recipientEntryView.findViewById(R.id.recipient_email);
     	final EditText own_name = (EditText) recipientEntryView.findViewById(R.id.own_name);
     	final EditText message = (EditText) recipientEntryView.findViewById(R.id.email_message);
     	
+    	// a string to store contact and task email addresses
+    	ArrayList<String> emailAddressCollection = new ArrayList<String>();
+    	ContentResolver cr = getContentResolver();
+    	// gets the phone contacts' email addresses
+    	Cursor emailCur = cr.query(ContactsContract.CommonDataKinds.Email.CONTENT_URI, null, null, null, null);
+    	// adds the email addresses added to any tasks to the list
+    	emailAddressCollection = db.getAllEmailsForJob(job_id);
+    	// adds each phone contact email to the list
+    	while (emailCur.moveToNext())
+    	{
+    	    String email = emailCur.getString(emailCur.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA));
+    	    emailAddressCollection.add(email);
+    	}    	
+    	emailCur.close();    	
+    	// a string array used for the AutoCompleteTextView adapter
+    	String[] emailAddresses = new String[emailAddressCollection.size()];    	
+    	emailAddressCollection.toArray(emailAddresses);
+    	// arrayadapter populated with string of emails
+    	ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, emailAddresses);
+    	
+    	// email AutoCompleteTextView populated with the emails
     	email.setAdapter(adapter);
        	
     	message.setText("Thank you for your custom, please see the payables below. Looking forward to doing business with you in the future.");
     	
+    	// what to do if the user clicks Send Email
         emaildialog.setPositiveButton("Send Email", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {            	
             	
+            	// get each view element's user entered string
                 String recipient_name = name.getText().toString();
                 String recipient_email = email.getText().toString();
                 String stown_name = own_name.getText().toString();
                 String own_message = message.getText().toString();
                 
+                // if the email address, name and own name are not blank, run this block
+                // if not, make a toast that informs the user
                 if (!recipient_email.equals("") && !recipient_name.equals("") && !stown_name.equals("")) {
+                	// if theres a valid email address, it sends an email with the user chosen template date
                 	if (checkEmailValid(recipient_email)) {
                 		Intent create_email = new Intent(Intent.ACTION_SEND);
                     	
@@ -201,6 +191,7 @@ public class ViewJobInvoice extends Activity {
                 } else Toast.makeText(context, "Please enter a recipient name and email address as well as your own name as it should appear in the email.", Toast.LENGTH_SHORT).show();
             }
         });
+        // what to do if the user clicks Cancel
         emaildialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 dialog.cancel();
@@ -226,6 +217,20 @@ public class ViewJobInvoice extends Activity {
         
         return isEmailValid;
     }
+    
+    public void toExpenses (View v) {
+       	Intent intent = new Intent(this, ExpensesList.class);
+       	intent.putExtra("job_id", getIntent().getIntExtra("job_id", 0));
+       	intent.putExtra("from_invoice", 1);
+    	startActivity(intent);	
+    } 
+    
+    public void toTasks (View v) {
+       	Intent intent = new Intent(this, TasksList.class);
+       	intent.putExtra("job_id", getIntent().getIntExtra("job_id", 0));
+       	intent.putExtra("from_invoice", 1);
+    	startActivity(intent);	
+    }    
 
     @Override
     public void onBackPressed() {
@@ -233,6 +238,5 @@ public class ViewJobInvoice extends Activity {
     	intent.putExtra("job_id", getIntent().getIntExtra("job_id", 0));
     	startActivity(intent);    	
     	return;  	
-    }        
-    
+    }  
 }
