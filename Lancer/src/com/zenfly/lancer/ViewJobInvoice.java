@@ -22,8 +22,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.provider.ContactsContract.CommonDataKinds.Email;
-import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -108,7 +106,7 @@ public class ViewJobInvoice extends Activity {
     	LayoutInflater factory = LayoutInflater.from(this);            
         final View recipientEntryView = factory.inflate(R.layout.invoice_email, null);        
     	
-        // alerdialog used as the dialog
+        // alertdialog used as the dialog
     	AlertDialog.Builder emaildialog = new AlertDialog.Builder(this);
         // sets the dialog's view to the correct layout
     	emaildialog.setView(recipientEntryView);
@@ -136,7 +134,7 @@ public class ViewJobInvoice extends Activity {
     	// a string array used for the AutoCompleteTextView adapter
     	String[] emailAddresses = new String[emailAddressCollection.size()];    	
     	emailAddressCollection.toArray(emailAddresses);
-    	// arrayadapter populated with string of emails
+    	// ArrayAdapter populated with string of emails
     	ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, emailAddresses);
     	
     	// email AutoCompleteTextView populated with the emails
@@ -157,7 +155,7 @@ public class ViewJobInvoice extends Activity {
                 // if the email address, name and own name are not blank, run this block
                 // if not, make a toast that informs the user
                 if (!recipient_email.equals("") && !recipient_name.equals("") && !stown_name.equals("")) {
-                	// if theres a valid email address, it sends an email with the user chosen template date
+                	// if there's a valid email address, it sends an email with the user chosen template date
                 	if (checkEmailValid(recipient_email)) {
                 		Intent create_email = new Intent(Intent.ACTION_SEND);
                     	
