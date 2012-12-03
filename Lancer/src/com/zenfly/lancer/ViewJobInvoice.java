@@ -130,6 +130,7 @@ public class ViewJobInvoice extends Activity {
     	emaildialog.setView(recipientEntryView);    	
     	
     	ArrayList<String> emailAddressCollection = new ArrayList<String>();
+    	emailAddressCollection = db.getAllEmailsForJob(job_id);
 
     	ContentResolver cr = getContentResolver();
 
