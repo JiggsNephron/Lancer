@@ -15,6 +15,7 @@ import java.util.regex.Pattern;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -26,6 +27,7 @@ import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -125,21 +127,35 @@ public class ViewJobInvoice extends Activity {
     	
     	AlertDialog.Builder emaildialog = new AlertDialog.Builder(this);
         
-    	emaildialog.setView(recipientEntryView);
+    	emaildialog.setView(recipientEntryView);    	
     	
+    	ArrayList<String> emailAddressCollection = new ArrayList<String>();
+
+    	ContentResolver cr = getContentResolver();
+
+    	Cursor emailCur = cr.query(ContactsContract.CommonDataKinds.Email.CONTENT_URI, null, null, null, null);
+
+    	while (emailCur.moveToNext())
+    	{
+    	    String email = emailCur.getString(emailCur.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA));
+    	            emailAddressCollection.add(email);
+    	}
     	
-        Cursor emailCursor = getContentResolver().query(ContactsContract.CommonDataKinds.Email.CONTENT_URI, null, null, null, null);
-        startManagingCursor(emailCursor);
-        
+    	emailCur.close();
+
+    	String[] emailAddresses = new String[emailAddressCollection.size()];
+    	
+    	emailAddressCollection.toArray(emailAddresses);
+
+    	ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, emailAddresses);
     	
     	final EditText name = (EditText) recipientEntryView.findViewById(R.id.recipient_name); 
     	final AutoCompleteTextView email = (AutoCompleteTextView) recipientEntryView.findViewById(R.id.recipient_email);
     	final EditText own_name = (EditText) recipientEntryView.findViewById(R.id.own_name);
     	final EditText message = (EditText) recipientEntryView.findViewById(R.id.email_message);
     	
-    	email.setAdapter(new SimpleCursorAdapter(this, android.R.layout.simple_dropdown_item_1line, emailCursor, new String[] {Email.DATA1}, new int[] {android.R.id.text1}));
-    	email.setThreshold(0);
-    	
+    	email.setAdapter(adapter);
+       	
     	message.setText("Thank you for your custom, please see the payables below. Looking forward to doing business with you in the future.");
     	
         emaildialog.setPositiveButton("Send Email", new DialogInterface.OnClickListener() {
