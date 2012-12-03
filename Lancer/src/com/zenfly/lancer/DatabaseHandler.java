@@ -340,7 +340,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
     public Task getNearestDeadlineTask()
     {
     	SQLiteDatabase db = this.getReadableDatabase();
-        String selectQuery = "SELECT * FROM " + TABLE_TASKS + " ORDER BY " + KEY_DEADLINE + " ASC";
+        String selectQuery = "SELECT * FROM " + TABLE_TASKS + " WHERE " + KEY_DONE + "=" + 0 + " ORDER BY " + KEY_DEADLINE + " ASC";
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor != null)
         {
@@ -356,7 +356,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
     public Task getNearestDeadlineTaskForJob(int job)
     {
     	SQLiteDatabase db = this.getReadableDatabase();
-        String selectQuery = "SELECT * FROM " + TABLE_TASKS + " WHERE " + KEY_JOB + "=" + job + " ORDER BY " + KEY_DEADLINE + " ASC";
+        String selectQuery = "SELECT * FROM " + TABLE_TASKS + " WHERE " + KEY_JOB + "=" + job + " AND " + KEY_DONE + "=" + 0 + " ORDER BY " + KEY_DEADLINE + " ASC";
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor != null)
         {
