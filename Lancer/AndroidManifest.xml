@@ -128,11 +128,6 @@
         <activity
             android:name=".NextTaskWidget"
             android:label="@string/title_activity_next_task_widget" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <receiver
        		android:icon="@drawable/app_icon"
@@ -141,7 +136,6 @@
        		<intent-filter >
             	<action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
        		</intent-filter>
-
        		<meta-data
           		android:name="android.appwidget.provider"
           		android:resource="@xml/widget_info" />
