@@ -123,6 +123,9 @@ public class ViewJobInvoice extends Activity {
     	final EditText name = (EditText) recipientEntryView.findViewById(R.id.recipient_name); 
     	final EditText email = (EditText) recipientEntryView.findViewById(R.id.recipient_email);
     	final EditText own_name = (EditText) recipientEntryView.findViewById(R.id.own_name);
+    	final EditText message = (EditText) recipientEntryView.findViewById(R.id.email_message);
+    	
+    	message.setText("Thank you for your custom, please see the payables below. Looking forward to doing business with you in the future.");
     	
         emaildialog.setPositiveButton("Send Email", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {            	
@@ -130,8 +133,9 @@ public class ViewJobInvoice extends Activity {
                 String recipient_name = name.getText().toString();
                 String recipient_email = email.getText().toString();
                 String stown_name = own_name.getText().toString();
+                String own_message = message.getText().toString();
                 
-                if (!recipient_email.equals("") && !recipient_name.equals("")) {
+                if (!recipient_email.equals("") && !recipient_name.equals("") && !stown_name.equals("")) {
                 	if (checkEmailValid(recipient_email)) {
                 		Intent create_email = new Intent(Intent.ACTION_SEND);
                     	
@@ -141,6 +145,8 @@ public class ViewJobInvoice extends Activity {
                     	create_email.putExtra(Intent.EXTRA_TEXT   , "Dear "
                     	+ recipient_name 
                     	+ ",\n\n" 
+                    	+ own_message
+                    	+ "\n\n"
                     	+ "Total Wages: " 
                     	+ locale_currency_format.format(total_income) 
                     	+ "\n\n" 
@@ -158,8 +164,9 @@ public class ViewJobInvoice extends Activity {
                     	} catch (android.content.ActivityNotFoundException ex) {
                     	    Toast.makeText(context, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
                     	}
+                    	
             		}else Toast.makeText(context, "Invalid email address", Toast.LENGTH_SHORT).show();
-                } else Toast.makeText(context, "You need to enter a recipient name and email address.", Toast.LENGTH_SHORT).show();
+                } else Toast.makeText(context, "Please enter a recipient name and email address as well as your own name as it should appear in the email.", Toast.LENGTH_SHORT).show();
             }
         });
         emaildialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
