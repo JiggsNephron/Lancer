@@ -77,7 +77,6 @@ public class JobsAdapter extends ArrayAdapter<Job>
 						date_locale = date_formater.parse(tempDate);
 						tempDate = DateFormat.getDateInstance().format(date_locale);
 					} catch (ParseException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 			    	
