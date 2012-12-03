@@ -19,7 +19,7 @@ public class NotificationTimer extends BroadcastReceiver
 	 {
 		 nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 		 String from = "Lancer";
-		 String message = "It is " + intent.getIntExtra("days", 0) + " days before " + intent.getStringExtra("task") + "'s deadline";
+		 String message = "It is " + intent.getIntExtra("day", 0) + " days before " + intent.getStringExtra("task") + "'s deadline";
 		 PendingIntent contentIntent = PendingIntent.getActivity(context, 0, intent, 0);
 		 Notification notif = new Notification(R.drawable.app_icon, intent.getStringExtra("task") + " alert!", System.currentTimeMillis());
 		 notif.setLatestEventInfo(context, from, message, contentIntent);

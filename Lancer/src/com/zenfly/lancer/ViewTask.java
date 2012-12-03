@@ -25,6 +25,7 @@ import android.text.Editable;
 import android.text.InputType;
 import android.text.format.DateUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.Window;
@@ -317,7 +318,32 @@ public class ViewTask extends Activity {
 	{
 		if(!task.getDeadline().equals(""))
 		{	 
-			if(task.getAlarm() == 0) showDialog(TIME_DIALOG_ID);
+			if(task.getAlarm() == 0) //showDialog(TIME_DIALOG_ID);
+			{
+				LayoutInflater factory = LayoutInflater.from(this);            
+		        final View notifyDateSet = factory.inflate(R.layout.notify_options, null);
+		        AlertDialog.Builder notifyDialog = new AlertDialog.Builder(this);
+		    	notifyDialog.setView(notifyDateSet);
+		    	final TimePicker time = (TimePicker) notifyDateSet.findViewById(R.id.notify_time);
+		    	final EditText userDay = (EditText) notifyDateSet.findViewById(R.id.notify_day);
+		    	notifyDialog.setPositiveButton("Set Time", new DialogInterface.OnClickListener()
+		    	{
+		            public void onClick(DialogInterface dialog, int whichButton)
+		            {            	
+		                if(!userDay.getText().toString().equals(""))day = Integer.parseInt(userDay.getText().toString());
+		                else day = 0;
+		                chosenHour = time.getCurrentHour();
+		                chosenMinute = time.getCurrentMinute();
+		                setNotification();
+		            }
+		        });
+		        notifyDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+		            public void onClick(DialogInterface dialog, int whichButton) {
+		                dialog.cancel();
+		            }
+		        });
+		        notifyDialog.show();
+			}
 			else
 			{
 				AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
@@ -343,7 +369,7 @@ public class ViewTask extends Activity {
 		Calendar cal = Calendar.getInstance();
 		cal.set(Calendar.YEAR, Integer.parseInt(dates[0]));
 		cal.set(Calendar.MONTH, Integer.parseInt(dates[1])-1);
-		cal.set(Calendar.DAY_OF_MONTH, Integer.parseInt(dates[2]) - day);
+		cal.set(Calendar.DAY_OF_MONTH, Integer.parseInt(dates[2]) - (day+1));
 		cal.set(Calendar.HOUR, chosenHour);
 		cal.set(Calendar.MINUTE, chosenMinute);
 		cal.set(Calendar.MILLISECOND, 0);
@@ -352,7 +378,7 @@ public class ViewTask extends Activity {
 		intent.putExtra("day", day);
 		PendingIntent pendingIntent = PendingIntent.getBroadcast(this, task.getId(), intent, PendingIntent.FLAG_ONE_SHOT);
 		am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent);
-		Toast.makeText(getApplicationContext(), "Alarm Set for " + cal.get(Calendar.DAY_OF_MONTH) + "/" + cal.get(Calendar.MONTH) + "/" + cal.get(Calendar.YEAR) + " at " + cal.get(Calendar.HOUR) + ":" + cal.get(Calendar.MINUTE), Toast.LENGTH_LONG).show();
+		Toast.makeText(getApplicationContext(), "Alarm Set for " + cal.get(Calendar.DAY_OF_MONTH) + "/" + cal.get(Calendar.MONTH)+1 + "/" + cal.get(Calendar.YEAR) + " at " + cal.get(Calendar.HOUR) + ":" + cal.get(Calendar.MINUTE), Toast.LENGTH_LONG).show();
 		db.setTaskAlarm(task.getId(), 1);
 		task.setAlarm(1);
 	}
@@ -374,7 +400,7 @@ public class ViewTask extends Activity {
 		return true;
 	}
 	
-	TimePickerDialog.OnTimeSetListener mTimeSetListener = new TimePickerDialog.OnTimeSetListener()
+	/*TimePickerDialog.OnTimeSetListener mTimeSetListener = new TimePickerDialog.OnTimeSetListener()
 	 {
 		public void onTimeSet(TimePicker view, int hourOfDay, int minute)
 		{
@@ -407,5 +433,5 @@ public class ViewTask extends Activity {
         		return new TimePickerDialog(this, mTimeSetListener, chosenHour, chosenMinute, false);
         }
         return null;
-    }
+    }*/
 }
