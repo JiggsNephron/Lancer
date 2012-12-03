@@ -50,14 +50,15 @@ public class ItemsList extends ListActivity {
 		db = new DatabaseHandler(this);
 		items = db.getAllItems();
 		
-   
 		setListAdapter(new ItemsAdapter(this, items));
 		
+		// if coming from edit expense, do not enable long press delete functionality 
 		if (getIntent().getIntExtra("expense_id", 0) == 0) {
 			registerForContextMenu(getListView());
 		}
     }
     
+    // run when +Item is clicked
     public void addItem(View v) {   	
     	
     	// create new dialog object
@@ -79,7 +80,6 @@ public class ItemsList extends ListActivity {
 				
 		    	EditText item_name  = (EditText)dialog.findViewById(R.id.item_name);
 		    	EditText item_cost = (EditText)dialog.findViewById(R.id.item_cost);
-
 		    	
 		    	String stitem_name = item_name.getText().toString();
 		    	String stitem_cost = item_cost.getText().toString();
@@ -87,7 +87,6 @@ public class ItemsList extends ListActivity {
 		    	float intitem_cost;
 		    	if (stitem_cost.equals("")) intitem_cost = 0;
 		    	else intitem_cost = Float.parseFloat(stitem_cost);
-
 		    	
 		    	if(!stitem_name.equals(""))
 		    	{
@@ -107,15 +106,15 @@ public class ItemsList extends ListActivity {
 		    		Toast.makeText(getApplicationContext(), "Item Name cannot be empty", Toast.LENGTH_LONG).show();		    		
 		    	}		        
 		     }
-		 });	
-		
-		// show the dialog
+		 });
 		dialog.show();		
     }  
     
 	@Override
 	public void onListItemClick(ListView parent, View v, int position, long id) {	 
-				
+		
+		// if the intent has an expense id, go to the editExpense view
+		// else go to the addNewExpense view
 		if (getIntent().getIntExtra("expense_id", 0) != 0) {
 			Intent intent = new Intent(ItemsList.this, EditExpense.class);
 			int itemId = items.get(position).getId();
@@ -124,7 +123,6 @@ public class ItemsList extends ListActivity {
 		  	intent.putExtra("item_id", itemId);
 			intent.putExtra("expense_id", getIntent().getIntExtra("expense_id", 0));
 			startActivity(intent);
-			
 		} else {
 			Intent intent = new Intent(ItemsList.this, AddNewExpense.class);
 			int itemId = items.get(position).getId();

@@ -104,9 +104,9 @@
     <string name="total_due">Total to be Paid:</string>
     <string name="recipients_name">Enter the recipient\'s name:</string>
     <string name="recipients_email">Enter the recipient\'s email address:</string>
-	<string name="your_name">Enter your name:</string>
-	<string name="email_message">Add a message (Optional):</string>
-    
+    <string name="your_name">Enter your name:</string>
+    <string name="email_message">Add a message (Optional):</string>
+
     <!-- Layout: Settings - Strings -->
 
     <string name="job_order_label">Sort Jobs By:</string>
@@ -130,5 +130,6 @@
     <string name="title_activity_edit_task">Edit Task</string>
     <string name="title_activity_edit_expense">Edit Expense</string>
     <string name="title_activity_view_job_invoice">View Job Invoice</string>
+    <string name="title_activity_next_task_widget">NextTaskWidget</string>
 
 </resources>
