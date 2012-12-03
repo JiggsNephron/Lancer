@@ -70,13 +70,16 @@ public class ExpensesList extends ListActivity {
     @Override
     public void onBackPressed() {
     	Intent intent;
-    	if(getIntent().getIntExtra("task_id", 0) != 0)
-    	{
+    	
+    	if (getIntent().getIntExtra("from_invoice", 0) == 1) {
+    		intent = new Intent(ExpensesList.this, ViewJobInvoice.class);
+    	} else if (getIntent().getIntExtra("task_id", 0) != 0) {    		
     		intent = new Intent(ExpensesList.this, ViewTask.class);
-    		intent.putExtra("task", getIntent().getIntExtra("task_id", 0));
-    		intent.putExtra("job_id", getIntent().getIntExtra("job_id", 0));
+    		intent.putExtra("task", getIntent().getIntExtra("task_id", 0));    		
+    	} else {
+    		intent = new Intent(ExpensesList.this, JobsOptions.class);
     	}
-    	else intent = new Intent(ExpensesList.this, JobsOptions.class);
+    	
     	intent.putExtra("job_id", getIntent().getIntExtra("job_id", 0));
 		startActivity(intent);
     }       

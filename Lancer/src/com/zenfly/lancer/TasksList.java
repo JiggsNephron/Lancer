@@ -43,10 +43,18 @@ public class TasksList extends ListActivity {
     
     @Override
     public void onBackPressed() {
-    	Intent intent = new Intent(TasksList.this, JobsOptions.class);
-    	intent.putExtra("job_id", thisJob);
-    	startActivity(intent);
-    	return;
+    	
+    	if (getIntent().getIntExtra("from_invoice", 0) == 1) {
+    		Intent intent = new Intent(TasksList.this, ViewJobInvoice.class);
+    		intent.putExtra("job_id", thisJob);
+        	startActivity(intent);
+        	return;
+    	} else {
+    		Intent intent = new Intent(TasksList.this, JobsOptions.class);
+        	intent.putExtra("job_id", thisJob);
+        	startActivity(intent);
+        	return;
+    	}
     }     
     
     public void addNewTask(View v) {
