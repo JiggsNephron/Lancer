@@ -102,12 +102,12 @@ public class ViewTask extends Activity {
 		
 		if(taskLocationID == 0)											// if no location set display "No Location Set"
 		{
-			taskLocation = "None Set";
+			taskLocation = "No Location Set";
 		}
 		else
 		{
 			location = db.getLocation(taskLocationID);			//extracts a location object from database 
-			taskLocation = location.getLocation();						//gets the first line.
+			taskLocation = "View " + location.getLocation() + " on map";						//gets the first line.
 //			if(!location.getAdd1().equals("")) taskLocation += ",\n" + location.getAdd1();
 //			if(!location.getAdd2().equals("")) taskLocation += ",\n" + location.getAdd2();
 //			if(!location.getAdd3().equals("")) taskLocation += ",\n" + location.getAdd3();
