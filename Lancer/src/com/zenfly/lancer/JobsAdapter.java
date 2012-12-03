@@ -57,6 +57,20 @@ public class JobsAdapter extends ArrayAdapter<Job>
 	    	if(db.getJobTaskCount(currentJob.getId()) != 0) tempTask = db.getNearestDeadlineTaskForJob(currentJob.getId());
 	    	
 	    	int percent = db.getPercentDone(currentJob.getId());
+	    	
+	    	if(percent == 100) 														//if all tasks are complete
+	    	{
+	    		//grey out all text and cross out all except for percentage and done
+	    		jobsItemView.name.setTextColor(Color.GRAY);
+		    	jobsItemView.name.setPaintFlags(jobsItemView.name.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+		    	jobsItemView.date.setTextColor(Color.GRAY);
+				jobsItemView.date.setPaintFlags(jobsItemView.date.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+				jobsItemView.task.setTextColor(Color.GRAY);
+				jobsItemView.task.setPaintFlags(jobsItemView.task.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+				jobsItemView.percentage.setTextColor(Color.GRAY);
+				jobsItemView.percentage.setText(percent+"%");
+				jobsItemView.done.setTextColor(Color.GRAY);
+	    	}
 	    	jobsItemView.percentage.setText(percent+"%");
 	    	
 	    	if(tempTask != null)
@@ -81,23 +95,10 @@ public class JobsAdapter extends ArrayAdapter<Job>
 			    	else{																	//if there is no deadline
 			    		jobsItemView.name.setText("No task has a Deadline");	
 			    	}
-			    	if(percent == 100) 														//if all tasks are complete
-			    	{
-			    		//grey out all text and cross out all except for percentage and done
-			    		jobsItemView.name.setTextColor(Color.GRAY);
-				    	jobsItemView.name.setPaintFlags(jobsItemView.name.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-				    	jobsItemView.date.setTextColor(Color.GRAY);
-						jobsItemView.date.setPaintFlags(jobsItemView.date.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-						jobsItemView.task.setTextColor(Color.GRAY);
-						jobsItemView.task.setPaintFlags(jobsItemView.task.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-						jobsItemView.percentage.setTextColor(Color.GRAY);
-						jobsItemView.done.setTextColor(Color.GRAY);
-			    	}
 	    	}
 	    	else{ 																			//if the job has no tasks
 	    		jobsItemView.task.setText("");												// sets the location
 	    		jobsItemView.date.setText("");												// sets the date
-	    		jobsItemView.done.setText("");
 	    	}
 	    jobsItemView.name.setText(currentJob.getClient()); 									//sets the Name 
 	    }	
