@@ -1,3 +1,10 @@
+/**
+ * Allows the user to edit a task
+ * 
+ * Authors: Richard Cody, 
+ * 
+ */
+
 package com.zenfly.lancer;
 
 import java.text.DateFormat;
@@ -102,6 +109,9 @@ public class EditTask extends FragmentActivity {
         	task_location_box.setText((db.getLocation(current_task.getLocation())).getLocation());
         } 
         
+        // check if there is a task date in the received intent and put it into the EditText
+        // else if there isn't one in the intent, get it from the current_task object
+        // else set date as empty
         if (getIntent().getStringExtra("task_date") != null) {        	
         	sttask_date = getIntent().getStringExtra("task_date");         
         } else if (!current_task.getDeadline().equals("")) { 
@@ -111,6 +121,9 @@ public class EditTask extends FragmentActivity {
         	stformatted_task_date = "";
         	add_deadline.setText(stformatted_task_date);
         }
+        // if there is a task date, show it as locale formatted
+        // and set the year, month and day variables
+        // else set the variables to todays date
         if (!sttask_date.equals("")) {
         	
         	String delim = "[/]";
@@ -134,9 +147,8 @@ public class EditTask extends FragmentActivity {
     		month = calendar.get(Calendar.MONTH)+2;
     		day = calendar.get(Calendar.DAY_OF_YEAR);
         }
-        
-        task_hourly_wage.setText(Float.toString(current_task.getWage()));
-        
+        // set the remaining editTexts
+        task_hourly_wage.setText(Float.toString(current_task.getWage()));        
         task_email_address.setText(current_task.getEmail());
         task_phone_number.setText(current_task.getPhone());
     }
@@ -144,8 +156,7 @@ public class EditTask extends FragmentActivity {
     // Saves the all the chosen entries as a new task
     public void saveTaskEdits (View v) {
     	
-    	Intent back_to_tasksorlist;
-    	
+    	Intent back_to_tasksorlist;    	
     	
     	// get the EditText fields and convert the wage to an integer
     	sttask_name = task_name.getText().toString();
@@ -153,26 +164,28 @@ public class EditTask extends FragmentActivity {
     	sttask_email_address = task_email_address.getText().toString();
     	sttask_phone_number = task_phone_number.getText().toString();    	
     	
+    	// if there is no wage set, set the hourlyWage as 0
+    	// else grab the user set wage
     	if (sthourly_wage.equals("")) hourlyWage = 0;
     	else hourlyWage = Float.parseFloat(sthourly_wage);
     	
     	// create a new task using the users preferences and add it to the database
+    	// check if an email is entered and if so that it is valid
     	if (!sttask_email_address.equals("")) {
     		if (checkEmailValid(sttask_email_address)) {
     			if(!sttask_name.equals(""))	{
     	    		
     				back_to_tasksorlist = new Intent(context, ViewTask.class);
     				
+    				// update the current_task object with the changes
     				current_task.setDeadline(sttask_date);
     				current_task.setEmail(sttask_email_address);
     				current_task.setLocation(task_location_id);
     				current_task.setName(sttask_name);
     				current_task.setPhone(sttask_phone_number);
     				current_task.setWage(hourlyWage);    				
-    				    	    		
+    				// and put the changed task into the database
     	        	db.updateTask(current_task);
-    	        	
-    	        	
     	        	
     	        	back_to_tasksorlist.putExtra("job_id", job_id);
     	        	back_to_tasksorlist.putExtra("task", task_id);
@@ -186,19 +199,19 @@ public class EditTask extends FragmentActivity {
     			Toast.makeText(getApplicationContext(), "Please enter a valid email address", Toast.LENGTH_LONG).show();
     		}    		
     	} else {    		
-        	if(!sttask_name.equals(""))
-        	{
+        	if(!sttask_name.equals("")) {
+        		
         		back_to_tasksorlist = new Intent(context, ViewTask.class);
+        		
+        		// update the current_task object with the changes
         		current_task.setDeadline(sttask_date);
 				current_task.setEmail(sttask_email_address);
 				current_task.setLocation(task_location_id);
 				current_task.setName(sttask_name);
 				current_task.setPhone(sttask_phone_number);
 				current_task.setWage(hourlyWage);    				
-				    	    		
+				// and put the changed task into the database 	    		
 	        	db.updateTask(current_task); 		
-        		
-        		db.updateTask(current_task);
         		
         		back_to_tasksorlist.putExtra("job_id", job_id);
 	        	back_to_tasksorlist.putExtra("task", task_id);
