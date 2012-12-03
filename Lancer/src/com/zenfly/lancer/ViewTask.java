@@ -363,10 +363,24 @@ public class ViewTask extends Activity {
 		cal.set(Calendar.MILLISECOND, 0);
 		Intent intent = new Intent(ViewTask.this, NotificationTimer.class); //an intent which will launch on the correct day
 		intent.putExtra("task", task.getName()); //sends the task name to the notification
-		intent.putExtra("day", day+1); //sends the day to the notification
+		intent.putExtra("day", day); //sends the day to the notification
 		PendingIntent pendingIntent = PendingIntent.getBroadcast(this, task.getId(), intent, PendingIntent.FLAG_ONE_SHOT);
 		am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent); //sets the alarm
-		Toast.makeText(getApplicationContext(), "Alarm Set for " + cal.get(Calendar.DAY_OF_MONTH) + "/" + (cal.get(Calendar.MONTH)+1) + "/" + cal.get(Calendar.YEAR) + " at " + cal.get(Calendar.HOUR) + ":" + cal.get(Calendar.MINUTE), Toast.LENGTH_LONG).show();
+		
+		String unformatted_date = cal.get(Calendar.YEAR) + "/" + (cal.get(Calendar.MONTH)+1) + "/" + cal.get(Calendar.DAY_OF_MONTH);
+		Date tempdate;
+		String formatted_date;
+		SimpleDateFormat date_formater = new SimpleDateFormat("yyyy/MM/dd");			
+		try {
+    		// creates a date object based on the SimpleDateFormat object
+			tempdate = date_formater.parse(unformatted_date);
+	    	// formats the date to a locale friendly string and saves it
+			formatted_date = DateFormat.getDateInstance().format(tempdate);	    		
+    	} catch (ParseException e) {
+    		formatted_date = Integer.toString(day) + "days ahead";
+		}	    						
+		
+		Toast.makeText(getApplicationContext(), "Notification Set for " + formatted_date, Toast.LENGTH_LONG).show();
 		db.setTaskAlarm(task.getId(), 1); //changes the database to show this task has an alarm set
 		task.setAlarm(1);
 	}
