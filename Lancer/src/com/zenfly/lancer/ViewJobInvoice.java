@@ -130,16 +130,16 @@ public class ViewJobInvoice extends Activity {
     	emaildialog.setView(recipientEntryView);    	
     	
     	ArrayList<String> emailAddressCollection = new ArrayList<String>();
-    	emailAddressCollection = db.getAllEmailsForJob(job_id);
 
     	ContentResolver cr = getContentResolver();
 
     	Cursor emailCur = cr.query(ContactsContract.CommonDataKinds.Email.CONTENT_URI, null, null, null, null);
-
+    	
+    	emailAddressCollection = db.getAllEmailsForJob(job_id);
     	while (emailCur.moveToNext())
     	{
     	    String email = emailCur.getString(emailCur.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA));
-    	            emailAddressCollection.add(email);
+    	    emailAddressCollection.add(email);
     	}
     	
     	emailCur.close();
@@ -225,5 +225,14 @@ public class ViewJobInvoice extends Activity {
         }
         
         return isEmailValid;
-    }    
+    }
+
+    @Override
+    public void onBackPressed() {
+    	Intent intent = new Intent(ViewJobInvoice.this, JobsOptions.class);
+    	intent.putExtra("job_id", getIntent().getIntExtra("job_id", 0));
+    	startActivity(intent);    	
+    	return;  	
+    }        
+    
 }
