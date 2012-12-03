@@ -45,7 +45,7 @@
         android:text="@string/recipients_email"
         android:textSize="20dp" />
 
-    <EditText
+    <AutoCompleteTextView
         android:id="@+id/recipient_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
