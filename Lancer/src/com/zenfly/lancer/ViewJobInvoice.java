@@ -121,16 +121,26 @@ public class ViewJobInvoice extends Activity {
     	
     	// a string to store contact and task email addresses
     	ArrayList<String> emailAddressCollection = new ArrayList<String>();
+    	ArrayList<String> emailsfromtasks = new ArrayList<String>();
     	ContentResolver cr = getContentResolver();
     	// gets the phone contacts' email addresses
     	Cursor emailCur = cr.query(ContactsContract.CommonDataKinds.Email.CONTENT_URI, null, null, null, null);
     	// adds the email addresses added to any tasks to the list
-    	emailAddressCollection = db.getAllEmailsForJob(job_id);
+    	emailsfromtasks = db.getAllEmailsForJob(job_id);
+    	// add each task email to the list
+    	for (String taskemail: emailsfromtasks) {    		
+    		if (!emailAddressCollection.contains(taskemail)) {
+    	    	emailAddressCollection.add(taskemail);
+    	    }
+    	}
     	// adds each phone contact email to the list
     	while (emailCur.moveToNext())
     	{
     	    String stemail = emailCur.getString(emailCur.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA));
-    	    emailAddressCollection.add(stemail);
+    	    
+    	    if (!emailAddressCollection.contains(stemail)) {
+    	    	emailAddressCollection.add(stemail);
+    	    }
     	}    	
     	emailCur.close();    	
     	// a string array used for the AutoCompleteTextView adapter
