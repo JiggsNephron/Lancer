@@ -335,54 +335,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
         return null;
     }
     
-    //methods for getting the task with either the nearest of farthest deadline
-    public Task getNearestDeadlineTask()
-    {
-    	SQLiteDatabase db = this.getReadableDatabase();
-        String selectQuery = "SELECT * FROM " + TABLE_TASKS + " WHERE " + KEY_DONE + "=" + 0 + " ORDER BY " + KEY_DEADLINE + " ASC";
-        Cursor cursor = db.rawQuery(selectQuery, null);
-        if (cursor != null)
-        {
-        	cursor.moveToFirst();
-        	Task task = new Task(cursor.getString(1), cursor.getInt(2), cursor.getString(3), cursor.getInt(4), cursor.getFloat(6), cursor.getString(7), cursor.getString(8), cursor.getLong(9), cursor.getInt(5), cursor.getInt(10), cursor.getInt(11));
-        	db.close();
-        	return task;
-        }
-        db.close();
-        return null;
-    }
-    
-    public Task getNearestDeadlineTaskForJob(int job)
-    {
-    	SQLiteDatabase db = this.getReadableDatabase();
-        String selectQuery = "SELECT * FROM " + TABLE_TASKS + " WHERE " + KEY_JOB + "=" + job + " AND " + KEY_DONE + "=" + 0 + " ORDER BY " + KEY_DEADLINE + " ASC";
-        Cursor cursor = db.rawQuery(selectQuery, null);
-        if(cursor.moveToFirst())
-        {
-        	Task task = new Task(cursor.getString(1), cursor.getInt(2), cursor.getString(3), cursor.getInt(4), cursor.getFloat(6), cursor.getString(7), cursor.getString(8), cursor.getLong(9), cursor.getInt(5), cursor.getInt(10), cursor.getInt(11));
-        	db.close();
-        	return task;
-        }
-        db.close();
-        return null;
-    }
-    
-    public Task getFarthestDeadlineTask()
-    {
-    	SQLiteDatabase db = this.getReadableDatabase();
-        String selectQuery = "SELECT * FROM " + TABLE_TASKS + " ORDER BY " + KEY_DEADLINE + " DESC";
-        Cursor cursor = db.rawQuery(selectQuery, null);
-        if (cursor != null) 
-        {
-        	cursor.moveToFirst();
-        	Task task = new Task(cursor.getString(1), cursor.getInt(2), cursor.getString(3), cursor.getInt(4), cursor.getFloat(6), cursor.getString(7), cursor.getString(8), cursor.getLong(9), cursor.getInt(5), cursor.getInt(10), cursor.getInt(11));
-	        db.close();
-	        return task;
-        }
-        return null;
-    }
- 
-    //methods for returning all objects of a certain class
+    //methods for getting multiple objects
     public List<Job> getAllJobs() 
     {
         List<Job> jobList = new ArrayList<Job>();
@@ -629,7 +582,89 @@ public class DatabaseHandler extends SQLiteOpenHelper
     	return itemList;
     }
     
-    //a method to update the data in a specified job
+    public List<Task> getAllDoneTasks()
+    {
+    	List<Task> taskList = new ArrayList<Task>();
+    	String selectQuery = "SELECT * FROM " + TABLE_TASKS + " WHERE " + KEY_DONE + "=" + 1; //makes sure we only retrieve finished tasks
+    	SQLiteDatabase db = this.getWritableDatabase();
+    	Cursor cursor = db.rawQuery(selectQuery, null);
+    	if(cursor.moveToFirst()) //makes sure we have results
+    	{
+    		do
+    		{
+    			Task task = new Task(cursor.getString(1), cursor.getInt(2), cursor.getString(3), cursor.getInt(4), cursor.getFloat(6), cursor.getString(7), cursor.getString(8), cursor.getLong(9), cursor.getInt(5), cursor.getInt(10), cursor.getInt(11));
+    			taskList.add(task);
+    		}while(cursor.moveToNext());
+    	}
+    	db.close();
+    	return taskList;
+    }
+    
+    public List<Task> getAllTasksForJob(int thisJob)
+    {
+    	List<Task> taskList = new ArrayList<Task>();
+    	String selectQuery = "SELECT * FROM " + TABLE_TASKS + " WHERE " + KEY_JOB + "=" + thisJob; //makes sure we only retrieve finished tasks
+    	SQLiteDatabase db = this.getWritableDatabase();
+    	Cursor cursor = db.rawQuery(selectQuery, null);
+    	if(cursor.moveToFirst()) //makes sure we have results
+    	{
+    		do
+    		{
+    			Task task = new Task(cursor.getString(1), cursor.getInt(2), cursor.getString(3), cursor.getInt(4), cursor.getFloat(6), cursor.getString(7), cursor.getString(8), cursor.getLong(9), cursor.getInt(5), cursor.getInt(10), cursor.getInt(11));
+    			task.setId(cursor.getInt(0));
+    			taskList.add(task);
+    		}while(cursor.moveToNext());
+    	}
+    	db.close();
+    	return taskList;
+    }
+    
+    //methods for getting a task based on deadline
+    public Task getNearestDeadlineTask()
+    {
+    	SQLiteDatabase db = this.getReadableDatabase();
+        String selectQuery = "SELECT * FROM " + TABLE_TASKS + " WHERE " + KEY_DONE + "=" + 0 + " ORDER BY " + KEY_DEADLINE + " ASC";
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst())
+        {
+        	Task task = new Task(cursor.getString(1), cursor.getInt(2), cursor.getString(3), cursor.getInt(4), cursor.getFloat(6), cursor.getString(7), cursor.getString(8), cursor.getLong(9), cursor.getInt(5), cursor.getInt(10), cursor.getInt(11));
+        	db.close();
+        	return task;
+        }
+        db.close();
+        return null;
+    }
+    
+    public Task getNearestDeadlineTaskForJob(int job)
+    {
+    	SQLiteDatabase db = this.getReadableDatabase();
+        String selectQuery = "SELECT * FROM " + TABLE_TASKS + " WHERE " + KEY_JOB + "=" + job + " AND " + KEY_DONE + "=" + 0 + " ORDER BY " + KEY_DEADLINE + " ASC";
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if(cursor.moveToFirst())
+        {
+        	Task task = new Task(cursor.getString(1), cursor.getInt(2), cursor.getString(3), cursor.getInt(4), cursor.getFloat(6), cursor.getString(7), cursor.getString(8), cursor.getLong(9), cursor.getInt(5), cursor.getInt(10), cursor.getInt(11));
+        	db.close();
+        	return task;
+        }
+        db.close();
+        return null;
+    }
+    
+    public Task getFarthestDeadlineTask()
+    {
+    	SQLiteDatabase db = this.getReadableDatabase();
+        String selectQuery = "SELECT * FROM " + TABLE_TASKS + " ORDER BY " + KEY_DEADLINE + " DESC";
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) 
+        {
+        	Task task = new Task(cursor.getString(1), cursor.getInt(2), cursor.getString(3), cursor.getInt(4), cursor.getFloat(6), cursor.getString(7), cursor.getString(8), cursor.getLong(9), cursor.getInt(5), cursor.getInt(10), cursor.getInt(11));
+	        db.close();
+	        return task;
+        }
+        return null;
+    }
+    
+    //methods for updating the database
     public boolean updateJob(Job job) 
     {
     	boolean success = true;
@@ -720,7 +755,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
         return success;
     }
 
-    //methods to delete specified database items (such as a job, a task, a location, etc)
+    //methods to delete specified database items
     public void deleteJob(int id)
     {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -742,7 +777,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_LOCATIONS, KEY_ID + " = ?", new String[] { Integer.toString(id) });
         ContentValues values = new ContentValues();
-        values.put(KEY_LOCATION, id);
+        values.put(KEY_LOCATION, 0);
         db.update(TABLE_TASKS, values, KEY_LOCATION + "=?", new String[] { Integer.toString(id)});
         db.close();
     }
@@ -758,8 +793,6 @@ public class DatabaseHandler extends SQLiteOpenHelper
     {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_ITEMS, KEY_ID + " = ?", new String[] { Integer.toString(id) });
-        ContentValues values = new ContentValues();
-        values.put(KEY_LOCATION, id);
         db.delete(TABLE_EXPENSES, KEY_ITEM + " = ?", new String[] { Integer.toString(id) });
         db.close();
     }
@@ -780,7 +813,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
         db.delete(TABLE_EXPENSES , KEY_JOB + " = ?", new String[] { Integer.toString(job) }); //deletes all expenses associated with the job
         db.close();
     }
-    
+    //deletes all database items linked to a specific task
     public void deleteTaskAssociates(int task)
     {
     	SQLiteDatabase db = this.getWritableDatabase();
@@ -804,45 +837,6 @@ public class DatabaseHandler extends SQLiteOpenHelper
 	        db.update(TABLE_TASKS, values, KEY_ID + "=?", new String[] {Integer.toString(id)}); //updates the table with the new value for hours worked
         }
         db.close();
-    }
-
-    //returns all tasks that are marked as done
-    public List<Task> getAllDoneTasks()
-    {
-    	List<Task> taskList = new ArrayList<Task>();
-    	String selectQuery = "SELECT * FROM " + TABLE_TASKS + " WHERE " + KEY_DONE + "=" + 1; //makes sure we only retrieve finished tasks
-    	SQLiteDatabase db = this.getWritableDatabase();
-    	Cursor cursor = db.rawQuery(selectQuery, null);
-    	if(cursor.moveToFirst()) //makes sure we have results
-    	{
-    		do
-    		{
-    			Task task = new Task(cursor.getString(1), cursor.getInt(2), cursor.getString(3), cursor.getInt(4), cursor.getFloat(6), cursor.getString(7), cursor.getString(8), cursor.getLong(9), cursor.getInt(5), cursor.getInt(10), cursor.getInt(11));
-    			taskList.add(task);
-    		}while(cursor.moveToNext());
-    	}
-    	db.close();
-    	return taskList;
-    }
-    
-    
-    public List<Task> getAllTasksForJob(int thisJob)
-    {
-    	List<Task> taskList = new ArrayList<Task>();
-    	String selectQuery = "SELECT * FROM " + TABLE_TASKS + " WHERE " + KEY_JOB + "=" + thisJob; //makes sure we only retrieve finished tasks
-    	SQLiteDatabase db = this.getWritableDatabase();
-    	Cursor cursor = db.rawQuery(selectQuery, null);
-    	if(cursor.moveToFirst()) //makes sure we have results
-    	{
-    		do
-    		{
-    			Task task = new Task(cursor.getString(1), cursor.getInt(2), cursor.getString(3), cursor.getInt(4), cursor.getFloat(6), cursor.getString(7), cursor.getString(8), cursor.getLong(9), cursor.getInt(5), cursor.getInt(10), cursor.getInt(11));
-    			task.setId(cursor.getInt(0));
-    			taskList.add(task);
-    		}while(cursor.moveToNext());
-    	}
-    	db.close();
-    	return taskList;
     }
     
     //returns true or false if a task is done or not
