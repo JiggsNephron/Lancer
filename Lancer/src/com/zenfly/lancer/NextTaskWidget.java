@@ -24,45 +24,46 @@ public class NextTaskWidget extends AppWidgetProvider {
 		db = new DatabaseHandler(context);
 		String formatDate;
 		int[] allWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);
-		Task task = db.getNearestDeadlineTask();
-		for (int widgetId : allWidgetIds)
-	    {
-		  	RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.activity_next_task_widget);
-		    if(task == null) remoteViews.setTextViewText(R.id.job_name, "No upcoming tasks");
-		     // else //in this case we know at least one module is returned
-		     // {
-		    else
+		if(db.getJobCount() != 0)
+		{
+			Task task = db.getNearestDeadlineTask();
+			for (int widgetId : allWidgetIds)
 		    {
-		    	Intent intent = new Intent(context, JobsList.class);
-		    	intent.putExtra("task", task.getId());
-		    	intent.putExtra("job_id", task.getJob());
-		    	PendingIntent pending = PendingIntent.getActivity(context, 0, intent, 0);
-		    	remoteViews.setOnClickPendingIntent(R.id.layout, pending);
-		    	Job job = db.getJob(task.getJob());
-		    	remoteViews.setTextViewText(R.id.job_name, job.getClient());
-		    	remoteViews.setTextViewText(R.id.next_task_name, task.getName());
-		    	if(!task.getDeadline().equals(""))
-		    	{
-		    		SimpleDateFormat date_formater = new SimpleDateFormat("yyyy/MM/dd");			
-		    		try 
-		    		{
-		    			// creates a date object based on the SimpleDateFormat object
-		    			Date date_locale = date_formater.parse(task.getDeadline());
-				    	// formats the date to a locale friendly string and saves it
-						formatDate = DateFormat.getDateInstance().format(date_locale);	    		
-			    	  } catch (ParseException e)
-			    	  {
-			    		  formatDate = "None Set";
-					  }	    				
-					remoteViews.setTextViewText(R.id.next_task_deadline, formatDate); //displays the locale formatted deadline
-				}
-		    	else 
-				{
-					remoteViews.setTextViewText(R.id.next_task_deadline, "None Set");
-		        }
-		      appWidgetManager.updateAppWidget(widgetId, remoteViews);
+			  	RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.activity_next_task_widget);
+			    if(task == null) remoteViews.setTextViewText(R.id.job_name, "No upcoming tasks");
+			    else
+			    {
+			    	Intent intent = new Intent(context, JobsList.class);
+			    	intent.putExtra("task", task.getId());
+			    	intent.putExtra("job_id", task.getJob());
+			    	PendingIntent pending = PendingIntent.getActivity(context, 0, intent, 0);
+			    	remoteViews.setOnClickPendingIntent(R.id.layout, pending);
+			    	Job job = db.getJob(task.getJob());
+			    	remoteViews.setTextViewText(R.id.job_name, job.getClient());
+			    	remoteViews.setTextViewText(R.id.next_task_name, task.getName());
+			    	if(!task.getDeadline().equals(""))
+			    	{
+			    		SimpleDateFormat date_formater = new SimpleDateFormat("yyyy/MM/dd");			
+			    		try 
+			    		{
+			    			// creates a date object based on the SimpleDateFormat object
+			    			Date date_locale = date_formater.parse(task.getDeadline());
+					    	// formats the date to a locale friendly string and saves it
+							formatDate = DateFormat.getDateInstance().format(date_locale);	    		
+				    	  } catch (ParseException e)
+				    	  {
+				    		  formatDate = "No Location Set";
+						  }	    				
+						remoteViews.setTextViewText(R.id.next_task_deadline, formatDate); //displays the locale formatted deadline
+					}
+			    	else 
+					{
+						remoteViews.setTextViewText(R.id.next_task_deadline, "None Set");
+			        }
+			      appWidgetManager.updateAppWidget(widgetId, remoteViews);
+			    }
 		    }
-	    }
+		}
 	}
 }
 
