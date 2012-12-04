@@ -2,14 +2,9 @@ package com.zenfly.lancer;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.TextView;
 
 public class JobsOptions extends Activity  {
@@ -26,18 +21,6 @@ public class JobsOptions extends Activity  {
         Job job = db.getJob(id);
         TextView jobName = (TextView) findViewById(R.id.job_name);
         jobName.setText(job.getClient());
-                
-        // R.id is same for all buttons here? (SK) Button taskButton = (Button)findViewById(R.id.create_invoice);
-        // --> This Stuff to be done in xml (SK) //taskButton.setVisibility(View.VISIBLE);
-        // --> This Stuff to be done in xml (SK) taskButton.setBackgroundColor(Color.TRANSPARENT);
-        
-        // R.id is same for all buttons here? (SK) Button expensesButton = (Button)findViewById(R.id.create_invoice);
-        // --> This Stuff to be done in xml (SK) expensesButton.setVisibility(View.VISIBLE);
-        // --> This Stuff to be done in xml (SK) expensesButton.setBackgroundColor(Color.TRANSPARENT);
-        
-        // R.id is same for all buttons here? Button NotesButton = (Button)findViewById(R.id.create_invoice);
-        // --> This Stuff to be done in xml (SK) NotesButton.setVisibility(View.VISIBLE);
-        // --> This Stuff to be done in xml (SK) NotesButton.setBackgroundColor(Color.TRANSPARENT);
     }
 
     @Override
