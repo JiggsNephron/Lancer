@@ -30,7 +30,7 @@ public class NextTaskWidget extends AppWidgetProvider {
 			Task task = db.getNearestDeadlineTask();
 			for (int widgetId : allWidgetIds)
 		    {
-			    if(task == null)
+			    if(task == null || db.getTaskCount() == 0)
 			    {
 			    	remoteViews.setTextViewText(R.id.job_name, "No upcoming tasks");
 			    	remoteViews.setTextViewText(R.id.next_task_name, "");
