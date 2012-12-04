@@ -273,7 +273,7 @@ public class ViewTask extends Activity {
 	{
 		if(!task.getPhone().equals(""))
 		{
-			Intent intent = new Intent(Intent.ACTION_CALL);
+			Intent intent = new Intent(Intent.ACTION_DIAL);
 			intent.setData(Uri.parse("tel:" + task.getPhone()));
 			startActivity(intent);
 		}
