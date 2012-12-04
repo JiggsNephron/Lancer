@@ -4,21 +4,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.ActionBar;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ListActivity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.view.ContextMenu;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.ListView;
 import android.widget.Toast;
 //import android.view.MenuItem;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 
 
 
@@ -29,6 +35,8 @@ public class JobsList extends ListActivity {
 	SharedPreferences prefs;
 	int backpress = 0;
 	protected Dialog mSplashDialog; // Needed for SplashScreen
+	
+	AdapterContextMenuInfo info;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,7 +59,9 @@ public class JobsList extends ListActivity {
 	    //Splash Code end
 	        
 	    setContentView(R.layout.activity_jobs_list);	    
-	        
+	    
+	    
+	    
 	    String order;
 	    prefs = getSharedPreferences("com.zenfly.lancer",0);
 	    db = new DatabaseHandler(this.getApplicationContext());;
@@ -69,6 +79,9 @@ public class JobsList extends ListActivity {
 	        
 	        setListAdapter(new JobsAdapter(this, jobs)); //starts the list View
 	    }
+	    
+	    registerForContextMenu(getListView());
+	    
     }
 	 
 
@@ -194,4 +207,45 @@ public class JobsList extends ListActivity {
 		    // Make sure we're running on Honeycomb or higher to use ActionBar APIs
 		    
 		}
+		@Override
+		public void onCreateContextMenu(ContextMenu menu, View v,
+		        ContextMenuInfo menuInfo) {
+		    super.onCreateContextMenu(menu, v, menuInfo);
+		    MenuInflater inflater = getMenuInflater();
+		    inflater.inflate(R.menu.item_long_press, menu);
+		}
+		
+	@Override
+	public boolean onContextItemSelected(MenuItem item) {
+			
+		info = (AdapterContextMenuInfo) item.getMenuInfo();
+		 
+		switch (item.getItemId()) {
+		    
+		case R.id.remove_item:	    	
+			// confirms the action with the Alert Dialog
+			final AlertDialog.Builder builder=new AlertDialog.Builder(JobsList.this);
+			builder.setTitle("Delete " + jobs.get(info.position).getClient());
+			builder.setMessage("Are you sure you want to delete this Job?\nThis will also delete all tasks, expenses and notes for this Job.");
+		    			
+			builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+		    		
+				public void onClick(DialogInterface dialog, int id) {
+					db.deleteJob(jobs.get(info.position).getId());
+		    		Toast.makeText(getApplicationContext(), "Deleted " + jobs.get(info.position).getClient(), Toast.LENGTH_LONG).show();
+		    		Intent refresh_to_jobsList = new Intent(JobsList.this, JobsList.class); 			
+		    	   	
+		    		startActivity(refresh_to_jobsList);
+		    	}
+		    });
+		    builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+		    	public void onClick(DialogInterface dialog, int id) {
+		    			dialog.cancel();
+		    		}
+		    });    	      
+		    builder.create().show();
+		    return true;
+		}
+		return false;
+	}
 }
