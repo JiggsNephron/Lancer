@@ -23,14 +23,19 @@ public class NextTaskWidget extends AppWidgetProvider {
 		ComponentName thisWidget = new ComponentName(context, NextTaskWidget.class);
 		db = new DatabaseHandler(context);
 		String formatDate;
+		RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.activity_next_task_widget);
 		int[] allWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);
 		if(db.getJobCount() != 0)
 		{
 			Task task = db.getNearestDeadlineTask();
 			for (int widgetId : allWidgetIds)
 		    {
-			  	RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.activity_next_task_widget);
-			    if(task == null) remoteViews.setTextViewText(R.id.job_name, "No upcoming tasks");
+			    if(task == null)
+			    {
+			    	remoteViews.setTextViewText(R.id.job_name, "No upcoming tasks");
+			    	remoteViews.setTextViewText(R.id.next_task_name, "");
+			    	remoteViews.setTextViewText(R.id.next_task_deadline, "");
+			    }
 			    else
 			    {
 			    	Intent intent = new Intent(context, JobsList.class);
@@ -63,6 +68,12 @@ public class NextTaskWidget extends AppWidgetProvider {
 			      appWidgetManager.updateAppWidget(widgetId, remoteViews);
 			    }
 		    }
+		}
+		else
+		{
+			remoteViews.setTextViewText(R.id.job_name, "No jobs in database");
+	    	remoteViews.setTextViewText(R.id.next_task_name, "");
+	    	remoteViews.setTextViewText(R.id.next_task_deadline, "");
 		}
 	}
 }
