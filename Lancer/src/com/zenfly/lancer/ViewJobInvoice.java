@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import android.R.color;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentResolver;
@@ -103,9 +104,10 @@ public class ViewJobInvoice extends Activity {
     public void emailInvoice (View v) {
     	
     	// Inflater to launch email dialog for entering recipient info and a message
-    	LayoutInflater factory = LayoutInflater.from(this);            
-        final View recipientEntryView = factory.inflate(R.layout.invoice_email, null);        
-    	
+    	LayoutInflater factory = LayoutInflater.from(this);
+    	setTheme(android.R.style.Theme);
+        final View recipientEntryView = factory.inflate(R.layout.invoice_email, null);
+        
         // alertdialog used as the dialog
     	AlertDialog.Builder emaildialog = new AlertDialog.Builder(this);
         // sets the dialog's view to the correct layout
@@ -139,7 +141,7 @@ public class ViewJobInvoice extends Activity {
     	
     	// email AutoCompleteTextView populated with the emails
     	email.setAdapter(adapter);
-       	
+    	email.setHintTextColor(color.black);
     	message.setText("Thank you for your custom, please see the payables below. Looking forward to doing business with you in the future.");
     	
     	// what to do if the user clicks Send Email
