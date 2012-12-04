@@ -25,6 +25,8 @@ public class NextTaskWidget extends AppWidgetProvider {
 		String formatDate;
 		RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.activity_next_task_widget);
 		int[] allWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);
+		Intent intent;
+		PendingIntent pending;
 		if(db.getJobCount() != 0)
 		{
 			Task task = db.getNearestDeadlineTask();
@@ -35,13 +37,16 @@ public class NextTaskWidget extends AppWidgetProvider {
 			    	remoteViews.setTextViewText(R.id.job_name, "No upcoming tasks");
 			    	remoteViews.setTextViewText(R.id.next_task_name, "");
 			    	remoteViews.setTextViewText(R.id.next_task_deadline, "");
+			    	intent = new Intent(context, JobsList.class);
+			    	pending = PendingIntent.getActivity(context, 0, intent, 0);
+			    	remoteViews.setOnClickPendingIntent(R.id.layout, pending);
 			    }
 			    else
 			    {
-			    	Intent intent = new Intent(context, JobsList.class);
+			    	intent = new Intent(context, JobsList.class);
 			    	intent.putExtra("task", task.getId());
 			    	intent.putExtra("job_id", task.getJob());
-			    	PendingIntent pending = PendingIntent.getActivity(context, 0, intent, 0);
+			    	pending = PendingIntent.getActivity(context, 0, intent, 0);
 			    	remoteViews.setOnClickPendingIntent(R.id.layout, pending);
 			    	Job job = db.getJob(task.getJob());
 			    	remoteViews.setTextViewText(R.id.job_name, job.getClient());
@@ -74,6 +79,9 @@ public class NextTaskWidget extends AppWidgetProvider {
 			remoteViews.setTextViewText(R.id.job_name, "No jobs in database");
 	    	remoteViews.setTextViewText(R.id.next_task_name, "");
 	    	remoteViews.setTextViewText(R.id.next_task_deadline, "");
+	    	intent = new Intent(context, JobsList.class);
+	    	pending = PendingIntent.getActivity(context, 0, intent, 0);
+	    	remoteViews.setOnClickPendingIntent(R.id.layout, pending);
 		}
 	}
 }
