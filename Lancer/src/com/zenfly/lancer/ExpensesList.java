@@ -23,7 +23,6 @@ public class ExpensesList extends ListActivity {
 	List<Expense> expense = new ArrayList<Expense>();
 	private NumberFormat locale_currency_format_totalCost;
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,23 +37,16 @@ public class ExpensesList extends ListActivity {
         Log.v("Task is ", ""+taskId);
         if(taskId != 0){
         	expense = db.getAllExpensesForTask(taskId);
-        	totalCostValue = db.getTotalCostForTask(jobId);
+        	totalCostValue = db.getTotalCostForTask(taskId);
         }
         else {
         	totalCostValue = db.getTotalCostForJob(jobId);					//gets the total of all expenses for the job
         	expense = db.getAllExpensesForJob(jobId);								//makes a list of jobs to send to the list View
         }
         job = db.getJob(jobId);	
-        String JobName = job.getClient();
         setListAdapter(new ExpensesAdapter(this, expense)); 						//starts the list View
-        
-      
-        
-        
-        Log.v("Expenses list", "totalCostValue =" + totalCostValue  + "~END");
         TextView totalCost = (TextView) findViewById(R.id.TotalCost);				//prepares to access textView
         totalCost.setText(locale_currency_format_totalCost.format(totalCostValue));							// sets the text view this data
-
     }
   
     public void addNewExpense(View v) {
@@ -91,10 +83,4 @@ public class ExpensesList extends ListActivity {
 	  	intent.putExtra("task_id", getIntent().getIntExtra("task_id", 0));
 	    startActivity(intent);
 	  }
-
-	@Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_expences_list, menu);
-        return true;
-    }
 }
