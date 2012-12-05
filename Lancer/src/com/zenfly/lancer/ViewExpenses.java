@@ -7,8 +7,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
@@ -41,7 +39,6 @@ public class ViewExpenses extends Activity {
 		
 		taskId    =  expense.getTask();
 		job = db.getJob(jobId);	
-        String JobName = job.getClient();
 		String linkedTask = "";
 		String ItemName = item.getName();									//extracts the name from Object
 		float ItemPrice = item.getPrice();									//extracts the due Date from Object
@@ -72,13 +69,6 @@ public class ViewExpenses extends Activity {
 		ItemQuantity.setText(QuantityString);									// sets the text view this data will always be set
 		//ItemQuantity.setText(locale_currency_format.format(Quantity));	
 		TaskName.setText(linkedTask);											// sets the text view this data will always be set
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_view_expenses, menu);
-		return true;
 	}
 
 	public void deleteExpense(View v)

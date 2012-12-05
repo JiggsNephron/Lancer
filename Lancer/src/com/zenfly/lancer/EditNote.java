@@ -8,9 +8,7 @@
 package com.zenfly.lancer;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;

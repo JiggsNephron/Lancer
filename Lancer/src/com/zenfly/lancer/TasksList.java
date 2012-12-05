@@ -6,13 +6,11 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.view.Window;
 import android.widget.CompoundButton;
 import android.widget.ListView;
 //import android.view.MenuItem;
-import android.widget.TextView;
 
 public class TasksList extends ListActivity {
 	
@@ -28,17 +26,11 @@ public class TasksList extends ListActivity {
         
         db = new DatabaseHandler(this.getApplicationContext());
         thisJob = getIntent().getIntExtra("job_id", 0);
-        Job job = db.getJob(thisJob);
+
         task = db.getAllTasksForJob(thisJob); //makes a list of tasks to send to the list View
        // Log.v("Expenses list", "task="+ task +"  ~END");
         
         setListAdapter(new TaskAdapter(this, task)); //starts the list View
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_tasks_list, menu);
-        return true;
     }
     
     @Override

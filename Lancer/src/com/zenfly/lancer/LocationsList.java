@@ -19,7 +19,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
-import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -139,12 +138,6 @@ public class LocationsList extends ListActivity {
 	    startActivity(intent);
 		}
 	}
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_locations_list, menu);
-        return true;
-    }
     
     @Override
 	public void onCreateContextMenu(ContextMenu menu, View v,

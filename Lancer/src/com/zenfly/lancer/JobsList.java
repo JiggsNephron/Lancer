@@ -2,8 +2,6 @@ package com.zenfly.lancer;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ListActivity;
@@ -15,16 +13,15 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
-import android.view.ContextMenu.ContextMenuInfo;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import android.widget.Toast;
-//import android.view.MenuItem;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 
 
 
@@ -202,11 +199,6 @@ public class JobsList extends ListActivity {
 		}	
 		//SplashCode End
 		
-		
-		private void setUpActionBar() {
-		    // Make sure we're running on Honeycomb or higher to use ActionBar APIs
-		    
-		}
 		@Override
 		public void onCreateContextMenu(ContextMenu menu, View v,
 		        ContextMenuInfo menuInfo) {

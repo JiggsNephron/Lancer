@@ -6,12 +6,9 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.view.Window;
 import android.widget.ListView;
-import android.widget.TextView;
 
 public class NotesList extends ListActivity {
 	
@@ -35,8 +32,6 @@ public class NotesList extends ListActivity {
         
         task_id = getIntent().getIntExtra("task_id", 0);
         
-        Job job = db.getJob(jobId);
-        
         if (task_id != 0) {        	
         	note = db.getAllNotesForTask(task_id); //makes a list of jobs to send to the list View
         } else note = db.getAllNotesForJob(jobId); //makes a list of jobs to send to the list View
@@ -57,12 +52,8 @@ public class NotesList extends ListActivity {
 	  public void onListItemClick(ListView parent, View v, int position, long id)
 	  {	 
 	  	Intent intent = new Intent(NotesList.this, ViewNotes.class);
-	  	Log.v("Id is: ", position+" = Note");
 	  	int noteId = note.get(position).getId();
-	  	int taskId = note.get(position).getTask();
 	  	int JobId = note.get(position).getJob();
-	  	
-	  	Log.v("Id is: ", noteId+" = Note");
 	  	intent.putExtra("note_id", noteId); //sends the note id
 	  	intent.putExtra("task", getIntent().getIntExtra("task_id", 0)); //sends the task id
 	  	intent.putExtra("job_id", JobId); //sends the Job id
@@ -85,10 +76,4 @@ public class NotesList extends ListActivity {
     	return;
     	
     }    
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_notes_list, menu);
-        return true;
-    }
 }
