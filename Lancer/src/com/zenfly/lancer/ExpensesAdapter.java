@@ -2,13 +2,10 @@ package com.zenfly.lancer;
 
 import java.text.NumberFormat;
 import java.util.List;
-
 import android.app.Activity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView.FindListener;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
@@ -65,14 +62,10 @@ public class ExpensesAdapter extends ArrayAdapter<Expense> {
 	    }
 
 	    float cost = currentExpense.getQuantity() * itemName.getPrice(); 		// calculates the current cost for that item 
-	    //String itemcost = Float.toString(cost);				  				// converts the float to string
 	    TotalCost = TotalCost + cost;
 	    
 	    ExpenseItemView.itemName.setText(itemName.getName());					//sets the data
 	    ExpenseItemView.cost.setText(locale_currency_format.format(cost)); 		//sets the data
-        TextView Total_cost = (TextView) rowView.findViewById(R.id.TotalCost);
-	  //  Total_cost = setText(locale_currency_format_totalCost.format(TotalCost));
-	  //  Log.v("Expenses list", "TotalCost =" + TotalCost  + "~END");  
 	    return rowView;
 	}
 

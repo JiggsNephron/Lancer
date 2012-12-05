@@ -2,10 +2,9 @@
 
 package com.zenfly.lancer;
 
-import android.os.Bundle;
 import android.app.Activity;
 import android.content.SharedPreferences;
-import android.view.Menu;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.RadioButton;
 
@@ -49,11 +48,5 @@ public class Settings extends Activity {
     	if(deadline.isChecked())prefEditor.putString("order", "deadline");
     	prefEditor.commit(); //save the settings
     	finish(); //return to the previous page
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_settings, menu);
-        return true;
     }
 }
