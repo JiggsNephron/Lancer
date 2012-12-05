@@ -19,7 +19,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
-import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -123,6 +122,11 @@ public class LocationsList extends ListActivity {
 			int locationId = locations.get(position).getId();
 			intent.putExtra("task_id", getIntent().getIntExtra("task_id", 0));
 			intent.putExtra("job_id", getIntent().getIntExtra("job_id", 0));
+			intent.putExtra("hourly_wage", getIntent().getStringExtra("hourly_wage"));
+			intent.putExtra("phone_number", getIntent().getStringExtra("phone_number"));
+			intent.putExtra("task_date", getIntent().getStringExtra("task_date"));
+			intent.putExtra("task_name", getIntent().getStringExtra("task_name"));
+			intent.putExtra("email_address", getIntent().getStringExtra("email_address"));
 			intent.putExtra("location", locationId);
 			startActivity(intent);
 		} else {	
@@ -139,12 +143,6 @@ public class LocationsList extends ListActivity {
 	    startActivity(intent);
 		}
 	}
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_locations_list, menu);
-        return true;
-    }
     
     @Override
 	public void onCreateContextMenu(ContextMenu menu, View v,

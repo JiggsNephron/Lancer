@@ -94,10 +94,8 @@ public class EditTask extends FragmentActivity {
         // get intent content      
         job_id = getIntent().getIntExtra("job_id", 0);
         task_id = getIntent().getIntExtra("task_id", 0);
-        
+  
         current_task = db.getTask(task_id);
-
-        task_name.setText(current_task.getName());
         
         // check if there is a location in the received intent and put it into the EditText       
         if(getIntent().getIntExtra("location", 0) != 0) {
@@ -148,9 +146,35 @@ public class EditTask extends FragmentActivity {
     		day = 12;
         }
         // set the remaining editTexts
-        task_hourly_wage.setText(Float.toString(current_task.getWage()));        
-        task_email_address.setText(current_task.getEmail());
-        task_phone_number.setText(current_task.getPhone());
+        if (getIntent().getStringExtra("task_name") != null ) {
+        	sttask_name = getIntent().getStringExtra("task_name");
+        	task_name.setText(sttask_name); 
+        } else {
+        	task_name.setText(current_task.getName());   
+        }
+        if (getIntent().getStringExtra("hourly_wage") != null ) {
+        	sthourly_wage = getIntent().getStringExtra("hourly_wage");
+        	task_hourly_wage.setText(sthourly_wage); 
+        } else {
+        	task_hourly_wage.setText(Float.toString(current_task.getWage()));   
+        }             
+        if (getIntent().getStringExtra("email_address") != null ) {
+        	sttask_email_address = getIntent().getStringExtra("email_address");
+        	task_email_address.setText(sttask_email_address); 
+        } else {
+        	task_email_address.setText(current_task.getEmail());  
+        }
+        if (getIntent().getStringExtra("phone_number") != null ) {
+        	sttask_phone_number = getIntent().getStringExtra("phone_number");
+        	task_phone_number.setText(sttask_phone_number); 
+        } else {
+        	task_phone_number.setText(current_task.getPhone());   
+        }
+        
+        
+        
+        
+        
     }
     
     // Saves the all the chosen entries as a new task
@@ -302,6 +326,8 @@ public class EditTask extends FragmentActivity {
     	show_locations.putExtra("hourly_wage", sthourly_wage);
     	show_locations.putExtra("email_address", sttask_email_address);
     	show_locations.putExtra("phone_number", sttask_phone_number);
+    	  	
+    	
     	show_locations.putExtra("job_id", job_id);
     	show_locations.putExtra("task_id", task_id);
 
