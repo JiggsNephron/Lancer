@@ -72,7 +72,7 @@ public class EditTask extends FragmentActivity {
 	
 	Calendar calendar;
 	Date date_locale; 
-	int year, month, day;
+	int year = 2012, month = 5, day = 12;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -143,9 +143,9 @@ public class EditTask extends FragmentActivity {
             
             add_deadline.setText(stformatted_task_date);
         } else {
-        	year = calendar.get(Calendar.YEAR)-1;
-    		month = calendar.get(Calendar.MONTH)+2;
-    		day = calendar.get(Calendar.DAY_OF_YEAR);
+        	year = 2012;
+    		month = 5;
+    		day = 12;
         }
         // set the remaining editTexts
         task_hourly_wage.setText(Float.toString(current_task.getWage()));        
