@@ -390,6 +390,37 @@ public class DatabaseHandler extends SQLiteOpenHelper
     	return jobList;
     }
     
+    public List<Task> getAllTasksByDeadline()
+    {
+    	List<Task> taskList = new ArrayList<Task>();
+    	String selectQuery = "SELECT * FROM " + TABLE_TASKS + " WHERE " + KEY_DONE + "=" + 0 + " AND " + KEY_DEADLINE + "<> ''" +
+    			KEY_DEADLINE + " ASC";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst())
+        {
+            do
+            {
+            	Task task = new Task(cursor.getString(1), cursor.getInt(2), cursor.getString(3), cursor.getInt(4), cursor.getFloat(6), cursor.getString(7), cursor.getString(8), cursor.getLong(9), cursor.getInt(5), cursor.getInt(10), cursor.getInt(11));
+            	task.setId(cursor.getInt(0));
+                taskList.add(task); //adds new task to the list
+            } while (cursor.moveToNext()); //loop continues while there are results
+        }
+        selectQuery = "SELECT * FROM " + TABLE_TASKS + " WHERE " + KEY_DONE + "=" + 1;
+        cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst())
+        {
+            do
+            {
+            	Task task = new Task(cursor.getString(1), cursor.getInt(2), cursor.getString(3), cursor.getInt(4), cursor.getFloat(6), cursor.getString(7), cursor.getString(8), cursor.getLong(9), cursor.getInt(5), cursor.getInt(10), cursor.getInt(11));
+            	task.setId(cursor.getInt(0));
+                taskList.add(task); //adds new task to the list
+            } while (cursor.moveToNext()); //loop continues while there are results
+        }
+        db.close();
+    	return taskList;
+    }
+    
     public List<Job> getAllJobsByAlphaAsc()
     {
     	List<Job> jobList = new ArrayList<Job>();
