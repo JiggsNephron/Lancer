@@ -360,7 +360,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
     	List<Job> jobList = new ArrayList<Job>();
     	boolean found;
     	String selectQuery = "SELECT " + TABLE_JOBS + "." + KEY_ID + ", " + TABLE_JOBS + "." + KEY_CLIENT + ", " + "MIN(" + TABLE_TASKS + "." + KEY_DEADLINE + 
-    			") FROM " + TABLE_JOBS + " JOIN " + TABLE_TASKS + " ON " + TABLE_JOBS + "." + KEY_ID + " = " + TABLE_TASKS + "." + KEY_JOB + " WHERE " + TABLE_TASKS + "." + KEY_DONE + "=" + 0 + " AND " + TABLE_TASKS + "." + KEY_DEADLINE + "<> ''" +
+    			") FROM " + TABLE_JOBS + " JOIN " + TABLE_TASKS + " ON " + TABLE_JOBS + "." + KEY_ID + " = " + TABLE_TASKS + "." + KEY_JOB + " WHERE " + TABLE_TASKS + "." + KEY_DONE + "=" + 0 + " OR " + TABLE_TASKS + "." + KEY_DEADLINE + "<> ''" +
     			"GROUP BY " + TABLE_JOBS + "." + KEY_ID + " ORDER BY " + TABLE_TASKS + "." + KEY_DEADLINE + " ASC";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -373,7 +373,8 @@ public class DatabaseHandler extends SQLiteOpenHelper
                 jobList.add(job); //adds new job to the list
             } while (cursor.moveToNext()); //loop continues while there are results
         }
-        selectQuery = "SELECT " + TABLE_JOBS + "." + KEY_ID + ", " + TABLE_JOBS + "." + KEY_CLIENT + " FROM " + TABLE_JOBS + " JOIN " + TABLE_TASKS + " ON " + TABLE_JOBS + "." + KEY_ID + " = " + TABLE_TASKS + "." + KEY_JOB + " WHERE " + TABLE_TASKS + "." + KEY_DONE + "=" + 1;
+        selectQuery = "SELECT " + TABLE_JOBS + "." + KEY_ID + ", " + TABLE_JOBS + "." + KEY_CLIENT + " FROM " + TABLE_JOBS + " JOIN " + TABLE_TASKS + " ON " + TABLE_JOBS + "." + KEY_ID + " = " + TABLE_TASKS + "." + 
+        KEY_JOB + " WHERE " + TABLE_TASKS + "." + KEY_DONE + "=" + 1 + " OR " + TABLE_TASKS + "." + KEY_DEADLINE + "= ''";
         cursor = db.rawQuery(selectQuery, null);
         if (cursor.moveToFirst())
         {
@@ -393,7 +394,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
     public List<Task> getAllTasksByDeadline()
     {
     	List<Task> taskList = new ArrayList<Task>();
-    	String selectQuery = "SELECT * FROM " + TABLE_TASKS + " WHERE " + KEY_DONE + "=" + 0 + " AND " + KEY_DEADLINE + "<> ''" +
+    	String selectQuery = "SELECT * FROM " + TABLE_TASKS + " WHERE " + KEY_DONE + "=" + 0 + " OR " + KEY_DEADLINE + "<> ''" +
     			KEY_DEADLINE + " ASC";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -406,7 +407,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
                 taskList.add(task); //adds new task to the list
             } while (cursor.moveToNext()); //loop continues while there are results
         }
-        selectQuery = "SELECT * FROM " + TABLE_TASKS + " WHERE " + KEY_DONE + "=" + 1;
+        selectQuery = "SELECT * FROM " + TABLE_TASKS + " WHERE " + KEY_DONE + "=" + 1 + " OR " + KEY_DEADLINE + " = " + "''";
         cursor = db.rawQuery(selectQuery, null);
         if (cursor.moveToFirst())
         {
@@ -669,7 +670,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
     public Task getNearestDeadlineTaskForJob(int job)
     {
     	SQLiteDatabase db = this.getReadableDatabase();
-        String selectQuery = "SELECT * FROM " + TABLE_TASKS + " WHERE " + KEY_JOB + "=" + job + " AND " + KEY_DONE + "=" + 0 + " ORDER BY " + KEY_DEADLINE + " ASC";
+        String selectQuery = "SELECT * FROM " + TABLE_TASKS + " WHERE " + KEY_JOB + "=" + job + " AND " + KEY_DONE + "=" + 0 +/* " AND " + KEY_DEADLINE + "<> ''" +*/ " ORDER BY " + KEY_DEADLINE + " ASC";
         Cursor cursor = db.rawQuery(selectQuery, null);
         if(cursor.moveToFirst())
         {
