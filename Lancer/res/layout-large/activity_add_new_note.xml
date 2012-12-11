@@ -1,3 +1,4 @@
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -26,7 +27,7 @@
         android:textSize="20dp"
         android:textColor="@color/white"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:onClick="" /> <!-- To Jobs List -->
+        android:onClick="jobsList" /> <!-- To Jobs List -->
 
     <TextView
         android:id="@+id/arrow"
@@ -51,7 +52,7 @@
         android:textSize="20dp"
         android:textColor="@color/white"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:onClick="" /> <!-- To Job Options List -->
+        android:onClick="jobOptions" /> <!-- To Job Options List -->
     
     <TextView
         android:id="@+id/arrow2"
@@ -65,29 +66,30 @@
         android:text="@string/arrow"
         android:textAppearance="?android:attr/textAppearanceLarge" />
     
-    
     <TextView
-        android:id="@+id/expense_option"
+        android:id="@+id/job_option"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/arrow2"
         android:layout_marginTop="15dp"
         android:layout_marginLeft="10dp"
-        android:text="@string/expenses"
+        android:text="@string/notes"
         android:textSize="20dp"
         android:textColor="@color/white"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:onClick="" /> <!-- To Tasks List -->
+        android:onClick="notesList" /> <!-- To Notes List -->
         
 
-	<!--  Add New Expense -->
-
+	<!-- Add New Note content  -->
+    
+    
     <TextView
-        android:id="@+id/choose_item_title"
+        android:id="@+id/AddNewNote_note_subject_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
         android:layout_below="@+id/nav_list_bg"
-        android:text="@string/AddNewExpense_choose_item_title"
+        android:text="@string/AddNewNote_note_subject"
         android:textColor="@color/lancer_blue"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="15dp"
@@ -95,123 +97,86 @@
         android:textSize="20dp" />
 
     <EditText
-        android:id="@+id/button_choose_item"
-        android:layout_width="fill_parent"
+        android:id="@+id/note_subject"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/choose_item_title"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/AddNewNote_note_subject_title"
+        android:ems="10"
+        android:maxLength="30"
         android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:focusableInTouchMode="false" 
-        android:ems="15"
-        android:inputType="text"
-        android:onClick="chooseItems" >
+        android:layout_marginRight="15dp" >
 
         <requestFocus />
     </EditText>
 
     <TextView
-        android:id="@+id/number_of_items_title"
+        android:id="@+id/AddNewNote_note_body_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/button_choose_item"
+        android:layout_below="@+id/note_subject"
+        android:text="@string/AddNewNote_note_body"
         android:textColor="@color/lancer_blue"
         android:layout_marginLeft="20dp"
-        android:text="@string/AddNewExpense_number_of_items_title"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="10dp"
         android:textSize="20dp" />
-   
-
 
     <EditText
-        android:id="@+id/edittext_number_of_items"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/number_of_items_title"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="435dp"
-        android:ems="15"
-        android:maxLength="4"
-        android:inputType="number" />
-    
-    <TextView
-        android:id="@+id/assign_expense_to_task"
+        android:id="@+id/note_body"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/AddNewNote_note_to_task_title"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/edittext_number_of_items"
-        android:textColor="@color/lancer_blue"
-        android:layout_marginLeft="20dp"
-        android:text="@string/AddNewExpense_assign_expense_to_task"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="10dp"
-        android:textSize="20dp" />
-
-    <Spinner
-        android:id="@+id/expense_to_task"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/button_choose_item"
-        android:layout_below="@+id/assign_expense_to_task"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/AddNewNote_note_body_title"
+        android:ems="10"
+        android:inputType="textMultiLine"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp" />
     
 
+    <Spinner
+        android:id="@+id/note_to_task"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/save_note"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignRight="@+id/note_body"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"  />
 
     <TextView
-        android:id="@+id/total_cost_of_items_title"
+        android:id="@+id/AddNewNote_note_to_task_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/number_of_items_title"
-        android:layout_alignBottom="@+id/number_of_items_title"
-        android:layout_toRightOf="@+id/choose_item_title"
+        android:layout_above="@+id/note_to_task"
+        android:layout_alignParentLeft="true"
+        android:text="@string/AddNewNote_note_to_task"
         android:textColor="@color/lancer_blue"
-        android:text="Total Cost:"
-        android:textSize="20dp" />
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="10dp"
+        android:textSize="20dp"
+         />    
 
-    <EditText
-        android:id="@+id/edittext_total_cost_of_items"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/assign_expense_to_task"
-        android:layout_alignLeft="@+id/total_cost_of_items_title"
-        android:ems="10"
-        android:focusableInTouchMode="false"
-        android:inputType="number"
-        android:layout_marginRight="20dp" />
-   
-    
     <Button
-        android:id="@+id/edit_expense"
+        android:id="@+id/save_note"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_marginRight="285dp"
+        android:layout_alignParentRight="true"
+        android:onClick="saveNote"
+        android:text="@string/button_save"
         android:background="@color/lancer_blue"
-        android:onClick="editExpense"
-        android:paddingBottom="10dp"
         android:paddingTop="10dp"
-        android:text="@string/EditNote_button_save_update"
+        android:paddingBottom="10dp"
         android:textColor="@color/white"
         android:textSize="25dp" />
-        
-	<Button
-	    android:id="@+id/delete_expense"
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    android:layout_alignLeft="@+id/expense_option"
-	    android:layout_alignParentBottom="true"
-	    android:layout_alignParentLeft="true"
-	    android:layout_marginLeft="285dp"
-	    android:background="@color/lancer_red"
-	    android:onClick="deleteExpense"
-	    android:paddingBottom="10dp"
-	    android:paddingTop="10dp"
-	    android:text="@string/EditNote_button_delete_note"
-	    android:textColor="@color/white"
-	    android:textSize="25dp" />
+
 
 </RelativeLayout>

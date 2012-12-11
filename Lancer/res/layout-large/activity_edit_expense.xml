@@ -26,7 +26,7 @@
         android:textSize="20dp"
         android:textColor="@color/white"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:onClick="" /> <!-- To Jobs List -->
+        android:onClick="jobsList" /> <!-- To Jobs List -->
 
     <TextView
         android:id="@+id/arrow"
@@ -51,7 +51,7 @@
         android:textSize="20dp"
         android:textColor="@color/white"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:onClick="" /> <!-- To Job Options List -->
+        android:onClick="jobOptions" /> <!-- To Job Options List -->
     
     <TextView
         android:id="@+id/arrow2"
@@ -77,7 +77,7 @@
         android:textSize="20dp"
         android:textColor="@color/white"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:onClick="" /> <!-- To Tasks List -->
+        android:onClick="expensesList" /> <!-- To Expenses List -->
         
 
 	<!--  Add New Expense -->
@@ -131,7 +131,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/number_of_items_title"
         android:layout_marginLeft="15dp"
-        android:layout_marginRight="435dp"
+        android:layout_marginRight="160dp"
         android:ems="15"
         android:maxLength="4"
         android:inputType="number" />
@@ -167,8 +167,8 @@
         android:layout_alignBaseline="@+id/number_of_items_title"
         android:layout_alignBottom="@+id/number_of_items_title"
         android:layout_toRightOf="@+id/choose_item_title"
-        android:textColor="@color/lancer_blue"
-        android:text="Total Cost:"
+        android:textColor="@color/lancer_grey"
+        android:text="@string/total_cost"
         android:textSize="20dp" />
 
     <EditText
@@ -189,7 +189,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_marginRight="285dp"
+        android:layout_marginRight="145dp"
         android:background="@color/lancer_blue"
         android:onClick="editExpense"
         android:paddingBottom="10dp"
@@ -205,7 +205,7 @@
 	    android:layout_alignLeft="@+id/expense_option"
 	    android:layout_alignParentBottom="true"
 	    android:layout_alignParentLeft="true"
-	    android:layout_marginLeft="285dp"
+	    android:layout_marginLeft="145dp"
 	    android:background="@color/lancer_red"
 	    android:onClick="deleteExpense"
 	    android:paddingBottom="10dp"

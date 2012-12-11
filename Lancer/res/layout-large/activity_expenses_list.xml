@@ -1,0 +1,108 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white" >
+
+    <View android:id="@+id/nav_list_bg" 
+ 	    android:background="@color/lancer_blue"
+ 		android:layout_width = "fill_parent"
+ 		android:layout_alignParentTop="true"
+ 		android:layout_height="55dp"
+ 		android:layout_centerVertical ="true"
+ 		/>
+	
+	<TextView
+        android:id="@+id/jobs_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="10dp"
+        android:text="@string/jobs"
+        android:textSize="20dp"
+        android:textColor="@color/white"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:onClick="jobsList" /> <!-- To Jobs List -->
+
+    <TextView
+        android:id="@+id/arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/jobs_list"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="25dp"
+        android:textColor="@color/white"
+        android:text="@string/arrow"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+    
+    <TextView
+        android:id="@+id/job_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/arrow"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="10dp"
+        android:text="@string/job"
+        android:textSize="20dp"
+        android:textColor="@color/white"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:onClick="jobOptions" /> <!-- To Job Options List -->
+        
+       <ListView
+        android:layout_below="@+id/nav_list_bg"
+        android:id="@android:id/list"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentLeft="true"
+        android:divider="@color/white"
+        android:layout_above="@+id/TotalExpense" >
+       </ListView>
+
+        <TextView
+        android:id="@+id/TotalExpense"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/add_new_expense"
+        android:layout_alignParentLeft="true"
+        android:textColor="@color/lancer_blue"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:layout_marginLeft="20dp"
+        android:text="@string/ExpensesList_total_expenses"
+        android:textSize="20dp"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+       
+       <TextView
+        android:id="@+id/TotalCost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/add_new_expense"
+        android:layout_alignParentRight="true"
+        android:textColor="@color/lancer_blue"
+        android:layout_marginRight="20dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:text="€0"
+        android:textSize="20dp"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+       <Button
+           android:id="@+id/add_new_expense"
+           android:layout_width="fill_parent"
+           android:layout_height="wrap_content"
+           android:layout_alignParentBottom="true"
+           android:layout_alignParentLeft="true"
+           android:layout_alignParentRight="true"
+           android:background="@color/lancer_blue"
+           android:onClick="addNewExpense"
+           android:paddingBottom="10dp"
+           android:paddingTop="10dp"
+           android:text="@string/button_add_new_expense"
+           android:textColor="@color/white"
+           android:textSize="25dp" >
+           </Button>
+      
+</RelativeLayout>

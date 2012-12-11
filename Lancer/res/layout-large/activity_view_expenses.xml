@@ -1,0 +1,220 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white" >
+
+    <!-- Navigation -->
+
+    <View
+        android:id="@+id/nav_list_bg"
+        android:layout_width="fill_parent"
+        android:layout_height="55dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
+        android:background="@color/lancer_blue" />
+
+    <TextView
+        android:id="@+id/jobs_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="15dp"
+        android:onClick="jobsList"
+        android:text="@string/jobs"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/white"
+        android:textSize="20dp" /> <!-- To Jobs List -->
+
+    <TextView
+        android:id="@+id/arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="12dp"
+        android:layout_toRightOf="@+id/jobs_list"
+        android:text="@string/arrow"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/white"
+        android:textSize="25dp" />
+
+    <TextView
+        android:id="@+id/job_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_toRightOf="@+id/arrow"
+        android:onClick="jobOptions"
+        android:text="@string/job"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/white"
+        android:textSize="20dp" /> <!-- To Job Options List -->
+
+    <TextView
+        android:id="@+id/arrow2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="12dp"
+        android:layout_toRightOf="@+id/job_name"
+        android:text="@string/arrow"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/white"
+        android:textSize="25dp" /> <!-- To Expenses List -->
+
+    <TextView
+        android:id="@+id/job_option"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_toRightOf="@+id/arrow2"
+        android:onClick="expensesList"
+        android:text="@string/expenses"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/white"
+        android:textSize="20dp" /> <!-- To Tasks List -->
+
+
+    <!-- View Expense Content -->
+
+
+    <TextView
+        android:id="@+id/ExpenseItemDisplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/nav_list_bg"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="90dp"
+        android:layout_marginTop="20dp"
+        android:text="Red Wiring"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/lancer_blue"
+        android:textSize="25dp" />
+
+    <TextView
+        android:id="@+id/ExpenseCostDisplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/ExpenseItemDisplay"
+        android:layout_alignBottom="@+id/ExpenseItemDisplay"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:text="€38.50"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/lancer_blue"
+        android:textSize="20dp" />
+
+    <View
+        android:id="@+id/separator"
+        android:layout_width="fill_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@+id/ExpenseItemDisplay"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/lancer_blue" />
+
+    <TextView
+        android:id="@+id/Cost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/separator"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="90dp"
+        android:layout_marginTop="25dp"
+        android:text="@string/ViewExpense_cost_title"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/lancer_blue"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/IndividualCost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/Cost"
+        android:layout_alignBottom="@+id/Cost"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:text="€38.50"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/lancer_blue"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/Quantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/Cost"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="90dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/ViewExpense_quantity_title"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/lancer_blue"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/ItemQuantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/Quantity"
+        android:layout_alignBottom="@+id/Quantity"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:text="€38.50"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/lancer_blue"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/TaskName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/Task"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:text="Presentation"
+        android:textStyle="italic"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/lancer_blue"
+        android:textSize="25dp" />
+
+    <TextView
+        android:id="@+id/Task"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Quantity"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:gravity="center_horizontal"
+        android:text="@string/ViewExpense_task_title"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/lancer_blue"
+        android:textSize="20dp" />
+    
+    <Button
+        android:id="@+id/button_edit_expense"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:onClick="editExpense"
+        android:text="@string/ViewExpense_button_edit_expense"
+        android:background="@color/lancer_blue"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:textColor="@color/white"
+        android:textSize="25dp" />
+
+</RelativeLayout>

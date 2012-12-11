@@ -37,7 +37,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="15dp"
-        android:onClick=""
+        android:onClick="jobsList"
         android:text="@string/jobs"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/white"
@@ -62,7 +62,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="15dp"
         android:layout_toRightOf="@+id/arrow"
-        android:onClick=""
+        android:onClick="jobOptions"
         android:text="@string/job"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/white"
@@ -87,7 +87,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="15dp"
         android:layout_toRightOf="@+id/arrow2"
-        android:onClick=""
+        android:onClick="tasksList"
         android:text="@string/tasks"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/white"
@@ -256,41 +256,25 @@
 
 </ScrollView>
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/LinButtons"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_alignParentBottom="true"
         android:textSize = "16dp"
         android:gravity="center_vertical" >
 
-    
     <Button
-        android:id="@+id/edit_task"
+        android:id="@+id/save_task"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-     	android:layout_marginRight="285dp" 
         android:background="@color/lancer_blue"
-        android:onClick="saveTaskEdits"
+        android:onClick="saveTask"
         android:paddingBottom="10dp"
         android:paddingTop="10dp"
-        android:text="@string/EditNote_button_save_update"
+        android:text="@string/button_save"
         android:textColor="@color/white"
         android:textSize="25dp" />
-
-    <Button
-        android:id="@+id/delete_task"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-   		android:layout_marginLeft="285dp" 
-        android:background="@color/lancer_red"
-        android:onClick="deleteTask"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp"
-        android:text="@string/EditNote_button_delete_note"
-        android:textColor="@color/white"
-        android:textSize="25dp" />
-    </RelativeLayout> 
+    </LinearLayout> 
     
 </RelativeLayout>
