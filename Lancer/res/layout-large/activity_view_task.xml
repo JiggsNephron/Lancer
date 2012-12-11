@@ -161,7 +161,7 @@
         android:layout_marginRight="30dp"
         android:text="@string/AddNewTask_view_task_map"
         android:textColor="@color/white"
-        android:textSize="15dp" />
+        android:textSize="20dp" />
         
         <Button
             android:id="@+id/call_person"
@@ -169,7 +169,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/view_on_map"
             android:layout_marginLeft="30dp"
-            android:layout_marginRight="165dp"
+            android:layout_marginRight="245dp"
             android:layout_marginTop="10dp"
             android:background="@color/lancer_blue"
             android:onClick="callPerson"
@@ -184,7 +184,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/view_on_map"
-            android:layout_marginLeft="165dp"
+            android:layout_marginLeft="245dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="30dp"
             android:background="@color/lancer_blue"
@@ -201,7 +201,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/email_person"
             android:layout_marginLeft="30dp"
-            android:layout_marginRight="165dp"
+            android:layout_marginRight="245dp"
             android:layout_marginTop="10dp"
             android:background="@color/lancer_blue"
             android:onClick="viewTaskNotes"
@@ -209,14 +209,14 @@
             android:paddingTop="5dp"
             android:text="@string/AddNewTask_view_task_notes"
             android:textColor="@color/white"
-            android:textSize="15dp" />
+            android:textSize="20dp" />
         
         <Button
             android:id="@+id/view_task_expenses"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/call_person"
-            android:layout_marginLeft="165dp"
+            android:layout_marginLeft="245dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="30dp"
             android:background="@color/lancer_blue"
@@ -225,7 +225,7 @@
             android:paddingTop="5dp"
             android:text="@string/AddNewTask_view_task_expenses"
             android:textColor="@color/white"
-            android:textSize="15dp" />
+            android:textSize="20dp" />
         
         <Button
         	android:id="@+id/start_task"

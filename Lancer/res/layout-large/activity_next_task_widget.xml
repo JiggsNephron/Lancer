@@ -27,7 +27,7 @@
         android:background="@color/white"
         android:textColor="@color/lancer_blue"
         android:paddingLeft="15dp"
-        android:paddingRight="120dp"
+        android:paddingRight="270dp"
         android:paddingBottom="10dp"
         android:textSize="15dp"
         android:text="Task Name" >
