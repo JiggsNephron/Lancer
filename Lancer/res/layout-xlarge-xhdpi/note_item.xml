@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/NoteItemDisplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:text="Item Instructions"
+        android:textColor="@color/lancer_blue"
+        android:textSize="45dp"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+    
+    <TextView
+        android:id="@+id/JobTaskDisplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/NoteItemDisplay"
+        android:layout_below="@+id/NoteItemDisplay"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/lancer_blue"
+        android:text="Not Assigned to a Task"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    
+    <View android:id="@+id/separator" 
+ 	    android:background="@color/lancer_blue"
+ 		android:layout_width = "fill_parent"
+ 		android:layout_below="@+id/JobTaskDisplay"
+ 		android:layout_height="0.5dp"
+ 		android:layout_marginTop="10dp"
+ 		android:layout_marginLeft="20dp"
+ 		android:layout_marginRight="20dp"
+ 		android:layout_centerVertical ="true"
+ 		/>
+
+        
+</RelativeLayout>
