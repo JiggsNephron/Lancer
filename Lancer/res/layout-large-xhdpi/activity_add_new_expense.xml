@@ -131,7 +131,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/number_of_items_title"
         android:layout_marginLeft="15dp"
-        android:layout_marginRight="340dp"
+        android:layout_marginRight="460dp"
         android:ems="15"
         android:maxLength="4"
         android:inputType="number" />
